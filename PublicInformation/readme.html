@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Layout Template - Read Me</title>
+<style>
+.selector {
+	color:red;
+}
+ul, ol {
+	margin-top:10px;
+	margin-bottom:10px;
+}
+ul li, ol li {
+	margin:5px 0;
+}
+img {
+	padding:20px;
+}
+.heading {
+	background-color:#D8E0E2;
+	background-repeat:repeat-x;
+	border-bottom:1px solid #FFFFFF;
+	border-top:1px solid #FFFFFF;
+	color:black;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:16px;
+	font-weight:bold;
+	letter-spacing:1.1px;
+	margin:15px 0 10px;
+	padding:3px 10px;
+	text-align:center;
+}
+</style>
+</head>
+<body>
+<p id="top">This template provides a starting point for creating your Web application. This easily configurable template allows you to define the map, title, and subtitle for the site. This read-me file explains how to setup and configure the template to run on your web server. We have also provided a few tips on how to personalize the template by adding a company logo and customizing the content.</p>
+<div class="heading">Table of Contents</div>
+<ul>
+	<li><a href="#deploy">Install the Web application</a></li>
+	<li><a href="#configure">Configure the application</a></li>
+	<li><a href="#personalize">Personalize the application</a>
+		<ul>
+			<li><a href="#"></a></li>
+		</ul>
+	</li>
+</ul>
+<h3 id="deploy" class="heading">Install the Web application</h3>
+<p>These instructions assume that you have a Web server like <a href="http://www.iis.net/">Internet Information Services(IIS)</a> installed and setup on your machine. If you are using another Web server, the general installation steps will be the same, but you will need to check your Web server's documentation for specific information on deploying and testing the application.</p>
+<ol>
+	<li>Copy the contents of the zip file into your web server's root directory. In IIS, the default location for the web server's root folder is <code>c:\inetpub\wwwroot</code>. </li>
+	<li>If your application edits the features in a feature service, enables the elevation chart, contains secure services or web maps that aren't publicly shared or generates requests that exceed 2000 characters you may need to setup and use a proxy page. One example where you may exceed the URL length is by using complex polygons as an input to a task. Another example is by specifying a spatial reference using well-known text (wkt).
+		View the <a href="http://help.arcgis.com/EN/webapi/javascript/arcgis/help/jshelp_start.htm#jshelp/ags_proxy.htm">Using the proxy page</a> help topic for details on installing and configuring a proxy page. After setting up the proxy, set the proxyUrl option in index.html to point to your proxy. </li>
+	<li> Test the page using the following URL: http://localhost/[template name]/index.html, where [template name] is the name of the folder where you extracted the zip contents. </li>
+</ol>
+<p><a href="#top">Top</a></p>
+<h3 id="configure"  class="heading">Configure the application</h3>
+<p>Now let's configure the application to use a different group and modify configuration options.</p>
+
+
+
+
+<p><a href="#top">Top</a></p>
+<h3 id="personalize" class="heading">Personalize the application</h3>
+<p>In this section, you will see how to personalize the application.</p>
+<p><a href="#top">Top</a></p>
+</body>
+</html>
