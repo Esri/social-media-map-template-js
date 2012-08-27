@@ -41,9 +41,9 @@
    "locatePoint":"",
    "locatorserviceurl":"http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer",
    "geometryserviceurl":"http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
-   //"proxyUrl":"http://www.arcgis.com/sharing/proxy",
-   //"sharingurl":"http://www.arcgis.com/sharing/rest/content/items",
-   //"portalUrl":"http://www.arcgis.com/",
+   "proxyUrl":"http://www.arcgis.com/sharing/proxy",
+   "sharingurl":"http://www.arcgis.com/sharing/rest/content/items",
+   "portalUrl":"http://www.arcgis.com/",
    "bingMapsKey":"Akt3ZoeZ089qyG3zWQZSWpwV3r864AHStal7Aon21-Fyxwq_KdydAH32LTwhieA8",
    "crosshairImage":"images/ui/crosshairblue.cur"
 }

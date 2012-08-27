@@ -319,13 +319,22 @@ function getSmPopupTitle() {
             // SET SOCIAL ICON
             switch (graphic.attributes.smType) {
             case ytID:
-                socialObject = configOptions.YouTube;
+                socialObject = {
+		            title: configOptions.youtubeTitle,
+		            legendIcon: configOptions.youtubeIcon
+		        };
                 break;
             case twID:
-                socialObject = configOptions.Twitter;
+                socialObject = socialObject = {
+		            title: configOptions.twitterTitle,
+		            legendIcon: configOptions.twitterIcon
+		        };
                 break;
             case flID:
-                socialObject = configOptions.Flickr;
+                socialObject = {
+		            title: configOptions.flickrTitle,
+		            legendIcon: configOptions.flickrIcon
+		        };
                 break;
             }
             if (socialObject) {
