@@ -1,0 +1,12 @@
+Name:
+Public Information Map
+
+Short description:
+The Public Information Map Template (PIM) has an innovative use of social media, which allows you to display up-to-date, keyword-targeted social media points on a map.
+
+Detailed description:
+The Public Information Map Template (PIM) has an innovative use of social media, which allows you to display up-to-date, keyword-targeted social media points on a map. Users have the ability to view social data from Twitter, YouTube, and Flickr. Social media points are rendered client-side using clustering or displayed as a heat map. Mapping social data provides insight into what people are saying and where they are saying it. By adding social intelligence to the map and by analyzing the conversations, you can see the most engaging posts to get a better understanding of how an event spreads.
+
+
+Thumbnail:
+item.png

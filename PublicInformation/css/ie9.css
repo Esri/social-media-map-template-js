@@ -1,0 +1,3 @@
+.modernGrey .dijitDialogTitleBar , #topMenuBar, .iconInput, .mapInput, .mapButton, .buttonSelected, .mapSubmit, .mapSubmitSelected, .slideMenu .mapInput, #settingsDialog .mapInput, .slideMenu .iconInput, #map .modernGrey .titlePane {
+	 filter: none !important;	
+}

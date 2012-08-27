@@ -1,0 +1,147 @@
+.modernGrey .dijitSliderImageHandleV {
+    top: -5px;
+    right: 0;
+}
+
+.modernGrey .dijitSliderMoveableV {
+    right: 0;
+}
+
+.modernGrey .dijitSliderMoveableH {
+    right: 0;
+    top: -9px;
+}
+
+.modernGrey .dijitSliderImageHandleH {
+    top: 0;
+    right: 0;
+}
+
+.modernGrey .dijitSliderBumperV {
+    display: none;
+}
+
+.modernGrey .dijitSliderBumperH {
+    display: none;
+}
+
+.modernGrey .dijitSliderBarV {
+    width: 8px;
+    border: 0;
+}
+
+.modernGrey .dijitSliderBarH {
+    height: 8px;
+    border: 0;
+}
+
+.modernGrey .dijitSliderBarContainerV {
+    width: 26px;
+}
+
+.modernGrey .dijitSliderBarContainerH {
+	width:100px;
+}
+
+.modernGrey #socialSlider  .dijitSliderBarContainerH {
+	width:60px;
+}
+.modernGrey .dijitSliderBar {
+    border: 0;
+    outline: 0;
+    background: #a19fa8;
+    -webkit-box-shadow: inset 1px 1px 5px 1px #67666b;
+    box-shadow: inset 1px 1px 5px 1px #67666b;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+
+.modernGrey .dijitSliderImageHandleH {
+    border: 0;
+    width: 11px;
+    height: 26px;
+    background: url(../images/ui/zoomBar.png?v=2) no-repeat -78px 0;
+    cursor: move;
+}
+
+.modernGrey .dijitSliderImageHandleV {
+    border: 0;
+    width: 26px;
+    height: 11px;
+    background: url(../images/ui/zoomBar.png?v=2) no-repeat -52px 0;
+    cursor: move;
+}
+
+.modernGrey .dijitSliderButtonContainerH {
+    padding: 0;
+}
+
+.modernGrey .dijitSliderButtonContainerV {
+    padding: 0;
+}
+
+.modernGrey .dijitSliderDecrementIconH,
+.modernGrey .dijitSliderIncrementIconH,
+.modernGrey .dijitSliderDecrementIconV,
+.modernGrey .dijitSliderIncrementIconV {
+    cursor: pointer;
+    background: url(../images/ui/zoomBar.png?v=2) no-repeat;
+}
+
+.modernGrey .dijitSliderDecrementIconH, .modernGrey .dijitSliderIncrementIconH {
+    width: 26px;
+    height: 26px;
+}
+
+.modernGrey .dijitSliderDecrementIconV, .modernGrey .dijitSliderIncrementIconV {
+    width: 26px;
+    height: 26px;
+}
+
+.modernGrey .dijitSliderDecrementIconH {
+    background-position: -26px 0;
+    margin-right: 2px;
+}
+
+.modernGrey .dijitSliderActive .dijitSliderDecrementIconH.modernGrey .dijitSliderHover .dijitSliderDecrementIconH {
+    background-position: -26px 0;
+}
+
+.modernGrey .dijitSliderIncrementIconH {
+    background-position: 0 0;
+    margin-left: 2px;
+}
+
+.modernGrey .dijitSliderActive .dijitSliderIncrementIconH.modernGrey .dijitSliderHover .dijitSliderIncrementIconH {
+    background-position: 0 0;
+}
+
+.modernGrey .dijitSliderDecrementIconV {
+    background-position: -26px 0;
+    margin-top: 2px;
+}
+
+.modernGrey .dijitSliderActive .dijitSliderDecrementIconV.modernGrey .dijitSliderHover .dijitSliderDecrementIconV {
+    background-position: -26px 0;
+}
+
+.modernGrey .dijitSliderIncrementIconV {
+    background-position: 0 0;
+    margin-bottom: 2px;
+}
+
+.modernGrey .dijitSliderButtonInner {
+    visibility: hidden;
+}
+
+.dj_ie6 .modernGrey .dijitSlider .dijitSliderProgressBarH,
+.dj_ie6 .modernGrey .dijitSlider .dijitSliderLeftBumper,
+.dj_ie6 .modernGrey .dijitSlider .dijitSliderRemainingBarH,
+.dj_ie6 .modernGrey .dijitSlider .dijitSliderRightBumper,
+.dj_ie6 .modernGrey .dijitSlider .dijitSliderProgressBarV,
+.dj_ie6 .modernGrey .dijitSlider .dijitSliderTopBumper,
+.dj_ie6 .modernGrey .dijitSlider .dijitSliderRemainingBarV,
+.dj_ie6 .modernGrey .dijitSlider .dijitSliderBottomBumper {
+    background-image: none;
+}
