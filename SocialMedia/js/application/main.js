@@ -238,7 +238,7 @@ function toggleAboutMap() {
 function setTWLink(shLink) {
     if (shLink) {
         var fullLink;
-        fullLink = 'https://twitter.com/intent/tweet?' + 'url=' + encodeURIComponent(shLink) + '&text=' + encodeURIComponent(configOptions.itemInfo.item.snippet) + '&hashtags=' + 'esriPIM';
+        fullLink = 'https://twitter.com/intent/tweet?' + 'url=' + encodeURIComponent(shLink) + '&text=' + encodeURIComponent(configOptions.itemInfo.item.snippet) + '&hashtags=' + 'EsriSMT';
         window.open(fullLink);
     }
 }
@@ -340,7 +340,7 @@ function configureShareMenu() {
             // on click
             dojo.query(document).delegate("#embedOptions", "onclick,keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-                    window.open(configOptions.previewPage + configOptions.shareParams, 'pimEmbed', 'width=' + configOptions.previewSize.width + ',height=' + configOptions.previewSize.height, true);
+                    window.open(configOptions.previewPage + configOptions.shareParams, 'embedWindow', 'width=' + configOptions.previewSize.width + ',height=' + configOptions.previewSize.height, true);
                 }
             });
         }
@@ -661,7 +661,7 @@ function addSlideMenus() {
 }
 
 // webmap object returned. Create map data
-function pimWebmapReturned(response) {
+function webmapReturned(response) {
     // webmap layers
     var layers = response.itemInfo.itemData.operationalLayers;
     // webmap
@@ -731,8 +731,8 @@ function configurePopup() {
     dojo.addClass(configOptions.customPopup.domNode, "modernGrey");
 }
 
-// Create the map object for the PIM
-function createPimMap() {
+// Create the map object for the template
+function createWebMap() {
     // configure popup
     configurePopup();
     // create map deferred with options
@@ -748,7 +748,7 @@ function createPimMap() {
     });
     // on successful response
     mapDeferred.addCallback(function (response) {
-        pimWebmapReturned(response);
+        webmapReturned(response);
     });
     // on error response
     mapDeferred.addErrback(function (error) {
@@ -763,7 +763,7 @@ function init() {
     // add menus
     addSlideMenus();
     // Create Map
-    createPimMap();
+    createWebMap();
 }
 
 // On load of libraries

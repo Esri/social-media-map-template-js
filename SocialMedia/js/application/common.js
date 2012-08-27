@@ -391,19 +391,6 @@ function getButtonClass(i, size) {
     }
 }
 
-// FORMAT DATE TO OUR LIKING
-function pimDate(dateObj) {
-    if (dateObj) {
-        return dojo.date.locale.format(dateObj, {
-            datePattern: "MMMM d, yyy",
-            selector: "date"
-        }) + ' ' + i18n.viewer.general.at + ' ' + dojo.date.locale.format(dateObj, {
-            datePattern: "K:mm a",
-            selector: "date"
-        });
-    }
-}
-
 // create the basemap gallery when active
 function createBMGallery() {
     var basemapGroup = false;

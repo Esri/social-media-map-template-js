@@ -33,7 +33,7 @@
                      "value":"layers"
                   },
                   {
-                     "label":"Social Media",
+                     "label":"Social",
                      "value":"social"
                   },
                   {
