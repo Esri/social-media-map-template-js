@@ -6,7 +6,7 @@
     width: 13px;
     height: 13px;
     z-index: 20;
-    background:url(../images/ui/uiSprite.png?v=2) no-repeat -48px 0;
+    background: url(../images/ui/uiSprite.png?v=2) no-repeat -48px 0;
     line-height: 0px;
 }
 
@@ -14,7 +14,7 @@
     float: right;
     left: 0px;
     right: auto;
-    background:url(../images/ui/uiSprite.png?v=2) no-repeat -48px 0;
+    background: url(../images/ui/uiSprite.png?v=2) no-repeat -48px 0;
 }
 
 .dojoxResizeNW {

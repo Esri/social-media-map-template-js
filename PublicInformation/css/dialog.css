@@ -26,11 +26,11 @@
 
 .modernGrey .dijitDialogPaneContent .padContainer {
     padding: 10px;
-	word-wrap: break-word;
+    word-wrap: break-word;
 }
 
-.modernGrey .dijitDialogPaneContent .padContainer .buttons{
-    margin:20px 0 0 0;
+.modernGrey .dijitDialogPaneContent .padContainer .buttons {
+    margin: 20px 0 0 0;
     text-align: right;
 }
 

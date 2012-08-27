@@ -345,16 +345,16 @@
       "showFlickr":true,
       "showFlickrConfig":true,
       "flickrChecked":false,
-      "flickrSearch":"puppies",
+      "flickrSearch":"election",
       "flickrRange":"this_week",
       "showYouTube":true,
       "showYouTubeConfig":true,
       "youtubeChecked":true,
-      "youtubeSearch":"puppies",
+      "youtubeSearch":"election",
       "youtubeRange":"this_month",
       "showTwitter":true,
       "showTwitterConfig":true,
       "twitterChecked":false,
-      "twitterSearch":"#puppies"
+      "twitterSearch":"#election2012"
    }
 }

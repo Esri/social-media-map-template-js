@@ -1156,26 +1156,27 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
 .ytContent .video {
     margin: 10px 0;
     position: relative;
-	-moz-box-shadow: 1px 1px 3px #CCCCCC;
+    -moz-box-shadow: 1px 1px 3px #CCCCCC;
     -webkit-box-shadow: 1px 1px 3px #CCCCCC;
     box-shadow: 1px 1px 3px #CCCCCC;
     border: 1px solid #CCCCCC;
-	background: url(../images/ui/ajax-loader.gif) no-repeat center center #fff;
+    background: url(../images/ui/ajax-loader.gif) no-repeat center center #fff;
 }
-.ytContent .video  iframe{
-	display:block;
-	margin:0;
-	padding:0;
-	border:0;
+
+.ytContent .video  iframe {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 .ytContent ul {
-	position:relative;
+    position: relative;
 }
 
 .ytContent ul li {
-    margin-bottom:5px;
-	position:relative;
+    margin-bottom: 5px;
+    position: relative;
 }
 
 
