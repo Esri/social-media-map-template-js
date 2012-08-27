@@ -1428,6 +1428,14 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
     background: url(../images/ui/ajax-loader.gif) no-repeat center center #fff;
 }
 
+#aboutDialog .thumb img{
+	display:block;
+	margin: 0;
+	padding: 0;
+	width:200px;
+	height: 133px;
+}
+
 #aboutDialog .license {
     margin-bottom: 10px;
 }
