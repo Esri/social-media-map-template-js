@@ -192,7 +192,7 @@ function configureLayers() {
             // URL layers variable
             var urlLayers = false;
             // if visible layers set in URL
-            if (configOptions.visLayers && configOptions.visLayers.length > 0) {
+            if (urlObject.query.hasOwnProperty('layers')) {
                 urlLayers = true;
             }
             // for each layer

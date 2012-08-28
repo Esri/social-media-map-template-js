@@ -411,6 +411,7 @@ function resetSocialRefreshTimer() {
 
 // TOGGLE SOCIAL MEDIA LAYER ON AND OFF
 function toggleMapLayerSM(layerid) {
+	clearTimeout(configOptions.autoRefreshTimer);
     var ytID, twID, flID, usID = false;
     if (configOptions.showYouTube) {
         ytID = configOptions.youtubeID;
