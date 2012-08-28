@@ -250,14 +250,14 @@ dojo.addOnLoad(function () {
                 datePattern: "y-M-d-H:m:s"
             });
             var linkedText = socialInstance.parseURL(graphic.attributes.media$group.media$description.$t);
-            var html = '';
-            html += '<div class="ytContent">';
-            html += '<div class="video">';
             var videoWidth = 336;
             var videoHeight = 252;
             if (graphic.attributes.media$group.yt$aspectRatio) {
                 videoHeight = 189;
             }
+            var html = '';
+            html += '<div class="ytContent">';
+            html += '<div class="video" style="width:' + videoWidth + 'px;height:' + videoHeight + 'px;">';
             html += '<iframe width="' + videoWidth + '" height="' + videoHeight + '" src="' + location.protocol + '//www.youtube.com/embed/' + graphic.attributes.media$group.yt$videoid.$t + '" frameborder="0" allowfullscreen></iframe>';
             html += '</div>';
             html += '<ul>';

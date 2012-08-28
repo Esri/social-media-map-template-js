@@ -563,6 +563,7 @@ function hidePopup() {
 }
 
 function hideAllMenus() {
+	dojo.query('#topMenuCon .barButton').removeClass('barSelected');
     dojo.query('#mapcon .menuSelected').forEach(function (selectTag) {
         hideMenu(selectTag);
     });
