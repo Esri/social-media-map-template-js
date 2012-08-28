@@ -18,4 +18,4 @@ var i18n, configOptions, map, urlObject;
 // Layers
 var clusterLayer, heatLayer, twitterLayer, flickrLayer, youtubeLayer;
 
-// todo: Readme.html. Arabic CSS RTL.
+// todo: easier to add non webmap layer. Readme.html. Arabic CSS RTL. TEST, TEST, TEST!
