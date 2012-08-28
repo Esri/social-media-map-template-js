@@ -1,8 +1,10 @@
 define({
     "root": ({
-    	"general": {
-            "at": "at"
-        },
+    	"general":{
+    		"reply":"Reply",
+    		"retweet":"Retweet",
+    		"favorite":"Favorite",
+    	},
         "error":{
         	"general":"Search error",
         	"cancelled":"Search Cancelled",

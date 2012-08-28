@@ -12,6 +12,9 @@ dojo.addOnLoad(function () {
             if (this._map === null) {
                 throw this.i18n.error.reference;
             }
+            dojo.io.script.get({
+                url: location.protocol + '//platform.twitter.com/widgets.js'
+            });
             var socialInstance = this;
             this.autopage = options.autopage || true;
             this.maxpage = options.maxpage || 3;
@@ -216,10 +219,10 @@ dojo.addOnLoad(function () {
         formatDate: function (dateObj) {
             if (dateObj) {
                 return dojo.date.locale.format(dateObj, {
-                    datePattern: "MMMM d, yyy",
+                    datePattern: "h:mma",
                     selector: "date"
-                }) + ' ' + this.i18n.general.at + ' ' + dojo.date.locale.format(dateObj, {
-                    datePattern: "K:mm a",
+                }).toLowerCase() + ' &middot; ' + dojo.date.locale.format(dateObj, {
+                    datePattern: "d MMM yy",
                     selector: "date"
                 });
             }
@@ -252,13 +255,32 @@ dojo.addOnLoad(function () {
             var html = '';
             html += '<div class="twContent">';
             if (graphic.attributes.profile_image_url) {
-                html += '<a class="twImage" href="' + location.protocol + '//twitter.com/' + graphic.attributes.from_user + '" target="_blank"><img class="shadow" src="' + graphic.attributes.profile_image_url + '" width="48" height="48"></a>';
+                var imageURL;
+                if (location.protocol === "https:") {
+                    imageURL = graphic.attributes.profile_image_url_https;
+                } else {
+                    imageURL = graphic.attributes.profile_image_url;
+                }
+                html += '<a tabindex="0" class="twImage" href="' + location.protocol + '//twitter.com/' + graphic.attributes.from_user + '/statuses/' + graphic.attributes.id_str + '" target="_blank"><img class="shadow" src="' + imageURL + '" width="40" height="40"></a>';
             }
-            html += '<p>' + linkedText + '</p>';
+            html += '<div class="followButton"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=' + graphic.attributes.from_user + '&lang=' + locale + '&show_count=false&show_screen_name=false" style="width:60px; height:20px;"></iframe></div>';
+            html += '<h3 class="twUsername">' + graphic.attributes.from_user_name + '</h3>';
+            html += '<div class="twUser"><a target="_blank" href="' + location.protocol + '//twitter.com/' + graphic.attributes.from_user + '">&#64;' + graphic.attributes.from_user + '</a></div>';
             html += '<div class="clear"></div>';
+            html += '<div class="tweet">' + linkedText + '</div>';
             if (graphic.attributes.created_at) {
-                html += '<p>' + this.formatDate(date) + '</p>';
+                html += '<div class="twDate"><a target="_blank" href="' + location.protocol + '//twitter.com/' + graphic.attributes.from_user + '/statuses/' + graphic.attributes.id_str + '">' + this.formatDate(date) + '</a></div>';
             }
+            var tmp = dojo.locale.split('-');
+            var locale = 'en';
+            if (tmp[0]) {
+                locale = tmp[0];
+            }
+            html += '<div class="actions">';
+            html += '<a title="' + this.i18n.general.reply + '" class="reply" href="https://twitter.com/intent/tweet?in_reply_to=' + graphic.attributes.id_str + '&lang=' + locale + '"></a> ';
+            html += '<a title="' + this.i18n.general.retweet + '" class="retweet" href="https://twitter.com/intent/retweet?tweet_id=' + graphic.attributes.id_str + '&lang=' + locale + '"></a> ';
+            html += '<a title="' + this.i18n.general.favorite + '" class="favorite" href="https://twitter.com/intent/favorite?tweet_id=' + graphic.attributes.id_str + '&lang=' + locale + '"></a> ';
+            html += '</div>';
             html += '</div>';
             return html;
         },
@@ -443,6 +465,8 @@ dojo.addOnLoad(function () {
                 }
             }
         },
-        onError: function (info) {}
+        onError: function (info) {
+            this.onUpdateEnd();
+        }
     }); // end of class declaration
 }); // end of addOnLoad

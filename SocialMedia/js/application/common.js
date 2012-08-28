@@ -102,18 +102,14 @@ function setSharing(isPreviewPage) {
         if (configOptions.youtubeRange) {
             configOptions.shareParams += '&youtubeRange=' + encodeURIComponent(configOptions.youtubeRange);
         }
-        if (configOptions.youtubeChecked) {
-            configOptions.shareParams += '&youtubeChecked=' + encodeURIComponent(configOptions.youtubeChecked);
-        }
+        configOptions.shareParams += '&youtubeChecked=' + encodeURIComponent(configOptions.youtubeChecked);
     }
     if (configOptions.showTwitter) {
         // TWITTER
         if (configOptions.twitterSearch) {
             configOptions.shareParams += '&twitterSearch=' + encodeURIComponent(configOptions.twitterSearch);
         }
-        if (configOptions.twitterChecked) {
-            configOptions.shareParams += '&twitterChecked=' + encodeURIComponent(configOptions.twitterChecked);
-        }
+        configOptions.shareParams += '&twitterChecked=' + encodeURIComponent(configOptions.twitterChecked);
     }
     if (configOptions.showFlickr) {
         // FLICKR
@@ -123,9 +119,7 @@ function setSharing(isPreviewPage) {
         if (configOptions.flickrRange) {
             configOptions.shareParams += '&flickrRange=' + encodeURIComponent(configOptions.flickrRange);
         }
-        if (configOptions.flickrChecked) {
-            configOptions.shareParams += '&flickrChecked=' + encodeURIComponent(configOptions.flickrChecked);
-        }
+        configOptions.shareParams += '&flickrChecked=' + encodeURIComponent(configOptions.flickrChecked);
     }
     if (configOptions.socialDistance) {
         // SOCIAL MEDIA DISTANCE
@@ -350,7 +344,7 @@ function alertDialog(text) {
     html += text;
     html += '</div>';
     html += '<div class="buttons">';
-    html += '<span id="closeAlert" class="mapSubmit">' + i18n.viewer.general.ok + '</span>';
+    html += '<span id="closeAlert" tabindex="0" class="mapSubmit">' + i18n.viewer.general.ok + '</span>';
     html += '</div>';
     html += '</div>';
     var props = {

@@ -199,10 +199,10 @@ dojo.addOnLoad(function () {
         formatDate: function (dateObj) {
             if (dateObj) {
                 return dojo.date.locale.format(dateObj, {
-                    datePattern: "MMMM d, yyy",
+                    datePattern: "h:mma",
                     selector: "date"
-                }) + ' ' + this.i18n.general.at + ' ' + dojo.date.locale.format(dateObj, {
-                    datePattern: "K:mm a",
+                }).toLowerCase() + ' &middot; ' + dojo.date.locale.format(dateObj, {
+                    datePattern: "d MMM yy",
                     selector: "date"
                 });
             }
@@ -230,19 +230,15 @@ dojo.addOnLoad(function () {
             var date = new Date(parseInt(graphic.attributes.dateupload * 1000, 10));
             var html = '';
             html += '<div class="flContent">';
-            html += '<p>';
-            html += '<a class="flImgA" href="' + location.protocol + '//www.flickr.com/photos/' + graphic.attributes.owner + '/' + graphic.attributes.id + '/in/photostream" target="_blank">';
+            html += '<a tabindex="0" class="flImgA" href="' + location.protocol + '//www.flickr.com/photos/' + graphic.attributes.owner + '/' + graphic.attributes.id + '/in/photostream" target="_blank">';
             html += '<img width="' + graphic.attributes.width_s + '" height="' + graphic.attributes.height_s + '" src="' + graphic.attributes.url_s + '">';
             html += '</a>';
-            html += '</p>';
-            html += '<ul>';
-            html += '<li><strong>' + graphic.attributes.title + '</strong></li>';
-            html += '<li>' + this.i18n.general.attributed + ' <a href="' + location.protocol + '//www.flickr.com/photos/' + graphic.attributes.owner + '/" target="_blank">' + graphic.attributes.ownername + '</a></li>';
-            html += '<li>' + this.formatDate(date) + '</li>';
+            html += '<h3 class="title">' + graphic.attributes.title + '</h3>';
+            html += '<div class="username"><a tabindex="0" href="' + location.protocol + '//www.flickr.com/photos/' + graphic.attributes.owner + '/" target="_blank">' + graphic.attributes.ownername + '</a></div>';
             if (graphic.attributes.description._content) {
-                html += '<li>' + graphic.attributes.description._content + '</li>';
+                html += '<div class="content">' + graphic.attributes.description._content + '</div>';
             }
-            html += '</ul>';
+            html += '<div class="date">' + this.formatDate(date) + '</div>';
             html += '</div>';
             return html;
         },
@@ -402,7 +398,9 @@ dojo.addOnLoad(function () {
                 }
             }
         },
-        onError: function (info) {},
+        onError: function (info) {
+            this.onUpdateEnd();
+        },
         onUpdate: function () {},
         onUpdateEnd: function () {
             this.query = null;

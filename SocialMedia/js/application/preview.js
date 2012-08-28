@@ -102,10 +102,10 @@ function configureEmbed() {
     html += '<h2>' + i18n.viewer.preview.customize + '</h2>';
     html += '<table id="embedArea"><tbody><tr><td>';
     html += '<ul class="embedSizing">';
-    html += '<li class="item" id="embedSmall"><span class="itemIcon"></span>' + i18n.viewer.preview.small + '</li>';
-    html += '<li class="item selected" id="embedMedium"><span class="itemIcon"></span>' + i18n.viewer.preview.medium + '</li>';
-    html += '<li class="item" id="embedLarge"><span class="itemIcon"></span>' + i18n.viewer.preview.large + '</li>';
-    html += '<li class="item" id="embedCustom"><span class="itemIcon"></span>' + i18n.viewer.preview.custom + '';
+    html += '<li tabindex="0" class="item" id="embedSmall"><span class="itemIcon"></span>' + i18n.viewer.preview.small + '</li>';
+    html += '<li tabindex="0" class="item selected" id="embedMedium"><span class="itemIcon"></span>' + i18n.viewer.preview.medium + '</li>';
+    html += '<li tabindex="0" class="item" id="embedLarge"><span class="itemIcon"></span>' + i18n.viewer.preview.large + '</li>';
+    html += '<li tabindex="0" class="item" id="embedCustom"><span class="itemIcon"></span>' + i18n.viewer.preview.custom + '';
     html += '<ul>';
     html += '<li><input placeholder="Width" autocomplete="off" id="inputWidth" value="' + configOptions.embedSizes.medium.width + '" type="text" class="mapInput inputSingle" size="10"></li>';
     html += '<li><input placeholder="Height" autocomplete="off" id="inputHeight" value="' + configOptions.embedSizes.medium.height + '" type="text" class="mapInput inputSingle" size="10"></li>';

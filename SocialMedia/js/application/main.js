@@ -79,7 +79,7 @@ function showAutoComplete(results) {
         } else {
             layerClass = 'stripe';
         }
-        aResults += '<li data-index="' + i + '" tabindex="' + (i + 2) + '" class="' + layerClass + '">' + results.locations[i].name.replace(regex, '<span>' + partialMatch + '</span>') + '</li>';
+        aResults += '<li data-index="' + i + '" tabindex="0" class="' + layerClass + '">' + results.locations[i].name.replace(regex, '<span>' + partialMatch + '</span>') + '</li>';
     }
     aResults += '</ul>';
     if (results.locations.length > 0) {
@@ -257,7 +257,7 @@ function rightSideMenuButtons() {
     var html = '<div id="menuListCon">';
     var node;
     if (configOptions.showLegendMenu && configOptions.layerInfos.length > 0) {
-        html += '<span id="legendButton" data-menu="legend" class="barButton" title="' + i18n.viewer.buttons.legendTitle + '">' + i18n.viewer.buttons.legend + '<span class="arrow"></span></span>';
+        html += '<span tabindex="0" id="legendButton" data-menu="legend" class="barButton" title="' + i18n.viewer.buttons.legendTitle + '">' + i18n.viewer.buttons.legend + '<span class="arrow"></span></span>';
         // Social MENU TOGGLE
         dojo.query(document).delegate("#legendButton", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -266,7 +266,7 @@ function rightSideMenuButtons() {
         });
     }
     if (configOptions.showBasemapMenu) {
-        html += '<span id="basemapButton" data-menu="basemap" class="barButton" title="' + i18n.viewer.buttons.basemapTitle + '">' + i18n.viewer.buttons.basemap + '<span class="arrow"></span></span>';
+        html += '<span tabindex="0" id="basemapButton" data-menu="basemap" class="barButton" title="' + i18n.viewer.buttons.basemapTitle + '">' + i18n.viewer.buttons.basemap + '<span class="arrow"></span></span>';
         // Basemap MENU TOGGLE
         dojo.query(document).delegate("#basemapButton", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -283,7 +283,7 @@ function rightSideMenuButtons() {
         }
     }
     if (configOptions.showLayersMenu) {
-        html += '<span id="layersButton" data-menu="layers" class="barButton" title="' + i18n.viewer.buttons.layersTitle + '">' + i18n.viewer.buttons.layers + '<span class="arrow"></span></span>';
+        html += '<span tabindex="0" id="layersButton" data-menu="layers" class="barButton" title="' + i18n.viewer.buttons.layersTitle + '">' + i18n.viewer.buttons.layers + '<span class="arrow"></span></span>';
         // Layers MENU TOGGLE
         dojo.query(document).delegate("#layersButton", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -292,7 +292,7 @@ function rightSideMenuButtons() {
         });
     }
     if (configOptions.showSocialMenu) {
-        html += '<span id="socialButton" data-menu="social" class="barButton" title="' + i18n.viewer.buttons.socialTitle + '">' + i18n.viewer.buttons.social + '<span class="arrow"></span></span>';
+        html += '<span tabindex="0" id="socialButton" data-menu="social" class="barButton" title="' + i18n.viewer.buttons.socialTitle + '">' + i18n.viewer.buttons.social + '<span class="arrow"></span></span>';
         // Social MENU TOGGLE
         dojo.query(document).delegate("#socialButton", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -318,14 +318,14 @@ function configureShareMenu() {
     if (configOptions.showShareMenu) {
         var node = dojo.query('#shareMap')[0];
         if (node) {
-            node.innerHTML = '<span id="shareIcon" data-menu="share" class="barButton" title="' + i18n.viewer.buttons.linkTitle + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.link + '<span class="arrow"></span></span></div><div class="clear">';
+            node.innerHTML = '<span tabindex="0" id="shareIcon" data-menu="share" class="barButton" title="' + i18n.viewer.buttons.linkTitle + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.link + '<span class="arrow"></span></span></div><div class="clear">';
         }
         var html = '';
         html += '<div class="shareContainer">';
         html += '<div class="Pad">';
         html += '<h3>' + i18n.viewer.shareMenu.shareHeader + '</h3>';
         html += '<input id="inputShare" value="" type="text" class="mapInput inputSingle" size="20" readonly>';
-        html += '<span id="fbImage" title="' + i18n.viewer.shareMenu.facebookHeader + '"><span class="icon"></span>' + i18n.viewer.shareMenu.facebook + '</span><span id="twImage" title="' + i18n.viewer.shareMenu.twitterHeader + '"><span class="icon"></span>' + i18n.viewer.shareMenu.twitter + '</span></div>';
+        html += '<span tabindex="0" id="fbImage" title="' + i18n.viewer.shareMenu.facebookHeader + '"><span class="icon"></span>' + i18n.viewer.shareMenu.facebook + '</span><span tabindex="0" id="twImage" title="' + i18n.viewer.shareMenu.twitterHeader + '"><span class="icon"></span>' + i18n.viewer.shareMenu.twitter + '</span></div>';
         html += '<h3>' + i18n.viewer.shareMenu.instructionHeader + '</h3>';
         html += '<textarea rows="3" id="quickEmbedCode"></textarea>';
         if (configOptions.previewPage) {
@@ -370,8 +370,8 @@ function configureShareMenu() {
 function configureSearchBox() {
     if (configOptions.showSearchBox) {
         var html = '<div id="locateCon" class="iconInput">';
-        html += '<div id="submitAddress" class="iconSearch" title="' + i18n.viewer.search.placeholder + '"></div>';
-        html += '<div id="clearAddress" class="iconClear"></div>';
+        html += '<div tabindex="0" id="submitAddress" class="iconSearch" title="' + i18n.viewer.search.placeholder + '"></div>';
+        html += '<div tabindex="0" id="clearAddress" class="iconClear"></div>';
         html += '<input placeholder="' + i18n.viewer.search.placeholder + '" id="address" title="' + i18n.viewer.search.placeholder + '" value="' + configOptions.locateName + '" class="default" autocomplete="off" type="text" tabindex="1">';
         html += '</div>';
         var node = dojo.query('#locateBox')[0];
@@ -487,7 +487,7 @@ function configureAboutText() {
         // INSERT HTML
         var node = dojo.byId('aboutMap');
         if (node) {
-            node.innerHTML = '<span class="barButton" id="aboutMap" title="' + i18n.viewer.buttons.aboutTitle + '"><span class="aboutInfo"></span>' + i18n.viewer.buttons.about + '</span>';
+            node.innerHTML = '<span tabindex="0" class="barButton" id="aboutMap" title="' + i18n.viewer.buttons.aboutTitle + '"><span class="aboutInfo"></span>' + i18n.viewer.buttons.about + '</span>';
         }
         node = dojo.byId('aboutDialog');
         var html = '';
@@ -529,7 +529,7 @@ function configureAboutText() {
         // close container
         html += ')</div>';
         if (configOptions.itemInfo.item.thumbnail) {
-            html += '<a class="thumb" target="_blank" href="' + configOptions.portalUrl + 'home/item.html?id=' + configOptions.itemInfo.item.id + '"><img src="' + configOptions.sharingurl + '/' + configOptions.itemInfo.item.id + '/info/' + configOptions.itemInfo.item.thumbnail + '" alt="' + configOptions.itemInfo.item.title + '" title="' + configOptions.itemInfo.item.title + '" /></a>';
+            html += '<a tabindex="0" class="thumb" target="_blank" href="' + configOptions.portalUrl + 'home/item.html?id=' + configOptions.itemInfo.item.id + '"><img src="' + configOptions.sharingurl + '/' + configOptions.itemInfo.item.id + '/info/' + configOptions.itemInfo.item.thumbnail + '" alt="' + configOptions.itemInfo.item.title + '" title="' + configOptions.itemInfo.item.title + '" /></a>';
         }
         html += '<div class="desc">' + configOptions.itemInfo.item.description + '</div>';
         // vars

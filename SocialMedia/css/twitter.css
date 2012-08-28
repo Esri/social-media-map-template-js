@@ -1,0 +1,121 @@
+.twContent .twUsername {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.twContent .followButton {
+    float: right;
+}
+
+.twContent .actions {
+    text-align: right;
+    padding: 5px 0 0 0;
+    border-top: 1px solid #E5E5E5;
+    margin-top: 10px;
+}
+
+.twContent .reply {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    vertical-align: text-bottom;
+    background: url(../images/ui/twitterSprite.png?v=2) no-repeat 0 0;
+}
+
+.twContent .reply:hover, .twContent .reply:focus {
+    background: url(../images/ui/twitterSprite.png?v=2) no-repeat -16px 0;
+}
+
+.twContent .retweet {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    vertical-align: text-bottom;
+    background: url(../images/ui/twitterSprite.png?v=2) no-repeat -80px 0;
+}
+
+.twContent .retweet:hover, .twContent .retweet:focus {
+    background: url(../images/ui/twitterSprite.png?v=2) no-repeat -96px 0;
+}
+
+.twContent .favorite {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    vertical-align: text-bottom;
+    background: url(../images/ui/twitterSprite.png?v=2) no-repeat -32px 0;
+}
+
+.twContent .favorite:hover, .twContent .favorite:focus {
+    background: url(../images/ui/twitterSprite.png?v=2) no-repeat -48px 0;
+}
+
+.twContent .twUser {
+    font-size: 12px;
+    color: #999;
+    line-height: 18px;
+}
+
+.twContent .twUser a {
+    color: #999 !important;
+    text-decoration: none !important;
+}
+
+.twContent .twUser a:hover {
+    color: #333 !important;
+}
+
+.twContent .twDate {
+    font-size: 12px;
+    color: #999;
+    line-height: 16px;
+}
+
+.twContent .twDate a {
+    color: #999 !important;
+    text-decoration: none !important;
+}
+
+.twContent .twDate a:hover {
+    color: #333 !important;
+}
+
+.twContent .tweet {
+    font-size: 13px;
+    line-height: 18px;
+    margin-bottom: 5px;
+}
+
+.twContent .twImage {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    background: #fff;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.twContent .twImage img {
+    padding: 4px;
+    -moz-box-shadow: 1px 1px 3px #CCCCCC;
+    -webkit-box-shadow: 1px 1px 3px #CCCCCC;
+    box-shadow: 1px 1px 3px #CCCCCC;
+    border: 1px solid #CCCCCC;
+    background: url(../images/ui/ajax-loader.gif) no-repeat center center #fff;
+}
+
+.twContent .twImage:hover img, .twContent .twImage:focus img {
+    opacity: 0.85;
+    background: none;
+    display: inline-block;
+    -moz-transition: all 0.25s ease;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}

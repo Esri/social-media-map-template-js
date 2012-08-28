@@ -364,7 +364,6 @@ function updateSocialLayers() {
                 socialSourceY: configOptions.socialPointY,
                 range: configOptions.youtubeRange
             });
-            configOptions.youtubeChecked = true;
         }
     }
     // IF TWITTER cbox is checked
@@ -378,7 +377,6 @@ function updateSocialLayers() {
                 socialSourceX: configOptions.socialPointX,
                 socialSourceY: configOptions.socialPointY
             });
-            configOptions.twitterChecked = true;
         }
     }
     if (configOptions.showFlickr) {
@@ -397,7 +395,6 @@ function updateSocialLayers() {
                 updateObj.dateTo = getFlickrDate('to');
             }
             flickrLayer.update(updateObj);
-            configOptions.flickrChecked = true;
         }
     }
 }
@@ -466,14 +463,17 @@ function toggleMapLayerSM(layerid) {
         case ytID:
             dojo.query('#YTLoad').style('display', 'none');
             youtubeLayer.clear();
+            configOptions.youtubeChecked = false;
             break;
         case twID:
             dojo.query('#TWLoad').style('display', 'none');
             twitterLayer.clear();
+            configOptions.twitterChecked = false;
             break;
         case flID:
             dojo.query('#FLLoad').style('display', 'none');
             flickrLayer.clear();
+            configOptions.flickrChecked = false;
             break;
         }
     }
@@ -534,9 +534,8 @@ function insertSMToggle() {
             clusterClass = 'buttonSelected';
         }
         html += '<div id="displayAs" class="displayAs">';
-        html += '<span class="label"></span>';
-        html += '<span data-type="cluster" class="mapButton clusterButton buttonLeft ' + clusterClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.cluster + '</span>';
-        html += '<span data-type="heatmap" class="mapButton heatButton buttonRight ' + heatmapClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.heatmap + '</span>';
+        html += '<span tabindex="0" data-type="cluster" class="mapButton clusterButton buttonLeft ' + clusterClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.cluster + '</span>';
+        html += '<span tabindex="0" data-type="heatmap" class="mapButton heatButton buttonRight ' + heatmapClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.heatmap + '</span>';
         html += '</div>';
         var node = dojo.byId('socialMenu');
         if (node) {
@@ -568,14 +567,14 @@ function insertSMItem(obj) {
         html += '<li data-layer="' + obj.uniqueID + '" class="' + layerClass + '">';
         html += '<div class="cover"></div>';
         if (obj.showSocialSettings) {
-            html += ' <span class="cBconfig" title="' + obj.title + ' ' + i18n.viewer.layer.searchSettings + '"></span>';
+            html += ' <span tabindex="0" class="cBconfig" title="' + obj.title + ' ' + i18n.viewer.layer.searchSettings + '"></span>';
         }
         if (obj.description) {
-            html += '<span class="cBinfo" title="' + i18n.viewer.layer.information + '"></span>';
+            html += '<span tabindex="0" class="cBinfo" title="' + i18n.viewer.layer.information + '"></span>';
         }
-        html += '<span class="toggle cBox"></span>';
-        html += '<span class="toggle cBicon"><img alt="' + obj.title + '" title="' + obj.title + '" width="16" height="16" src="' + obj.legendIcon + '" /></span>';
-        html += '<span class="toggle cBtitle">' + obj.title + '<span class="count"></span></span>';
+        html += '<span tabindex="0" class="toggle cBox"></span>';
+        html += '<span tabindex="0" class="toggle cBicon"><img alt="' + obj.title + '" title="' + obj.title + '" width="16" height="16" src="' + obj.legendIcon + '" /></span>';
+        html += '<span tabindex="0" class="toggle cBtitle">' + obj.title + '<span class="count"></span></span>';
         html += '<div class="clear"></div>';
         if (obj.description) {
             html += '<div class="infoHidden">';
@@ -651,7 +650,7 @@ function insertSettingsHTML() {
             html += '</li>';
             html += '<li>';
             html += '<label for="flSubmit">&nbsp;</label>';
-            html += '<span id="flSubmit" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="FLLoad"></span>';
+            html += '<span tabindex="0" id="flSubmit" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="FLLoad"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
@@ -669,7 +668,7 @@ function insertSettingsHTML() {
             html += '</li>';
             html += '<li>';
             html += '<label for="twSubmit">&nbsp;</label>';
-            html += '<span id="twSubmit" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="TWLoad"></span>';
+            html += '<span tabindex="0" id="twSubmit" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="TWLoad"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
@@ -695,7 +694,7 @@ function insertSettingsHTML() {
             html += '</li>';
             html += '<li>';
             html += '<label for="ytSubmit">&nbsp;</label>';
-            html += '<span class="mapSubmit" id="ytSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="YTLoad"></span>';
+            html += '<span tabindex="0" class="mapSubmit" id="ytSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="YTLoad"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
@@ -707,7 +706,7 @@ function insertSettingsHTML() {
     html += '<ul class="formStyle">';
     html += '<li>';
     html += '<label for="socialUseCenter">' + i18n.viewer.settings.atLocation + '</label>';
-    html += '<span class="mapButton locationButton buttonSingle"><span class="iconBlock"></span></span><span id="socialLocationText" class="smallTxt">' + i18n.viewer.settings.centerOfMap + '</span><span title="' + i18n.viewer.settings.centerOfMap + '" id="socialUseCenter" class="resetCenter"></span>';
+    html += '<span tabindex="0" class="mapButton locationButton buttonSingle"><span class="iconBlock"></span></span><span id="socialLocationText" class="smallTxt">' + i18n.viewer.settings.centerOfMap + '</span><span title="' + i18n.viewer.settings.centerOfMap + '" id="socialUseCenter" class="resetCenter"></span>';
     html += '<div class="clear"></div>';
     html += '</li>';
     html += '<li>';
@@ -970,7 +969,7 @@ function configureSocialMedia() {
             var settingsTitle = dojo.query(parent).children('.cBtitle').innerHTML;
             var node = dojo.byId('cfgMenu');
             if (node) {
-                var html = '<span data-layer="' + settingsID + '" class="mapButton ' + settingsClass + '" title="' + settingsTitle + '"><img width="16" height="16" src="' + settingsSource + '" /></span>';
+                var html = '<span tabindex="0" data-layer="' + settingsID + '" class="mapButton ' + settingsClass + '" title="' + settingsTitle + '"><img width="16" height="16" src="' + settingsSource + '" /></span>';
                 dojo.place(html, node, "last");
             }
         });

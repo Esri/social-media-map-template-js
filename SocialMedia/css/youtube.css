@@ -1,0 +1,44 @@
+.ytContent {
+    margin: 0;
+    text-align: left;
+}
+
+.ytContent .video {
+    margin: 0 0 10px 0;
+    position: relative;
+    -moz-box-shadow: 1px 1px 3px #CCCCCC;
+    -webkit-box-shadow: 1px 1px 3px #CCCCCC;
+    box-shadow: 1px 1px 3px #CCCCCC;
+    border: 1px solid #CCCCCC;
+    background: url(../images/ui/ajax-loader.gif) no-repeat center center #fff;
+}
+
+.ytContent .video  iframe {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.ytContent .title {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.ytContent .username, #map .modernGrey .ytContent .username a {
+    font-size: 12px;
+    color: #999;
+    line-height: 18px;
+    margin-bottom: 5px;
+}
+
+.ytContent .content {
+    margin-bottom: 5px;
+}
+
+.ytContent .date {
+    font-size: 12px;
+    color: #999;
+    line-height: 16px;
+}

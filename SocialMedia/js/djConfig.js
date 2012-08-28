@@ -18,4 +18,4 @@ var i18n, configOptions, map, urlObject;
 // Layers
 var clusterLayer, heatLayer, twitterLayer, flickrLayer, youtubeLayer;
 
-// todo: tabindex HTML. Readme.html. Arabic CSS RTL.
+// todo: Readme.html. Arabic CSS RTL.

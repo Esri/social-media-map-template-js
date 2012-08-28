@@ -1,8 +1,5 @@
 define({
     "root": ({
-    	"general": {
-            "at": "at"
-        },
         "error":{
         	"general":"Search error",
         	"cancelled":"Search Cancelled",

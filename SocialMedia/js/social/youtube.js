@@ -163,10 +163,10 @@ dojo.addOnLoad(function () {
         formatDate: function (dateObj) {
             if (dateObj) {
                 return dojo.date.locale.format(dateObj, {
-                    datePattern: "MMMM d, yyy",
+                    datePattern: "h:mma",
                     selector: "date"
-                }) + ' ' + this.i18n.general.at + ' ' + dojo.date.locale.format(dateObj, {
-                    datePattern: "K:mm a",
+                }).toLowerCase() + ' &middot; ' + dojo.date.locale.format(dateObj, {
+                    datePattern: "d MMM yy",
                     selector: "date"
                 });
             }
@@ -260,12 +260,10 @@ dojo.addOnLoad(function () {
             html += '<div class="video" style="width:' + videoWidth + 'px;height:' + videoHeight + 'px;">';
             html += '<iframe width="' + videoWidth + '" height="' + videoHeight + '" src="' + location.protocol + '//www.youtube.com/embed/' + graphic.attributes.media$group.yt$videoid.$t + '" frameborder="0" allowfullscreen></iframe>';
             html += '</div>';
-            html += '<ul>';
-            html += '<li><strong>' + graphic.attributes.title.$t + '</strong></li>';
-            html += '<li>' + linkedText + '</li>';
-            html += '<li><a href="' + location.protocol + '//www.youtube.com/user/' + graphic.attributes.author[0].name.$t + '" target="_blank">' + graphic.attributes.author[0].name.$t + '</a></li>';
-            html += '<li>' + this.formatDate(date) + '</li>';
-            html += '</ul>';
+            html += '<h3 class="title">' + graphic.attributes.title.$t + '</h3>';
+            html += '<div class="username"><a tabindex="0" href="' + location.protocol + '//www.youtube.com/user/' + graphic.attributes.author[0].name.$t + '" target="_blank">' + graphic.attributes.author[0].name.$t + '</a></div>';
+            html += '<div class="content">' + linkedText + '</div>';
+            html += '<div class="date">' + this.formatDate(date) + '</div>';
             html += '</div>';
             return html;
         },
@@ -422,6 +420,8 @@ dojo.addOnLoad(function () {
                 }
             }
         },
-        onError: function (info) {}
+        onError: function (info) {
+            this.onUpdateEnd();
+        }
     }); // end of class declaration
 }); // end of addOnLoad

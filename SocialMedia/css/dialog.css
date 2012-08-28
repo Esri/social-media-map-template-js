@@ -68,7 +68,7 @@
     background: url(../images/ui/uiSprite.png?v=2) no-repeat -96px -16px;
 }
 
-.modernGrey .dijitDialogTitle #collapseIcon:hover {
+.modernGrey .dijitDialogTitle #collapseIcon:hover, .modernGrey .dijitDialogTitle #collapseIcon:focus {
     opacity: 0.75;
     filter: alpha(opacity=75);
 }

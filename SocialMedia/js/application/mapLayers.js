@@ -298,9 +298,9 @@ function configureLayers() {
                     // COMPOSE HTML LIST STRING
                     html += '<li class="' + layerClass + '" data-layer="' + dataLayers + '">';
                     html += '<div class="cover"></div>';
-                    html += '<span class="cBinfo" title="' + i18n.viewer.layer.information + '"></span>';
-                    html += '<span class="toggle cBox"></span>';
-                    html += '<span class="toggle cBtitle" title="' + configOptions.itemLayers[i].title + '">' + configOptions.itemLayers[i].title.replace(/[\-_]/g, " ") + '</span>';
+                    html += '<span tabindex="0" class="cBinfo" title="' + i18n.viewer.layer.information + '"></span>';
+                    html += '<span tabindex="0" class="toggle cBox"></span>';
+                    html += '<span tabindex="0" class="toggle cBtitle" title="' + configOptions.itemLayers[i].title + '">' + configOptions.itemLayers[i].title.replace(/[\-_]/g, " ") + '</span>';
                     html += '<div class="clear"></div>';
                     html += '<div class="infoHidden">';
                     if (configOptions.itemLayers[i].resourceInfo) {

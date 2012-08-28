@@ -4,7 +4,7 @@ function createPlacesListItem(i) {
     var html = '';
     // LIST HTML
     html += '<li data-index="' + i + '" class="layer placesItem sharedItem checked">';
-    html += '<span class="placesIcon placesClick"></span><span class="title placesClick">' + configOptions.bookmarks[i].name.replace(/[\-_]/g, " ") + '</span>';
+    html += '<span tabindex="0" class="placesIcon placesClick"></span><span class="title placesClick">' + configOptions.bookmarks[i].name.replace(/[\-_]/g, " ") + '</span>';
     html += '</li>';
     // INSERT LIST ITEM
     var node = dojo.byId('placesList');
@@ -40,7 +40,7 @@ function geoLocateMap(position) {
 
 // GEOLOCATE ITEM
 function createGeolocateItem() {
-    var html = '<li title="' + i18n.viewer.places.myLocationTitle + '" id="geoLocate" class="layer placesItem"><span class="placesIcon"></span><span class="title">' + i18n.viewer.places.myLocation + '</span></li>';
+    var html = '<li tabindex="0" title="' + i18n.viewer.places.myLocationTitle + '" id="geoLocate" class="layer placesItem"><span class="placesIcon"></span><span class="title">' + i18n.viewer.places.myLocation + '</span></li>';
     var node = dojo.byId('placesList');
     if (node) {
         dojo.place(html, node, "last");
@@ -87,7 +87,7 @@ function configurePlaces() {
         // INSERT PLACES BUTTON
         var node = dojo.byId('placesCon');
         if (node) {
-            node.innerHTML = '<span id="placesButton" class="barButton" data-menu="places" title="' + i18n.viewer.places.placesTitle + '">' + i18n.viewer.places.places + '<span class="arrow"></span></span>';
+            node.innerHTML = '<span tabindex="0" id="placesButton" class="barButton" data-menu="places" title="' + i18n.viewer.places.placesTitle + '">' + i18n.viewer.places.places + '<span class="arrow"></span></span>';
         }
         // CREATE LIST
         node = dojo.byId('placesMenu');
