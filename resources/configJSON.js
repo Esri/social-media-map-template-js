@@ -105,6 +105,16 @@
                "value":"Show the about button and dialog."
             },
             {
+               "type":"boolean",
+               "fieldName":"showAboutDialogOnLoad",
+               "label":"Open About Dialog On Load",
+               "tooltip":"Open About Dialog"
+            },
+            {
+               "type":"paragraph",
+               "value":"Opens the about dialog on page load."
+            },
+            {
                "type":"string",
                "fieldName":"socialDistance",
                "tooltip":"Social Distance",

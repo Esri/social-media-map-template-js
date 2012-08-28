@@ -138,7 +138,7 @@ function setSharing(isPreviewPage) {
     }
     // heatmap vs cluster
     if (configOptions.socialDisplay) {
-        configOptions.shareParams += '&display=' + encodeURIComponent(configOptions.socialDisplay);
+        configOptions.shareParams += '&socialDisplay=' + encodeURIComponent(configOptions.socialDisplay);
     }
     // marker
     if (configOptions.locatePointX && configOptions.locatePointY) {
@@ -184,6 +184,7 @@ function setDefaultConfigOptions() {
     if (!configOptions.locateName) {
         configOptions.locateName = "";
     }
+    configOptions.locatorserviceurl = location.protocol + '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer';
     configOptions.popupWidth = 375;
     configOptions.popupHeight = 200;
     configOptions.previewSize = {

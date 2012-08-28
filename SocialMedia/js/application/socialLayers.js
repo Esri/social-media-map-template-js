@@ -320,21 +320,21 @@ function getSmPopupTitle() {
             switch (graphic.attributes.smType) {
             case ytID:
                 socialObject = {
-		            title: configOptions.youtubeTitle,
-		            legendIcon: configOptions.youtubeIcon
-		        };
+                    title: configOptions.youtubeTitle,
+                    legendIcon: configOptions.youtubeIcon
+                };
                 break;
             case twID:
                 socialObject = socialObject = {
-		            title: configOptions.twitterTitle,
-		            legendIcon: configOptions.twitterIcon
-		        };
+                    title: configOptions.twitterTitle,
+                    legendIcon: configOptions.twitterIcon
+                };
                 break;
             case flID:
                 socialObject = {
-		            title: configOptions.flickrTitle,
-		            legendIcon: configOptions.flickrIcon
-		        };
+                    title: configOptions.flickrTitle,
+                    legendIcon: configOptions.flickrIcon
+                };
                 break;
             }
             if (socialObject) {
@@ -408,7 +408,7 @@ function resetSocialRefreshTimer() {
     if (!(configOptions.socialPointX && configOptions.socialPointY)) {
         configOptions.autoRefreshTimer = setTimeout(function () {
             updateSocialLayers();
-        }, 3000);
+        }, 5000);
     }
 }
 
@@ -482,13 +482,15 @@ function toggleMapLayerSM(layerid) {
 
 // TOGGLE HEAT/CLUSTER
 function showHeatLayer() {
-    if (clusterLayer) {
-        clusterLayer.setVisibility(false);
-    }
-    if (heatLayer) {
-        heatLayer.setVisibility(true);
-    } else {
-        alertDialog(i18n.viewer.errors.heatmap);
+    if (isCanvasSupported()) {
+        if (clusterLayer) {
+            clusterLayer.setVisibility(false);
+        }
+        if (heatLayer) {
+            heatLayer.setVisibility(true);
+        } else {
+            alertDialog(i18n.viewer.errors.heatmap);
+        }
     }
 }
 
@@ -507,7 +509,7 @@ function toggleDisplayAs(obj) {
     dojo.query('#displayAs .mapButton').removeClass('buttonSelected');
     // DATA TYPE VARIABLE
     var dataType = dojo.query(obj).attr('data-type')[0];
-    if (dataType === 'heatmap') {
+    if (dataType === 'heatmap' && isCanvasSupported()) {
         showHeatLayer();
         configOptions.socialDisplay = 'heatmap';
     } else {
@@ -522,28 +524,32 @@ function toggleDisplayAs(obj) {
 
 // HEATMAP / CLUSTERS TOGGLE
 function insertSMToggle() {
-    var clusterClass = '';
-    var heatmapClass = '';
-    var html = '';
-    if (configOptions.socialDisplay === 'heatmap') {
-        heatmapClass = 'buttonSelected';
-    } else {
-        clusterClass = 'buttonSelected';
-    }
-    html += '<div id="displayAs" class="displayAs">';
-    html += '<span class="label"></span>';
-    html += '<span data-type="cluster" class="mapButton clusterButton buttonLeft ' + clusterClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.cluster + '</span>';
-    html += '<span data-type="heatmap" class="mapButton heatButton buttonRight ' + heatmapClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.heatmap + '</span>';
-    html += '</div>';
-    var node = dojo.byId('socialMenu');
-    if (node) {
-        dojo.place(html, node, "last");
-    }
-    dojo.query(document).delegate("#displayAs .mapButton", "onclick,keyup", function (event) {
-        if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-            toggleDisplayAs(this);
+    if (isCanvasSupported()) {
+        var clusterClass = '';
+        var heatmapClass = '';
+        var html = '';
+        if (configOptions.socialDisplay === 'heatmap') {
+            heatmapClass = 'buttonSelected';
+        } else {
+            clusterClass = 'buttonSelected';
         }
-    });
+        html += '<div id="displayAs" class="displayAs">';
+        html += '<span class="label"></span>';
+        html += '<span data-type="cluster" class="mapButton clusterButton buttonLeft ' + clusterClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.cluster + '</span>';
+        html += '<span data-type="heatmap" class="mapButton heatButton buttonRight ' + heatmapClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.heatmap + '</span>';
+        html += '</div>';
+        var node = dojo.byId('socialMenu');
+        if (node) {
+            dojo.place(html, node, "last");
+        }
+        dojo.query(document).delegate("#displayAs .mapButton", "onclick,keyup", function (event) {
+            if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
+                toggleDisplayAs(this);
+            }
+        });
+    } else {
+        configOptions.socialDisplay = 'cluster';
+    }
 }
 
 // INSERT SOCIAL MEDIA LIST ITEM
@@ -747,11 +753,9 @@ function configureSocialMedia() {
         clusterHoverImage: configOptions.clusterHoverImage
     });
     // set default visible of the two
-    if (configOptions.socialDisplay === 'heatmap') {
+    if (configOptions.socialDisplay === 'heatmap' && isCanvasSupported()) {
         if (heatLayer) {
             heatLayer.setVisibility(true);
-        } else {
-            alertDialog(i18n.viewer.errors.heatmap);
         }
         if (clusterLayer) {
             clusterLayer.setVisibility(false);

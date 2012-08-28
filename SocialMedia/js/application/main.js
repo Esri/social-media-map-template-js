@@ -567,6 +567,9 @@ function configureAboutText() {
             title: '<span class="aboutInfo"></span>' + i18n.viewer.about.title
         };
         configOptions.aboutDialog = new dijit.Dialog(props, dojo.byId('aboutDialog'));
+        if (configOptions.showAboutDialogOnLoad) {
+            configOptions.aboutDialog.show();
+        }
     }
 }
 
@@ -611,7 +614,7 @@ function configureAppTitle() {
     }
 }
 
-function fixExtent() {    
+function fixExtent() {
     map.setExtent(configOptions.extent);
     // set zoom level
     if (configOptions.level) {
@@ -625,7 +628,7 @@ function fixExtent() {
             setMarker(point, configOptions.locateName);
         }
     }
-    
+
 }
 
 // Configure
@@ -638,20 +641,20 @@ function configureUserInterface() {
     configureAboutText();
     // short delay
     setTimeout(function () {
-    	fixExtent();
-    	setTimeout(function () {
-    		updateSocialLayers();
-	    	dojo.connect(map, "onExtentChange", function (extent) {
-	            // update current extent
-	            configOptions.currentExtent = extent;
-	            // update sharing link
-	            setSharing();
-	            // hide auto complete
-	            hideAC();
-	            // reset refresh timer for social media
-	            resetSocialRefreshTimer();
-	        });
-    	}, 750);
+        fixExtent();
+        setTimeout(function () {
+            updateSocialLayers();
+            dojo.connect(map, "onExtentChange", function (extent) {
+                // update current extent
+                configOptions.currentExtent = extent;
+                // update sharing link
+                setSharing();
+                // hide auto complete
+                hideAC();
+                // reset refresh timer for social media
+                resetSocialRefreshTimer();
+            });
+        }, 750);
     }, 750);
 }
 
