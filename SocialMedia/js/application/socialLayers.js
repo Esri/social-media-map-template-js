@@ -925,7 +925,6 @@ function configureSocialMedia() {
             searchTerm: configOptions.youtubeSearch
         });
     }
-    updateSocialLayers();
     insertSMToggle();
     insertSettingsHTML();
     configureSettingsUI();

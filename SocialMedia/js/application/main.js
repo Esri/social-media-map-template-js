@@ -611,23 +611,21 @@ function configureAppTitle() {
     }
 }
 
-function fixExtent() {
-    // set extent
-    setTimeout(function () {
-        map.setExtent(configOptions.extent);
-        // set zoom level
-        if (configOptions.level) {
-            map.setLevel(parseInt(configOptions.level, 10));
+function fixExtent() {    
+    map.setExtent(configOptions.extent);
+    // set zoom level
+    if (configOptions.level) {
+        map.setLevel(parseInt(configOptions.level, 10));
+    }
+    if (configOptions.locatePointX && configOptions.locatePointY) {
+        var point = new esri.geometry.Point([configOptions.locatePointX, configOptions.locatePointY], new esri.SpatialReference({
+            wkid: map.spatialReference.wkid
+        }));
+        if (point) {
+            setMarker(point, configOptions.locateName);
         }
-        if (configOptions.locatePointX && configOptions.locatePointY) {
-            var point = new esri.geometry.Point([configOptions.locatePointX, configOptions.locatePointY], new esri.SpatialReference({
-                wkid: map.spatialReference.wkid
-            }));
-            if (point) {
-                setMarker(point, configOptions.locateName);
-            }
-        }
-    }, 1000);
+    }
+    
 }
 
 // Configure
@@ -638,7 +636,23 @@ function configureUserInterface() {
     configureShareMenu();
     configureSearchBox();
     configureAboutText();
-    fixExtent();
+    // short delay
+    setTimeout(function () {
+    	fixExtent();
+    	setTimeout(function () {
+    		updateSocialLayers();
+	    	dojo.connect(map, "onExtentChange", function (extent) {
+	            // update current extent
+	            configOptions.currentExtent = extent;
+	            // update sharing link
+	            setSharing();
+	            // hide auto complete
+	            hideAC();
+	            // reset refresh timer for social media
+	            resetSocialRefreshTimer();
+	        });
+    	}, 750);
+    }, 750);
 }
 
 // add menus to dom
@@ -669,19 +683,6 @@ function webmapReturned(response) {
     // map connect functions
     dojo.connect(configOptions.customPopup, "onHide", clearPopupValues);
     dojo.connect(window, "onresize", resizeMap);
-
-    setTimeout(function () {
-        dojo.connect(map, "onExtentChange", function (extent) {
-            // update current extent
-            configOptions.currentExtent = extent;
-            // update sharing link
-            setSharing();
-            // hide auto complete
-            hideAC();
-            // reset refresh timer for social media
-            resetSocialRefreshTimer();
-        });
-    }, 1000);
     // webmap item info
     configOptions.itemInfo = response.itemInfo;
     // webmap item data
