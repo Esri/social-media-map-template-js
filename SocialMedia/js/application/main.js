@@ -348,7 +348,11 @@ function configureShareMenu() {
             // on click
             dojo.query(document).delegate("#embedOptions", "onclick,keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-                    window.open(configOptions.previewPage + configOptions.shareParams, 'embedWindow', 'width=' + configOptions.previewSize.width + ',height=' + configOptions.previewSize.height, true);
+                    var w = configOptions.previewSize.width;
+                    var h = configOptions.previewSize.height;
+                    var left = (screen.width/2) - (w/2);
+                    var top = (screen.height/2) - (h/2);
+                    window.open(configOptions.previewPage + configOptions.shareParams, 'embedWindow', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
                 }
             });
         }
