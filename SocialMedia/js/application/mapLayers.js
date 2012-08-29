@@ -89,7 +89,7 @@ function configureLayerUI() {
             toggleChecked(this);
             var changeMapVal = dojo.query(this).parent('li').attr('data-layer')[0];
             var splitVals = changeMapVal.split(',');
-            if(splitVals){
+            if (splitVals) {
                 for (var i = 0; i < splitVals.length; i++) {
                     toggleMapLayer(splitVals[i]);
                 }
@@ -161,6 +161,165 @@ function toggleMapLayer(layerid) {
     }
 }
 
+function addLayerToUI(layerToAdd, index) {
+    // EACH LAYER
+    var layerClass;
+    // URL layers variable
+    var urlLayers = false;
+    // if visible layers set in URL
+    if (urlObject.query.hasOwnProperty('layers')) {
+        urlLayers = true;
+    }
+    // GENERATE LAYER HTML
+    var html = '';
+    // if layer object
+    if (layerToAdd) {
+        // default layer class
+        layerClass = 'layer';
+        // layer ids
+        var dataLayers = '';
+        // key variable
+        var key;
+        if (layerToAdd.featureCollection) {
+            // if feature collection layers
+            if (layerToAdd.featureCollection.layers) {
+                // for each feature collection
+                for (var k = 0; k < layerToAdd.featureCollection.layers.length; k++) {
+                    // if URL layers set
+                    if (urlLayers) {
+                        // set layer visibility to false
+                        layerToAdd.featureCollection.layers[k].visibility = false;
+                        map.getLayer(layerToAdd.featureCollection.layers[k].id).hide();
+                        // for each visible layer array item
+                        for (key in configOptions.layers) {
+                            // if current layer ID matches visible layer item
+                            if (configOptions.layers[key] === layerToAdd.featureCollection.layers[k].id) {
+                                // set visibility to true
+                                layerToAdd.featureCollection.layers[k].visibility = true;
+                                map.getLayer(layerToAdd.featureCollection.layers[k].id).show();
+                            }
+                        }
+                    }
+                    // if layer visibility is true
+                    if (layerToAdd.featureCollection.layers[k].visibility === true) {
+                        // set layer class to checked
+                        layerClass = 'layer checked';
+                        // add to active layers array
+                        addToActiveLayers(layerToAdd.featureCollection.layers[k].id);
+                    }
+                    // data layer attrubute
+                    dataLayers += layerToAdd.featureCollection.layers[k].id;
+                    // if not last feature collection add comma for splitting
+                    if (k !== (layerToAdd.featureCollection.layers.length - 1)) {
+                        dataLayers += ",";
+                    }
+                }
+            }
+            // csv
+            else {
+                // if URL layers set
+                if (urlLayers) {
+                    map.getLayer(layerToAdd.id).hide();
+                    layerToAdd.visibility = false;
+                    // for each visible layer array item
+                    for (key in configOptions.layers) {
+                        // if current layer ID matches visible layer item
+                        if (configOptions.layers[key] === layerToAdd.id) {
+                            // set visibility to true
+                            layerToAdd.visibility = true;
+                            map.getLayer(layerToAdd.id).show();
+                        }
+                    }
+                }
+                // if layer visibility is true
+                if (layerToAdd.visibility === true) {
+                    // set layer class to checked
+                    layerClass = 'layer checked';
+                    // add to active layers array
+                    addToActiveLayers(layerToAdd.id);
+                }
+                // data layer attrubute
+                dataLayers += layerToAdd.id;
+            }
+        } else {
+            // if URL layers set
+            if (urlLayers) {
+                layerToAdd.visibility = false;
+                map.getLayer(layerToAdd.id).hide();
+                // for each visible layer array item
+                for (key in configOptions.layers) {
+                    // if current layer ID matches visible layer item
+                    if (configOptions.layers[key] === layerToAdd.id) {
+                        // set visibility to true
+                        layerToAdd.visibility = true;
+                        map.getLayer(layerToAdd.id).show();
+                    }
+                }
+            }
+            // if layer visibility is true
+            if (layerToAdd.visibility === true) {
+                // set layer class to checked
+                layerClass = 'layer checked';
+                // add to active layers array
+                addToActiveLayers(layerToAdd.id);
+            }
+            // data layer attrubute
+            dataLayers += layerToAdd.id;
+        }
+        // Set data layers
+        layerToAdd.dataLayers = dataLayers;
+        // COMPOSE HTML LIST STRING
+        html += '<li class="' + layerClass + '" data-layer="' + dataLayers + '">';
+        html += '<div class="cover"></div>';
+        html += '<span tabindex="0" class="cBinfo" title="' + i18n.viewer.layer.information + '"></span>';
+        html += '<span tabindex="0" class="toggle cBox"></span>';
+        html += '<span tabindex="0" class="toggle cBtitle" title="' + layerToAdd.title + '">' + layerToAdd.title.replace(/[\-_]/g, " ") + '</span>';
+        html += '<div class="clear"></div>';
+        html += '<div class="infoHidden">';
+        if (layerToAdd.resourceInfo) {
+            html += '<div class="infoHiddenScroll">';
+            if (layerToAdd.resourceInfo.serviceDescription || layerToAdd.resourceInfo.description) {
+                if (layerToAdd.resourceInfo.serviceDescription) {
+                    html += decodeURIComponent(layerToAdd.resourceInfo.serviceDescription);
+                }
+                if (layerToAdd.resourceInfo.description) {
+                    html += decodeURIComponent(layerToAdd.resourceInfo.description);
+                }
+            }
+            html += '</div>';
+        } else {
+            html += '<div>No description.</div>';
+        }
+        html += '<div class="transSlider"><span class="transLabel">' + i18n.viewer.layer.transparency + '</span><span id="layerSlider' + index + '" data-layer-id="' + dataLayers + '" class="uiSlider slider"></span></div>';
+        html += '</div>';
+    }
+    html += '</li>';
+    // APPEND HTML
+    node = dojo.byId('layersList');
+    if (node) {
+        dojo.place(html, node, "last");
+    }
+}
+
+function addLayerTransparencySlider(theLayer, index) {
+    // if layer object
+    if (theLayer) {
+        // INIT SLIDERS
+        var slider = new dijit.form.HorizontalSlider({
+            name: "slider",
+            value: parseFloat(theLayer.opacity * 100),
+            minimum: 1,
+            showButtons: false,
+            maximum: 100,
+            dataLayers: theLayer.dataLayers,
+            discreteValues: 20,
+            intermediateChanges: true,
+            style: "width:100px; display:inline-block; *display:inline; vertical-align:middle;",
+            onChange: transparencyChange
+        }, "layerSlider" + index);
+    }
+}
+
 // CREATE LAYER ITEMS
 function configureLayers() {
     // if operational layers
@@ -189,165 +348,10 @@ function configureLayers() {
             if (node) {
                 node.innerHTML = '<ul class="zebraStripes" id="layersList"></ul>';
             }
-            // EACH LAYER
-            var layerClass;
-            // URL layers variable
-            var urlLayers = false;
-            // if visible layers set in URL
-            if (urlObject.query.hasOwnProperty('layers')) {
-                urlLayers = true;
-            }
             // for each layer
             for (var i = 0; i < configOptions.itemLayers.length; i++) {
-                // GENERATE LAYER HTML
-                var html = '';
-                // if layer object
-                if (configOptions.itemLayers[i]) {
-                    // default layer class
-                    layerClass = 'layer';
-                    // layer ids
-                    var dataLayers = '';
-                    // key variable
-                    var key;
-                    if (configOptions.itemLayers[i].featureCollection) {
-                        // if feature collection layers
-                        if (configOptions.itemLayers[i].featureCollection.layers) {
-                            // for each feature collection
-                            for (var k = 0; k < configOptions.itemLayers[i].featureCollection.layers.length; k++) {
-                                // if URL layers set
-                                if (urlLayers) {
-                                    // set layer visibility to false
-                                    configOptions.itemLayers[i].featureCollection.layers[k].visibility = false;
-                                    map.getLayer(configOptions.itemLayers[i].featureCollection.layers[k].id).hide();
-                                    // for each visible layer array item
-                                    for (key in configOptions.layers) {
-                                        // if current layer ID matches visible layer item
-                                        if (configOptions.layers[key] === configOptions.itemLayers[i].featureCollection.layers[k].id) {
-                                            // set visibility to true
-                                            configOptions.itemLayers[i].featureCollection.layers[k].visibility = true;
-                                            map.getLayer(configOptions.itemLayers[i].featureCollection.layers[k].id).show();
-                                        }
-                                    }
-                                }
-                                // if layer visibility is true
-                                if (configOptions.itemLayers[i].featureCollection.layers[k].visibility === true) {
-                                    // set layer class to checked
-                                    layerClass = 'layer checked';
-                                    // add to active layers array
-                                    addToActiveLayers(configOptions.itemLayers[i].featureCollection.layers[k].id);
-                                }
-                                // data layer attrubute
-                                dataLayers += configOptions.itemLayers[i].featureCollection.layers[k].id;
-                                // if not last feature collection add comma for splitting
-                                if (k !== (configOptions.itemLayers[i].featureCollection.layers.length - 1)) {
-                                    dataLayers += ",";
-                                }
-                            }
-                        }
-                        // csv
-                        else {
-                            // if URL layers set
-                            if (urlLayers) {
-                                map.getLayer(configOptions.itemLayers[i].id).hide();
-                                configOptions.itemLayers[i].visibility = false;
-                                // for each visible layer array item
-                                for (key in configOptions.layers) {
-                                    // if current layer ID matches visible layer item
-                                    if (configOptions.layers[key] === configOptions.itemLayers[i].id) {
-                                        // set visibility to true
-                                        configOptions.itemLayers[i].visibility = true;
-                                        map.getLayer(configOptions.itemLayers[i].id).show();
-                                    }
-                                }
-                            }
-                            // if layer visibility is true
-                            if (configOptions.itemLayers[i].visibility === true) {
-                                // set layer class to checked
-                                layerClass = 'layer checked';
-                                // add to active layers array
-                                addToActiveLayers(configOptions.itemLayers[i].id);
-                            }
-                            // data layer attrubute
-                            dataLayers += configOptions.itemLayers[i].id;
-                        }
-                    } else {
-                        // if URL layers set
-                        if (urlLayers) {
-                            configOptions.itemLayers[i].visibility = false;
-                            map.getLayer(configOptions.itemLayers[i].id).hide();
-                            // for each visible layer array item
-                            for (key in configOptions.layers) {
-                                // if current layer ID matches visible layer item
-                                if (configOptions.layers[key] === configOptions.itemLayers[i].id) {
-                                    // set visibility to true
-                                    configOptions.itemLayers[i].visibility = true;
-                                    map.getLayer(configOptions.itemLayers[i].id).show();
-                                }
-                            }
-                        }
-                        // if layer visibility is true
-                        if (configOptions.itemLayers[i].visibility === true) {
-                            // set layer class to checked
-                            layerClass = 'layer checked';
-                            // add to active layers array
-                            addToActiveLayers(configOptions.itemLayers[i].id);
-                        }
-                        // data layer attrubute
-                        dataLayers += configOptions.itemLayers[i].id;
-                    }
-                    // Set data layers
-                    configOptions.itemLayers[i].dataLayers = dataLayers;
-                    // COMPOSE HTML LIST STRING
-                    html += '<li class="' + layerClass + '" data-layer="' + dataLayers + '">';
-                    html += '<div class="cover"></div>';
-                    html += '<span tabindex="0" class="cBinfo" title="' + i18n.viewer.layer.information + '"></span>';
-                    html += '<span tabindex="0" class="toggle cBox"></span>';
-                    html += '<span tabindex="0" class="toggle cBtitle" title="' + configOptions.itemLayers[i].title + '">' + configOptions.itemLayers[i].title.replace(/[\-_]/g, " ") + '</span>';
-                    html += '<div class="clear"></div>';
-                    html += '<div class="infoHidden">';
-                    if (configOptions.itemLayers[i].resourceInfo) {
-                        html += '<div class="infoHiddenScroll">';
-                        if (configOptions.itemLayers[i].resourceInfo.serviceDescription || configOptions.itemLayers[i].resourceInfo.description) {
-                            if (configOptions.itemLayers[i].resourceInfo.serviceDescription) {
-                                html += decodeURIComponent(configOptions.itemLayers[i].resourceInfo.serviceDescription);
-                            }
-                            if (configOptions.itemLayers[i].resourceInfo.description) {
-                                html += decodeURIComponent(configOptions.itemLayers[i].resourceInfo.description);
-                            }
-                        }
-                        html += '</div>';
-                    } else {
-                        html += '<div>No description.</div>';
-                    }
-                    html += '<div class="transSlider"><span class="transLabel">' + i18n.viewer.layer.transparency + '</span><span id="layerSlider' + i + '" data-layer-id="' + dataLayers + '" class="uiSlider slider"></span></div>';
-                    html += '</div>';
-                }
-                html += '</li>';
-                // APPEND HTML
-                node = dojo.byId('layersList');
-                if (node) {
-                    dojo.place(html, node, "last");
-                }
-                setSharing();
-            }
-            // build sliders
-            for (i = 0; i < configOptions.itemLayers.length; i++) {
-                // if layer object
-                if (configOptions.itemLayers[i]) {
-                    // INIT SLIDERS
-                    var slider = new dijit.form.HorizontalSlider({
-                        name: "slider",
-                        value: parseFloat(configOptions.itemLayers[i].opacity * 100),
-                        minimum: 1,
-                        showButtons: false,
-                        maximum: 100,
-                        dataLayers: configOptions.itemLayers[i].dataLayers,
-                        discreteValues: 20,
-                        intermediateChanges: true,
-                        style: "width:100px; display:inline-block; *display:inline; vertical-align:middle;",
-                        onChange: transparencyChange
-                    }, "layerSlider" + i);
-                }
+                addLayerToUI(configOptions.itemLayers[i], i);
+                addLayerTransparencySlider(configOptions.itemLayers[i], i);
             }
             zebraStripe(dojo.query('#layersList li.layer'));
         } else {
@@ -358,6 +362,7 @@ function configureLayers() {
             attachTo: "bottom-left",
             scalebarUnit: i18n.viewer.main.scaleBarUnits
         });
+        setSharing();
         configureLayerUI();
     }
 }
@@ -367,7 +372,7 @@ function transparencyChange(value) {
     var layerID = this.dataLayers;
     var newValue = (value / 100);
     var splitVals = layerID.split(',');
-    if(splitVals){
+    if (splitVals) {
         for (var j = 0; j < splitVals.length; j++) {
             map.getLayer(splitVals[j]).setOpacity(newValue);
         }

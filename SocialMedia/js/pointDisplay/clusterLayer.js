@@ -33,7 +33,7 @@ dojo.addOnLoad(function () {
             // text weight
             this.clusterTextWeight = esri.symbol.Font.WEIGHT_NORMAL;
             // text font family
-            this.clusterTextFamily = options.clusterTextFamily || "Verdana, Geneva, sans-serif";
+            this.clusterTextFamily = options.clusterTextFamily || "Arial, Helvetica, sans-serif";
             // default static ranges variable
             this.staticRanges = options.staticRanges || [
             // 0
