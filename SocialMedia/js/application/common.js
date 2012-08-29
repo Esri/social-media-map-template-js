@@ -77,10 +77,11 @@ function setSharing(isPreviewPage) {
     // parameters to share
     var urlParams = ['webmap', 'basemap', 'extent', 'locateName', 'layers', 'youtubeSearch', 'youtubeRange', 'youtubeChecked', 'twitterSearch', 'twitterChecked', 'flickrSearch', 'flickrRange', 'flickrChecked', 'socialDistance', 'socialPoint', 'socialDisplay', 'locatePoint'];
     if (urlParams) {
+        configOptions.shareParams = '';
         // for each parameter
         for (var i = 0; i < urlParams.length; i++) {
             // if it's set in configOptions
-            if (configOptions.hasOwnProperty(urlParams[i])) {
+            if (configOptions.hasOwnProperty(urlParams[i]) && configOptions[urlParams[i]].toString() !== '') {
                 // if it's the first param
                 if (i === 0) {
                     configOptions.shareParams = '?';
