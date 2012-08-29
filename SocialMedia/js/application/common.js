@@ -74,59 +74,40 @@ function configUrlParams() {
 
 // SET SHARING
 function setSharing(isPreviewPage) {
-	// parameters to share
-	var urlParams = [
-		'webmap',
-		'basemap',
-		'extent',
-		'locateName',
-		'layers',
-		'youtubeSearch',
-		'youtubeRange',
-		'youtubeChecked',
-		'twitterSearch',
-		'twitterChecked',
-		'flickrSearch',
-		'flickrRange',
-		'flickrChecked',
-		'socialDistance',
-		'socialPoint',
-		'socialDisplay',
-		'locatePoint'
-	];
-	if(urlParams){
-		// for each parameter
-		for(var i = 0; i < urlParams.length; i++){
-			// if it's set in configOptions
-			if(configOptions.hasOwnProperty(urlParams[i])){
-				// if it's the first param
-				if(i === 0){
-					configOptions.shareParams = '?';
-				}
-				else{
-					configOptions.shareParams += '&';
-				}
-				// show it
-				configOptions.shareParams += urlParams[i] + '=' + encodeURIComponent(configOptions[urlParams[i]].toString());
-			}
-		}
-	    // Sharing url
-	    configOptions.shareURL = urlObject.path + configOptions.shareParams;
-	    // quick embed width
-	    var embedWidth = configOptions.embedWidth || configOptions.embedSizes.medium.width;
-	    var embedHeight = configOptions.embedHeight || configOptions.embedSizes.medium.height;
-	    // iframe code
-	    configOptions.embedURL = '<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="' + embedWidth + '" height="' + embedHeight + '" align="center" src="' + configOptions.shareURL + '"></iframe>';
-	    // preview page
-	    if (isPreviewPage) {
-	        // set iframe
-	        dojo.query('#inputEmbed').attr('value', configOptions.embedURL);
-	    } else {
-	        // Quick embed code
-	        dojo.query('#quickEmbedCode').attr('value', configOptions.embedURL);
-	        // sharing url
-	        dojo.query('#inputShare').attr('value', configOptions.shareURL);
-	    }
+    // parameters to share
+    var urlParams = ['webmap', 'basemap', 'extent', 'locateName', 'layers', 'youtubeSearch', 'youtubeRange', 'youtubeChecked', 'twitterSearch', 'twitterChecked', 'flickrSearch', 'flickrRange', 'flickrChecked', 'socialDistance', 'socialPoint', 'socialDisplay', 'locatePoint'];
+    if (urlParams) {
+        // for each parameter
+        for (var i = 0; i < urlParams.length; i++) {
+            // if it's set in configOptions
+            if (configOptions.hasOwnProperty(urlParams[i])) {
+                // if it's the first param
+                if (i === 0) {
+                    configOptions.shareParams = '?';
+                } else {
+                    configOptions.shareParams += '&';
+                }
+                // show it
+                configOptions.shareParams += urlParams[i] + '=' + encodeURIComponent(configOptions[urlParams[i]].toString());
+            }
+        }
+        // Sharing url
+        configOptions.shareURL = urlObject.path + configOptions.shareParams;
+        // quick embed width
+        var embedWidth = configOptions.embedWidth || configOptions.embedSizes.medium.width;
+        var embedHeight = configOptions.embedHeight || configOptions.embedSizes.medium.height;
+        // iframe code
+        configOptions.embedURL = '<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="' + embedWidth + '" height="' + embedHeight + '" align="center" src="' + configOptions.shareURL + '"></iframe>';
+        // preview page
+        if (isPreviewPage) {
+            // set iframe
+            dojo.query('#inputEmbed').attr('value', configOptions.embedURL);
+        } else {
+            // Quick embed code
+            dojo.query('#quickEmbedCode').attr('value', configOptions.embedURL);
+            // sharing url
+            dojo.query('#inputShare').attr('value', configOptions.shareURL);
+        }
     }
 }
 
@@ -186,17 +167,17 @@ function setDefaultConfigOptions() {
         "label": i18n.viewer.distanceSlider.regional,
         "id": "regional", // url param, don't localize
         "values": {
-            "yt": 500,
-            "tw": 500,
-            "fl": 500
+            "yt": 300,
+            "tw": 300,
+            "fl": 300
         }
     }, {
         "label": i18n.viewer.distanceSlider.national,
         "id": "national", // url param, don't localize
         "values": {
-            "yt": 1000,
-            "tw": 1000,
-            "fl": 1000
+            "yt": 600,
+            "tw": 600,
+            "fl": 600
         }
     }];
     configOptions.flickrID = "flickr";
@@ -228,10 +209,9 @@ function setDefaultConfigOptions() {
     };
     if (configOptions.socialPoint) {
         configOptions.socialPoint = configOptions.socialPoint.split(',');
+    } else {
+        configOptions.socialPoint = [];
     }
-	else{
-		configOptions.socialPoint = [];
-	}
     if (configOptions.layers) {
         configOptions.layers = configOptions.layers.split(',');
     } else {
@@ -239,10 +219,9 @@ function setDefaultConfigOptions() {
     }
     if (configOptions.locatePoint) {
         configOptions.locatePoint = configOptions.locatePoint.split(',');
+    } else {
+        configOptions.locatePoint = [];
     }
-	else{
-		configOptions.locatePoint = [];
-	}
     if (window.dojoConfig.locale && window.dojoConfig.locale.indexOf("ar") !== -1) {
         //right now checking for Arabic only, to generalize for all RTL languages
         configOptions.isRightToLeft = true; // configOptions.isRightToLeft property setting to true when the locale is 'ar'
@@ -257,12 +236,12 @@ function setDefaultConfigOptions() {
     }
     // socialDistance
     configOptions.socialSliderCurrent = 1;
-    if(configOptions.socialSliderValues){
-	    for (var i = 0; i < configOptions.socialSliderValues.length; i++) {
-	        if (configOptions.socialDistance.toLowerCase() === configOptions.socialSliderValues[i].id) {
-	            configOptions.socialSliderCurrent = i;
-	        }
-	    }
+    if (configOptions.socialSliderValues) {
+        for (var i = 0; i < configOptions.socialSliderValues.length; i++) {
+            if (configOptions.socialDistance.toLowerCase() === configOptions.socialSliderValues[i].id) {
+                configOptions.socialSliderCurrent = i;
+            }
+        }
     }
 }
 
@@ -388,12 +367,12 @@ function createBMGallery() {
 // Gets current basemap ID by its title
 function getBasemapIdTitle(title) {
     var bmArray = configOptions.bmDijit.basemaps;
-    if(bmArray){
-	    for (var i = 0; i < bmArray.length; i++) {
-	        if (bmArray[i].title === title) {
-	            return bmArray[i].id;
-	        }
-	    }
+    if (bmArray) {
+        for (var i = 0; i < bmArray.length; i++) {
+            if (bmArray[i].title === title) {
+                return bmArray[i].id;
+            }
+        }
     }
     return false;
 }
@@ -401,12 +380,12 @@ function getBasemapIdTitle(title) {
 // Gets current basemap id by its Item ID on arcgisonline
 function getBasemapId(itemId) {
     var bmArray = configOptions.bmDijit.basemaps;
-    if(bmArray){
-	    for (var i = 0; i < bmArray.length; i++) {
-	        if (bmArray[i].itemId === itemId) {
-	            return bmArray[i].id;
-	        }
-	    }
+    if (bmArray) {
+        for (var i = 0; i < bmArray.length; i++) {
+            if (bmArray[i].itemId === itemId) {
+                return bmArray[i].id;
+            }
+        }
     }
     return false;
 }
@@ -525,7 +504,7 @@ function hideLayerInfo() {
 
 // hide all dropdown menus
 function hideAllMenus() {
-	dojo.query('#topMenuCon .barButton').removeClass('barSelected');
+    dojo.query('#topMenuCon .barButton').removeClass('barSelected');
     dojo.query('#mapcon .menuSelected').forEach(function (selectTag) {
         hideMenu(selectTag);
     });

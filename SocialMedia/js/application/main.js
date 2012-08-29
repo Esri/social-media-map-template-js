@@ -200,7 +200,7 @@ function resizeMap() {
                 var chartPos = dojo.position(chartNode);
                 chartHeight = chartPos.h;
             }
-            // GET HEIGHT OF WINDOW           
+            // GET HEIGHT OF WINDOW
             var vs = dojo.window.getBox();
             var windowHeight = vs.h;
             var node = dojo.byId('map');
@@ -378,7 +378,7 @@ function configureSearchBox() {
         if (node) {
             node.innerHTML = html;
         }
-        // SEARCH BOX JAVASCRIPT        
+        // SEARCH BOX JAVASCRIPT
         dojo.query(document).delegate("#address", "onclick", function (event) {
             if (event.type === 'click') {
                 var cAVal2 = dojo.query(this).attr('value');
@@ -655,6 +655,7 @@ function configureUserInterface() {
                 resetSocialRefreshTimer();
             });
         }, 750);
+        setSharing();
     }, 750);
 }
 

@@ -606,7 +606,8 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
     background: linear-gradient(to bottom,  #bd362f 0%,#ee5f5b 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd362f', endColorstr='#ee5f5b',GradientType=0 );
 }
-.modernGrey .dijitButtonNode{
+
+.modernGrey .dijitButtonNode {
     border: 0;
 }
 /*-------------------------------------------------- */

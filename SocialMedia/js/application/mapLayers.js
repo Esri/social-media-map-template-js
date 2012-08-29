@@ -280,10 +280,10 @@ function addLayerToUI(layerToAdd, index) {
             html += '<div class="infoHiddenScroll">';
             if (layerToAdd.resourceInfo.serviceDescription || layerToAdd.resourceInfo.description) {
                 if (layerToAdd.resourceInfo.serviceDescription) {
-                    html += decodeURIComponent(layerToAdd.resourceInfo.serviceDescription);
+                    html += unescape(layerToAdd.resourceInfo.serviceDescription);
                 }
                 if (layerToAdd.resourceInfo.description) {
-                    html += decodeURIComponent(layerToAdd.resourceInfo.description);
+                    html += unescape(layerToAdd.resourceInfo.description);
                 }
             }
             html += '</div>';
@@ -362,7 +362,6 @@ function configureLayers() {
             attachTo: "bottom-left",
             scalebarUnit: i18n.viewer.main.scaleBarUnits
         });
-        setSharing();
         configureLayerUI();
     }
 }
