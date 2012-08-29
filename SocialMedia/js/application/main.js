@@ -256,7 +256,7 @@ function setFBLink(fbLink) {
 function rightSideMenuButtons() {
     var html = '<div id="menuListCon">';
     var node;
-    if (configOptions.showLegendMenu && configOptions.layerInfos.length > 0) {
+    if (configOptions.showLegendMenu && configOptions.layerInfos && configOptions.layerInfos.length > 0) {
         html += '<span tabindex="0" id="legendButton" data-menu="legend" class="barButton" title="' + i18n.viewer.buttons.legendTitle + '">' + i18n.viewer.buttons.legend + '<span class="arrow"></span></span>';
         // Social MENU TOGGLE
         dojo.query(document).delegate("#legendButton", "onclick,keyup", function (event) {
@@ -580,7 +580,7 @@ function createCustomSlider() {
         node.innerHTML = '<div id="customZoom"></div>';
     }
     var sliderMax = 20;
-    if (map._params.lods) {
+    if (map._params && map._params.lods) {
         sliderMax = map._params.lods.length - 1;
     }
     configOptions.mapZoomBar = new dijit.form.VerticalSlider({

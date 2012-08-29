@@ -89,8 +89,10 @@ function configureLayerUI() {
             toggleChecked(this);
             var changeMapVal = dojo.query(this).parent('li').attr('data-layer')[0];
             var splitVals = changeMapVal.split(',');
-            for (var i = 0; i < splitVals.length; i++) {
-                toggleMapLayer(splitVals[i]);
+            if(splitVals){
+                for (var i = 0; i < splitVals.length; i++) {
+                    toggleMapLayer(splitVals[i]);
+                }
             }
             hideLoading(dojo.query('#layersList li[data-layer*="' + changeMapVal + '"]'));
         }
@@ -169,7 +171,7 @@ function configureLayers() {
             configOptions.layerInfos = buildLayersList(configOptions.itemLayers);
             if (configOptions.showLegendMenu) {
                 // Build Legend
-                if (configOptions.layerInfos.length > 0) {
+                if (configOptions.layerInfos && configOptions.layerInfos.length > 0) {
                     var legendDijit = new esri.dijit.Legend({
                         map: map,
                         layerInfos: configOptions.layerInfos
@@ -365,8 +367,10 @@ function transparencyChange(value) {
     var layerID = this.dataLayers;
     var newValue = (value / 100);
     var splitVals = layerID.split(',');
-    for (var j = 0; j < splitVals.length; j++) {
-        map.getLayer(splitVals[j]).setOpacity(newValue);
+    if(splitVals){
+        for (var j = 0; j < splitVals.length; j++) {
+            map.getLayer(splitVals[j]).setOpacity(newValue);
+        }
     }
 }
 // END
