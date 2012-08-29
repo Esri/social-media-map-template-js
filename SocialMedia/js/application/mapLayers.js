@@ -356,7 +356,7 @@ function configureLayers() {
         configOptions.scaleBar = new esri.dijit.Scalebar({
             map: map,
             attachTo: "bottom-left",
-            scalebarUnit: 'metric'
+            scalebarUnit: i18n.viewer.main.scaleBarUnits
         });
         configureLayerUI();
     }

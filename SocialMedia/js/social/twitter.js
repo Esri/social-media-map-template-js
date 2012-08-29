@@ -118,7 +118,7 @@ dojo.addOnLoad(function () {
             this._map.addLayer(this.featureLayer);
             dojo.connect(this.featureLayer, "onClick", dojo.hitch(this, function (evt) {
                 var query = new esri.tasks.Query();
-                query.geometry = this.pointToExtent(this._map, evt.mapPoint, 20);
+                query.geometry = this.pointToExtent(this._map, evt.mapPoint, this.symbolWidth);
                 var deferred = this.featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
                 this._map.infoWindow.setFeatures([deferred]);
                 this._map.infoWindow.show(evt.mapPoint);
@@ -294,7 +294,7 @@ dojo.addOnLoad(function () {
             var extent = this.extent || map.extent;
             var center = extent.getCenter();
             center = esri.geometry.webMercatorToGeographic(center);
-            var geoPoint = center.y + "," + center.x;
+            var geoPoint;
             if (this.socialSourceX && this.socialSourceY) {
                 geoPoint = new esri.geometry.Point(this.socialSourceX, this.socialSourceY, map.spatialReference);
             } else {

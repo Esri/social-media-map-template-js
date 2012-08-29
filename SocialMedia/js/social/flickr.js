@@ -11,7 +11,6 @@ dojo.addOnLoad(function () {
             this._map = options.map || null;
             if (this._map === null) {
                 throw this.i18n.error.reference;
-
             }
             var socialInstance = this;
             this.autopage = options.autopage || true;
@@ -110,7 +109,7 @@ dojo.addOnLoad(function () {
             this._map.addLayer(this.featureLayer);
             dojo.connect(this.featureLayer, "onClick", dojo.hitch(this, function (evt) {
                 var query = new esri.tasks.Query();
-                query.geometry = this.pointToExtent(this._map, evt.mapPoint, 20);
+                query.geometry = this.pointToExtent(this._map, evt.mapPoint, this.symbolWidth);
                 var deferred = this.featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
                 this._map.infoWindow.setFeatures([deferred]);
                 this._map.infoWindow.show(evt.mapPoint);
@@ -254,25 +253,25 @@ dojo.addOnLoad(function () {
             dist = dist * 10;
             dist = (dist * 160.934).toFixed(3);
             dist = parseFloat(dist);
+            var geoPoint;
             // adjust for incoming geoSocialPoints
             if (this.socialSourceX && this.socialSourceY) {
-                var geoPoint = esri.geometry.geographicToWebMercator(new esri.geometry.Point(this.socialSourceX, this.socialSourceY, map.spatialReference));
+                geoPoint = esri.geometry.geographicToWebMercator(new esri.geometry.Point(this.socialSourceX, this.socialSourceY, map.spatialReference));
+                minPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x - dist, geoPoint.y - dist, map.spatialReference));
+                maxPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x + dist, geoPoint.y + dist, map.spatialReference));
+            } else {
+                var center = extent.getCenter();
+                geoPoint = new esri.geometry.Point(center.x, center.y, map.spatialReference);
                 minPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x - dist, geoPoint.y - dist, map.spatialReference));
                 maxPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x + dist, geoPoint.y + dist, map.spatialReference));
             }
-			else{
-				var center = extent.getCenter();
-				var geoPoint = new esri.geometry.Point(center.x, center.y, map.spatialReference);
-				minPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x - dist, geoPoint.y - dist, map.spatialReference));
-				maxPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x + dist, geoPoint.y + dist, map.spatialReference));
-			}
             var startDate = this.dateFrom;
             var endDate = this.dateTo;
             this.query = {
                 bbox: minPoint.x + "," + minPoint.y + "," + maxPoint.x + "," + maxPoint.y,
                 extras: "description, date_upload, owner_name, geo, url_s",
                 per_page: this.limit,
-				sort: 'date-posted-desc',
+                sort: 'date-posted-desc',
                 safe_search: 2,
                 tags: search,
                 method: "flickr.photos.search",

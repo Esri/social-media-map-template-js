@@ -2,8 +2,7 @@ define({
     "root": ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "english",
-                "clearSearch": "Clear"
+                "scaleBarUnits": "english"
             },
 			"errors": {
                 "createMap": "Unable to create map",
