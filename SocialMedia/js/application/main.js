@@ -238,8 +238,12 @@ function toggleAboutMap() {
 function setTWLink(shLink) {
     if (shLink) {
         var fullLink;
+        var w = 650;
+        var h = 400;
+        var left = (screen.width/2) - (w/2);
+        var top = (screen.height/2) - (h/2);
         fullLink = 'https://twitter.com/intent/tweet?' + 'url=' + encodeURIComponent(shLink) + '&text=' + encodeURIComponent(configOptions.itemInfo.item.snippet) + '&hashtags=' + 'EsriSMT';
-        window.open(fullLink);
+        window.open(fullLink, 'shareWindow', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
     }
 }
 
@@ -247,8 +251,12 @@ function setTWLink(shLink) {
 function setFBLink(fbLink) {
     if (fbLink) {
         var fullLink;
+        var w = 650;
+        var h = 360;
+        var left = (screen.width/2)-(w/2);
+        var top = (screen.height/2)-(h/2);
         fullLink = 'http://www.facebook.com/sharer.php?u=' + encodeURIComponent(fbLink) + '&t=' + encodeURIComponent(configOptions.itemInfo.item.snippet);
-        window.open(fullLink);
+        window.open(fullLink, 'shareWindow', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
     }
 }
 
