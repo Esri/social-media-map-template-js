@@ -102,7 +102,7 @@ function setMarker(point, address) {
         if (configOptions.locateLayer) {
             configOptions.locateLayer.clear();
             clearPopupValues();
-            hidePopup();
+            configOptions.customPopup.hide();
         } else {
             configOptions.locateLayer = new esri.layers.GraphicsLayer();
             dojo.connect(configOptions.locateLayer, "onClick",
@@ -140,8 +140,8 @@ function showResults(results, resultNumber) {
         // center of extent
         var point = extent.getCenter();
         // set marker
-        configOptions.locatePointX = point.x;
-        configOptions.locatePointY = point.y;
+        configOptions.locatePoint[0] = point.x;
+        configOptions.locatePoint[1] = point.y;
         // set point marker
         setMarker(point, results.locations[numResult].name);
         dojo.query('#address').attr('value', results.locations[numResult].name);
@@ -470,7 +470,7 @@ function configureSearchBox() {
         // LOGO CLICK
         dojo.query(document).delegate("#mapTitle", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-                map.setExtent(configOptions.extent);
+                map.setExtent(configOptions.startExtent);
             }
         });
         dojo.query(document).delegate("#inputShare, #quickEmbedCode", "onclick,keyup", function (event) {
@@ -615,13 +615,13 @@ function configureAppTitle() {
 }
 
 function fixExtent() {
-    map.setExtent(configOptions.extent);
+    map.setExtent(configOptions.startExtent);
     // set zoom level
     if (configOptions.level) {
         map.setLevel(parseInt(configOptions.level, 10));
     }
-    if (configOptions.locatePointX && configOptions.locatePointY) {
-        var point = new esri.geometry.Point([configOptions.locatePointX, configOptions.locatePointY], new esri.SpatialReference({
+    if (configOptions.locatePoint[0] && configOptions.locatePoint[1]) {
+        var point = new esri.geometry.Point([configOptions.locatePoint[0], configOptions.locatePoint[1]], new esri.SpatialReference({
             wkid: map.spatialReference.wkid
         }));
         if (point) {
@@ -646,7 +646,7 @@ function configureUserInterface() {
             updateSocialLayers();
             dojo.connect(map, "onExtentChange", function (extent) {
                 // update current extent
-                configOptions.currentExtent = extent;
+                configOptions.extent = [extent.xmin, extent.ymin, extent.xmax, extent.ymax];
                 // update sharing link
                 setSharing();
                 // hide auto complete

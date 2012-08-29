@@ -21,14 +21,13 @@ function getSocialDistance(socID) {
 }
 
 // returns a nice geoPoint w/ a formatted string
-function prettyGeoPoint(mapPoint, label) {
-    label = label || "";
+function prettyGeoPoint(mapPoint) {
     this.geo = esri.geometry.webMercatorToGeographic(mapPoint);
     this.x_float = this.geo.x;
     this.y_float = this.geo.y;
     this.x = this.geo.x.toFixed(2);
     this.y = this.geo.y.toFixed(2);
-    this.geoString = i18n.viewer.settings.latitude + ' <strong id="' + label + 'LatCoord">' + this.x + '</strong> ' + i18n.viewer.settings.longitude + ': <strong id="' + label + 'LonCoord">' + this.y + '</strong>';
+    this.geoString = i18n.viewer.settings.latitude + ' <strong>' + this.x + '</strong> ' + i18n.viewer.settings.longitude + ' <strong>' + this.y + '</strong>';
     return this;
 }
 
@@ -189,8 +188,8 @@ function configureSettingsUI() {
             //click universal social geo choose and then...
             configOptions.socialClickListener = dojo.connect(map, "onClick", function (evt) {
                 PGP = prettyGeoPoint(evt.mapPoint);
-                configOptions.socialPointX = PGP.x;
-                configOptions.socialPointY = PGP.y;
+                configOptions.socialPoint[0] = PGP.x;
+                configOptions.socialPoint[1] = PGP.y;
                 setMenuForLatLong(PGP, locationText);
                 clearDataPoints();
                 updateSocialLayers();
@@ -199,11 +198,11 @@ function configureSettingsUI() {
         }
     });
     //set the passed variable for social geo
-    if (configOptions.socialPointX && configOptions.socialPointY) {
+    if (configOptions.socialPoint[0] && configOptions.socialPoint[1]) {
         var prePoint = {
-            "x": configOptions.socialPointX,
-            "y": configOptions.socialPointY,
-            "geoString": i18n.viewer.settings.latitude + ': <b id="LatCoord">' + configOptions.socialPointX + '</b> ' + i18n.viewer.settings.longitude + ': <b id="LonCoord">' + configOptions.socialPointY + '</b>'
+            "x": configOptions.socialPoint[0],
+            "y": configOptions.socialPoint[1],
+            "geoString": i18n.viewer.settings.latitude + ' <strong>' + configOptions.socialPoint[0] + '</strong> ' + i18n.viewer.settings.longitude + ' <strong>' + configOptions.socialPoint[1] + '</strong>'
         };
         setMenuForLatLong(prePoint, dojo.query('#socialLocationText'));
     }
@@ -238,8 +237,8 @@ function changeYouTube() {
     youtubeLayer.update({
         searchTerm: configOptions.youtubeSearch,
         distance: getSocialDistance("yt"),
-        socialSourceX: configOptions.socialPointX,
-        socialSourceY: configOptions.socialPointY,
+        socialSourceX: configOptions.socialPoint[0],
+        socialSourceY: configOptions.socialPoint[1],
         range: configOptions.youtubeRange
     });
 }
@@ -254,8 +253,8 @@ function changeTwitter() {
     twitterLayer.update({
         searchTerm: configOptions.twitterSearch,
         distance: getSocialDistance("tw"),
-        socialSourceX: configOptions.socialPointX,
-        socialSourceY: configOptions.socialPointY
+        socialSourceX: configOptions.socialPoint[0],
+        socialSourceY: configOptions.socialPoint[1]
     });
 }
 
@@ -270,8 +269,8 @@ function changeFlickr() {
     var updateObj = {
         searchTerm: configOptions.flickrSearch,
         distance: getSocialDistance("fl"),
-        socialSourceX: configOptions.socialPointX,
-        socialSourceY: configOptions.socialPointY
+        socialSourceX: configOptions.socialPoint[0],
+        socialSourceY: configOptions.socialPoint[1]
     };
     if (configOptions.flickrRange) {
         updateObj.dateFrom = getFlickrDate('from');
@@ -283,8 +282,8 @@ function changeFlickr() {
 // resets social media center point to map center
 function resetMenuForCenter(btn) {
     if (btn) {
-        configOptions.socialPointX = '';
-        configOptions.socialPointY = '';
+        configOptions.socialPoint[0] = '';
+        configOptions.socialPoint[1] = '';
         var locationText = btn.prev('.smallTxt');
         locationText.text(i18n.viewer.settings.centerOfMap);
         setSharing();
@@ -360,8 +359,8 @@ function updateSocialLayers() {
             youtubeLayer.update({
                 searchTerm: configOptions.youtubeSearch,
                 distance: getSocialDistance("yt"),
-                socialSourceX: configOptions.socialPointX,
-                socialSourceY: configOptions.socialPointY,
+                socialSourceX: configOptions.socialPoint[0],
+                socialSourceY: configOptions.socialPoint[1],
                 range: configOptions.youtubeRange
             });
         }
@@ -374,8 +373,8 @@ function updateSocialLayers() {
             twitterLayer.update({
                 searchTerm: configOptions.twitterSearch,
                 distance: getSocialDistance("tw"),
-                socialSourceX: configOptions.socialPointX,
-                socialSourceY: configOptions.socialPointY
+                socialSourceX: configOptions.socialPoint[0],
+                socialSourceY: configOptions.socialPoint[1]
             });
         }
     }
@@ -387,8 +386,8 @@ function updateSocialLayers() {
             var updateObj = {
                 searchTerm: configOptions.flickrSearch,
                 distance: getSocialDistance("fl"),
-                socialSourceX: configOptions.socialPointX,
-                socialSourceY: configOptions.socialPointY
+                socialSourceX: configOptions.socialPoint[0],
+                socialSourceY: configOptions.socialPoint[1]
             };
             if (configOptions.flickrRange) {
                 updateObj.dateFrom = getFlickrDate('from');
@@ -402,7 +401,7 @@ function updateSocialLayers() {
 // RESET SOCIAL REFRESH TIMER
 function resetSocialRefreshTimer() {
     clearTimeout(configOptions.autoRefreshTimer);
-    if (!(configOptions.socialPointX && configOptions.socialPointY)) {
+    if (!(configOptions.socialPoint[0] && configOptions.socialPoint[1])) {
         configOptions.autoRefreshTimer = setTimeout(function () {
             updateSocialLayers();
         }, 5000);
@@ -430,8 +429,8 @@ function toggleMapLayerSM(layerid) {
             youtubeLayer.update({
                 searchTerm: configOptions.youtubeSearch,
                 distance: getSocialDistance("yt"),
-                socialSourceX: configOptions.socialPointX,
-                socialSourceY: configOptions.socialPointY,
+                socialSourceX: configOptions.socialPoint[0],
+                socialSourceY: configOptions.socialPoint[1],
                 range: configOptions.youtubeRange
             });
             break;
@@ -440,8 +439,8 @@ function toggleMapLayerSM(layerid) {
             twitterLayer.update({
                 searchTerm: configOptions.twitterSearch,
                 distance: getSocialDistance("tw"),
-                socialSourceX: configOptions.socialPointX,
-                socialSourceY: configOptions.socialPointY
+                socialSourceX: configOptions.socialPoint[0],
+                socialSourceY: configOptions.socialPoint[1]
             });
             break;
         case flID:
@@ -449,8 +448,8 @@ function toggleMapLayerSM(layerid) {
             var updateObj = {
                 searchTerm: configOptions.flickrSearch,
                 distance: getSocialDistance("fl"),
-                socialSourceX: configOptions.socialPointX,
-                socialSourceY: configOptions.socialPointY
+                socialSourceX: configOptions.socialPoint[0],
+                socialSourceY: configOptions.socialPoint[1]
             };
             if (configOptions.flickrRange) {
                 updateObj.dateFrom = getFlickrDate('from');
@@ -483,16 +482,14 @@ function toggleMapLayerSM(layerid) {
 
 // TOGGLE HEAT/CLUSTER
 function showHeatLayer() {
-    if (isCanvasSupported()) {
-        if (clusterLayer) {
-            clusterLayer.setVisibility(false);
-        }
-        if (heatLayer) {
-            heatLayer.setVisibility(true);
-        } else {
-            alertDialog(i18n.viewer.errors.heatmap);
-        }
-    }
+	if (clusterLayer) {
+		clusterLayer.setVisibility(false);
+	}
+	if (heatLayer) {
+		heatLayer.setVisibility(true);
+	} else {
+		alertDialog(i18n.viewer.errors.heatmap);
+	}
 }
 
 // shows clusters and hides heatmap
@@ -517,7 +514,7 @@ function toggleDisplayAs(obj) {
         showClusterLayer();
         configOptions.socialDisplay = 'cluster';
     }
-    hidePopup();
+    configOptions.customPopup.hide();
     setSharing();
     // CLASS
     dojo.query(obj).addClass('buttonSelected');
@@ -791,6 +788,7 @@ function configureSocialMedia() {
             dateFrom: getFlickrDate('from'),
             dateTo: getFlickrDate('to'),
             apiKey: configOptions.flickrKey,
+			distance: getSocialDistance("fl"),
             onClear: function () {
                 var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + '] .count')[0];
                 if (node) {
@@ -841,6 +839,7 @@ function configureSocialMedia() {
             symbolWidth: configOptions.twitterSymbol.width,
             popupWidth: configOptions.popupWidth,
             popupHeight: configOptions.popupHeight,
+			distance: getSocialDistance("tw"),
             onClear: function () {
                 var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + '] .count')[0];
                 if (node) {
@@ -893,6 +892,7 @@ function configureSocialMedia() {
             popupWidth: configOptions.popupWidth,
             popupHeight: configOptions.popupHeight,
             range: configOptions.youtubeRange,
+			distance: getSocialDistance("yt"),
             onClear: function () {
                 var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + '] .count')[0];
                 if (node) {

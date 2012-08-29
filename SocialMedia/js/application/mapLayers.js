@@ -13,7 +13,7 @@ function toggleChecked(obj) {
 function removeFromActiveLayers(layerid) {
     var theIndex = getActiveLayerIndex(layerid);
     for (theIndex; theIndex > -1; theIndex = getActiveLayerIndex(layerid)) {
-        configOptions.visLayers.splice(theIndex, 1);
+        configOptions.layers.splice(theIndex, 1);
     }
     setSharing();
 }
@@ -69,7 +69,7 @@ function buildLayersList(layers) {
 
 // CHANGE ACTIVE LAYERS
 function getActiveLayerIndex(layerid) {
-    var indexNum = dojo.indexOf(configOptions.visLayers, layerid);
+    var indexNum = dojo.indexOf(configOptions.layers, layerid);
     return indexNum;
 }
 
@@ -77,7 +77,7 @@ function getActiveLayerIndex(layerid) {
 function addToActiveLayers(layerid) {
     var theIndex = getActiveLayerIndex(layerid);
     if (theIndex === -1) {
-        configOptions.visLayers.push(layerid);
+        configOptions.layers.push(layerid);
     }
     setSharing();
 }
@@ -126,7 +126,7 @@ function configureLayerUI() {
             var panelBtn = dojo.query('#cfgMenu .mapButton[data-layer=' + parentLi + ']');
             dojo.query('#cfgMenu span').removeClass('buttonSelected');
             panelBtn.addClass('buttonSelected');
-            hidePopup();
+            configOptions.customPopup.hide();
             dojo.query(this).addClass('cBconfigAnim');
             dojo.query("#settingsDialog .cfgPanel").style('display', 'none');
             panelObj.style('display', 'block');
@@ -218,9 +218,9 @@ function configureLayers() {
                                     configOptions.itemLayers[i].featureCollection.layers[k].visibility = false;
                                     map.getLayer(configOptions.itemLayers[i].featureCollection.layers[k].id).hide();
                                     // for each visible layer array item
-                                    for (key in configOptions.visLayers) {
+                                    for (key in configOptions.layers) {
                                         // if current layer ID matches visible layer item
-                                        if (configOptions.visLayers[key] === configOptions.itemLayers[i].featureCollection.layers[k].id) {
+                                        if (configOptions.layers[key] === configOptions.itemLayers[i].featureCollection.layers[k].id) {
                                             // set visibility to true
                                             configOptions.itemLayers[i].featureCollection.layers[k].visibility = true;
                                             map.getLayer(configOptions.itemLayers[i].featureCollection.layers[k].id).show();
@@ -249,9 +249,9 @@ function configureLayers() {
                                 map.getLayer(configOptions.itemLayers[i].id).hide();
                                 configOptions.itemLayers[i].visibility = false;
                                 // for each visible layer array item
-                                for (key in configOptions.visLayers) {
+                                for (key in configOptions.layers) {
                                     // if current layer ID matches visible layer item
-                                    if (configOptions.visLayers[key] === configOptions.itemLayers[i].id) {
+                                    if (configOptions.layers[key] === configOptions.itemLayers[i].id) {
                                         // set visibility to true
                                         configOptions.itemLayers[i].visibility = true;
                                         map.getLayer(configOptions.itemLayers[i].id).show();
@@ -274,9 +274,9 @@ function configureLayers() {
                             configOptions.itemLayers[i].visibility = false;
                             map.getLayer(configOptions.itemLayers[i].id).hide();
                             // for each visible layer array item
-                            for (key in configOptions.visLayers) {
+                            for (key in configOptions.layers) {
                                 // if current layer ID matches visible layer item
-                                if (configOptions.visLayers[key] === configOptions.itemLayers[i].id) {
+                                if (configOptions.layers[key] === configOptions.itemLayers[i].id) {
                                     // set visibility to true
                                     configOptions.itemLayers[i].visibility = true;
                                     map.getLayer(configOptions.itemLayers[i].id).show();

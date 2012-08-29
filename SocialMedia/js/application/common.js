@@ -74,98 +74,63 @@ function configUrlParams() {
 
 // SET SHARING
 function setSharing(isPreviewPage) {
-    // SHARE PARAMATERS
-    configOptions.shareParams = '?';
-    // webmap
-    configOptions.shareParams += 'webmap=' + configOptions.webmap;
-    // BASEMAP
-    if (configOptions.basemap) {
-        configOptions.shareParams += '&basemap=' + encodeURIComponent(configOptions.basemap);
-    }
-    // EXTENT
-    if (configOptions.currentExtent) {
-        configOptions.shareParams += '&extent=' + encodeURIComponent(configOptions.currentExtent.xmin + ',' + configOptions.currentExtent.ymin + ',' + configOptions.currentExtent.xmax + ',' + configOptions.currentExtent.ymax);
-    }
-    // LOCATE
-    if (configOptions.locateName) {
-        configOptions.shareParams += '&locateName=' + encodeURIComponent(configOptions.locateName);
-    }
-    // ACTIVE LAYERS
-    if (configOptions.visLayers) {
-        configOptions.shareParams += '&layers=' + encodeURIComponent(configOptions.visLayers.toString());
-    }
-    if (configOptions.showYouTube) {
-        // YOUTUBE
-        if (configOptions.youtubeSearch) {
-            configOptions.shareParams += '&youtubeSearch=' + encodeURIComponent(configOptions.youtubeSearch);
-        }
-        if (configOptions.youtubeRange) {
-            configOptions.shareParams += '&youtubeRange=' + encodeURIComponent(configOptions.youtubeRange);
-        }
-        configOptions.shareParams += '&youtubeChecked=' + encodeURIComponent(configOptions.youtubeChecked);
-    }
-    if (configOptions.showTwitter) {
-        // TWITTER
-        if (configOptions.twitterSearch) {
-            configOptions.shareParams += '&twitterSearch=' + encodeURIComponent(configOptions.twitterSearch);
-        }
-        configOptions.shareParams += '&twitterChecked=' + encodeURIComponent(configOptions.twitterChecked);
-    }
-    if (configOptions.showFlickr) {
-        // FLICKR
-        if (configOptions.flickrSearch) {
-            configOptions.shareParams += '&flickrSearch=' + encodeURIComponent(configOptions.flickrSearch);
-        }
-        if (configOptions.flickrRange) {
-            configOptions.shareParams += '&flickrRange=' + encodeURIComponent(configOptions.flickrRange);
-        }
-        configOptions.shareParams += '&flickrChecked=' + encodeURIComponent(configOptions.flickrChecked);
-    }
-    if (configOptions.socialDistance) {
-        // SOCIAL MEDIA DISTANCE
-        configOptions.shareParams += '&socialDistance=' + encodeURIComponent(configOptions.socialDistance);
-    }
-    // SOCIAL MEDIA POINT
-    if (configOptions.socialPointX && configOptions.socialPointY) {
-        var socialSource = configOptions.socialPointX + "," + configOptions.socialPointY;
-        configOptions.shareParams += '&socialPoint=' + encodeURIComponent(socialSource);
-    }
-    // heatmap vs cluster
-    if (configOptions.socialDisplay) {
-        configOptions.shareParams += '&socialDisplay=' + encodeURIComponent(configOptions.socialDisplay);
-    }
-    // marker
-    if (configOptions.locatePointX && configOptions.locatePointY) {
-        configOptions.shareParams += '&locatePoint=' + encodeURIComponent(configOptions.locatePointX + ',' + configOptions.locatePointY);
-    }
-    // SHARE URL
+	// parameters to share
+	var urlParams = [
+		'webmap',
+		'basemap',
+		'extent',
+		'locateName',
+		'layers',
+		'youtubeSearch',
+		'youtubeRange',
+		'youtubeChecked',
+		'twitterSearch',
+		'twitterChecked',
+		'flickrSearch',
+		'flickrRange',
+		'flickrChecked',
+		'socialDistance',
+		'socialPoint',
+		'socialDisplay',
+		'locatePoint'
+	];
+	// for each parameter
+	for(var i = 0; i < urlParams.length; i++){
+		// if it's set in configOptions
+		if(configOptions.hasOwnProperty(urlParams[i])){
+			// if it's the first param
+			if(i === 0){
+				configOptions.shareParams = '?';
+			}
+			else{
+				configOptions.shareParams += '&';
+			}
+			// show it
+			configOptions.shareParams += urlParams[i] + '=' + encodeURIComponent(configOptions[urlParams[i]].toString());
+		}
+	}
+    // Sharing url
     configOptions.shareURL = urlObject.path + configOptions.shareParams;
     // quick embed width
     var embedWidth = configOptions.embedWidth || configOptions.embedSizes.medium.width;
     var embedHeight = configOptions.embedHeight || configOptions.embedSizes.medium.height;
-    // embed URL
+    // iframe code
     configOptions.embedURL = '<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="' + embedWidth + '" height="' + embedHeight + '" align="center" src="' + configOptions.shareURL + '"></iframe>';
-    // EMBED URL
+    // preview page
     if (isPreviewPage) {
-        // SET EMBED URL
+        // set iframe
         dojo.query('#inputEmbed').attr('value', configOptions.embedURL);
     } else {
         // Quick embed code
         dojo.query('#quickEmbedCode').attr('value', configOptions.embedURL);
-        // SET SHARE URL
+        // sharing url
         dojo.query('#inputShare').attr('value', configOptions.shareURL);
     }
 }
 
-function setConfigOptions() {
-    configUrlParams();
-    setDefaultConfigOptions();
-    validateConfig();
-}
-
-//
+// set defaults for config
 function setDefaultConfigOptions() {
-    configOptions.templateVersion = "3.00a";
+    configOptions.templateVersion = "3.00";
     if (!configOptions.portalUrl) {
         configOptions.portalUrl = location.protocol + '//' + location.host + "/";
     }
@@ -219,7 +184,7 @@ function setDefaultConfigOptions() {
         "label": i18n.viewer.distanceSlider.regional,
         "id": "regional", // url param, don't localize
         "values": {
-            "yt": 300,
+            "yt": 500,
             "tw": 500,
             "fl": 500
         }
@@ -227,7 +192,7 @@ function setDefaultConfigOptions() {
         "label": i18n.viewer.distanceSlider.national,
         "id": "national", // url param, don't localize
         "values": {
-            "yt": 600,
+            "yt": 1000,
             "tw": 1000,
             "fl": 1000
         }
@@ -260,24 +225,22 @@ function setDefaultConfigOptions() {
         "height": "22.5"
     };
     if (configOptions.socialPoint) {
-        var socGeoTmp = configOptions.socialPoint.split(',');
-        if (socGeoTmp[0] && socGeoTmp[1]) {
-            configOptions.socialPointX = parseFloat(socGeoTmp[0]);
-            configOptions.socialPointY = parseFloat(socGeoTmp[1]);
-        }
+        configOptions.socialPoint = configOptions.socialPoint.split(',');
     }
+	else{
+		configOptions.socialPoint = [];
+	}
     if (configOptions.layers) {
-        configOptions.visLayers = configOptions.layers.split(',');
+        configOptions.layers = configOptions.layers.split(',');
     } else {
-        configOptions.visLayers = [];
+        configOptions.layers = [];
     }
     if (configOptions.locatePoint) {
-        var pointTmp = configOptions.locatePoint.split(',');
-        if (pointTmp[0] && pointTmp[1]) {
-            configOptions.locatePointX = parseFloat(pointTmp[0]);
-            configOptions.locatePointY = parseFloat(pointTmp[1]);
-        }
+        configOptions.locatePoint = configOptions.locatePoint.split(',');
     }
+	else{
+		configOptions.locatePoint = [];
+	}
     if (window.dojoConfig.locale && window.dojoConfig.locale.indexOf("ar") !== -1) {
         //right now checking for Arabic only, to generalize for all RTL languages
         configOptions.isRightToLeft = true; // configOptions.isRightToLeft property setting to true when the locale is 'ar'
@@ -299,6 +262,7 @@ function setDefaultConfigOptions() {
     }
 }
 
+// make sure config options are correct
 function validateConfig() {
     // Set geometry to HTTPS if protocol is used
     if (configOptions.geometryserviceurl && location.protocol === "https:") {
@@ -364,13 +328,13 @@ function alertDialog(text) {
     });
 }
 
-// ZEBRA STRIPE OBJECT
+// zebra stripe css object
 function zebraStripe(obj) {
     obj.removeClass("stripe");
     obj.filter(":nth-child(2)").addClass("stripe");
 }
 
-// RETURNS BUTTON CLASS FOR MENU
+// return correct button class
 function getButtonClass(i, size) {
     if ((i === 1) && (i === size)) {
         return 'buttonSingle';
@@ -465,23 +429,22 @@ function baseMapChanged() {
     setSharing();
 }
 
-// SHOWS THE SNAKE SPINNER ON OBJECT
+// Show spinner on object
 function showLoading(obj) {
     if (obj) {
         dojo.query('#' + obj).removeClass('LoadingComplete').addClass('Loading').style('display', 'inline-block');
     }
 }
 
-// SET EXTENT
+// Set initial extent for future use
 function setExtentValues() {
-    // EXTENT
+    // if extent not set from Url
     if (!configOptions.extent) {
-        // NOT LOADED FROM URL
-        configOptions.extent = map.extent;
+        configOptions.startExtent = map.extent;
     } else {
         var splitExtent = configOptions.extent.split(',');
-        // LOADED FROM URL
-        configOptions.extent = new esri.geometry.Extent({
+        // Loaded from URL
+        configOptions.startExtent = new esri.geometry.Extent({
             xmin: parseFloat(splitExtent[0]),
             ymin: parseFloat(splitExtent[1]),
             xmax: parseFloat(splitExtent[2]),
@@ -520,7 +483,7 @@ function updateLeftMenuOffset(button, menu) {
     }
 }
 
-// SHOW MENU FUNCTION
+// Show dropdown menu
 function showMenu(menuObj, buttonObj) {
     dojo.query('#mapcon .menuSelected').removeClass('menuSelected');
     if (menuObj) {
@@ -535,6 +498,7 @@ function showMenu(menuObj, buttonObj) {
     }
 }
 
+// Hide dropdown menu
 function hideMenu(menuObj) {
     if (menuObj) {
         dojo.fx.wipeOut({
@@ -545,17 +509,13 @@ function hideMenu(menuObj) {
     }
 }
 
-// HIDE LAYER INFO
+// Hide layer info boxes
 function hideLayerInfo() {
     dojo.query('.listMenu ul li .infoHidden').style('display', 'none');
     dojo.query('.listMenu ul li').removeClass('active');
 }
 
-// HIDES INFO WINDOW
-function hidePopup() {
-    configOptions.customPopup.hide();
-}
-
+// hide all dropdown menus
 function hideAllMenus() {
 	dojo.query('#topMenuCon .barButton').removeClass('barSelected');
     dojo.query('#mapcon .menuSelected').forEach(function (selectTag) {
@@ -563,7 +523,7 @@ function hideAllMenus() {
     });
 }
 
-// TOGGLE MENUS
+// toggle menu object
 function toggleMenus(menu) {
     if (menu) {
         // get nodes
@@ -579,14 +539,14 @@ function toggleMenus(menu) {
                 showMenu(menuQuery, buttonQuery);
             }
         }
-        hidePopup();
+        configOptions.customPopup.hide();
         hideLayerInfo();
     } else {
         hideAllMenus();
     }
 }
 
-// REMOVES SNAKE SPINNER FROM OBJECT AND ADDS COMPLETE ICON TO OBJECT 2 THEN FADES OUT
+// remove loading spinners
 function hideLoading(obj, obj2) {
     if (obj) {
         obj.removeClass('cLoading');
@@ -596,9 +556,16 @@ function hideLoading(obj, obj2) {
     }
 }
 
-// HIDE STUFF
+// clear popup content, title and features
 function clearPopupValues() {
     configOptions.customPopup.setContent('');
     configOptions.customPopup.setTitle('');
     configOptions.customPopup.clearFeatures();
+}
+
+// set the order of these functions
+function setConfigOptions() {
+    configUrlParams();
+    setDefaultConfigOptions();
+    validateConfig();
 }

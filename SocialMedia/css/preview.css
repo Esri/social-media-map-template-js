@@ -60,13 +60,11 @@ p {
     margin-right: 5px;
     width: 16px;
     height: 16px;
-    background: url(../images/ui/uiSprite.png) no-repeat -144px 0;
-    _background: url(../images/ui/uiSprite.gif) no-repeat -144px 0;
+    background: url(../images/ui/uiSprite.png?v=3.00) no-repeat -144px 0;
 }
 
 #previewContainer .embedSizing .selected .itemIcon {
-    background: url(../images/ui/uiSprite.png) no-repeat -128px 0;
-    _background: url(../images/ui/uiSprite.gif) no-repeat -128px 0;
+    background: url(../images/ui/uiSprite.png?v=3.00) no-repeat -128px 0;
 }
 
 #previewContainer .embedSizing .item ul {

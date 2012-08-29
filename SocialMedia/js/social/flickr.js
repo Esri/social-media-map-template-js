@@ -130,8 +130,8 @@ dojo.addOnLoad(function () {
             if (options) {
                 this.searchTerm = options.searchTerm || this.searchTerm;
                 this.distance = options.distance || this.distance;
-                this.socialSourceX = options.socialSourceX || this.socialSourceX;
-                this.socialSourceY = options.socialSourceY || this.socialSourceY;
+                this.socialSourceX = options.socialSourceX;
+                this.socialSourceY = options.socialSourceY;
                 this.dateFrom = options.dateFrom;
                 this.dateTo = options.dateTo;
             }
@@ -250,10 +250,7 @@ dojo.addOnLoad(function () {
             if (search.length === 0) {
                 search = "";
             }
-            var minPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(extent.xmin, extent.ymin, map.spatialReference));
-            var maxPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(extent.xmax, extent.ymax, map.spatialReference));
-            var fmi = this.distance;
-            var dist = (fmi || 700) / 2;
+            var dist = (this.distance) / 2;
             dist = dist * 10;
             dist = (dist * 160.934).toFixed(3);
             dist = parseFloat(dist);
@@ -263,13 +260,19 @@ dojo.addOnLoad(function () {
                 minPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x - dist, geoPoint.y - dist, map.spatialReference));
                 maxPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x + dist, geoPoint.y + dist, map.spatialReference));
             }
+			else{
+				var center = extent.getCenter();
+				var geoPoint = new esri.geometry.Point(center.x, center.y, map.spatialReference);
+				minPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x - dist, geoPoint.y - dist, map.spatialReference));
+				maxPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x + dist, geoPoint.y + dist, map.spatialReference));
+			}
             var startDate = this.dateFrom;
             var endDate = this.dateTo;
             this.query = {
                 bbox: minPoint.x + "," + minPoint.y + "," + maxPoint.x + "," + maxPoint.y,
-                accuracy: 6,
                 extras: "description, date_upload, owner_name, geo, url_s",
                 per_page: this.limit,
+				sort: 'date-posted-desc',
                 safe_search: 2,
                 tags: search,
                 method: "flickr.photos.search",
@@ -278,7 +281,6 @@ dojo.addOnLoad(function () {
                 page: 1,
                 format: "json"
             };
-            //
             if (endDate && startDate) {
                 this.query.max_taken_date = endDate.valueOf();
                 this.query.min_taken_date = startDate.valueOf();

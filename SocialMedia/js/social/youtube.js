@@ -146,8 +146,8 @@ dojo.addOnLoad(function () {
             if (options) {
                 this.searchTerm = options.searchTerm || this.searchTerm;
                 this.distance = options.distance || this.distance;
-                this.socialSourceX = options.socialSourceX || this.socialSourceX;
-                this.socialSourceY = options.socialSourceY || this.socialSourceY;
+                this.socialSourceX = options.socialSourceX;
+                this.socialSourceY = options.socialSourceY;
                 this.range = options.range || this.range;
             }
             this.constructQuery(this.searchTerm);
@@ -285,14 +285,14 @@ dojo.addOnLoad(function () {
                 geoPoint = this.socialSourceY + "," + this.socialSourceX;
             }
             this.query = {
-                q: search,
+                "q": search,
                 "max-results": this.limit,
-                v: 2,
-                location: geoPoint,
+                "v": 2,
+                "location": geoPoint,
                 "location-radius": radius + "mi",
-                time: range,
+                "time": range,
                 "start-index": 1,
-                alt: "json"
+                "alt": "json"
             };
             if (this.key) {
                 this.query.key = this.key;

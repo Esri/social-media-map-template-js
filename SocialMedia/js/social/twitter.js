@@ -138,8 +138,8 @@ dojo.addOnLoad(function () {
             if (options) {
                 this.searchTerm = options.searchTerm || this.searchTerm;
                 this.distance = options.distance || this.distance;
-                this.socialSourceX = options.socialSourceX || this.socialSourceX;
-                this.socialSourceY = options.socialSourceY || this.socialSourceY;
+                this.socialSourceX = options.socialSourceX;
+                this.socialSourceY = options.socialSourceY;
             }
             this.constructQuery(this.searchTerm);
         },

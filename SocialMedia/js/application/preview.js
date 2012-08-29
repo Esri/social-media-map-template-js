@@ -7,8 +7,8 @@ function resizeMapPreview() {
         map.resize();
         map.reposition();
         setTimeout(function () {
-            if (configOptions.extent) {
-                map.setExtent(configOptions.extent);
+            if (configOptions.startExtent) {
+                map.setExtent(configOptions.startExtent);
             }
         }, 500);
     }, 500);
@@ -141,7 +141,7 @@ function configureEmbed() {
         map.disableMapNavigation();
         // start extent
         setExtentValues();
-        map.setExtent(configOptions.extent);
+        map.setExtent(configOptions.startExtent);
     });
     // on error response
     mapDeferred.addErrback(function (error) {
