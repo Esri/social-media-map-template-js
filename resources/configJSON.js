@@ -253,19 +253,19 @@
                "label":"Date Range:",
                "options":[
                   {
-                     "label":"today",
+                     "label":"Today",
                      "value":"today"
                   },
                   {
-                     "label":"this_week",
+                     "label":"This Week",
                      "value":"this_week"
                   },
                   {
-                     "label":"this_month",
+                     "label":"This Month",
                      "value":"this_month"
                   },
                   {
-                     "label":"all_time",
+                     "label":"All Time",
                      "value":"all_time"
                   }
                ]
@@ -319,19 +319,19 @@
                "label":"Date Range:",
                "options":[
                   {
-                     "label":"today",
+                     "label":"Today",
                      "value":"today"
                   },
                   {
-                     "label":"this_week",
+                     "label":"This Week",
                      "value":"this_week"
                   },
                   {
-                     "label":"this_month",
+                     "label":"This Month",
                      "value":"this_month"
                   },
                   {
-                     "label":"all_time",
+                     "label":"All Time",
                      "value":"all_time"
                   }
                ]
