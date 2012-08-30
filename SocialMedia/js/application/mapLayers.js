@@ -288,7 +288,7 @@ function addLayerToUI(layerToAdd, index) {
             }
             html += '</div>';
         } else {
-            html += '<div>No description.</div>';
+            html += '<div>' + i18n.viewer.errors.nodesc + '</div>';
         }
         html += '<div class="transSlider"><span class="transLabel">' + i18n.viewer.layer.transparency + '</span><span id="layerSlider' + index + '" data-layer-id="' + dataLayers + '" class="uiSlider slider"></span></div>';
         html += '</div>';

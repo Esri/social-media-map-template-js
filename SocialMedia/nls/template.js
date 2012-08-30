@@ -12,7 +12,8 @@ define({
                 "heatmap":"Heatmapping is unsupported on this browser.",
                 "noText":"Please enter a search location.",
                 "noLocation":"Location could not be found.",
-                "integersOnly":"You may only enter integers in this field."
+                "integersOnly":"You may only enter integers in this field.",
+				"nodesc":"No description."
             },
             "search":{
             	"location":"Location",

@@ -560,8 +560,10 @@ function configureAboutText() {
             html += '<div class="date">' + i18n.viewer.itemInfo.modifiedLabel + ' ' + modifiedLocalized + '. </div>';
         }
         html += '<div class="clear"></div>';
-        html += '<h3>' + i18n.viewer.about.access + '</h3>';
-        html += '<div class="license">' + configOptions.itemInfo.item.licenseInfo + '</div>';
+		if(configOptions.itemInfo.item.licenseInfo){
+			html += '<h3>' + i18n.viewer.about.access + '</h3>';
+			html += '<div class="license">' + configOptions.itemInfo.item.licenseInfo + '</div>';
+		}
         html += '</div>';
         if (node) {
             node.innerHTML = html;

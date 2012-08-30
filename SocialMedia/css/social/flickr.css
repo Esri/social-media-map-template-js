@@ -45,7 +45,7 @@
     -webkit-box-shadow: 1px 1px 3px #CCCCCC;
     box-shadow: 1px 1px 3px #CCCCCC;
     border: 1px solid #CCCCCC;
-    background: url(../images/ui/ajax-loader.gif?v=3.00) no-repeat center center #fff;
+    background: url(../../images/ui/ajax-loader.gif?v=3.00) no-repeat center center #fff;
 }
 
 .flContent img:hover, .flContent img:focus {
