@@ -199,6 +199,10 @@
                "label":"Search Keywords",
                "tooltip":"Search Keywords",
                "placeHolder":""
+            },
+            {
+               "type":"paragraph",
+               "value":"<a href=\"http:\/\/support.twitter.com\/articles\/71577-how-to-use-advanced-twitter-search\" target=\"_blank\">Advanced search<\/a>."
             }
          ]
       },
@@ -309,10 +313,6 @@
                "placeHolder":""
             },
             {
-               "type":"paragraph",
-               "value":"<a href=\"http:\/\/support.twitter.com\/articles\/71577-how-to-use-advanced-twitter-search\" target=\"_blank\">Advanced info<\/a>."
-            },
-            {
                "type":"string",
                "fieldName":"youtubeRange",
                "tooltip":"Date Range",
@@ -350,6 +350,7 @@
       "showPlaces":true,
       "showGeolocation":true,
       "showAboutDialog":true,
+      "showAboutDialogOnLoad":false,
       "socialDistance":"regional",
       "socialDisplay":"cluster",
       "showFlickr":true,

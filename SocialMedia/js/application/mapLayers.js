@@ -356,6 +356,7 @@ function configureLayers() {
             zebraStripe(dojo.query('#layersList li.layer'));
         } else {
             configOptions.showLayersMenu = false;
+            configOptions.showLegendMenu = false;
         }
         configOptions.scaleBar = new esri.dijit.Scalebar({
             map: map,

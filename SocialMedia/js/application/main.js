@@ -315,7 +315,33 @@ function rightSideMenuButtons() {
     }
     // Show Default Menu
     if (configOptions.defaultMenu) {
-        toggleMenus(configOptions.defaultMenu);
+        switch(configOptions.defaultMenu){
+            case 'places':
+                if(configOptions.showPlaces){
+                    toggleMenus(configOptions.defaultMenu);
+                }
+                break;
+            case 'basemap':
+                if(configOptions.showBasemapMenu){
+                    toggleMenus(configOptions.defaultMenu);
+                }
+                break;
+            case 'layers':
+                if(configOptions.showLayersMenu){
+                    toggleMenus(configOptions.defaultMenu);
+                }
+                break;
+            case 'social':
+                if(configOptions.showSocialMenu){
+                    toggleMenus(configOptions.defaultMenu);
+                }
+                break;
+            case 'legend':
+                if(configOptions.showLegendMenu){
+                    toggleMenus(configOptions.defaultMenu);
+                }
+                break;
+        }
     }
     // Show Menu Bar
     dojo.query('#topMenuBar').style('display', 'block');
@@ -787,6 +813,8 @@ function init() {
 
 // On load of libraries
 dojo.addOnLoad(function () {
+    // set localization
+    i18n = dojo.i18n.getLocalization("esriTemplate", "template");
     var requestHandle = esri.request({
         url: 'config/config.js',
         callbackParamName: "callback",
@@ -794,8 +822,8 @@ dojo.addOnLoad(function () {
         load: function (data) {
             // set plugin.configOptions to default config
             configOptions = data;
-            // set localization
-            i18n = dojo.i18n.getLocalization("esriTemplate", "template");
+            //
+            configUrlParams();
             // dojo ready
             setAppIdSettings(init);
         },

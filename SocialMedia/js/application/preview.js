@@ -211,6 +211,8 @@ function configureEmbed() {
 
 // on load of libraries
 dojo.addOnLoad(function () {
+    // set localization
+    i18n = dojo.i18n.getLocalization("esriTemplate", "template");
     var requestHandle = esri.request({
         url: 'config/config.js',
         callbackParamName: "callback",
@@ -218,8 +220,8 @@ dojo.addOnLoad(function () {
         load: function (data) {
             // set plugin.configOptions to default config
             configOptions = data;
-            // set localization
-            i18n = dojo.i18n.getLocalization("esriTemplate", "template");
+            //
+            configUrlParams();
             // dojo ready
             setAppIdSettings(configureEmbed);
         },
