@@ -766,7 +766,7 @@ function configureSocialMedia() {
         }
     }
 
-    // APPEND LIST CONTAINER        
+    // APPEND LIST CONTAINER
     var node = dojo.byId('socialMenu');
     if (node) {
         node.innerHTML = '<ul class="zebraStripes" id="socialList"></ul>';
@@ -954,6 +954,7 @@ function configureSocialMedia() {
         configOptions.customPopup.show(evt.mapPoint);
         configOptions.customPopup.resize(configOptions.popupWidth, configOptions.popupHeight);
         overridePopupTitle();
+        hideAllMenus();
     });
 
     // ZEBRA STRIPE LAYERS

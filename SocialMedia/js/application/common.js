@@ -493,7 +493,11 @@ function hideMenu(menuObj) {
             node: menuObj,
             duration: 200
         }).play();
-        dojo.query('#mapcon .menuSelected').removeClass('menuSelected');
+        var selectedMenus = dojo.query('#mapcon .menuSelected').removeClass('menuSelected');
+        var buttons = dojo.query('#mapcon .barButton');
+        for(var i = 0; i < buttons.length; i++){
+            buttons[i].blur();
+        }
     }
 }
 
@@ -527,7 +531,6 @@ function toggleMenus(menu) {
                 showMenu(menuQuery, buttonQuery);
             }
         }
-        configOptions.customPopup.hide();
         hideLayerInfo();
     } else {
         hideAllMenus();

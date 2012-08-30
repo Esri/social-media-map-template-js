@@ -224,12 +224,14 @@ function resizeMap() {
 }
 
 // Toggle show/hide about map info
-function toggleAboutMap() {
+function toggleAboutMap(obj) {
     if (configOptions.aboutDialog) {
         if (!configOptions.aboutDialog.get('open')) {
             configOptions.aboutDialog.show();
+            dojo.query(obj).addClass('barSelected');
         } else {
             configOptions.aboutDialog.hide();
+            dojo.query(obj).removeClass('barSelected');
         }
     }
 }
@@ -596,7 +598,9 @@ function configureAboutText() {
         }
         dojo.query(document).delegate("#aboutMap", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-                toggleAboutMap();
+                this.blur();
+                hideAllMenus();
+                toggleAboutMap(this);
             }
         });
         var props = {
