@@ -245,7 +245,7 @@ function setTWLink(shLink) {
         var left = (screen.width/2) - (w/2);
         var top = (screen.height/2) - (h/2);
         fullLink = 'https://twitter.com/intent/tweet?' + 'url=' + encodeURIComponent(shLink) + '&text=' + encodeURIComponent(configOptions.itemInfo.item.snippet) + '&hashtags=' + 'EsriSMT';
-        window.open(fullLink, 'shareWindow', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
+        window.open(fullLink, 'share', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
     }
 }
 
@@ -258,7 +258,7 @@ function setFBLink(fbLink) {
         var left = (screen.width/2)-(w/2);
         var top = (screen.height/2)-(h/2);
         fullLink = 'http://www.facebook.com/sharer.php?u=' + encodeURIComponent(fbLink) + '&t=' + encodeURIComponent(configOptions.itemInfo.item.snippet);
-        window.open(fullLink, 'shareWindow', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
+        window.open(fullLink, 'share', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
     }
 }
 
@@ -380,7 +380,7 @@ function configureShareMenu() {
                     var h = configOptions.previewSize.height;
                     var left = (screen.width/2) - (w/2);
                     var top = (screen.height/2) - (h/2);
-                    window.open(configOptions.previewPage + configOptions.shareParams, 'embedWindow', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
+                    window.open(configOptions.previewPage + configOptions.shareParams, 'embed', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
                 }
             });
         }
@@ -622,17 +622,23 @@ function createCustomSlider() {
     if (node) {
         node.innerHTML = '<div id="customZoom"></div>';
     }
+	
+	console.log(configOptions.itemData.baseMap.baseMapLayers[0].layerObject.tileInfo);
+	
+	console.log(configOptions.itemData.baseMap.baseMapLayers[0]);
+	
     var sliderMax = 18;
+	var mapLevel = 9;
+	if(map.getLevel() !== -1){
+		mapLevel = map.getLevel();
+	}
     if (map._params && map._params.lods) {
         sliderMax = map._params.lods.length - 1;
     }
-	else if(configOptions.itemData && configOptions.itemData.baseMap && configOptions.itemData.baseMap.baseMapLayers[0]){
-		sliderMax = configOptions.itemData.baseMap.baseMapLayers[0].layerObject.scales.length - 1;
-	}
     configOptions.mapZoomBar = new dijit.form.VerticalSlider({
         name: "slider",
         showButtons: true,
-        value: map.getLevel(),
+        value: mapLevel,
         minimum: 0,
         maximum: sliderMax,
         discreteValues: sliderMax,
