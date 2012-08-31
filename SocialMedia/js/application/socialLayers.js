@@ -575,7 +575,8 @@ function insertSMItem(obj) {
         html += '<span tabindex="0" class="toggle cBtitle">' + obj.title + '<span class="count"></span></span>';
         html += '<div class="clear"></div>';
         if (obj.description) {
-            html += '<div class="infoHidden">';
+            html += '<div title="' + i18n.viewer.general.close + '" class="infoHidden">';
+            html += '<div class="ihClose"></div>';
             html += '<p>' + obj.description + '</p>';
             if (obj.searchTerm) {
                 html += '<p>' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + obj.searchTerm + '</span>"</p>';

@@ -30,7 +30,8 @@ define({
             	"at":"at",
 				"of":"of",
             	"mapTitle":"Load default map extent",
-				"ok":"OK"
+				"ok":"OK",
+				"close":"Close"
             },
             "settings":{
             	"title":"Settings",
@@ -92,16 +93,16 @@ define({
             	"preview":"Preview and customize"
             },
             "itemInfo":{
-				"createdLabel":"created",			
-				"ratingsLabel":"rating",			
-				"ratingsLabelPlural":"ratings",		
-				"viewsLabel":"view",				
-				"viewsLabelPlural":"views",			
-				"commentsLabel":"comment",			
-				"commentsLabelPlural":"comments",	
-				"modifiedLabel":"Last Modified",	
-				"by":"by",							
-				"separator":","						
+				"createdLabel":"created",
+				"ratingsLabel":"rating",
+				"ratingsLabelPlural":"ratings",
+				"viewsLabel":"view",
+				"viewsLabelPlural":"views",
+				"commentsLabel":"comment",
+				"commentsLabelPlural":"comments",
+				"modifiedLabel":"Last Modified",
+				"by":"by",
+				"separator":","
 			},
 			"preview":{
 				"minWidth":"Minimum width is",

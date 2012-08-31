@@ -93,7 +93,7 @@ dojo.addOnLoad(function () {
             this.clusterImage = options.clusterImage || '/images/map/cluster72x72.png';
             // cluster hover image
             this.clusterHoverImage = options.clusterHoverImage || '/images/map/clusterHover72x72.png';
-            // cluster hover            
+            // cluster hover
             dojo.connect(this.graphics, "onMouseOver", function (evt) {
                 if (evt.graphic.attributes.parent) {
                     evt.graphic = evt.graphic.attributes.parent;

@@ -118,6 +118,11 @@ function configureLayerUI() {
         }
     });
 
+    // Close ToolTips
+    dojo.query(document).delegate(".listMenu ul li .ihClose", "onclick,keyup", function (event) {
+        hideLayerInfo();
+    });
+
     // CONFIG SETTINGS
     dojo.query(document).delegate(".listMenu ul li .cBconfig", "onclick,keyup", function (event) {
         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -276,6 +281,7 @@ function addLayerToUI(layerToAdd, index) {
         html += '<span tabindex="0" class="toggle cBtitle" title="' + layerToAdd.title + '">' + layerToAdd.title.replace(/[\-_]/g, " ") + '</span>';
         html += '<div class="clear"></div>';
         html += '<div class="infoHidden">';
+        html += '<div title="' + i18n.viewer.general.close + '" class="ihClose"></div>';
         if (layerToAdd.resourceInfo) {
             html += '<div class="infoHiddenScroll">';
             if (layerToAdd.resourceInfo.serviceDescription || layerToAdd.resourceInfo.description) {
@@ -331,11 +337,11 @@ function configureLayers() {
             if (configOptions.showLegendMenu) {
                 // Build Legend
                 if (configOptions.layerInfos && configOptions.layerInfos.length > 0) {
-                    var legendDijit = new esri.dijit.Legend({
+                    configOptions.legendDijit = new esri.dijit.Legend({
                         map: map,
                         layerInfos: configOptions.layerInfos
                     }, "legendContent");
-                    legendDijit.startup();
+                    configOptions.legendDijit.startup();
                 } else {
                     var legendContentNode = dojo.byId('legendContent');
                     if (legendContentNode) {

@@ -928,7 +928,7 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
     z-index: 4;
     right: 100%;
     width: 288px;
-    padding: 10px;
+    padding: 26px 10px 10px 10px;
     background: #fff;
     border: 1px solid #e5e5e5;
     webkit-border-radius: 2px;
@@ -937,6 +937,19 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
     -moz-border-radius-topright: 0;
     -webkit-border-top-right-radius: 0;
     border-top-right-radius: 0;
+}
+
+.infoHidden .ihClose{
+    display: inline-block;
+    position: absolute;
+    z-index: 2;
+    top:5px;
+    right:5px;
+    width:16px;
+    height: 16px;
+    cursor: pointer;
+    overflow:hidden;
+    background: url(../images/ui/uiSprite.png?v=3.00) no-repeat -80px 0px;
 }
 
 .infoHidden img {

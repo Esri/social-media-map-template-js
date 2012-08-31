@@ -622,38 +622,35 @@ function createCustomSlider() {
     if (node) {
         node.innerHTML = '<div id="customZoom"></div>';
     }
-	
-	console.log(configOptions.itemData.baseMap.baseMapLayers[0].layerObject.tileInfo);
-	
-	console.log(configOptions.itemData.baseMap.baseMapLayers[0]);
-	
-    var sliderMax = 18;
-	var mapLevel = 9;
-	if(map.getLevel() !== -1){
-		mapLevel = map.getLevel();
-	}
-    if (map._params && map._params.lods) {
-        sliderMax = map._params.lods.length - 1;
-    }
-    configOptions.mapZoomBar = new dijit.form.VerticalSlider({
-        name: "slider",
-        showButtons: true,
-        value: mapLevel,
-        minimum: 0,
-        maximum: sliderMax,
-        discreteValues: sliderMax,
-        style: 'height:130px;',
-        intermediateChanges: true,
-        onChange: function (value) {
-            var level = parseInt(value, 10);
-            if (map.getLevel() !== level) {
-                map.setLevel(level);
-            }
-        }
-    }, "customZoom");
     dojo.connect(map, "onZoomEnd", function (evt) {
         configOptions.mapZoomBar.set("value", map.getLevel());
     });
+    setTimeout(function () {
+        var sliderMax;
+    	var mapLevel;
+    	if(map.getLevel() !== -1){
+    		mapLevel = map.getLevel();
+    	}
+        if (map._params && map._params.lods) {
+            sliderMax = map._params.lods.length - 1;
+        }
+        configOptions.mapZoomBar = new dijit.form.VerticalSlider({
+            name: "slider",
+            showButtons: true,
+            value: mapLevel,
+            minimum: 0,
+            maximum: sliderMax,
+            discreteValues: sliderMax,
+            style: 'height:130px;',
+            intermediateChanges: true,
+            onChange: function (value) {
+                var level = parseInt(value, 10);
+                if (map.getLevel() !== level) {
+                    map.setLevel(level);
+                }
+            }
+        }, "customZoom");
+    }, 500);
 }
 
 // APPLICATION TITLE
