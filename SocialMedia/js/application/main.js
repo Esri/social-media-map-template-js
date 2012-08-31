@@ -617,16 +617,18 @@ function configureAboutText() {
     }
 }
 
-// zoom
 function createCustomSlider() {
     var node = dojo.byId('zoomSlider');
     if (node) {
         node.innerHTML = '<div id="customZoom"></div>';
     }
-    var sliderMax = 20;
+    var sliderMax = 18;
     if (map._params && map._params.lods) {
         sliderMax = map._params.lods.length - 1;
     }
+	else if(configOptions.itemData && configOptions.itemData.baseMap && configOptions.itemData.baseMap.baseMapLayers[0]){
+		sliderMax = configOptions.itemData.baseMap.baseMapLayers[0].layerObject.scales.length - 1;
+	}
     configOptions.mapZoomBar = new dijit.form.VerticalSlider({
         name: "slider",
         showButtons: true,
