@@ -404,7 +404,7 @@ function resetSocialRefreshTimer() {
     if (!(configOptions.socialPoint[0] && configOptions.socialPoint[1])) {
         configOptions.autoRefreshTimer = setTimeout(function () {
             updateSocialLayers();
-        }, 5000);
+        }, 4000);
     }
 }
 
