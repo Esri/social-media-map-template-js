@@ -1,6 +1,6 @@
 {
    "appid":"",
-   "webmap":"f01a013816534646b38ea813c12553d6",
+   "webmap":"6af715d669bc4dc7becab2bcac37cfd7",
    "socialDistance":"regional",
    "socialDisplay":"cluster",
    "showFlickr":true,
@@ -27,9 +27,9 @@
    "clusterHoverImage":"images/map/clusterHover72x72.png",
    "pointGraphic":"images/map/bluepoint21x29.png",
    "geometryserviceurl":"http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
-   "proxyUrl":"http://dev.arcgis.com/sharing/proxy",
-   "sharingurl":"http://dev.arcgis.com/sharing/rest/content/items",
-   "portalUrl":"http://dev.arcgis.com/",
+   "proxyUrl":"http://devext.arcgis.com/sharing/proxy",
+   "sharingurl":"http://devext.arcgis.com/sharing/rest/content/items",
+   "portalUrl":"http://devext.arcgis.com/",
    "bingMapsKey":"Akt3ZoeZ089qyG3zWQZSWpwV3r864AHStal7Aon21-Fyxwq_KdydAH32LTwhieA8",
    "crosshairImage":"images/ui/crosshairblue.cur",
    "defaultMenu":"social",
@@ -45,5 +45,6 @@
    "showAboutDialogOnLoad":false,
    "socialPoint":"",
    "locateName":"",
-   "locatePoint":""
+   "locatePoint":"",
+   "sourceCountry":"USA"
 }

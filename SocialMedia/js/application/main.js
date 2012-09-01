@@ -12,6 +12,7 @@ function locateQuery(text, wkid, maxLocations, callback) {
         "text": text,
         "outSR": wkid,
         "outFields": "*",
+		"sourceCountry": configOptions.sourceCountry,
         "maxLocations": maxLocations,
         "f": "json"
     };
@@ -806,7 +807,7 @@ function createWebMap() {
     });
     // on error response
     mapDeferred.addErrback(function (error) {
-        console.log(i18n.viewer.errors.createMap + ": ", dojo.toJson(error));
+         alertDialog(i18n.viewer.errors.createMap + ": " + error.message);
     });
 }
 
