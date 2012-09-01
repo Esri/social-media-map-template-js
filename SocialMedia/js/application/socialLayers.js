@@ -410,7 +410,7 @@ function resetSocialRefreshTimer() {
 
 // TOGGLE SOCIAL MEDIA LAYER ON AND OFF
 function toggleMapLayerSM(layerid) {
-	clearTimeout(configOptions.autoRefreshTimer);
+    clearTimeout(configOptions.autoRefreshTimer);
     var ytID, twID, flID, usID = false;
     if (configOptions.showYouTube) {
         ytID = configOptions.youtubeID;
@@ -482,14 +482,14 @@ function toggleMapLayerSM(layerid) {
 
 // TOGGLE HEAT/CLUSTER
 function showHeatLayer() {
-	if (clusterLayer) {
-		clusterLayer.setVisibility(false);
-	}
-	if (heatLayer) {
-		heatLayer.setVisibility(true);
-	} else {
-		alertDialog(i18n.viewer.errors.heatmap);
-	}
+    if (clusterLayer) {
+        clusterLayer.setVisibility(false);
+    }
+    if (heatLayer) {
+        heatLayer.setVisibility(true);
+    } else {
+        alertDialog(i18n.viewer.errors.heatmap);
+    }
 }
 
 // shows clusters and hides heatmap
@@ -581,7 +581,7 @@ function insertSMItem(obj) {
             if (obj.searchTerm) {
                 html += ' ' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + obj.searchTerm + '</span>."';
             }
-			html += '</p>';
+            html += '</p>';
             html += '</div>';
         }
         html += '</li>';
@@ -790,7 +790,7 @@ function configureSocialMedia() {
             dateFrom: getFlickrDate('from'),
             dateTo: getFlickrDate('to'),
             apiKey: configOptions.flickrKey,
-			distance: getSocialDistance("fl"),
+            distance: getSocialDistance("fl"),
             onClear: function () {
                 var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + '] .count')[0];
                 if (node) {
@@ -841,7 +841,7 @@ function configureSocialMedia() {
             symbolWidth: configOptions.twitterSymbol.width,
             popupWidth: configOptions.popupWidth,
             popupHeight: configOptions.popupHeight,
-			distance: getSocialDistance("tw"),
+            distance: getSocialDistance("tw"),
             onClear: function () {
                 var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + '] .count')[0];
                 if (node) {
@@ -894,7 +894,7 @@ function configureSocialMedia() {
             popupWidth: configOptions.popupWidth,
             popupHeight: configOptions.popupHeight,
             range: configOptions.youtubeRange,
-			distance: getSocialDistance("yt"),
+            distance: getSocialDistance("yt"),
             onClear: function () {
                 var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + '] .count')[0];
                 if (node) {

@@ -12,7 +12,7 @@ function locateQuery(text, wkid, maxLocations, callback) {
         "text": text,
         "outSR": wkid,
         "outFields": "*",
-		"sourceCountry": configOptions.sourceCountry,
+        "sourceCountry": configOptions.sourceCountry,
         "maxLocations": maxLocations,
         "f": "json"
     };
@@ -67,12 +67,12 @@ function showAutoComplete(results) {
     var partialMatch = dojo.query('#address').attr('value');
     var regex = new RegExp('(' + partialMatch + ')', 'gi');
     var autoCompleteObj = dojo.query('#autoComplete');
-	var box = dojo.marginBox(addressPosition);
+    var box = dojo.marginBox(addressPosition);
     autoCompleteObj.style({
         'left': offset.x + 'px',
         'top': box.h + 'px'
     });
-	aResults += '<div class="menuClose"><div class="closeButton closeAC"></div>' + i18n.viewer.autoComplete.menuTitle + '<div class="clear"></div></div>';
+    aResults += '<div class="menuClose"><div class="closeButton closeAC"></div>' + i18n.viewer.autoComplete.menuTitle + '<div class="clear"></div></div>';
     aResults += '<ul class="zebraStripes">';
     var i;
     for (i = 0; i < results.locations.length; ++i) {
@@ -245,8 +245,8 @@ function setTWLink(shLink) {
         var fullLink;
         var w = 650;
         var h = 400;
-        var left = (screen.width/2) - (w/2);
-        var top = (screen.height/2) - (h/2);
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2);
         fullLink = 'https://twitter.com/intent/tweet?' + 'url=' + encodeURIComponent(shLink) + '&text=' + encodeURIComponent(configOptions.itemInfo.item.snippet) + '&hashtags=' + 'EsriSMT';
         window.open(fullLink, 'share', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
     }
@@ -258,8 +258,8 @@ function setFBLink(fbLink) {
         var fullLink;
         var w = 650;
         var h = 360;
-        var left = (screen.width/2)-(w/2);
-        var top = (screen.height/2)-(h/2);
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2);
         fullLink = 'http://www.facebook.com/sharer.php?u=' + encodeURIComponent(fbLink) + '&t=' + encodeURIComponent(configOptions.itemInfo.item.snippet);
         window.open(fullLink, 'share', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
     }
@@ -320,32 +320,32 @@ function rightSideMenuButtons() {
     }
     // Show Default Menu
     if (configOptions.defaultMenu) {
-        switch(configOptions.defaultMenu){
-            case 'places':
-                if(configOptions.showPlaces){
-                    toggleMenus(configOptions.defaultMenu);
-                }
-                break;
-            case 'basemap':
-                if(configOptions.showBasemapMenu){
-                    toggleMenus(configOptions.defaultMenu);
-                }
-                break;
-            case 'layers':
-                if(configOptions.showLayersMenu){
-                    toggleMenus(configOptions.defaultMenu);
-                }
-                break;
-            case 'social':
-                if(configOptions.showSocialMenu){
-                    toggleMenus(configOptions.defaultMenu);
-                }
-                break;
-            case 'legend':
-                if(configOptions.showLegendMenu){
-                    toggleMenus(configOptions.defaultMenu);
-                }
-                break;
+        switch (configOptions.defaultMenu) {
+        case 'places':
+            if (configOptions.showPlaces) {
+                toggleMenus(configOptions.defaultMenu);
+            }
+            break;
+        case 'basemap':
+            if (configOptions.showBasemapMenu) {
+                toggleMenus(configOptions.defaultMenu);
+            }
+            break;
+        case 'layers':
+            if (configOptions.showLayersMenu) {
+                toggleMenus(configOptions.defaultMenu);
+            }
+            break;
+        case 'social':
+            if (configOptions.showSocialMenu) {
+                toggleMenus(configOptions.defaultMenu);
+            }
+            break;
+        case 'legend':
+            if (configOptions.showLegendMenu) {
+                toggleMenus(configOptions.defaultMenu);
+            }
+            break;
         }
     }
     // Show Menu Bar
@@ -360,7 +360,7 @@ function configureShareMenu() {
             node.innerHTML = '<span tabindex="0" id="shareIcon" data-menu="share" class="barButton" title="' + i18n.viewer.buttons.linkTitle + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.link + '<span class="arrow"></span></span></div><div class="clear">';
         }
         var html = '';
-		html += '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.shareMenu.menuTitle + '<div class="clear"></div></div>';
+        html += '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.shareMenu.menuTitle + '<div class="clear"></div></div>';
         html += '<div class="shareContainer">';
         html += '<div class="Pad">';
         html += '<h3>' + i18n.viewer.shareMenu.shareHeader + '</h3>';
@@ -382,8 +382,8 @@ function configureShareMenu() {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                     var w = configOptions.previewSize.width;
                     var h = configOptions.previewSize.height;
-                    var left = (screen.width/2) - (w/2);
-                    var top = (screen.height/2) - (h/2);
+                    var left = (screen.width / 2) - (w / 2);
+                    var top = (screen.height / 2) - (h / 2);
                     window.open(configOptions.previewPage + configOptions.shareParams, 'embed', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
                 }
             });
@@ -422,9 +422,9 @@ function configureSearchBox() {
         if (node) {
             node.innerHTML = html;
         }
-		
-		// close autocomplete
-		dojo.query(document).delegate(".slideMenu .menuClose .closeAC", "onclick,keyup", function (event) {
+
+        // close autocomplete
+        dojo.query(document).delegate(".slideMenu .menuClose .closeAC", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                 hideAC();
             }
@@ -600,10 +600,10 @@ function configureAboutText() {
             html += '<div class="date">' + i18n.viewer.itemInfo.modifiedLabel + ' ' + modifiedLocalized + '. </div>';
         }
         html += '<div class="clear"></div>';
-		if(configOptions.itemInfo.item.licenseInfo){
-			html += '<h3>' + i18n.viewer.about.access + '</h3>';
-			html += '<div class="license">' + configOptions.itemInfo.item.licenseInfo + '</div>';
-		}
+        if (configOptions.itemInfo.item.licenseInfo) {
+            html += '<h3>' + i18n.viewer.about.access + '</h3>';
+            html += '<div class="license">' + configOptions.itemInfo.item.licenseInfo + '</div>';
+        }
         html += '</div>';
         if (node) {
             node.innerHTML = html;
@@ -639,10 +639,10 @@ function createCustomSlider() {
     });
     setTimeout(function () {
         var sliderMax;
-    	var mapLevel;
-    	if(map.getLevel() !== -1){
-    		mapLevel = map.getLevel();
-    	}
+        var mapLevel;
+        if (map.getLevel() !== -1) {
+            mapLevel = map.getLevel();
+        }
         if (map._params && map._params.lods) {
             sliderMax = map._params.lods.length - 1;
         }
@@ -817,7 +817,7 @@ function createWebMap() {
     });
     // on error response
     mapDeferred.addErrback(function (error) {
-         alertDialog(i18n.viewer.errors.createMap + ": " + error.message);
+        alertDialog(i18n.viewer.errors.createMap + ": " + error.message);
     });
 }
 

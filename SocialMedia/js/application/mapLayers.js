@@ -117,12 +117,12 @@ function configureLayerUI() {
             }
         }
     });
-	
-	// Close Menus
+
+    // Close Menus
     dojo.query(document).delegate(".slideMenu .menuClose .closeMenu", "onclick,keyup", function (event) {
         hideAllMenus();
     });
-	
+
     // Close ToolTips
     dojo.query(document).delegate(".listMenu ul li .ihClose", "onclick,keyup", function (event) {
         hideLayerInfo();
@@ -339,11 +339,12 @@ function configureLayers() {
         if (configOptions.itemLayers.length > 0) {
             // build layers
             configOptions.layerInfos = buildLayersList(configOptions.itemLayers);
+			var node;
             if (configOptions.showLegendMenu) {
-				var node = dojo.byId('legendMenu');
-				if(node){
-					node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.legend.menuTitle + '<div class="clear"></div></div><div class="legendMenuCon"><div class="slideScroll"><div id="legendContent"></div></div></div>';
-				}
+                node = dojo.byId('legendMenu');
+                if (node) {
+                    node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.legend.menuTitle + '<div class="clear"></div></div><div class="legendMenuCon"><div class="slideScroll"><div id="legendContent"></div></div></div>';
+                }
                 // Build Legend
                 if (configOptions.layerInfos && configOptions.layerInfos.length > 0) {
                     configOptions.legendDijit = new esri.dijit.Legend({
@@ -359,7 +360,7 @@ function configureLayers() {
                 }
             }
             // ADD URL
-            var node = dojo.byId('layersMenu');
+            node = dojo.byId('layersMenu');
             if (node) {
                 node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.layers.menuTitle + '<div class="clear"></div></div><ul class="zebraStripes" id="layersList"></ul>';
             }

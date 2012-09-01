@@ -495,7 +495,7 @@ function hideMenu(menuObj) {
         }).play();
         var selectedMenus = dojo.query('#mapcon .menuSelected').removeClass('menuSelected');
         var buttons = dojo.query('#mapcon .barButton');
-        for(var i = 0; i < buttons.length; i++){
+        for (var i = 0; i < buttons.length; i++) {
             buttons[i].blur();
         }
     }
