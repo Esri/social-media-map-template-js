@@ -3,65 +3,165 @@
 <head>
 <title>Layout Template - Read Me</title>
 <style>
-.selector {
-	color:red;
-}
-ul, ol {
-	margin-top:10px;
-	margin-bottom:10px;
-}
-ul li, ol li {
-	margin:5px 0;
-}
-img {
-	padding:20px;
-}
-.heading {
-	background-color:#D8E0E2;
-	background-repeat:repeat-x;
-	border-bottom:1px solid #FFFFFF;
-	border-top:1px solid #FFFFFF;
-	color:black;
-	font-family:Verdana, Arial, Helvetica, sans-serif;
-	font-size:16px;
-	font-weight:bold;
-	letter-spacing:1.1px;
-	margin:15px 0 10px;
-	padding:3px 10px;
-	text-align:center;
-}
+            .selector {
+                color:red;
+            }
+            ul, ol {
+                margin-top:10px;
+                margin-bottom:10px;
+            }
+            ul li, ol li {
+                margin:5px 0;
+            }
+            img {
+                padding:20px;
+            }
+            .heading {
+                background-color:#D8E0E2;
+                background-repeat:repeat-x;
+                border-bottom:1px solid #FFFFFF;
+                border-top:1px solid #FFFFFF;
+                color:black;
+                font-family:Verdana, Arial, Helvetica, sans-serif;
+                font-size:16px;
+                font-weight:bold;
+                letter-spacing:1.1px;
+                margin:15px 0 10px;
+                padding:3px 10px;
+                text-align:center;
+            }
 </style>
 </head>
 <body>
-<p id="top">This template provides a starting point for creating your Web application. This easily configurable template allows you to define the map, title, and subtitle for the site. This read-me file explains how to setup and configure the template to run on your web server. We have also provided a few tips on how to personalize the template by adding a company logo and customizing the content.</p>
-<div class="heading">Table of Contents</div>
+<p id="top">
+	This template provides a starting point for creating your Web application. This easily configurable template allows you to define the map, title, and subtitle for the site. This read-me file explains how to setup and configure the template to run on your web server. We have also provided a few tips on how to personalize the template by adding a company logo and customizing the content.
+</p>
+<div class="heading">
+	Table of Contents
+</div>
 <ul>
-	<li><a href="#deploy">Install the Web application</a></li>
-	<li><a href="#configure">Configure the application</a></li>
-	<li><a href="#personalize">Personalize the application</a>
-		<ul>
-			<li><a href="#"></a></li>
-		</ul>
+	<li><a href="#deploy">Install the Web application</a>
+	</li>
+	<li><a href="#configure">Configure the application</a>
+	</li>
+	<li><a href="#portal">Configure the template to work with your ArcGIS Portal</a>
 	</li>
 </ul>
 <h3 id="deploy" class="heading">Install the Web application</h3>
-<p>These instructions assume that you have a Web server like <a href="http://www.iis.net/">Internet Information Services(IIS)</a> installed and setup on your machine. If you are using another Web server, the general installation steps will be the same, but you will need to check your Web server's documentation for specific information on deploying and testing the application.</p>
+<p>
+	These instructions assume that you have a Web server like <a href="http://www.iis.net/">Internet Information Services(IIS)</a> installed and setup on your machine. If you are using another Web server, the general installation steps will be the same, but you will need to check your Web server's documentation for specific information on deploying and testing the application.
+</p>
 <ol>
-	<li>Copy the contents of the zip file into your web server's root directory. In IIS, the default location for the web server's root folder is <code>c:\inetpub\wwwroot</code>. </li>
-	<li>If your application edits the features in a feature service, enables the elevation chart, contains secure services or web maps that aren't publicly shared or generates requests that exceed 2000 characters you may need to setup and use a proxy page. One example where you may exceed the URL length is by using complex polygons as an input to a task. Another example is by specifying a spatial reference using well-known text (wkt).
-		View the <a href="http://help.arcgis.com/EN/webapi/javascript/arcgis/help/jshelp_start.htm#jshelp/ags_proxy.htm">Using the proxy page</a> help topic for details on installing and configuring a proxy page. After setting up the proxy, set the proxyUrl option in index.html to point to your proxy. </li>
-	<li> Test the page using the following URL: http://localhost/[template name]/index.html, where [template name] is the name of the folder where you extracted the zip contents. </li>
+	<li>Copy the contents of the zip file into your web server's root directory. In IIS, the default location for the web server's root folder is <code>c:\inetpub\wwwroot</code>.</li>
+	<li>If your application edits the features in a feature service, enables the elevation chart, contains secure services or web maps that aren't publicly shared or generates requests that exceed 2000 characters you may need to setup and use a proxy page. One example where you may exceed the URL length is by using complex polygons as an input to a task. Another example is by specifying a spatial reference using well-known text (wkt). View the <a href="http://help.arcgis.com/EN/webapi/javascript/arcgis/help/jshelp_start.htm#jshelp/ags_proxy.htm">Using the proxy page</a>help topic for details on installing and configuring a proxy page. After setting up the proxy, set the proxyUrl option in index.html to point to your proxy.</li>
+	<li>Test the page using the following URL: http://localhost/[template name]/index.html, where [template name] is the name of the folder where you extracted the zip contents.</li>
 </ol>
-<p><a href="#top">Top</a></p>
-<h3 id="configure"  class="heading">Configure the application</h3>
-<p>Now let's configure the application to use a different group and modify configuration options.</p>
-
-
-
-
-<p><a href="#top">Top</a></p>
-<h3 id="personalize" class="heading">Personalize the application</h3>
-<p>In this section, you will see how to personalize the application.</p>
-<p><a href="#top">Top</a></p>
+<p>
+	<a href="#top">Top</a>
+</p>
+<h3 id="configure" class="heading">Configure the application</h3>
+<p>
+	Now let's configure the application to use a different group and modify configuration options.
+</p>
+<ol>
+	<li>To modify the webmap, replace the string for id with your maps's id.
+	<pre>
+		"webmap":"<span class="selector">4a6f9fdc83ce44b6985115e4bd73cacd</span>"
+	</pre>
+	</li>
+	<li>If your group has a map which contains data from Bing Maps, enter your Bing Maps key.
+	<pre>
+		"bingMapsKey":"<span class="selector">Enter your Bing Maps Key here</span>",
+	</pre>
+	</li>
+	<li>Enter keys for social media.
+	<pre>
+		"flickrKey":"<span class="selector">Enter your Flickr Key here</span>",
+		"youtubeKey":"<span class="selector">Enter your YouTube Key here</span>",
+	</pre>
+	</li>
+	<li>
+	<ul>
+		<li><b>appid:</b> The ID of the application which will set these configuration options.</li>
+		<li><b>webmap:</b> The ID of the web map to display with this template.</li>
+		<li><b>socialDistance:</b> The social media search radius. The distance that the social media search will span.</li>
+		<li><b>socialDisplay:</b> Option to display as heatmap or cluster by default.</li>
+		<li><b>showFlickr:</b> Show Flickr on the social media layers menu.</li>
+		<li><b>showFlickrConfig:</b> Allow configuration of Flickr and it's search terms.</li>
+		<li><b>flickrChecked:</b> Search for Flickr Photos on map load.</li>
+		<li><b>flickrSearch:</b> Keyword to search for Flickr results.</li>
+		<li><b>flickrRange:</b> Show results ranging from this length of time.</li>
+		<li><b>flickrKey:</b> Flickr Developer API Key. Required to display Flickr Photos.</li>
+		<li><b>showYouTube:</b> Show YouTube on the social media layers menu.</li>
+		<li><b>showYouTubeConfig:</b> Allow configuration of YouTube and it's search terms.</li>
+		<li><b>youtubeChecked:</b> Search for YouTube Photos on map load.</li>
+		<li><b>youtubeSearch:</b> Keyword to search for YouTube results.</li>
+		<li><b>youtubeRange:</b> Show results ranging from this length of time.</li>
+		<li><b>youtubeKey:</b> YouTube Developer API Key. Required to display Flickr Photos.</li>
+		<li><b>showTwitter:</b> Show Twitter on the social media layers menu.</li>
+		<li><b>showTwitterConfig:</b> Allow configuration of Twitter and it's search terms.</li>
+		<li><b>twitterChecked:</b> Search for Twitter Photos on map load.</li>
+		<li><b>twitterSearch:</b> Keyword to search for Twitter results.</li>
+		<li><b>useArcGISOnlineBasemaps:</b> Use the ArcGIS Online basemap group for basemaps.</li>
+		<li><b>basemapGroupTitle:</b> If useArcGISOnlineBasemaps is false, use this group title for basemap group.</li>
+		<li><b>basemapGroupOwner:</b> If useArcGISOnlineBasemaps is false, use this user for basemap group.</li>
+		<li><b>previewPage:</b> Link to the page to preview the embed code.</li>
+		<li><b>clusterImage:</b> Image for clustered social media.</li>
+		<li><b>clusterHoverImage:</b> Hover image for clustered social media.</li>
+		<li><b>pointGraphic:</b> When searching for a location, show this point image.</li>
+		<li><b>geometryserviceurl:</b> Service to use to geolocate geometries.</li>
+		<li><b>proxyUrl:</b> Web server proxy location.</li>
+		<li><b>sharingurl:</b> Portal sharing URL.</li>
+		<li><b>portalUrl:</b> URL for portal.</li>
+		<li><b>bingMapsKey:</b> Bing Maps API developer key.</li>
+		<li><b>crosshairImage:</b> Cursor image used when plotting a social media location.</li>
+		<li><b>defaultMenu:</b> Menu to be shown on page load.</li>
+		<li><b>showSearchBox:</b> Show search box in user interface.</li>
+		<li><b>showShareMenu:</b> Show Link menu in user interface.</li>
+		<li><b>showSocialMenu:</b> Show social media in user interface.</li>
+		<li><b>showBasemapMenu:</b> Show basemap menu in user interface.</li>
+		<li><b>showLayersMenu:</b> Show operational layers in user interface.</li>
+		<li><b>showLegendMenu:</b> Show legend menu in user interface.</li>
+		<li><b>showPlaces:</b> Show places menu in user interface.</li>
+		<li><b>showGeolocation:</b> Show geolocation option under Places menu.</li>
+		<li><b>showAboutDialog:</b> Show about button in user interface.</li>
+		<li><b>showAboutDialogOnLoad:</b> Show about dialog on map load.</li>
+		<li><b>socialPoint:</b> Search social media from this location instead of center of map extent. Format as x,y eg: 1234.12,-1234.12.</li>
+		<li><b>locateName:</b> Use this title in info window on locate point.</li>
+		<li><b>locatePoint:</b> Show this point on map load. Format as x,y eg: 1234.12,-1234.12.</li>
+		<li><b>sourceCountry:</b> Country code to use for search geolocator service.</li>
+	</ul>
+	</li>
+	<li>Save the file then test your application and note that it now displays your group and if specified your custom properties.</li>
+</ol>
+<p>
+	<a href="#top">Top</a>
+</p>
+<h4 id="portal">Configure the template to work with your ArcGIS Portal</h4>
+<p>
+	You can use this template with your organization's ArcGIS Portal by setting a few configuration options.
+</p>
+<ol>
+	<li>Open config.js in a text editor.</li>
+	<li>Locate the options for "sharingurl", "portalUrl" and "mobilePortalUrl".
+	<div>
+		<pre>
+			 "sharingurl":"http://www.arcgis.com/sharing/rest/content/items", "portalUrl":"http://www.arcgis.com/",
+		</pre>
+	</div>
+	</li>
+	<li>Change these settings to point to your portal's URL instead of using ArcGIS.com's URL.
+	<div>
+		<pre>
+			 "sharingurl":"<span class="selector">http://www.myorg.com/sharing/rest/content/items</span>", "portalUrl":"<span class="selector">http://www.myorg.com/</span>",
+		</pre>
+	</div>
+	</li>
+	<li>Save the file.</li>
+	<li>Run the application and the template should be using your portal.</li>
+</ol>
+<p>
+	<a href="#top">Top</a>
+</p>
 </body>
 </html>
