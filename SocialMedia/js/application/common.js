@@ -128,7 +128,7 @@ function setDefaultConfigOptions() {
         configOptions.locateName = "";
     }
     configOptions.locatorserviceurl = location.protocol + '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer';
-    configOptions.popupWidth = 375;
+    configOptions.popupWidth = 290;
     configOptions.popupHeight = 200;
     configOptions.previewSize = {
         "width": 900,

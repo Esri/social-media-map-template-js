@@ -92,7 +92,7 @@ function configurePlaces() {
         // CREATE LIST
         node = dojo.byId('placesMenu');
         if (node) {
-            node.innerHTML = '<ul class="zebraStripes" id="placesList"></ul>';
+            node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.places.menuTitle + '<div class="clear"></div></div><ul class="zebraStripes" id="placesList"></ul>';
         }
         // IF GEOLOCATION
         if (configOptions.showGeolocation && navigator.geolocation) {

@@ -15,25 +15,34 @@ define({
                 "integersOnly":"You may only enter integers in this field.",
 				"nodesc":"No description."
             },
-            "search":{
+			"legend": {
+				"menuTitle":"Legend"
+			},
+            "search": {
             	"location":"Location",
             	"clearLocation":"Clear Location",
             	"placeholder":"Find a place"
             },
+			"layers": {
+				"menuTitle":"Operational Layers"
+			},
             "layer": {
             	"information":"Information",
             	"transparency":"Transparency",
             	"searchSettings":"Search Settings",
-            	"filteredBy":"Filtered by:"
+            	"filteredBy":"filtered by:"
             },
             "general": {
             	"at":"at",
 				"of":"of",
-            	"mapTitle":"Load default map extent",
+            	"homeExtent":"Load default map extent",
 				"ok":"OK",
 				"close":"Close"
             },
-            "settings":{
+			"basemap": {
+				"menuTitle":"Select a basemap",
+			},
+            "settings": {
             	"title":"Settings",
             	"searchAll":"Search all of",
             	"usingThisKeyword":"Using keyword(s)",
@@ -52,13 +61,17 @@ define({
             	"locationText":"click on the map to set the origin",
             	"twSearch":"How to Use Advanced Twitter Search"
             },
-            "places":{
+			"autoComplete": {
+				"menuTitle":"Results&hellip;"
+			},
+            "places": {
+				"menuTitle":"Bookmarked places",
             	"places":"Places",
             	"placesTitle":"Bookmark Places",
             	"myLocation":"My Current Location",
             	"myLocationTitle":"Center map to my location"
             },
-            "distanceSlider":{
+            "distanceSlider": {
             	"local":"Local",
             	"regional":"Regional",
             	"national":"National"
@@ -84,7 +97,8 @@ define({
             	"heatmap":"Density"
             },
             "shareMenu":{
-            	"shareHeader":"Share a link to your map",
+				"menuTitle":"Share Current View",
+				"shareHeader":"Share a link to your map",
             	"facebook":"Facebook",
             	"facebookHeader":"Share on Facebook",
             	"twitter":"Twitter",
@@ -104,6 +118,9 @@ define({
 				"by":"by",
 				"separator":","
 			},
+			"social":{
+				"menuTitle":"Social Media Layers"
+			},
 			"preview":{
 				"minWidth":"Minimum width is",
 				"minHeight":"Minimum height is",
@@ -119,15 +136,15 @@ define({
 			},
 			"flickr":{
 				"title":"Flickr",
-				"description":"Photos from Flickr."
+				"description":"Photos from Flickr"
 			},
 			"twitter":{
 				"title":"Twitter",
-				"description":"Tweets from Twitter."
+				"description":"Tweets from Twitter"
 			},
 			"youtube":{
 				"title":"YouTube",
-				"description":"Video from YouTube."
+				"description":"Video from YouTube"
 			}
         }
     }),

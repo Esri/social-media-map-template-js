@@ -250,10 +250,10 @@ dojo.addOnLoad(function () {
                 datePattern: "y-M-d-H:m:s"
             });
             var linkedText = socialInstance.parseURL(graphic.attributes.media$group.media$description.$t);
-            var videoWidth = 336;
-            var videoHeight = 252;
+            var videoWidth = 250;
+            var videoHeight = 188;
             if (graphic.attributes.media$group.yt$aspectRatio) {
-                videoHeight = 189;
+                videoHeight = 140;
             }
             var html = '';
             html += '<div class="ytContent">';

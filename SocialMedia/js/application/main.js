@@ -62,15 +62,17 @@ function showAutoComplete(results) {
     configOptions.autocompleteResults = results;
     resetHideACTimeout();
     var aResults = '';
-    var addressPosition = dojo.query('#address').parent('.iconInput')[0];
+    var addressPosition = dojo.query('#locateBox')[0];
     var offset = dojo.position(addressPosition);
     var partialMatch = dojo.query('#address').attr('value');
     var regex = new RegExp('(' + partialMatch + ')', 'gi');
     var autoCompleteObj = dojo.query('#autoComplete');
+	var box = dojo.marginBox(addressPosition);
     autoCompleteObj.style({
         'left': offset.x + 'px',
-        'top': offset.y + 28 + 'px'
+        'top': box.h + 'px'
     });
+	aResults += '<div class="menuClose"><div class="closeButton closeAC"></div>' + i18n.viewer.autoComplete.menuTitle + '<div class="clear"></div></div>';
     aResults += '<ul class="zebraStripes">';
     var i;
     for (i = 0; i < results.locations.length; ++i) {
@@ -286,7 +288,7 @@ function rightSideMenuButtons() {
         });
         node = dojo.byId('basemapMenu');
         if (node) {
-            node.innerHTML = '<div class="slideScroll"><div id="baseContainer"></div></div>';
+            node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.basemap.menuTitle + '<div class="clear"></div></div><div class="bmMenuCon"><div class="slideScroll"><div id="baseContainer"></div></div></div>';
         }
         // basemap gallery prepend to node
         if (configOptions.bmDijit) {
@@ -358,6 +360,7 @@ function configureShareMenu() {
             node.innerHTML = '<span tabindex="0" id="shareIcon" data-menu="share" class="barButton" title="' + i18n.viewer.buttons.linkTitle + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.link + '<span class="arrow"></span></span></div><div class="clear">';
         }
         var html = '';
+		html += '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.shareMenu.menuTitle + '<div class="clear"></div></div>';
         html += '<div class="shareContainer">';
         html += '<div class="Pad">';
         html += '<h3>' + i18n.viewer.shareMenu.shareHeader + '</h3>';
@@ -419,6 +422,14 @@ function configureSearchBox() {
         if (node) {
             node.innerHTML = html;
         }
+		
+		// close autocomplete
+		dojo.query(document).delegate(".slideMenu .menuClose .closeAC", "onclick,keyup", function (event) {
+            if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
+                hideAC();
+            }
+        });
+
         // SEARCH BOX JAVASCRIPT
         dojo.query(document).delegate("#address", "onclick", function (event) {
             if (event.type === 'click') {
@@ -508,8 +519,8 @@ function configureSearchBox() {
         if (configOptions.locateName) {
             checkAddressStatus('#address');
         }
-        // LOGO CLICK
-        dojo.query(document).delegate("#mapTitle", "onclick,keyup", function (event) {
+        // Home extent
+        dojo.query(document).delegate("#homeExtent", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                 map.setExtent(configOptions.startExtent);
             }
@@ -621,7 +632,7 @@ function configureAboutText() {
 function createCustomSlider() {
     var node = dojo.byId('zoomSlider');
     if (node) {
-        node.innerHTML = '<div id="customZoom"></div>';
+        node.innerHTML = '<div title="' + i18n.viewer.general.homeExtent + '" id="homeExtent" tabindex="0"></div><div id="customZoom"></div>';
     }
     dojo.connect(map, "onZoomEnd", function (evt) {
         configOptions.mapZoomBar.set("value", map.getLevel());
@@ -660,7 +671,6 @@ function configureAppTitle() {
     var node = dojo.byId('mapTitle');
     if (node) {
         node.innerHTML = configOptions.itemInfo.item.title;
-        dojo.query(node).attr('title', i18n.viewer.general.mapTitle);
     }
 }
 
@@ -719,7 +729,7 @@ function addSlideMenus() {
     html += '<div data-menu="basemap" id="basemapMenu" class="slideMenu"></div>';
     html += '<div data-menu="layers" id="layersMenu" class="slideMenu listMenu"></div>';
     html += '<div data-menu="social" id="socialMenu" class="slideMenu listMenu"></div>';
-    html += '<div data-menu="legend" id="legendMenu" class="slideMenu"><div class="slideScroll"><div id="legendContent"></div></div></div>';
+    html += '<div data-menu="legend" id="legendMenu" class="slideMenu"></div>';
     html += '</div>';
     var node = dojo.query('#mapcon')[0];
     if (node) {

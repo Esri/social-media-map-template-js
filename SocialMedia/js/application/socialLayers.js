@@ -82,7 +82,7 @@ function setMenuForLatLong(PGP, locationText) {
 // SETTINGS PANEL UI
 function configureSettingsUI() {
     var props = {
-        style: "width: 425px",
+        style: "width: 350px",
         draggable: true,
         showTitle: true,
         title: 'Settings'
@@ -577,10 +577,11 @@ function insertSMItem(obj) {
         if (obj.description) {
             html += '<div title="' + i18n.viewer.general.close + '" class="infoHidden">';
             html += '<div class="ihClose"></div>';
-            html += '<p>' + obj.description + '</p>';
+            html += '<p>' + obj.description;
             if (obj.searchTerm) {
-                html += '<p>' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + obj.searchTerm + '</span>"</p>';
+                html += ' ' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + obj.searchTerm + '</span>."';
             }
+			html += '</p>';
             html += '</div>';
         }
         html += '</li>';
@@ -770,7 +771,7 @@ function configureSocialMedia() {
     // APPEND LIST CONTAINER
     var node = dojo.byId('socialMenu');
     if (node) {
-        node.innerHTML = '<ul class="zebraStripes" id="socialList"></ul>';
+        node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.social.menuTitle + '<div class="clear"></div></div><ul class="zebraStripes" id="socialList"></ul>';
     }
     // IF FLICKR
     if (configOptions.showFlickr) {
@@ -969,7 +970,7 @@ function configureSocialMedia() {
             var settingsID = dojo.query(parent).attr('data-layer');
             var settingsClass = getButtonClass(i + 1, settingsCount);
             var settingsSource = dojo.query(parent).children('.cBicon').children('img').attr('src');
-            var settingsTitle = dojo.query(parent).children('.cBtitle').innerHTML;
+            var settingsTitle = dojo.query(parent).children('.cBtitle').text();
             var node = dojo.byId('cfgMenu');
             if (node) {
                 var html = '<span tabindex="0" data-layer="' + settingsID + '" class="mapButton ' + settingsClass + '" title="' + settingsTitle + '"><img width="16" height="16" src="' + settingsSource + '" /></span>';
