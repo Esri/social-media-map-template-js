@@ -67,7 +67,7 @@ function buildLayersList(layers) {
     return layerInfos;
 }
 
-// CHANGE ACTIVE LAYERS
+// change active layers
 function getActiveLayerIndex(layerid) {
     var indexNum = dojo.indexOf(configOptions.layers, layerid);
     return indexNum;
@@ -82,7 +82,7 @@ function addToActiveLayers(layerid) {
     setSharing();
 }
 
-// LAYERS UI
+// layers ui
 function configureLayerUI() {
     dojo.query(document).delegate("#layersList li:not(.cLoading) .toggle", "onclick,keyup", function (event) {
         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -128,7 +128,7 @@ function configureLayerUI() {
         hideLayerInfo();
     });
 
-    // CONFIG SETTINGS
+    // config settings
     dojo.query(document).delegate(".listMenu ul li .cBconfig", "onclick,keyup", function (event) {
         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
             hideLayerInfo();
@@ -154,7 +154,7 @@ function configureLayerUI() {
     });
 }
 
-// TOGGLE MAP LAYER ON AND OFF
+// toggle map layer on and off
 function toggleMapLayer(layerid) {
     var layer = map.getLayer(layerid);
     if (layer) {
@@ -172,7 +172,7 @@ function toggleMapLayer(layerid) {
 }
 
 function addLayerToUI(layerToAdd, index) {
-    // EACH LAYER
+    // each layer
     var layerClass;
     // URL layers variable
     var urlLayers = false;
@@ -180,7 +180,7 @@ function addLayerToUI(layerToAdd, index) {
     if (urlObject.query.hasOwnProperty('layers')) {
         urlLayers = true;
     }
-    // GENERATE LAYER HTML
+    // generate layer html
     var html = '';
     // if layer object
     if (layerToAdd) {
@@ -278,7 +278,7 @@ function addLayerToUI(layerToAdd, index) {
         }
         // Set data layers
         layerToAdd.dataLayers = dataLayers;
-        // COMPOSE HTML LIST STRING
+        // compose html list string
         html += '<li class="' + layerClass + '" data-layer="' + dataLayers + '">';
         html += '<div class="cover"></div>';
         html += '<span tabindex="0" class="cBinfo" title="' + i18n.viewer.layer.information + '"></span>';
@@ -305,7 +305,7 @@ function addLayerToUI(layerToAdd, index) {
         html += '</div>';
     }
     html += '</li>';
-    // APPEND HTML
+    // append html
     node = dojo.byId('layersList');
     if (node) {
         dojo.place(html, node, "last");
@@ -315,7 +315,7 @@ function addLayerToUI(layerToAdd, index) {
 function addLayerTransparencySlider(theLayer, index) {
     // if layer object
     if (theLayer) {
-        // INIT SLIDERS
+        // init sliders
         var slider = new dijit.form.HorizontalSlider({
             name: "slider",
             value: parseFloat(theLayer.opacity * 100),
@@ -331,7 +331,7 @@ function addLayerTransparencySlider(theLayer, index) {
     }
 }
 
-// CREATE LAYER ITEMS
+// create layer items
 function configureLayers() {
     // if operational layers
     if (configOptions.itemLayers) {

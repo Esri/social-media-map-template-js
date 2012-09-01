@@ -72,7 +72,7 @@ function configUrlParams() {
     dojo.mixin(configOptions, urlObject.query);
 }
 
-// SET SHARING
+// Set sharing links
 function setSharing(isPreviewPage) {
     // parameters to share
     var urlParams = ['webmap', 'basemap', 'extent', 'locateName', 'layers', 'youtubeSearch', 'youtubeRange', 'youtubeChecked', 'twitterSearch', 'twitterChecked', 'flickrSearch', 'flickrRange', 'flickrChecked', 'socialDistance', 'socialPoint', 'socialDisplay', 'locatePoint'];

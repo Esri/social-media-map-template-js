@@ -1,12 +1,12 @@
-// CREATE PLACES ITEM
+// create places item
 function createPlacesListItem(i) {
-    // DEFAULT VARS //
+    // default vars //
     var html = '';
-    // LIST HTML
+    // list html
     html += '<li data-index="' + i + '" class="layer placesItem sharedItem checked">';
     html += '<span tabindex="0" class="placesIcon placesClick"></span><span class="title placesClick">' + configOptions.bookmarks[i].name.replace(/[\-_]/g, " ") + '</span>';
     html += '</li>';
-    // INSERT LIST ITEM
+    // insert list item
     var node = dojo.byId('placesList');
     if (node) {
         dojo.place(html, node, "last");
@@ -14,7 +14,7 @@ function createPlacesListItem(i) {
     zebraStripe(dojo.query('#placesList li.layer'));
 }
 
-// ZOOM TO LOCATION: ZOOMS MAP TO LOCATION POINT
+// zoom to location: zooms map to location point
 function zoomToLocation(x, y, IPAccuracy) {
     var lod = 16;
     // set point
@@ -23,12 +23,12 @@ function zoomToLocation(x, y, IPAccuracy) {
     map.centerAndZoom(pt, lod);
 }
 
-// GEOLOCATION ERROR
+// geolocation error
 function geoLocateMapError(error) {
     console.log(error);
 }
 
-// GEOLOCATE FUNCTION: SETS MAP LOCATION TO USERS LOCATION
+// geolocate function: sets map location to users location
 function geoLocateMap(position) {
     if (position) {
         var latitude = position.coords.latitude;
@@ -38,7 +38,7 @@ function geoLocateMap(position) {
     }
 }
 
-// GEOLOCATE ITEM
+// geolocate item
 function createGeolocateItem() {
     var html = '<li tabindex="0" title="' + i18n.viewer.places.myLocationTitle + '" id="geoLocate" class="layer placesItem"><span class="placesIcon"></span><span class="title">' + i18n.viewer.places.myLocation + '</span></li>';
     var node = dojo.byId('placesList');
@@ -47,22 +47,22 @@ function createGeolocateItem() {
     }
 }
 
-// CONFIGURE PLACES
+// configure places
 function placesOnClick() {
-    // PLACES CLICK
+    // places click
     dojo.query(document).delegate("#placesList .placesClick", "onclick,keyup", function (event) {
         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
             objIndex = dojo.query(this).parent().attr('data-index');
             if (objIndex !== -1) {
-                // CREATE EXTENT
+                // create extent
                 var newExtent = new esri.geometry.Extent(configOptions.bookmarks[objIndex].extent);
-                // SET EXTENT
+                // set extent
                 map.setExtent(newExtent);
             }
 
         }
     });
-    // GEOLOCATE CLICK
+    // geolocate click
     dojo.query(document).delegate("#geoLocate .title, #geoLocate .placesIcon", "onclick,keyup", function (event) {
         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
             navigator.geolocation.getCurrentPosition(geoLocateMap, geoLocateMapError, {
@@ -72,7 +72,7 @@ function placesOnClick() {
             });
         }
     });
-    // PLACES CLICK
+    // places click
     dojo.query(document).delegate("#placesButton", "onclick,keyup", function (event) {
         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
             toggleMenus('places');
@@ -80,33 +80,32 @@ function placesOnClick() {
     });
 }
 
-// CONFIGURE PLACES
+// configure places
 function configurePlaces() {
-    // IF PLACES
+    // if places
     if (configOptions.showPlaces) {
-        // INSERT PLACES BUTTON
+        // insert places button
         var node = dojo.byId('placesCon');
         if (node) {
             node.innerHTML = '<span tabindex="0" id="placesButton" class="barButton" data-menu="places" title="' + i18n.viewer.places.placesTitle + '">' + i18n.viewer.places.places + '<span class="arrow"></span></span>';
         }
-        // CREATE LIST
+        // create list
         node = dojo.byId('placesMenu');
         if (node) {
             node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.places.menuTitle + '<div class="clear"></div></div><ul class="zebraStripes" id="placesList"></ul>';
         }
-        // IF GEOLOCATION
+        // if geolocation
         if (configOptions.showGeolocation && navigator.geolocation) {
             createGeolocateItem();
         }
-        // IF SHARE OBJECT
+        // if share object
         if (configOptions.bookmarks && configOptions.bookmarks.length) {
             for (i = 0; i < configOptions.bookmarks.length; i++) {
                 createPlacesListItem(i);
             }
         }
-        // SET ON CLICKS
+        // set on clicks
         placesOnClick();
         zebraStripe(dojo.query('#placesList li.layer'));
     }
 }
-// END

@@ -79,7 +79,7 @@ function setMenuForLatLong(PGP, locationText) {
     }
 }
 
-// SETTINGS PANEL UI
+// settings panel ui
 function configureSettingsUI() {
     var props = {
         style: "width: 350px",
@@ -206,7 +206,7 @@ function configureSettingsUI() {
         };
         setMenuForLatLong(prePoint, dojo.query('#socialLocationText'));
     }
-    // RESET TO CENTER OF MAP
+    // reset to center of map
     dojo.query(document).delegate("#settingsDialog .resetCenter", "onclick,keyup", function (event) {
         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
             resetMenuForCenter(dojo.query(this));
@@ -226,7 +226,7 @@ function clearDataPoints() {
     }
 }
 
-// CHANGE SOCIAL MEDIA SETTINGS
+// change social media settings
 function changeYouTube() {
     configOptions.youtubeSearch = dojo.query('#YTkwinput').attr('value')[0];
     configOptions.youtubeRange = dojo.query("#youtuberange").attr('value')[0];
@@ -291,7 +291,7 @@ function resetMenuForCenter(btn) {
     }
 }
 
-// GETS STRING FOR SOCIAL MEDIA POPUP TITLE
+// gets string for social media popup title
 function getSmPopupTitle() {
     var graphic = configOptions.customPopup.getSelectedFeature();
     var socialString = '';
@@ -301,7 +301,7 @@ function getSmPopupTitle() {
             var total = configOptions.customPopup.count;
             var current = configOptions.customPopup.selectedIndex + 1;
             var socialObject = false;
-            // IF MORE THAN 1
+            // if more than 1
             if (total > 1) {
                 pagString = '<span class="pageInfo">(' + dojo.number.format(current) + ' ' + i18n.viewer.general.of + ' ' + dojo.number.format(total) + ')</span>';
             }
@@ -315,7 +315,7 @@ function getSmPopupTitle() {
             if (configOptions.showFlickr) {
                 flID = configOptions.flickrID;
             }
-            // SET SOCIAL ICON
+            // set social icon
             switch (graphic.attributes.smType) {
             case ytID:
                 socialObject = {
@@ -344,7 +344,7 @@ function getSmPopupTitle() {
     return socialString + pagString;
 }
 
-// OVERRIDES POPUP TITLE FOR SOCIAL MEDIA TO ADD IMAGE
+// overrides popup title for social media to add image
 function overridePopupTitle() {
     configOptions.customPopup.setTitle(getSmPopupTitle());
 }
@@ -352,7 +352,7 @@ function overridePopupTitle() {
 // update social layers
 function updateSocialLayers() {
     if (configOptions.showYouTube) {
-        // IF YOUTUBE cbox is checked
+        // if youtube cbox is checked
         var ytList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + ']');
         if (dojo.hasClass(ytList[0], "checked")) {
             ytList.addClass("cLoading");
@@ -365,7 +365,7 @@ function updateSocialLayers() {
             });
         }
     }
-    // IF TWITTER cbox is checked
+    // if twitter cbox is checked
     if (configOptions.showTwitter) {
         var twList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + ']');
         if (dojo.hasClass(twList[0], "checked")) {
@@ -379,7 +379,7 @@ function updateSocialLayers() {
         }
     }
     if (configOptions.showFlickr) {
-        // IF FLICKR cbox is checked
+        // if flickr cbox is checked
         var flList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + ']');
         if (dojo.hasClass(flList[0], "checked")) {
             flList.addClass("cLoading");
@@ -398,7 +398,7 @@ function updateSocialLayers() {
     }
 }
 
-// RESET SOCIAL REFRESH TIMER
+// reset social refresh timer
 function resetSocialRefreshTimer() {
     clearTimeout(configOptions.autoRefreshTimer);
     if (!(configOptions.socialPoint[0] && configOptions.socialPoint[1])) {
@@ -408,7 +408,7 @@ function resetSocialRefreshTimer() {
     }
 }
 
-// TOGGLE SOCIAL MEDIA LAYER ON AND OFF
+// toggle social media layer on and off
 function toggleMapLayerSM(layerid) {
     clearTimeout(configOptions.autoRefreshTimer);
     var ytID, twID, flID, usID = false;
@@ -480,7 +480,7 @@ function toggleMapLayerSM(layerid) {
     setSharing();
 }
 
-// TOGGLE HEAT/CLUSTER
+// toggle heat/cluster
 function showHeatLayer() {
     if (clusterLayer) {
         clusterLayer.setVisibility(false);
@@ -502,10 +502,10 @@ function showClusterLayer() {
     }
 }
 
-// TOGGLE DISPLAY AS CLUSTERS/HEATMAP
+// toggle display as clusters/heatmap
 function toggleDisplayAs(obj) {
     dojo.query('#displayAs .mapButton').removeClass('buttonSelected');
-    // DATA TYPE VARIABLE
+    // data type variable
     var dataType = dojo.query(obj).attr('data-type')[0];
     if (dataType === 'heatmap' && isCanvasSupported()) {
         showHeatLayer();
@@ -516,11 +516,11 @@ function toggleDisplayAs(obj) {
     }
     configOptions.customPopup.hide();
     setSharing();
-    // CLASS
+    // class
     dojo.query(obj).addClass('buttonSelected');
 }
 
-// HEATMAP / CLUSTERS TOGGLE
+// heatmap / clusters toggle
 function insertSMToggle() {
     if (isCanvasSupported()) {
         var clusterClass = '';
@@ -549,18 +549,18 @@ function insertSMToggle() {
     }
 }
 
-// INSERT SOCIAL MEDIA LIST ITEM
+// insert social media list item
 function insertSMItem(obj) {
     if (obj) {
-        // LAYER DEFAULT CLASS
+        // layer default class
         var layerClass = 'layer';
         var key;
-        // IF LAYER IS CHECKED
+        // if layer is checked
         if (obj.visible) {
-            // SET CLASS TO CHECKED
+            // set class to checked
             layerClass = 'layer checked';
         }
-        // COMPOSE HTML LIST STRING
+        // compose html list string
         var html = '';
         html += '<li data-layer="' + obj.uniqueID + '" class="' + layerClass + '">';
         html += '<div class="cover"></div>';
@@ -585,7 +585,7 @@ function insertSMItem(obj) {
             html += '</div>';
         }
         html += '</li>';
-        // INSERT HTML
+        // insert html
         var node = dojo.byId('socialList');
         if (node) {
             dojo.place(html, node, "last");
@@ -593,7 +593,7 @@ function insertSMItem(obj) {
     }
 }
 
-// UPDATE HEAT MAP
+// update heat map
 function updateDataPoints() {
     var dataPoints = [];
     if (configOptions.showTwitter) {
@@ -623,7 +623,7 @@ function updateDataPoints() {
 }
 
 
-// INSERT SETTINGS PANEL HTML
+// insert settings panel html
 function insertSettingsHTML() {
     var html = '';
     html += '<div class="padContainer">';
@@ -723,11 +723,11 @@ function insertSettingsHTML() {
     if (node) {
         node.innerHTML = html;
     }
-    //	SET SELECT MENU VALUES
+    //	set select menu values
     if (configOptions.showYouTube) {
         dojo.query('#youtuberange').attr('value', configOptions.youtubeRange);
     }
-    //	SET SELECT MENU VALUES
+    //	set select menu values
     if (configOptions.showFlickr) {
         dojo.query('#flickrrange').attr('value', configOptions.flickrRange);
     }
@@ -745,7 +745,7 @@ function configureSocialMedia() {
         });
         map.addLayer(heatLayer);
     }
-    // SET UP CLUSTER LAYER
+    // set up cluster layer
     clusterLayer = new modules.ClusterLayer(null, {
         map: map,
         clusterImage: configOptions.clusterImage,
@@ -768,12 +768,12 @@ function configureSocialMedia() {
         }
     }
 
-    // APPEND LIST CONTAINER
+    // append list container
     var node = dojo.byId('socialMenu');
     if (node) {
         node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.social.menuTitle + '<div class="clear"></div></div><ul class="zebraStripes" id="socialList"></ul>';
     }
-    // IF FLICKR
+    // if flickr
     if (configOptions.showFlickr) {
         flickrLayer = new social.flickr({
             map: map,
@@ -816,7 +816,7 @@ function configureSocialMedia() {
         });
         dojo.connect(flickrLayer, 'onUpdate', updateDataPoints);
         dojo.connect(flickrLayer, 'onClear', updateDataPoints);
-        // INSERT HTML
+        // insert html
         insertSMItem({
             visible: configOptions.flickrChecked,
             uniqueID: configOptions.flickrID,
@@ -827,7 +827,7 @@ function configureSocialMedia() {
             searchTerm: configOptions.flickrSearch
         });
     }
-    // IF TWITTER
+    // if twitter
     if (configOptions.showTwitter) {
         twitterLayer = new social.twitter({
             map: map,
@@ -867,7 +867,7 @@ function configureSocialMedia() {
         });
         dojo.connect(twitterLayer, 'onUpdate', updateDataPoints);
         dojo.connect(twitterLayer, 'onClear', updateDataPoints);
-        // INSERT HTML
+        // insert html
         insertSMItem({
             visible: configOptions.twitterChecked,
             uniqueID: configOptions.twitterID,
@@ -878,7 +878,7 @@ function configureSocialMedia() {
             searchTerm: configOptions.twitterSearch
         });
     }
-    // IF YOUTUBE
+    // if youtube
     if (configOptions.showYouTube) {
         youtubeLayer = new social.youtube({
             map: map,
@@ -920,7 +920,7 @@ function configureSocialMedia() {
         });
         dojo.connect(youtubeLayer, 'onUpdate', updateDataPoints);
         dojo.connect(youtubeLayer, 'onClear', updateDataPoints);
-        // INSERT HTML
+        // insert html
         insertSMItem({
             visible: configOptions.youtubeChecked,
             uniqueID: configOptions.youtubeID,
@@ -935,7 +935,7 @@ function configureSocialMedia() {
     insertSettingsHTML();
     configureSettingsUI();
 
-    // ONCLICK CONNECT
+    // onclick connect
     dojo.connect(clusterLayer.graphics, "onClick",
 
     function (evt) {
@@ -959,10 +959,10 @@ function configureSocialMedia() {
         hideAllMenus();
     });
 
-    // ZEBRA STRIPE LAYERS
+    // zebra stripe layers
     zebraStripe(dojo.query('#socialList li.layer'));
 
-    // SETTINGS MENU GENERATOR
+    // settings menu generator
     var settingsCount = dojo.query('#socialList li.layer .cBconfig').length;
     if (settingsCount > -1) {
         dojo.forEach(dojo.query('#socialList li.layer .cBconfig'), function (entry, i) {

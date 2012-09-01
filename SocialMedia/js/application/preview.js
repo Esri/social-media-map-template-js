@@ -1,4 +1,4 @@
-// RESIZE MAP FUNCTION
+// resize map function
 function resizeMapPreview() {
     //clear any existing resize timer
     clearTimeout(configOptions.previewTimer);
@@ -93,7 +93,7 @@ function mapSize(mSize, width, height) {
     setSharing(true);
 }
 
-// CONFIGURE EMBED
+// configure embed
 function configureEmbed() {
     setConfigOptions();
     configOptions.embedWidth = configOptions.embedSizes.medium.width;
@@ -168,20 +168,19 @@ function configureEmbed() {
             mapSize('custom');
         }
     });
-    //  LISTENER FOR CUSTOM MAP SIZE KEY UP - Height
+    // listener for custom map size key up - height
     dojo.connect(dojo.byId('inputHeight'), "onchange", function (event) {
         mapSize('custom');
     });
-    // LISTENER FOR CUSTOM MAP SIZE KEY UP - Width
+    // listener for custom map size key up - width
     dojo.connect(dojo.byId('inputWidth'), "onchange", function (event) {
         mapSize('custom');
     });
-    // INPUT SELECT ALL
+    // input select all
     dojo.query(document).delegate("#inputEmbed", "onclick", function (event) {
         dojo.query(this)[0].select();
     });
-    // RESIZABLE
-
+    // resizable
     var handle = new dojox.layout.ResizeHandle({
         targetId: "mapPreviewResize",
         constrainMax: true,
@@ -205,7 +204,7 @@ function configureEmbed() {
         dojo.query(this).addClass('resizing');
     });
 
-    // SET INITIAL EMBED CODE
+    // set initial embed code
     setSharing(true);
 }
 

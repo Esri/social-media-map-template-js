@@ -18,4 +18,4 @@ var i18n, configOptions, map, urlObject;
 // Layers
 var clusterLayer, heatLayer, twitterLayer, flickrLayer, youtubeLayer;
 
-// todo: Readme.html. Arabic CSS RTL. TEST, TEST, TEST!
+// todo: Arabic CSS RTL. TEST, TEST, TEST!

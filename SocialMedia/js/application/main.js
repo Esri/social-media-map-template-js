@@ -46,7 +46,7 @@ function resetHideACTimeout() {
     configOptions.autocompleteTimer = setTimeout(hideAC, 6000);
 }
 
-// LOCATE
+// Locate address
 function locate() {
     var query = dojo.query('#address').attr('value')[0];
     if (query) {
@@ -57,7 +57,7 @@ function locate() {
     }
 }
 
-// SHOW AUTOCOMPLETE
+// Show autocomplete
 function showAutoComplete(results) {
     configOptions.autocompleteResults = results;
     resetHideACTimeout();
@@ -98,10 +98,10 @@ function showAutoComplete(results) {
 
 function setMarker(point, address) {
     if (configOptions.pointGraphic) {
-        // CREATE POINT MARKER
+        // Create point marker
         var pointGraphic = new esri.symbol.PictureMarkerSymbol(configOptions.pointGraphic, 21, 29).setOffset(0, 12);
         var locationGraphic = new esri.Graphic(point, pointGraphic);
-        // IF LOCATE RESULTS
+        // if locate point layer
         if (configOptions.locateLayer) {
             configOptions.locateLayer.clear();
             clearPopupValues();
@@ -128,13 +128,12 @@ function setMarker(point, address) {
     }
 }
 
-// SHOW RESULTS
+// Show locate results
 function showResults(results, resultNumber) {
-    // IF RESULT
+    // if results
     if (results.locations.length > 0) {
-        // NUM RESULT VARIABLE
+        // result number
         var numResult = 0;
-        // IF RESULT NUMBER
         if (resultNumber) {
             numResult = resultNumber;
         }
@@ -149,7 +148,7 @@ function showResults(results, resultNumber) {
         setMarker(point, results.locations[numResult].name);
         dojo.query('#address').attr('value', results.locations[numResult].name);
         configOptions.locateName = results.locations[numResult].name;
-        // SET EXTENT CONVERTED TO WEB MERCATOR
+        // Set extent
         map.setExtent(extent);
     } else {
         alertDialog(i18n.viewer.errors.noLocation);
@@ -159,19 +158,19 @@ function showResults(results, resultNumber) {
     hideAC();
 }
 
-// HIDE AUTO COMPLETE
+// hide autocopmlete
 function hideAC() {
     dojo.query('#autoComplete').style('display', 'none');
 }
 
-// CLEAR ADDRESS FUNCTION THAT REMOVES BUTTON AS WELL
+// clear locate box
 function clearAddress(obj) {
     dojo.query(obj).attr('value', '');
     var iconReset = dojo.query(obj).prev('.iconClear');
     iconReset.removeClass('iconReset').attr('title', '');
 }
 
-// CHECKS TO SEE IF ADDRESS IS POPULATED
+// see if locate box is populated
 function checkAddressStatus(obj) {
     var cAVal = dojo.query(obj).attr('value')[0];
     var iconReset = dojo.query(obj).prev('.iconClear');
@@ -182,7 +181,7 @@ function checkAddressStatus(obj) {
     }
 }
 
-// RESIZE MAP FUNCTION
+// resize map
 function resizeMap() {
     //clear any existing resize timer
     clearTimeout(configOptions.mapTimer);
@@ -191,19 +190,19 @@ function resizeMap() {
         if (map) {
             var barHeight = 0,
                 chartHeight = 0;
-            // GET HEIGHT OF MENU BAR
+            // menu bar height
             var menuBar = dojo.byId('topMenuBar');
             if (menuBar) {
                 var menuPos = dojo.position(menuBar);
                 barHeight = menuPos.h;
             }
-            // GET HEIGHT OF MENU BAR
+            // chart height
             var chartNode = dojo.byId('graphBar');
             if (chartNode) {
                 var chartPos = dojo.position(chartNode);
                 chartHeight = chartPos.h;
             }
-            // GET HEIGHT OF WINDOW
+            // window height
             var vs = dojo.window.getBox();
             var windowHeight = vs.h;
             var node = dojo.byId('map');
@@ -212,7 +211,7 @@ function resizeMap() {
                     "height": windowHeight - barHeight - chartHeight + 'px'
                 });
             }
-            // RESIZE
+            // resize
             map.resize();
             map.reposition();
             // update location of menus
@@ -239,7 +238,7 @@ function toggleAboutMap(obj) {
     }
 }
 
-// SET TW LINK
+// twitter link
 function setTWLink(shLink) {
     if (shLink) {
         var fullLink;
@@ -252,7 +251,7 @@ function setTWLink(shLink) {
     }
 }
 
-// SET FB LINK
+// facebook link
 function setFBLink(fbLink) {
     if (fbLink) {
         var fullLink;
@@ -265,7 +264,7 @@ function setFBLink(fbLink) {
     }
 }
 
-// RIGHT SIDE MENU BUTTONS
+// right side menu buttons
 function rightSideMenuButtons() {
     var html = '<div id="menuListCon">';
     var node;
@@ -352,7 +351,7 @@ function rightSideMenuButtons() {
     dojo.query('#topMenuBar').style('display', 'block');
 }
 
-// CONFIGURE SHARE MENU
+// set up share menu
 function configureShareMenu() {
     if (configOptions.showShareMenu) {
         var node = dojo.query('#shareMap')[0];
@@ -375,7 +374,7 @@ function configureShareMenu() {
         if (node) {
             node.innerHTML = html;
         }
-        // EMBED MODAL CLICK
+        // embed click
         if (configOptions.previewPage) {
             // on click
             dojo.query(document).delegate("#embedOptions", "onclick,keyup", function (event) {
@@ -388,13 +387,13 @@ function configureShareMenu() {
                 }
             });
         }
-        // SHARE MENU TOGGLE
+        // toggle share menu
         dojo.query(document).delegate("#shareIcon", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                 toggleMenus('share');
             }
         });
-        // Share Buttons
+        // share buttons
         dojo.query(document).delegate("#fbImage", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                 setFBLink(configOptions.shareURL);
@@ -410,7 +409,7 @@ function configureShareMenu() {
     }
 }
 
-// SHOW SEARCH
+// show search
 function configureSearchBox() {
     if (configOptions.showSearchBox) {
         var html = '<div id="locateCon" class="iconInput">';
@@ -422,15 +421,13 @@ function configureSearchBox() {
         if (node) {
             node.innerHTML = html;
         }
-
         // close autocomplete
         dojo.query(document).delegate(".slideMenu .menuClose .closeAC", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                 hideAC();
             }
         });
-
-        // SEARCH BOX JAVASCRIPT
+        // search box javascript
         dojo.query(document).delegate("#address", "onclick", function (event) {
             if (event.type === 'click') {
                 var cAVal2 = dojo.query(this).attr('value');
@@ -448,7 +445,7 @@ function configureSearchBox() {
                 hideAC();
             }
         });
-        // AUTO COMPLETE && ADDRESS SPECIFIC ACTION LISTENERS
+        // auto complete && address specific action listeners
         dojo.query(document).delegate('#address', "keyup", function (event) {
             var aquery = dojo.query(this).attr('value')[0];
             var alength = aquery.length;
@@ -533,10 +530,10 @@ function configureSearchBox() {
     }
 }
 
-// SHOW ABOUT BUTTON IF URL IS SET
+// show about button if url is set
 function configureAboutText() {
     if (configOptions.itemInfo.item.description && configOptions.showAboutDialog) {
-        // INSERT HTML
+        // insert html
         var node = dojo.byId('aboutMap');
         if (node) {
             node.innerHTML = '<span tabindex="0" class="barButton" id="aboutMap" title="' + i18n.viewer.buttons.aboutTitle + '"><span class="aboutInfo"></span>' + i18n.viewer.buttons.about + '</span>';
@@ -665,7 +662,7 @@ function createCustomSlider() {
     }, 500);
 }
 
-// APPLICATION TITLE
+// application title
 function configureAppTitle() {
     document.title = configOptions.itemInfo.item.title;
     var node = dojo.byId('mapTitle');
