@@ -1,6 +1,6 @@
 {
    "appid":"",
-   "webmap":"6af715d669bc4dc7becab2bcac37cfd7",
+   "webmap":"fae8cf8ce8594868b9dede55ad5d7068",
    "socialDistance":"regional",
    "socialDisplay":"cluster",
    "showFlickr":true,

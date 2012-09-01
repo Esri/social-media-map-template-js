@@ -27,8 +27,8 @@ dojo.addOnLoad(function () {
             this.symbolUrl = options.symbolUrl;
             this.symbolHeight = options.symbolHeight || 22.5;
             this.symbolWidth = options.symbolWidth || 18.75;
-            this.popupHeight = options.popupHeight || 300;
-            this.popupWidth = options.popupWidth || 400;
+            this.popupHeight = options.popupHeight || 200;
+            this.popupWidth = options.popupWidth || 290;
             this.dateFrom = options.dateFrom || '';
             this.dateTo = options.dateTo || '';
             this.apiKey = options.apiKey || '';

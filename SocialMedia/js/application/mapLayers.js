@@ -394,4 +394,3 @@ function transparencyChange(value) {
         }
     }
 }
-// END
