@@ -81,7 +81,7 @@ function setSharing(isPreviewPage) {
         // for each parameter
         for (var i = 0; i < urlParams.length; i++) {
             // if it's set in configOptions
-            if (configOptions.hasOwnProperty(urlParams[i]) && configOptions[urlParams[i]].toString() !== '') {
+            if (configOptions.hasOwnProperty(urlParams[i]) && (configOptions[urlParams[i]].toString() !== '') || typeof (configOptions[urlParams[i]]) == 'object') {
                 // if it's the first param
                 if (i === 0) {
                     configOptions.shareParams = '?';
@@ -274,10 +274,10 @@ function validateConfig() {
 
 // Canvas detection
 function isCanvasSupported() {
-	var dc= document.createElement('canvas');
-	if(!dc.getContext) return 0;
-	var c= dc.getContext('2d');
-	return typeof c.fillText== 'function'? 2: 1;
+    var dc = document.createElement('canvas');
+    if (!dc.getContext) return 0;
+    var c = dc.getContext('2d');
+    return typeof c.fillText == 'function' ? 2 : 1;
 }
 
 // Alert box
