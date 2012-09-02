@@ -266,7 +266,7 @@ function setFBLink(fbLink) {
 
 // right side menu buttons
 function rightSideMenuButtons() {
-    var html = '<div id="menuListCon">';
+    var html = '';
     var node;
     if (configOptions.showLegendMenu && configOptions.layerInfos && configOptions.layerInfos.length > 0) {
         html += '<span tabindex="0" id="legendButton" data-menu="legend" class="barButton" title="' + i18n.viewer.buttons.legendTitle + '">' + i18n.viewer.buttons.legend + '<span class="arrow"></span></span>';
@@ -312,7 +312,6 @@ function rightSideMenuButtons() {
             }
         });
     }
-    html += '</div>';
     node = dojo.byId('menuList');
     if (node) {
         node.innerHTML = html;
@@ -534,7 +533,7 @@ function configureSearchBox() {
 function configureAboutText() {
     if (configOptions.itemInfo.item.description && configOptions.showAboutDialog) {
         // insert html
-        var node = dojo.byId('aboutMap');
+        var node = dojo.byId('aboutMapCon');
         if (node) {
             node.innerHTML = '<span tabindex="0" class="barButton" id="aboutMap" title="' + i18n.viewer.buttons.aboutTitle + '"><span class="aboutInfo"></span>' + i18n.viewer.buttons.about + '</span>';
         }
