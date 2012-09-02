@@ -85,14 +85,11 @@ function configureSettingsUI() {
         style: "width: 350px",
         draggable: true,
         showTitle: true,
-        title: 'Settings'
+        title: '<div id="collapseIcon"></div><span class="configIcon"></span><span id="settingsTitle">' + i18n.viewer.settings.title + '</span>'
     };
     // new dijit.Dialog(
-    configOptions.settingsDialog = new dijit.Dialog(props, dojo.byId('settingsDialog'));
-    configOptions.settingsDialog.titleBar.children[0].innerHTML = '<div id="collapseIcon"></div><span class="configIcon"></span><span id="settingsTitle">' + i18n.viewer.settings.title + '</span>';
-
+    configOptions.settingsDialog = new dijit.Dialog(props, dojo.byId('settingsDialog'));	
     // Social Slider
-
     configOptions.socialSliderCurrent = parseInt(configOptions.socialSliderCurrent, 10);
     var slider = new dijit.form.HorizontalSlider({
         name: "slider",

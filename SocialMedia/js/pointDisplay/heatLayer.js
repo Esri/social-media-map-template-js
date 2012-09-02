@@ -52,12 +52,15 @@ dojo.addOnLoad(function () {
             this.heatMap.set("width", width);
             this.heatMap.set("height", height);
             // set width and height of container
-            this.domNode.style.width = width + 'px';
-            this.domNode.style.height = height + 'px';
+            dojo.style(this.domNode, {
+                "width": width + 'px',
+                "height": height + 'px'
+            });
             // set width and height of canvas element inside of container
-            if (this.domNode.children[0]) {
-                this.domNode.children[0].width = width;
-                this.domNode.children[0].height = height;
+            var child = dojo.query(':first-child', this.domNode);
+            if (child) {
+                child.attr('width', width);
+                child.attr('height', height);
             }
             // set atx canvas width and height fix
             var actx = this.heatMap.get("actx");

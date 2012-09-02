@@ -274,8 +274,10 @@ function validateConfig() {
 
 // Canvas detection
 function isCanvasSupported() {
-    var elem = document.createElement('canvas');
-    return !!(elem.getContext && elem.getContext('2d'));
+	var dc= document.createElement('canvas');
+	if(!dc.getContext) return 0;
+	var c= dc.getContext('2d');
+	return typeof c.fillText== 'function'? 2: 1;
 }
 
 // Alert box
