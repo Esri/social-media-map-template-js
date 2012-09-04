@@ -627,8 +627,24 @@ function configureAboutText() {
 
 function createCustomSlider() {
     var node = dojo.byId('zoomSlider');
+    var html = '';
+    html += '<div tabindex="0" title="' + i18n.viewer.general.homeExtent + '" id="homeExtent"></div>';
+    if (configOptions.showGeolocation && navigator.geolocation) {
+        html += '<div tabindex="0" title="' + i18n.viewer.places.myLocationTitle + '" id="geoLocate"></div>';
+        // geolocate click
+        dojo.query(document).delegate("#geoLocate", "onclick,keyup", function (event) {
+            if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
+                navigator.geolocation.getCurrentPosition(geoLocateMap, geoLocateMapError, {
+                    maximumAge: 3000,
+                    timeout: 5000,
+                    enableHighAccuracy: true
+                });
+            }
+        });
+    }
+    html += '<div id="customZoom"></div>';
     if (node) {
-        node.innerHTML = '<div title="' + i18n.viewer.general.homeExtent + '" id="homeExtent" tabindex="0"></div><div id="customZoom"></div>';
+        node.innerHTML = html;
     }
     dojo.connect(map, "onZoomEnd", function (evt) {
         configOptions.mapZoomBar.set("value", map.getLevel());

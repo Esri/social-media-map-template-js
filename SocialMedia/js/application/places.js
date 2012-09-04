@@ -38,15 +38,6 @@ function geoLocateMap(position) {
     }
 }
 
-// geolocate item
-function createGeolocateItem() {
-    var html = '<li tabindex="0" title="' + i18n.viewer.places.myLocationTitle + '" id="geoLocate" class="layer placesItem"><span class="placesIcon"></span><span class="title">' + i18n.viewer.places.myLocation + '</span></li>';
-    var node = dojo.byId('placesList');
-    if (node) {
-        dojo.place(html, node, "last");
-    }
-}
-
 // configure places
 function placesOnClick() {
     // places click
@@ -62,16 +53,6 @@ function placesOnClick() {
 
         }
     });
-    // geolocate click
-    dojo.query(document).delegate("#geoLocate .title, #geoLocate .placesIcon", "onclick,keyup", function (event) {
-        if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-            navigator.geolocation.getCurrentPosition(geoLocateMap, geoLocateMapError, {
-                maximumAge: 3000,
-                timeout: 5000,
-                enableHighAccuracy: true
-            });
-        }
-    });
     // places click
     dojo.query(document).delegate("#placesButton", "onclick,keyup", function (event) {
         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -84,28 +65,26 @@ function placesOnClick() {
 function configurePlaces() {
     // if places
     if (configOptions.showPlaces) {
-        // insert places button
-        var node = dojo.byId('placesCon');
-        if (node) {
-            node.innerHTML = '<span tabindex="0" id="placesButton" class="barButton" data-menu="places" title="' + i18n.viewer.places.placesTitle + '">' + i18n.viewer.places.places + '<span class="arrow"></span></span>';
-        }
-        // create list
-        node = dojo.byId('placesMenu');
-        if (node) {
-            node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.places.menuTitle + '<div class="clear"></div></div><ul class="zebraStripes" id="placesList"></ul>';
-        }
-        // if geolocation
-        if (configOptions.showGeolocation && navigator.geolocation) {
-            createGeolocateItem();
-        }
-        // if share object
-        if (configOptions.bookmarks && configOptions.bookmarks.length) {
+        if (configOptions.bookmarks && configOptions.bookmarks.length > 0) {
+            // insert places button
+            var node = dojo.byId('placesCon');
+            if (node) {
+                node.innerHTML = '<span tabindex="0" id="placesButton" class="barButton" data-menu="places" title="' + i18n.viewer.places.placesTitle + '">' + i18n.viewer.places.places + '<span class="arrow"></span></span>';
+            }
+            // create list
+            node = dojo.byId('placesMenu');
+            if (node) {
+                node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.places.menuTitle + '<div class="clear"></div></div><ul class="zebraStripes" id="placesList"></ul>';
+            }
+            // if share object
             for (i = 0; i < configOptions.bookmarks.length; i++) {
                 createPlacesListItem(i);
             }
+            // set on clicks
+            placesOnClick();
+            zebraStripe(dojo.query('#placesList li.layer'));
+        } else {
+            configOptions.showPlaces = false;
         }
-        // set on clicks
-        placesOnClick();
-        zebraStripe(dojo.query('#placesList li.layer'));
     }
 }
