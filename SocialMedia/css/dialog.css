@@ -55,7 +55,7 @@
     width: 16px;
     height: 16px;
     margin: 0 5px 0 0;
-    background: url(../images/ui/uiSprite.png?v=3.00) no-repeat -336px 0px
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -336px 0px
 }
 
 .modernGrey .dijitDialogTitle #collapseIcon {
@@ -65,7 +65,7 @@
     height: 16px;
     margin: 0 5px 0 0;
     cursor: pointer;
-    background: url(../images/ui/uiSprite.png?v=3.00) no-repeat -96px -16px;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -96px -16px;
 }
 
 .modernGrey .dijitDialogTitle #collapseIcon:hover, .modernGrey .dijitDialogTitle #collapseIcon:focus {
@@ -74,7 +74,7 @@
 }
 
 .modernGrey .dijitDialogTitle #collapseIcon.iconDown {
-    background: url(../images/ui/uiSprite.png?v=3.00) no-repeat 0 -16px;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat 0 -16px;
 }
 
 .modernGrey .dijitDialogTitle #settingsTitle {
@@ -118,7 +118,7 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
 .modernGrey .dijitDialog .dijitDialogCloseIcon, .modernGrey .dijitDialog .dijitDialogCloseIconHover {
     position: absolute;
     display: block;
-    background: url(../images/ui/uiSprite.png?v=3.00) no-repeat -80px 0px;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -80px 0px;
     right: 10px;
     top: 5px;
     height: 16px;

@@ -114,7 +114,7 @@ function setSharing(isPreviewPage) {
 
 // set defaults for config
 function setDefaultConfigOptions() {
-    configOptions.templateVersion = "3.00";
+    configOptions.templateVersion = "3.01";
     if (!configOptions.portalUrl) {
         configOptions.portalUrl = location.protocol + '//' + location.host + "/";
     }

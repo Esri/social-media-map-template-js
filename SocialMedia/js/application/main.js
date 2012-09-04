@@ -710,9 +710,9 @@ function configureUserInterface() {
                 // reset refresh timer for social media
                 resetSocialRefreshTimer();
             });
-        }, 750);
+        }, 800);
         setSharing();
-    }, 750);
+    }, 800);
 }
 
 // add menus to dom
