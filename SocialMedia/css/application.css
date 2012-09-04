@@ -103,20 +103,20 @@ b, strong {
     top: 37px;
 }
 
-#map .esriAttribution{
-	margin: 0 10px 0 0;
+#map .esriAttribution {
+    margin: 0 10px 0 0;
 }
 
-#map .esriAttribution .esriAttributionList{
-	padding:2px;
-	background:rgba(255, 255, 255, 0.75);
-	display:inline-block;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:11px;
-	line-height:16px;
-	color:#656565;
+#map .esriAttribution .esriAttributionList {
+    padding: 2px;
+    background: rgba(255, 255, 255, 0.75);
+    display: inline-block;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    line-height: 16px;
+    color: #656565;
 }
 
 .mapLoading {
@@ -644,8 +644,8 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
     border-bottom-right-radius: 2px;
 }
 
-.slideMenu .menuClose{
-	background: #f4f4f4;
+.slideMenu .menuClose {
+    background: #f4f4f4;
     background: url(data:image/svg+xml;
     base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y0ZjRmNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlOWU5ZTkiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
@@ -656,28 +656,30 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
     background: linear-gradient(to bottom,  #f4f4f4 0%,#e9e9e9 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#e9e9e9',GradientType=0 );
     color: #333;
-	height:16px;
-	padding:4px 10px;
-	vertical-align:middle;
+    height: 16px;
+    padding: 4px 10px;
+    vertical-align: middle;
 }
-.slideMenu .menuClose .closeButton{
-	width:16px;
-	height:16px;
-	display:block;
-	float:right;
-	overflow:hidden;
-	cursor:pointer;
-	background:url(../images/ui/uiSprite.png?v=3.00) no-repeat -80px 0px;
+
+.slideMenu .menuClose .closeButton {
+    width: 16px;
+    height: 16px;
+    display: block;
+    float: right;
+    overflow: hidden;
+    cursor: pointer;
+    background: url(../images/ui/uiSprite.png?v=3.00) no-repeat -80px 0px;
 }
+
 .slideMenu .slideScroll {
     max-height: 275px;
     overflow: auto;
 }
 
 .slideMenu .esriLegendServiceLabel {
-	display:inline-block;
-	width:238px;
-	white-space: nowrap;
+    display: inline-block;
+    width: 238px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
@@ -816,8 +818,9 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
 #basemapMenu {
     width: 275px;
 }
-.bmMenuCon{
-	padding: 5px;
+
+.bmMenuCon {
+    padding: 5px;
 }
 /*-------------------------------------------------- */
 /* Legend Menu */
@@ -825,8 +828,9 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
 #legendMenu {
     width: 275px;
 }
-.legendMenuCon{
-	padding: 5px;
+
+.legendMenuCon {
+    padding: 5px;
 }
 /*-------------------------------------------------- */
 /* EXPLORE LAYERS */
@@ -990,16 +994,16 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
     border-top-right-radius: 0;
 }
 
-.infoHidden .ihClose{
+.infoHidden .ihClose {
     display: inline-block;
     position: absolute;
     z-index: 2;
-    top:5px;
-    right:5px;
-    width:16px;
+    top: 5px;
+    right: 5px;
+    width: 16px;
     height: 16px;
     cursor: pointer;
-    overflow:hidden;
+    overflow: hidden;
     background: url(../images/ui/uiSprite.png?v=3.00) no-repeat -80px 0px;
 }
 
@@ -1140,11 +1144,13 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
     padding: 0;
     z-index: 36;
 }
-#homeExtent{
-	cursor: pointer;
-	height:26px;
-	background:url(http://png.findicons.com/files/icons/949/token/16/home.png) no-repeat center center rgba(255,255,255,0.7);
-	-moz-border-radius: 2px;
+
+#homeExtent {
+    display: none;
+    cursor: pointer;
+    height: 26px;
+    background: url() no-repeat center center;
+    -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
 }
 /*-------------------------------------------------- */
@@ -1215,7 +1221,7 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
     color: #333;
     font-size: 12px;
     line-height: 16px;
-	height:190px;
+    height: 190px;
 }
 
 #map .modernGrey .esriViewPopup .hzLine {

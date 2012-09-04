@@ -2,7 +2,8 @@
     #zoomSlider, #mapTitle {
         display: none !important;
     }
-	#topMenuBar, #mapcon, #map {
+
+    #topMenuBar, #mapcon, #map {
         min-width: 320px;
     }
 }
@@ -14,9 +15,8 @@
     }
 }
 
-
 @media only screen and (max-width: 850px) {
-    #locateBox, #autoComplete{
+    #locateBox, #autoComplete {
         display: none !important;
     }
 }
@@ -24,7 +24,7 @@
 @media only screen and (max-width: 650px) {
 
 
-    #basemapButton , #basemapMenu{
+    #basemapButton , #basemapMenu {
         display: none !important;
     }
 
@@ -36,18 +36,16 @@
 
 @media only screen and (max-width: 550px) {
 
-	#shareMap, #shareControls{
+    #shareMap, #shareControls {
         display: none !important;
     }
-
 }
 
 @media only screen and (max-width: 450px) {
 
-   #zoomSlider, #placesCon, #placesMenu, #aboutMap, #aboutDialog {
+    #zoomSlider, #placesCon, #placesMenu, #aboutMap, #aboutDialog {
         display: none !important;
     }
-
 }
 
 @media only screen and (max-width: 385px) {
