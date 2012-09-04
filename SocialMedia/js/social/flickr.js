@@ -150,7 +150,7 @@ dojo.addOnLoad(function () {
             if (this.deferreds) {
                 this.deferreds.length = 0;
             }
-            // remove existing Photos  
+            // remove existing Photos
             if (this._map.infoWindow.isShowing) {
                 this._map.infoWindow.hide();
             }
@@ -281,8 +281,8 @@ dojo.addOnLoad(function () {
                 format: "json"
             };
             if (endDate && startDate) {
-                this.query.max_taken_date = endDate.valueOf();
-                this.query.min_taken_date = startDate.valueOf();
+                this.query.max_taken_date = Math.round(endDate / 1000);
+                this.query.min_taken_date = Math.round(startDate / 1000);
             }
             // make the actual Flickr API call
             this.pageCount = 1;
@@ -342,7 +342,7 @@ dojo.addOnLoad(function () {
             if (!this.deferreds.length) {
                 return 2; // indicates we received results from all expected deferreds
             }
-            return 1; // found and removed   
+            return 1; // found and removed
         },
         mapResults: function (j) {
             var id = this.id;

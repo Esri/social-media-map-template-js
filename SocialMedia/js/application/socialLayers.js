@@ -33,30 +33,31 @@ function prettyGeoPoint(mapPoint) {
 
 // return date object for flickr dateFrom and dateTo
 function getFlickrDate(type) {
-    var date = new Date();
-    switch (configOptions.flickrRange) {
+    var todate = new Date();
+    var fromdate;
+    switch (configOptions.flickrRange.toLowerCase()) {
     case "today":
         if (type === 'to') {
-            return date;
+            return todate;
         } else {
-            date = dojo.date.add(date, "day", - 1);
-            return date;
+            fromdate = dojo.date.add(todate, "day", - 1);
+            return fromdate;
         }
         break;
     case "this_week":
         if (type === 'to') {
-            return date;
+            return todate;
         } else {
-            date = dojo.date.add(date, "week", - 1);
-            return date;
+            fromdate = dojo.date.add(todate, "week", - 1);
+            return fromdate;
         }
         break;
     case "this_month":
         if (type === 'to') {
-            return date;
+            return todate;
         } else {
-            date = dojo.date.add(date, "month", - 1);
-            return date;
+            fromdate = dojo.date.add(todate, "month", - 1);
+            return fromdate;
         }
         break;
     case "all_time":
@@ -88,7 +89,7 @@ function configureSettingsUI() {
         title: '<div id="collapseIcon"></div><span class="configIcon"></span><span id="settingsTitle">' + i18n.viewer.settings.title + '</span>'
     };
     // new dijit.Dialog(
-    configOptions.settingsDialog = new dijit.Dialog(props, dojo.byId('settingsDialog'));	
+    configOptions.settingsDialog = new dijit.Dialog(props, dojo.byId('settingsDialog'));
     // Social Slider
     configOptions.socialSliderCurrent = parseInt(configOptions.socialSliderCurrent, 10);
     var slider = new dijit.form.HorizontalSlider({
