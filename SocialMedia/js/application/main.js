@@ -628,7 +628,6 @@ function configureAboutText() {
 function createCustomSlider() {
     var node = dojo.byId('zoomSlider');
     var html = '';
-    html += '<div tabindex="0" title="' + i18n.viewer.general.homeExtent + '" id="homeExtent"></div>';
     if (configOptions.showGeolocation && navigator.geolocation) {
         html += '<div tabindex="0" title="' + i18n.viewer.places.myLocationTitle + '" id="geoLocate"></div>';
         // geolocate click
@@ -641,7 +640,14 @@ function createCustomSlider() {
                 });
             }
         });
+    } else {
+        configOptions.showGeolocation = false;
     }
+    var homeClass = '';
+    if (!configOptions.showGeolocation) {
+        homeClass = 'noGeo';
+    }
+    html += '<div tabindex="0" title="' + i18n.viewer.general.homeExtent + '" id="homeExtent" class="' + homeClass + '"></div>';
     html += '<div id="customZoom"></div>';
     if (node) {
         node.innerHTML = html;

@@ -1140,16 +1140,21 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
     cursor: pointer;
     height: 26px;
     width: 26px;
-    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -89px 0;
+    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -115px 0;
 }
 
 #geoLocate {
     display: block;
     cursor: pointer;
-    height: 26px;
+    height: 23px;
     width: 26px;
-    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -115px 0;
+    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -89px 0;
 }
+
+#homeExtent.noGeo {
+    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -141px 0;
+}
+
 /*-------------------------------------------------- */
 /* POP UP */
 /*-------------------------------------------------- */
