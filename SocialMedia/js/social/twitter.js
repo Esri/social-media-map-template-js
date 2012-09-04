@@ -182,7 +182,7 @@ dojo.addOnLoad(function () {
             if (this.deferreds) {
                 this.deferreds.length = 0;
             }
-            // remove existing tweets  
+            // remove existing tweets
             if (this._map.infoWindow.isShowing) {
                 this._map.infoWindow.hide();
             }
@@ -300,14 +300,25 @@ dojo.addOnLoad(function () {
             } else {
                 geoPoint = new esri.geometry.Point(center.x, center.y, map.spatialReference);
             }
+
+            var locale = false;
+            var localeTmp = dojo.locale.split('-');
+            if (localeTmp[0]) {
+                locale = localeTmp[0];
+            }
+
             this.query = {
                 q: search,
                 rpp: this.limit,
                 result_type: "recent",
-                // 'recent', 'mixed', 'popular'
                 geocode: geoPoint.y + "," + geoPoint.x + "," + radius + "mi",
                 page: 1
             };
+            if (locale) {
+                this.query.locale = locale;
+
+            }
+
             // start Twitter API call of several pages
             this.pageCount = 1;
             this.sendRequest(this.baseurl + "?" + dojo.objectToQuery(this.query));
@@ -357,7 +368,7 @@ dojo.addOnLoad(function () {
             if (!this.deferreds.length) {
                 return 2; // indicates we received results from all expected deferreds
             }
-            return 1; // found and removed   
+            return 1; // found and removed
         },
         mapResults: function (j) {
             var id = this.id;
