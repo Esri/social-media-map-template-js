@@ -355,17 +355,17 @@
       "socialDisplay":"cluster",
       "showFlickr":true,
       "showFlickrConfig":true,
-      "flickrChecked":false,
-      "flickrSearch":"election",
+      "flickrChecked":true,
+      "flickrSearch":"food",
       "flickrRange":"this_week",
       "showYouTube":true,
       "showYouTubeConfig":true,
       "youtubeChecked":true,
-      "youtubeSearch":"election",
+      "youtubeSearch":"food",
       "youtubeRange":"this_month",
       "showTwitter":true,
       "showTwitterConfig":true,
-      "twitterChecked":false,
-      "twitterSearch":"#election2012"
+      "twitterChecked":true,
+      "twitterSearch":"#food"
    }
 }
