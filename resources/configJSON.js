@@ -157,6 +157,17 @@
             {
                "type":"paragraph",
                "value":"Display social media as clusters or density."
+            },
+            {
+               "type":"string",
+               "fieldName":"sourceCountry",
+               "label":"Locator Source Country",
+               "tooltip":"Locator Source Country",
+               "placeHolder":""
+            },
+            {
+               "type":"paragraph",
+               "value":"A value representing the country. Providing this value increases geocoding speed."
             }
          ]
       },
@@ -366,6 +377,7 @@
       "showTwitter":true,
       "showTwitterConfig":true,
       "twitterChecked":true,
-      "twitterSearch":"#food"
+      "twitterSearch":"#food",
+      "sourceCountry":"USA"
    }
 }
