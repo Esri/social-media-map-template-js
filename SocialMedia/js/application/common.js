@@ -81,7 +81,7 @@ function setSharing(isPreviewPage) {
         // for each parameter
         for (var i = 0; i < urlParams.length; i++) {
             // if it's set in configOptions
-            if (configOptions.hasOwnProperty(urlParams[i]) && (configOptions[urlParams[i]].toString() !== '') || typeof (configOptions[urlParams[i]]) == 'object') {
+            if (configOptions.hasOwnProperty(urlParams[i]) && (configOptions[urlParams[i]].toString() !== '') || typeof (configOptions[urlParams[i]]) === 'object') {
                 // if it's the first param
                 if (i === 0) {
                     configOptions.shareParams = '?';
@@ -92,8 +92,10 @@ function setSharing(isPreviewPage) {
                 configOptions.shareParams += urlParams[i] + '=' + encodeURIComponent(configOptions[urlParams[i]].toString());
             }
         }
+        // embed path URL
+        var pathUrl = urlObject.path.substring(0, urlObject.path.lastIndexOf('/'));
         // Sharing url
-        configOptions.shareURL = urlObject.path + configOptions.shareParams;
+        configOptions.shareURL = pathUrl + '/' + configOptions.homePage + configOptions.shareParams;
         // quick embed width
         var embedWidth = configOptions.embedWidth || configOptions.embedSizes.medium.width;
         var embedHeight = configOptions.embedHeight || configOptions.embedSizes.medium.height;
@@ -275,9 +277,11 @@ function validateConfig() {
 // Canvas detection
 function isCanvasSupported() {
     var dc = document.createElement('canvas');
-    if (!dc.getContext) return 0;
+    if (!dc.getContext){
+        return 0;
+    }
     var c = dc.getContext('2d');
-    return typeof c.fillText == 'function' ? 2 : 1;
+    return typeof c.fillText === 'function' ? 2 : 1;
 }
 
 // Alert box

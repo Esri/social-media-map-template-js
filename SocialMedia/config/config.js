@@ -23,6 +23,7 @@
    "basemapGroupTitle":"Community Basemaps",
    "basemapGroupOwner":"esri",
    "previewPage":"preview.html",
+   "homePage":"index.html",
    "clusterImage":"images/map/cluster72x72.png",
    "clusterHoverImage":"images/map/clusterHover72x72.png",
    "pointGraphic":"images/map/bluepoint21x29.png",

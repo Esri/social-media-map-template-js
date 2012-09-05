@@ -841,8 +841,8 @@ function createWebMap() {
 
 // Initial function
 function init() {
-    // Set default values
-    setConfigOptions();
+    // Overwrite from url values
+    configUrlParams();
     // add menus
     addSlideMenus();
     // Create Map
@@ -860,8 +860,8 @@ dojo.addOnLoad(function () {
         load: function (data) {
             // set plugin.configOptions to default config
             configOptions = data;
-            //
-            configUrlParams();
+            // set options
+            setConfigOptions();
             // dojo ready
             setAppIdSettings(init);
         },

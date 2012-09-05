@@ -95,7 +95,8 @@ function mapSize(mSize, width, height) {
 
 // configure embed
 function configureEmbed() {
-    setConfigOptions();
+    // overwite from url values
+    configUrlParams();
     configOptions.embedWidth = configOptions.embedSizes.medium.width;
     configOptions.embedHeight = configOptions.embedSizes.medium.height;
     var html = '';
@@ -219,8 +220,8 @@ dojo.addOnLoad(function () {
         load: function (data) {
             // set plugin.configOptions to default config
             configOptions = data;
-            //
-            configUrlParams();
+            // set options
+            setConfigOptions();
             // dojo ready
             setAppIdSettings(configureEmbed);
         },
