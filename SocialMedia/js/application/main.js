@@ -779,14 +779,14 @@ function webmapReturned(response) {
     configOptions.basemapTitle = response.itemInfo.itemData.baseMap.title;
     // create basemap gallery widget
     createBMGallery();
+    // set up social media
+    configureSocialMedia();
     // set up layer menu
     configureLayers();
     // set up places menu
     configurePlaces();
     // resize map
     resizeMap();
-    // set up social media
-    configureSocialMedia();
     // init UI
     configureUserInterface();
     // start extent

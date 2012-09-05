@@ -749,6 +749,11 @@ function configureSocialMedia() {
         clusterImage: configOptions.clusterImage,
         clusterHoverImage: configOptions.clusterHoverImage
     });
+    configOptions.layerInfos.push({
+        defaultSymbol: true,
+        title: i18n.viewer.social.menuTitle,
+        layer: clusterLayer.featureLayer
+    });
     // set default visible of the two
     if (configOptions.socialDisplay === 'heatmap' && isCanvasSupported()) {
         if (heatLayer) {
@@ -765,7 +770,6 @@ function configureSocialMedia() {
             clusterLayer.setVisibility(true);
         }
     }
-
     // append list container
     var node = dojo.byId('socialMenu');
     if (node) {
@@ -811,6 +815,16 @@ function configureSocialMedia() {
                 }
             },
             onSetTitle: getSmPopupTitle
+        });
+        clusterLayer.featureLayer.renderer.addValue({
+            value: configOptions.flickrID,
+            symbol: new esri.symbol.PictureMarkerSymbol({
+                "url": configOptions.flickrSymbol.url,
+                "height": configOptions.flickrSymbol.height,
+                "width": configOptions.flickrSymbol.width,
+                "type": "esriPMS"
+            }),
+            label: configOptions.flickrTitle
         });
         dojo.connect(flickrLayer, 'onUpdate', updateDataPoints);
         dojo.connect(flickrLayer, 'onClear', updateDataPoints);
@@ -862,6 +876,16 @@ function configureSocialMedia() {
                 }
             },
             onSetTitle: getSmPopupTitle
+        });
+        clusterLayer.featureLayer.renderer.addValue({
+            value: configOptions.twitterID,
+            symbol: new esri.symbol.PictureMarkerSymbol({
+                "url": configOptions.twitterSymbol.url,
+                "height": configOptions.twitterSymbol.height,
+                "width": configOptions.twitterSymbol.width,
+                "type": "esriPMS"
+            }),
+            label: configOptions.twitterTitle
         });
         dojo.connect(twitterLayer, 'onUpdate', updateDataPoints);
         dojo.connect(twitterLayer, 'onClear', updateDataPoints);
@@ -916,6 +940,16 @@ function configureSocialMedia() {
             },
             onSetTitle: getSmPopupTitle
         });
+        clusterLayer.featureLayer.renderer.addValue({
+            value: configOptions.youtubeID,
+            symbol: new esri.symbol.PictureMarkerSymbol({
+                "url": configOptions.youtubeSymbol.url,
+                "height": configOptions.youtubeSymbol.height,
+                "width": configOptions.youtubeSymbol.width,
+                "type": "esriPMS"
+            }),
+            label: configOptions.youtubeTitle
+        });
         dojo.connect(youtubeLayer, 'onUpdate', updateDataPoints);
         dojo.connect(youtubeLayer, 'onClear', updateDataPoints);
         // insert html
@@ -934,7 +968,7 @@ function configureSocialMedia() {
     configureSettingsUI();
 
     // onclick connect
-    dojo.connect(clusterLayer.graphics, "onClick",
+    dojo.connect(clusterLayer.featureLayer, "onClick",
 
     function (evt) {
         dojo.stopEvent(evt);

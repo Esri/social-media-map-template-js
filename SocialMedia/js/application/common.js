@@ -210,6 +210,9 @@ function setDefaultConfigOptions() {
         "width": "18.75",
         "height": "22.5"
     };
+    if(!configOptions.layerInfos){
+        configOptions.layerInfos = [];
+    }
     if (configOptions.socialPoint) {
         configOptions.socialPoint = configOptions.socialPoint.split(',');
     } else {

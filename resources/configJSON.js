@@ -39,6 +39,10 @@
                   {
                      "label":"Legend",
                      "value":"legend"
+                  },
+                  {
+                     "label":"None",
+                     "value":"none"
                   }
                ]
             },
