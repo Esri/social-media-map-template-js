@@ -269,7 +269,7 @@ function rightSideMenuButtons() {
     var html = '';
     var node;
     if (configOptions.showLegendMenu && configOptions.layerInfos && configOptions.layerInfos.length > 0) {
-        html += '<span tabindex="0" id="legendButton" data-menu="legend" class="barButton" title="' + i18n.viewer.buttons.legendTitle + '">' + i18n.viewer.buttons.legend + '<span class="arrow"></span></span>';
+        html += '<span tabindex="0" id="legendButton" data-menu="legend" class="barButton" title="' + i18n.viewer.buttons.legendTitle + '"><span class="barIcon"></span>' + i18n.viewer.buttons.legend + '</span>';
         // Social MENU TOGGLE
         dojo.query(document).delegate("#legendButton", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -278,7 +278,7 @@ function rightSideMenuButtons() {
         });
     }
     if (configOptions.showBasemapMenu) {
-        html += '<span tabindex="0" id="basemapButton" data-menu="basemap" class="barButton" title="' + i18n.viewer.buttons.basemapTitle + '">' + i18n.viewer.buttons.basemap + '<span class="arrow"></span></span>';
+        html += '<span tabindex="0" id="basemapButton" data-menu="basemap" class="barButton" title="' + i18n.viewer.buttons.basemapTitle + '"><span class="barIcon"></span>' + i18n.viewer.buttons.basemap + '</span>';
         // Basemap MENU TOGGLE
         dojo.query(document).delegate("#basemapButton", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -295,7 +295,7 @@ function rightSideMenuButtons() {
         }
     }
     if (configOptions.showLayersMenu) {
-        html += '<span tabindex="0" id="layersButton" data-menu="layers" class="barButton" title="' + i18n.viewer.buttons.layersTitle + '">' + i18n.viewer.buttons.layers + '<span class="arrow"></span></span>';
+        html += '<span tabindex="0" id="layersButton" data-menu="layers" class="barButton" title="' + i18n.viewer.buttons.layersTitle + '"><span class="barIcon"></span>' + i18n.viewer.buttons.layers + '</span>';
         // Layers MENU TOGGLE
         dojo.query(document).delegate("#layersButton", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -304,7 +304,7 @@ function rightSideMenuButtons() {
         });
     }
     if (configOptions.showSocialMenu) {
-        html += '<span tabindex="0" id="socialButton" data-menu="social" class="barButton" title="' + i18n.viewer.buttons.socialTitle + '">' + i18n.viewer.buttons.social + '<span class="arrow"></span></span>';
+        html += '<span tabindex="0" id="socialButton" data-menu="social" class="barButton" title="' + i18n.viewer.buttons.socialTitle + '"><span class="barIcon"></span>' + i18n.viewer.buttons.social + '</span>';
         // Social MENU TOGGLE
         dojo.query(document).delegate("#socialButton", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -355,7 +355,7 @@ function configureShareMenu() {
     if (configOptions.showShareMenu) {
         var node = dojo.query('#shareMap')[0];
         if (node) {
-            node.innerHTML = '<span tabindex="0" id="shareIcon" data-menu="share" class="barButton" title="' + i18n.viewer.buttons.linkTitle + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.link + '<span class="arrow"></span></span></div><div class="clear">';
+            node.innerHTML = '<span tabindex="0" id="shareIcon" data-menu="share" class="barButton" title="' + i18n.viewer.buttons.linkTitle + '"><span class="barIcon iconBlock"></span>' + i18n.viewer.buttons.link + '</span></div><div class="clear">';
         }
         var html = '';
         html += '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.shareMenu.menuTitle + '<div class="clear"></div></div>';
@@ -535,7 +535,7 @@ function configureAboutText() {
         // insert html
         var node = dojo.byId('aboutMapCon');
         if (node) {
-            node.innerHTML = '<span tabindex="0" class="barButton" id="aboutMap" title="' + i18n.viewer.buttons.aboutTitle + '"><span class="aboutInfo"></span>' + i18n.viewer.buttons.about + '</span>';
+            node.innerHTML = '<span tabindex="0" class="barButton" id="aboutMap" title="' + i18n.viewer.buttons.aboutTitle + '"><span class="barIcon aboutInfo"></span>' + i18n.viewer.buttons.about + '</span>';
         }
         node = dojo.byId('aboutDialog');
         var html = '';

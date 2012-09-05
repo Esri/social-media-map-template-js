@@ -303,11 +303,6 @@ background: -moz-linear-gradient(top,  #f6f6f6 0%, #fefefe 100%);
 /* SHARE BUTTON */
 /*-------------------------------------------------- */
 #shareIcon .iconBlock {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    vertical-align: text-bottom;
-    margin-right: 4px;
     background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -256px 0;
 }
 /*-------------------------------------------------- */
@@ -383,7 +378,7 @@ background: -moz-linear-gradient(top,  #f6f6f6 0%, #fefefe 100%);
     line-height: 16px;
     height: 16px;
     margin: 5px 0;
-    padding: 5px 13px;
+    padding: 5px 11px;
     color: #333;
     text-decoration: none;
     cursor: pointer;
@@ -396,7 +391,7 @@ background: -moz-linear-gradient(top,  #f6f6f6 0%, #fefefe 100%);
 }
 
 .barButton:hover, .barButton:focus, .barSelected {
-    padding: 4px 12px;
+    padding: 4px 10px;
     background: #f0f0f0;
     background: url(data:image/svg+xml;
     base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YwZjBmMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZWZlZmUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -413,27 +408,13 @@ background: -moz-linear-gradient(top,  #f0f0f0 0%, #fefefe 100%);
     border-radius: 2px;
 }
 
-.barButton .arrow {
-    display: inline-block;
-    vertical-align: middle;
-    width: 16px;
-    height: 16px;
-    overflow: hidden;
-    margin-left: 2px;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -240px 0;
-}
-
-.barSelected .arrow {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -192px 0;
-}
-
-.barButton .newWindow {
+.barButton .barIcon{
     display: inline-block;
     vertical-align: text-bottom;
     width: 16px;
     height: 16px;
-    margin-left: 2px;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -96px 0;
+    overflow: hidden;
+    margin-right: 3px;
 }
 
 #topMenuLeft .barButton {
@@ -635,19 +616,11 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
 }
 
 .slideMenu .menuClose {
-    background: #f4f4f4;
-    background: url(data:image/svg+xml;
-    base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y0ZjRmNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlOWU5ZTkiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f4f4), color-stop(100%,#e9e9e9));
-    background: -webkit-linear-gradient(top,  #f4f4f4 0%,#e9e9e9 100%);
-    background: -o-linear-gradient(top,  #f4f4f4 0%,#e9e9e9 100%);
-    background: -ms-linear-gradient(top,  #f4f4f4 0%,#e9e9e9 100%);
-    background: linear-gradient(to bottom,  #f4f4f4 0%,#e9e9e9 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#e9e9e9',GradientType=0 );
-    color: #333;
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: bold;
     height: 16px;
-    padding: 4px 10px;
+    margin: 0 10px;
+    padding:10px 0 6px 0;
     vertical-align: middle;
 }
 
@@ -663,6 +636,8 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
 
 .slideMenu .slideScroll {
     max-height: 275px;
+    *height:275px;
+    _height:275px;
     overflow: auto;
 }
 
@@ -677,6 +652,10 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
 
 #layersMenu, #socialMenu {
     width: 275px;
+}
+
+#basemapMenu, #legendMenu{
+    width:285px;
 }
 
 .slideMenu .stripe {
@@ -805,22 +784,14 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
 /*-------------------------------------------------- */
 /* Basemap Menu */
 /*-------------------------------------------------- */
-#basemapMenu {
-    width: 275px;
-}
-
 .bmMenuCon {
-    padding: 5px;
+    padding: 5px 10px 10px 10px;
 }
 /*-------------------------------------------------- */
 /* Legend Menu */
 /*-------------------------------------------------- */
-#legendMenu {
-    width: 275px;
-}
-
 .legendMenuCon {
-    padding: 5px;
+    padding: 5px 10px 10px 10px;
 }
 /*-------------------------------------------------- */
 /* EXPLORE LAYERS */
@@ -901,6 +872,10 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
 
 #layersMenu .cBtitle {
     width: 200px;
+}
+
+.listMenu .cBtitle:hover, .listMenu .cBtitle:focus{
+    opacity:0.75;
 }
 
 .listMenu .cBinfo {
@@ -1301,6 +1276,10 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
 /*-------------------------------------------------- */
 /* Places */
 /*-------------------------------------------------- */
+.placesMenuIcon{
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -64px 0px;
+}
+
 #placesMenu {
     width: 250px;
 }
@@ -1326,7 +1305,7 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
     width: 16px;
     height: 16px;
     margin-right: 6px;
-    vertical-align: middle;
+    vertical-align: text-bottom;
 }
 
 #placesMenu .placesIcon:hover, #placesMenu .placesIcon:focus {
@@ -1349,20 +1328,14 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
 }
 
 #placesMenu li .title:hover, #placesMenu li .title:focus {
-    text-decoration: underline;
+    opacity: 0.75;
 }
 /*-------------------------------------------------- */
 /*  About */
 /*-------------------------------------------------- */
 
 .aboutInfo {
-    display: inline-block;
-    vertical-align: middle;
-    width: 16px;
-    height: 16px;
-    overflow: hidden;
-    margin-right: 3px;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -304px -2px;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -304px 0;
 }
 
 #aboutDialog h2 {

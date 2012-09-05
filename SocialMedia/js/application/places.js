@@ -69,7 +69,7 @@ function configurePlaces() {
             // insert places button
             var node = dojo.byId('placesCon');
             if (node) {
-                node.innerHTML = '<span tabindex="0" id="placesButton" class="barButton" data-menu="places" title="' + i18n.viewer.places.placesTitle + '">' + i18n.viewer.places.places + '<span class="arrow"></span></span>';
+                node.innerHTML = '<span tabindex="0" id="placesButton" class="barButton" data-menu="places" title="' + i18n.viewer.places.placesTitle + '"><span class="barIcon placesMenuIcon"></span>' + i18n.viewer.places.places + '</span>';
             }
             // create list
             node = dojo.byId('placesMenu');

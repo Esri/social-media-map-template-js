@@ -8,7 +8,7 @@
     }
 }
 
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 940px) {
 
     #mapTitle {
         display: none !important;
