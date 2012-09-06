@@ -83,7 +83,7 @@ function setMenuForLatLong(PGP, locationText) {
 // settings panel ui
 function configureSettingsUI() {
     var props = {
-        style: "width: 350px",
+        style: "width: 400px",
         draggable: true,
         showTitle: true,
         title: '<div id="collapseIcon"></div><span class="configIcon"></span><span id="settingsTitle">' + i18n.viewer.settings.title + '</span>'
