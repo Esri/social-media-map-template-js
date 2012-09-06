@@ -212,7 +212,7 @@ function setDefaultConfigOptions() {
         "width": "18.75",
         "height": "22.5"
     };
-    if(!configOptions.layerInfos){
+    if (!configOptions.layerInfos) {
         configOptions.layerInfos = [];
     }
     if (configOptions.socialPoint) {
@@ -282,7 +282,7 @@ function validateConfig() {
 // Canvas detection
 function isCanvasSupported() {
     var dc = document.createElement('canvas');
-    if (!dc.getContext){
+    if (!dc.getContext) {
         return 0;
     }
     var c = dc.getContext('2d');

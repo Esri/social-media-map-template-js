@@ -337,12 +337,12 @@ function configureLayers() {
     if (configOptions.itemLayers) {
         // if operational layers of at least 1
         if (configOptions.itemLayers.length > 0) {
-            if(!configOptions.layerInfos){
+            if (!configOptions.layerInfos) {
                 configOptions.layerInfos = [];
             }
             // build layers
             configOptions.layerInfos = configOptions.layerInfos.concat(buildLayersList(configOptions.itemLayers));
-			var node;
+            var node;
             if (configOptions.showLegendMenu) {
                 node = dojo.byId('legendMenu');
                 if (node) {

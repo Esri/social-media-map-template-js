@@ -4,7 +4,7 @@ var locationPath = location.pathname.replace(pathRegex, '');
 
 // Dojo Config
 var dojoConfig = {
-	//locale: "ar",
+    //locale: "ar",
     parseOnLoad: true,
     packages: [{
         name: "esriTemplate",
@@ -18,4 +18,4 @@ var i18n, configOptions, map, urlObject;
 // Layers
 var clusterLayer, heatLayer, twitterLayer, flickrLayer, youtubeLayer;
 
-// todo: Arabic CSS RTL. TEST, TEST, TEST!
+// todo: Arabic CSS RTL.

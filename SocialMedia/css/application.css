@@ -408,7 +408,7 @@ background: -moz-linear-gradient(top,  #f0f0f0 0%, #fefefe 100%);
     border-radius: 2px;
 }
 
-.barButton .barIcon{
+.barButton .barIcon {
     display: inline-block;
     vertical-align: text-bottom;
     width: 16px;
@@ -620,7 +620,7 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
     font-weight: bold;
     height: 16px;
     margin: 0 10px;
-    padding:10px 0 0 0;
+    padding: 10px 0 0 0;
     vertical-align: middle;
 }
 
@@ -635,10 +635,10 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
 }
 
 .slideMenu .slideScroll {
-    margin-top:6px;
+    margin-top: 6px;
     max-height: 275px;
-    *height:275px;
-    _height:275px;
+    *height: 275px;
+    _height: 275px;
     overflow: auto;
 }
 
@@ -655,8 +655,8 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
     width: 275px;
 }
 
-#basemapMenu, #legendMenu{
-    width:285px;
+#basemapMenu, #legendMenu {
+    width: 285px;
 }
 
 .slideMenu .stripe {
@@ -684,7 +684,7 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
 }
 
 #shareControls .shareContainer {
-    margin:6px 10px 10px 10px;
+    margin: 6px 10px 10px 10px;
 }
 
 #shareControls h3 {
@@ -788,8 +788,9 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
 .bmMenuCon {
     padding: 5px 10px 10px 10px;
 }
-.basemapIcon{
-	background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -96px 0;
+
+.basemapIcon {
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -96px 0;
 }
 /*-------------------------------------------------- */
 /* Legend Menu */
@@ -797,15 +798,16 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
 .legendMenuCon {
     padding: 5px 10px 10px 10px;
 }
-.legendIcon{
-	background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -368px 0;
+
+.legendIcon {
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -368px 0;
 }
 /*-------------------------------------------------- */
 /* EXPLORE LAYERS */
 /*-------------------------------------------------- */
 
-.layersIcon{
-	background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -112px 0;
+.layersIcon {
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -112px 0;
 }
 
 .listMenu ul {
@@ -886,8 +888,8 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
     width: 200px;
 }
 
-.listMenu .cBtitle:hover, .listMenu .cBtitle:focus{
-    opacity:0.75;
+.listMenu .cBtitle:hover, .listMenu .cBtitle:focus {
+    opacity: 0.75;
 }
 
 .listMenu .cBinfo {
@@ -1041,8 +1043,8 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
     margin-left: 10px;
 }
 
-.socialIcon{
-	background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -160px -16px;
+.socialIcon {
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -160px -16px;
 }
 
 .clusterButton .iconBlock {
@@ -1292,7 +1294,7 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
 /*-------------------------------------------------- */
 /* Places */
 /*-------------------------------------------------- */
-.placesMenuIcon{
+.placesMenuIcon {
     background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -64px 0px;
 }
 
