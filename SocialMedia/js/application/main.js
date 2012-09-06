@@ -269,7 +269,7 @@ function rightSideMenuButtons() {
     var html = '';
     var node;
     if (configOptions.showLegendMenu && configOptions.layerInfos && configOptions.layerInfos.length > 0) {
-        html += '<span tabindex="0" id="legendButton" data-menu="legend" class="barButton" title="' + i18n.viewer.buttons.legendTitle + '"><span class="barIcon"></span>' + i18n.viewer.buttons.legend + '</span>';
+        html += '<span tabindex="0" id="legendButton" data-menu="legend" class="barButton" title="' + i18n.viewer.buttons.legendTitle + '"><span class="barIcon legendIcon"></span>' + i18n.viewer.buttons.legend + '</span>';
         // Social MENU TOGGLE
         dojo.query(document).delegate("#legendButton", "onclick,keyup", function (event) {
             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {

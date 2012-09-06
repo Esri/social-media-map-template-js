@@ -158,6 +158,8 @@ function setDefaultConfigOptions() {
             height: 250
         }
     };
+    configOptions.previewPage = 'preview.html';
+    configOptions.homePage = 'index.html';
     configOptions.socialSliderValues = [{
         "label": i18n.viewer.distanceSlider.local,
         "id": "local", // url param, don't localize

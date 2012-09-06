@@ -232,7 +232,7 @@ background: -moz-linear-gradient(top,  #f6f6f6 0%, #fefefe 100%);
     z-index: 2;
     overflow: hidden;
     cursor: pointer;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -64px 0px;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -272px 0px;
 }
 
 .iconInput .iconReset {
@@ -620,7 +620,7 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
     font-weight: bold;
     height: 16px;
     margin: 0 10px;
-    padding:10px 0 3px 0;
+    padding:10px 0 0 0;
     vertical-align: middle;
 }
 
@@ -635,6 +635,7 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
 }
 
 .slideMenu .slideScroll {
+    margin-top:6px;
     max-height: 275px;
     *height:275px;
     _height:275px;
@@ -683,7 +684,7 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
 }
 
 #shareControls .shareContainer {
-    margin: 12px;
+    margin:6px 10px 10px 10px;
 }
 
 #shareControls h3 {
@@ -795,6 +796,9 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
 /*-------------------------------------------------- */
 .legendMenuCon {
     padding: 5px 10px 10px 10px;
+}
+.legendIcon{
+	background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -368px 0;
 }
 /*-------------------------------------------------- */
 /* EXPLORE LAYERS */
