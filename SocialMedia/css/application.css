@@ -414,7 +414,7 @@ background: -moz-linear-gradient(top,  #f0f0f0 0%, #fefefe 100%);
     width: 16px;
     height: 16px;
     overflow: hidden;
-    margin-right: 3px;
+    margin-right: 4px;
 }
 
 #topMenuLeft .barButton {
@@ -787,6 +787,9 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
 .bmMenuCon {
     padding: 5px 10px 10px 10px;
 }
+.basemapIcon{
+	background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -96px 0;
+}
 /*-------------------------------------------------- */
 /* Legend Menu */
 /*-------------------------------------------------- */
@@ -796,6 +799,11 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
 /*-------------------------------------------------- */
 /* EXPLORE LAYERS */
 /*-------------------------------------------------- */
+
+.layersIcon{
+	background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -112px 0;
+}
+
 .listMenu ul {
     margin: 6px 0;
 }
@@ -1027,6 +1035,10 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
 
 #socialUseCenter {
     margin-left: 10px;
+}
+
+.socialIcon{
+	background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -160px -16px;
 }
 
 .clusterButton .iconBlock {
