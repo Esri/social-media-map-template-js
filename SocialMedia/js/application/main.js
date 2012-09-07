@@ -367,7 +367,7 @@ function configureShareMenu() {
         html += '<h3>' + i18n.viewer.shareMenu.instructionHeader + '</h3>';
         html += '<textarea rows="3" id="quickEmbedCode"></textarea>';
         if (configOptions.previewPage) {
-            html += '<p id="embedOptions">' + i18n.viewer.shareMenu.preview + '</p>';
+            html += '<span id="embedOptions">' + i18n.viewer.shareMenu.preview + '</span>';
         }
         node = dojo.query('#shareControls')[0];
         if (node) {
