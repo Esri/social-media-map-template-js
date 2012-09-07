@@ -448,8 +448,7 @@ function setExtentValues() {
             ymax: parseFloat(splitExtent[3]),
             spatialReference: map.extent.spatialReference
         });
-    }
-    else{
+    } else {
         configOptions.startExtent = map.extent;
     }
 }
