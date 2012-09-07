@@ -798,12 +798,8 @@ function configurePopup() {
     // popup dijit configuration
     configOptions.customPopup = new esri.dijit.Popup({
         offsetX: 3,
-        fillSymbol: false,
-        highlight: false,
-        lineSymbol: false,
         marginLeft: 10,
         marginTop: 10,
-        markerSymbol: false,
         offsetY: 3,
         zoomFactor: 4
     }, dojo.create("div"));
