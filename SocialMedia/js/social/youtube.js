@@ -190,7 +190,7 @@ dojo.addOnLoad(function () {
             if (this.deferreds) {
                 this.deferreds.length = 0;
             }
-            // remove existing videos  
+            // remove existing videos
             if (this._map.infoWindow.isShowing) {
                 this._map.infoWindow.hide();
             }
@@ -258,7 +258,7 @@ dojo.addOnLoad(function () {
             var html = '';
             html += '<div class="ytContent">';
             html += '<div class="video" style="width:' + videoWidth + 'px;height:' + videoHeight + 'px;">';
-            html += '<iframe width="' + videoWidth + '" height="' + videoHeight + '" src="' + location.protocol + '//www.youtube.com/embed/' + graphic.attributes.media$group.yt$videoid.$t + '" frameborder="0" allowfullscreen></iframe>';
+            html += '<iframe width="' + videoWidth + '" height="' + videoHeight + '" src="' + location.protocol + '//www.youtube.com/embed/' + graphic.attributes.media$group.yt$videoid.$t + '?wmode=opaque" frameborder="0" allowfullscreen></iframe>';
             html += '</div>';
             html += '<h3 class="title">' + graphic.attributes.title.$t + '</h3>';
             html += '<div class="username"><a tabindex="0" href="' + location.protocol + '//www.youtube.com/user/' + graphic.attributes.author[0].name.$t + '" target="_blank">' + graphic.attributes.author[0].name.$t + '</a></div>';
@@ -352,7 +352,7 @@ dojo.addOnLoad(function () {
             if (!this.deferreds.length) {
                 return 2; // indicates we received results from all expected deferreds
             }
-            return 1; // found and removed   
+            return 1; // found and removed
         },
         mapResults: function (j) {
             var id = this.id;

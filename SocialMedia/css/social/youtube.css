@@ -1,11 +1,16 @@
 .ytContent {
     margin: 0;
     text-align: left;
+    position: relative;
+    zoom:1;
+    z-index: 1;
 }
 
 .ytContent .video {
     margin: 0 0 10px 0;
     position: relative;
+    zoom:1;
+    z-index: 1;
     -moz-box-shadow: 1px 1px 3px #CCCCCC;
     -webkit-box-shadow: 1px 1px 3px #CCCCCC;
     box-shadow: 1px 1px 3px #CCCCCC;
@@ -15,6 +20,9 @@
 
 .ytContent .video  iframe {
     display: block;
+    position: relative;
+    zoom:1;
+    z-index: 1;
     margin: 0;
     padding: 0;
     border: 0;

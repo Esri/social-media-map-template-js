@@ -96,7 +96,7 @@ function mapSize(mSize, width, height) {
 // configure embed
 function configureEmbed() {
     // overwite from url values
-    configUrlParams();
+    setConfigOptions();
     configOptions.embedWidth = configOptions.embedSizes.medium.width;
     configOptions.embedHeight = configOptions.embedSizes.medium.height;
     var html = '';

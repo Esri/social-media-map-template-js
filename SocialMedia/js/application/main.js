@@ -842,7 +842,7 @@ function createWebMap() {
 // Initial function
 function init() {
     // Overwrite from url values
-    configUrlParams();
+    setConfigOptions();
     // add menus
     addSlideMenus();
     // Create Map

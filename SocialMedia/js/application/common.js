@@ -215,17 +215,17 @@ function setDefaultConfigOptions() {
     if (!configOptions.layerInfos) {
         configOptions.layerInfos = [];
     }
-    if (configOptions.socialPoint) {
+    if (configOptions.socialPoint && typeof configOptions.socialPoint === 'string') {
         configOptions.socialPoint = configOptions.socialPoint.split(',');
     } else {
         configOptions.socialPoint = [];
     }
-    if (configOptions.layers) {
+    if (configOptions.layers && typeof configOptions.layers === 'string') {
         configOptions.layers = configOptions.layers.split(',');
     } else {
         configOptions.layers = [];
     }
-    if (configOptions.locatePoint) {
+    if (configOptions.locatePoint && typeof configOptions.locatePoint === 'string') {
         configOptions.locatePoint = configOptions.locatePoint.split(',');
     } else {
         configOptions.locatePoint = [];
@@ -438,9 +438,7 @@ function showLoading(obj) {
 // Set initial extent for future use
 function setExtentValues() {
     // if extent not set from Url
-    if (!configOptions.extent) {
-        configOptions.startExtent = map.extent;
-    } else {
+    if (configOptions.extent && typeof configOptions.extent === 'string') {
         var splitExtent = configOptions.extent.split(',');
         // Loaded from URL
         configOptions.startExtent = new esri.geometry.Extent({
@@ -450,6 +448,9 @@ function setExtentValues() {
             ymax: parseFloat(splitExtent[3]),
             spatialReference: map.extent.spatialReference
         });
+    }
+    else{
+        configOptions.startExtent = map.extent;
     }
 }
 
