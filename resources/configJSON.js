@@ -119,26 +119,6 @@
                "value":"Opens the about dialog on page load."
             },
             {
-               "type":"string",
-               "fieldName":"socialDistance",
-               "tooltip":"Social Distance",
-               "label":"Social Distance:",
-               "options":[
-                  {
-                     "label":"Local",
-                     "value":"local"
-                  },
-                  {
-                     "label":"Regional",
-                     "value":"regional"
-                  },
-                  {
-                     "label":"National",
-                     "value":"national"
-                  }
-               ]
-            },
-            {
                "type":"paragraph",
                "value":"Distance to search for social media."
             },
@@ -366,7 +346,6 @@
       "showGeolocation":true,
       "showAboutDialog":true,
       "showAboutDialogOnLoad":false,
-      "socialDistance":"regional",
       "socialDisplay":"cluster",
       "showFlickr":true,
       "showFlickrConfig":true,

@@ -75,7 +75,7 @@ function configUrlParams() {
 // Set sharing links
 function setSharing(isPreviewPage) {
     // parameters to share
-    var urlParams = ['webmap', 'basemap', 'extent', 'locateName', 'layers', 'youtubeSearch', 'youtubeRange', 'youtubeChecked', 'twitterSearch', 'twitterChecked', 'flickrSearch', 'flickrRange', 'flickrChecked', 'socialDistance', 'socialPoint', 'socialDisplay', 'locatePoint'];
+    var urlParams = ['webmap', 'basemap', 'extent', 'locateName', 'layers', 'youtubeSearch', 'youtubeRange', 'youtubeChecked', 'twitterSearch', 'twitterChecked', 'flickrSearch', 'flickrRange', 'flickrChecked', 'socialDisplay', 'locatePoint'];
     if (urlParams) {
         configOptions.shareParams = '';
         // for each parameter
@@ -160,31 +160,6 @@ function setDefaultConfigOptions() {
     };
     configOptions.previewPage = 'preview.html';
     configOptions.homePage = 'index.html';
-    configOptions.socialSliderValues = [{
-        "label": i18n.viewer.distanceSlider.local,
-        "id": "local", // url param, don't localize
-        "values": {
-            "yt": 50,
-            "tw": 50,
-            "fl": 50
-        }
-    }, {
-        "label": i18n.viewer.distanceSlider.regional,
-        "id": "regional", // url param, don't localize
-        "values": {
-            "yt": 300,
-            "tw": 300,
-            "fl": 300
-        }
-    }, {
-        "label": i18n.viewer.distanceSlider.national,
-        "id": "national", // url param, don't localize
-        "values": {
-            "yt": 600,
-            "tw": 600,
-            "fl": 600
-        }
-    }];
     configOptions.flickrID = "flickr";
     configOptions.flickrTitle = i18n.viewer.flickr.title;
     configOptions.flickrDescription = i18n.viewer.flickr.description;
@@ -215,11 +190,6 @@ function setDefaultConfigOptions() {
     if (!configOptions.layerInfos) {
         configOptions.layerInfos = [];
     }
-    if (configOptions.socialPoint && typeof configOptions.socialPoint === 'string') {
-        configOptions.socialPoint = configOptions.socialPoint.split(',');
-    } else {
-        configOptions.socialPoint = [];
-    }
     if (configOptions.layers && typeof configOptions.layers === 'string') {
         configOptions.layers = configOptions.layers.split(',');
     } else {
@@ -241,15 +211,6 @@ function setDefaultConfigOptions() {
     } else {
         dirNode.attr("dir", "ltr");
         dirNode.addClass('esriLtr');
-    }
-    // socialDistance
-    configOptions.socialSliderCurrent = 1;
-    if (configOptions.socialSliderValues) {
-        for (var i = 0; i < configOptions.socialSliderValues.length; i++) {
-            if (configOptions.socialDistance.toLowerCase() === configOptions.socialSliderValues[i].id) {
-                configOptions.socialSliderCurrent = i;
-            }
-        }
     }
 }
 

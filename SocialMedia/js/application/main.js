@@ -616,9 +616,13 @@ function configureAboutText() {
             draggable: true,
             modal: false,
             showTitle: true,
-            title: '<span class="aboutInfo"></span>' + i18n.viewer.about.title
+            title: i18n.viewer.about.title
         };
         configOptions.aboutDialog = new dijit.Dialog(props, dojo.byId('aboutDialog'));
+        node = dojo.query('#aboutDialog .dijitDialogTitle')[0];
+        if (node) {
+            node.innerHTML = '<span class="inlineIcon aboutInfo"></span>' + i18n.viewer.about.title;
+        }
         if (configOptions.showAboutDialogOnLoad) {
             configOptions.aboutDialog.show();
         }

@@ -8,34 +8,27 @@ dojo.addOnLoad(function () {
         },
         constructor: function (options) {
             this.i18n = dojo.i18n.getLocalization("esriTemplate", "youtube");
-            this._map = options.map || null;
-            if (this._map === null) {
+            var socialInstance = this;
+            this.options = {
+                autopage: true,
+                maxpage: 6,
+                limit: 50,
+                title: '',
+                id: 'youtube',
+                searchTerm: '',
+                symbolUrl: '',
+                symbolHeight: 22.5,
+                symbolWidth: 18.75,
+                popupHeight: 200,
+                popupWidth: 290,
+                key: '',
+                range: 'all_time'
+            };
+            dojo.safeMixin(this.options, options);
+            if (this.options.map === null) {
                 throw this.i18n.error.reference;
             }
-            var socialInstance = this;
-            this.autopage = options.autopage || true;
-            this.maxpage = options.maxpage || 4;
-            this.limit = 50;
-            if (location.protocol === "https:") {
-                this.baseurl = "https://gdata.youtube.com/feeds/api/videos";
-            } else {
-                this.baseurl = "http://gdata.youtube.com/feeds/api/videos";
-            }
-            this.title = options.title || '';
-            this.id = options.id || 'youtube';
-            this.searchTerm = options.searchTerm || '';
-            this.key = options.key || false;
-            this.symbolUrl = options.symbolUrl;
-            this.symbolHeight = options.symbolHeight || 22.5;
-            this.symbolWidth = options.symbolWidth || 18.75;
-            this.popupHeight = options.popupHeight || 200;
-            this.popupWidth = options.popupWidth || 290;
-            this.range = options.range || 'all_time';
-            this.getWindowContentCallback = options.getWindowContentCallback || false;
-            this.onClearFunction = options.onClear || false;
-            this.onUpdateEndFunction = options.onUpdateEnd || false;
-            this.onSetTitleFunction = options.onSetTitle || false;
-            this.distance = options.distance;
+            this.baseurl = location.protocol + "//gdata.youtube.com/feeds/api/videos";
             this.featureCollection = {
                 layerDefinition: {
                     "geometryType": "esriGeometryPoint",
@@ -44,16 +37,21 @@ dojo.addOnLoad(function () {
                             "type": "simple",
                             "symbol": {
                                 "type": "esriPMS",
-                                "url": this.symbolUrl,
-                                "contentType": "image/" + this.symbolUrl.substring(this.symbolUrl.lastIndexOf(".") + 1),
-                                "width": this.symbolWidth,
-                                "height": this.symbolHeight
+                                "url": this.options.symbolUrl,
+                                "contentType": "image/" + this.options.symbolUrl.substring(this.options.symbolUrl.lastIndexOf(".") + 1),
+                                "width": this.options.symbolWidth,
+                                "height": this.options.symbolHeight
                             }
                         }
                     },
                     "fields": [{
                         "name": "OBJECTID",
                         "type": "esriFieldTypeOID"
+                    }, {
+                        "name": "smType",
+                        "type": "esriFieldTypeString",
+                        "alias": "smType",
+                        "length": 100
                     }, {
                         "name": "published",
                         "type": "esriFieldTypeDate",
@@ -108,29 +106,25 @@ dojo.addOnLoad(function () {
             };
             this.infoTemplate = new esri.InfoTemplate();
             this.infoTemplate.setTitle(function (graphic) {
-                if (this.onSetTitleFunction && typeof this.onSetTitleFunction === 'function') {
-                    return this.onSetTitleFunction(graphic);
-                } else {
-                    return socialInstance.title;
-                }
+                return socialInstance.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
                 return socialInstance.getWindowContent(graphic, socialInstance);
             });
             this.featureLayer = new esri.layers.FeatureLayer(this.featureCollection, {
-                id: this.id,
+                id: this.options.id,
                 outFields: ["*"],
                 infoTemplate: this.infoTemplate,
                 visible: false
             });
-            this._map.addLayer(this.featureLayer);
+            this.options.map.addLayer(this.featureLayer);
             dojo.connect(this.featureLayer, "onClick", dojo.hitch(this, function (evt) {
                 var query = new esri.tasks.Query();
-                query.geometry = this.pointToExtent(this._map, evt.mapPoint, this.symbolWidth);
+                query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.symbolWidth);
                 var deferred = this.featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
-                this._map.infoWindow.setFeatures([deferred]);
-                this._map.infoWindow.show(evt.mapPoint);
-                this._map.infoWindow.resize(this.popupWidth, this.popupHeight);
+                this.options.map.infoWindow.setFeatures([deferred]);
+                this.options.map.infoWindow.show(evt.mapPoint);
+                this.options.map.infoWindow.resize(this.options.popupWidth, this.options.popupHeight);
             }));
             this.stats = {
                 geoPoints: 0,
@@ -143,14 +137,8 @@ dojo.addOnLoad(function () {
             this.loaded = true;
         },
         update: function (options) {
-            if (options) {
-                this.searchTerm = options.searchTerm || this.searchTerm;
-                this.distance = options.distance || this.distance;
-                this.socialSourceX = options.socialSourceX;
-                this.socialSourceY = options.socialSourceY;
-                this.range = options.range || this.range;
-            }
-            this.constructQuery(this.searchTerm);
+            dojo.safeMixin(this.options, options);
+            this.constructQuery(this.options.searchTerm);
         },
         pointToExtent: function (map, point, toleranceInPixel) {
             var pixelWidth = map.extent.getWidth() / map.width;
@@ -191,8 +179,8 @@ dojo.addOnLoad(function () {
                 this.deferreds.length = 0;
             }
             // remove existing videos
-            if (this._map.infoWindow.isShowing) {
-                this._map.infoWindow.hide();
+            if (this.options.map.infoWindow.isShowing) {
+                this.options.map.infoWindow.hide();
             }
             if (this.featureLayer.graphics.length > 0) {
                 this.featureLayer.applyEdits(null, null, this.featureLayer.graphics);
@@ -225,24 +213,19 @@ dojo.addOnLoad(function () {
             return esri.graphicsExtent(this.featureLayer.graphics);
         },
         getRadius: function () {
-            var map = this._map;
-            var extent = this.extent || map.extent;
-            var radius = Math.min(621, Math.ceil(esri.geometry.getLength(new esri.geometry.Point(extent.xmin, extent.ymin, map.spatialReference), new esri.geometry.Point(extent.xmax, extent.ymin, map.spatialReference)) * 3.281 / 5280 / 2));
+            var map = this.options.map;
+            var extent = map.extent;
+            this.maxRadius = 621;
+            var radius = Math.min(this.maxRadius, Math.ceil(esri.geometry.getLength(new esri.geometry.Point(extent.xmin, extent.ymin, map.spatialReference), new esri.geometry.Point(extent.xmax, extent.ymin, map.spatialReference)) * 3.281 / 5280 / 2));
+            radius = Math.round(radius, 0);
+            var geoPoint = esri.geometry.webMercatorToGeographic(map.extent.getCenter());
             return {
                 radius: radius,
-                center: extent.getCenter(),
+                center: geoPoint,
                 units: "mi"
             };
         },
-        setSearchExtent: function (extent) {
-            this.extent = extent;
-        },
         getWindowContent: function (graphic, socialInstance) {
-            if (socialInstance.getWindowContentCallback) {
-                if (typeof socialInstance.getWindowContentCallback === 'function') {
-                    socialInstance.getWindowContentCallback(graphic);
-                }
-            }
             var mdy = graphic.attributes.published.$t.substring(0, 10);
             var time = graphic.attributes.published.$t.substring(11, 19);
             var date = dojo.date.locale.parse(mdy + '-' + time, {
@@ -268,36 +251,24 @@ dojo.addOnLoad(function () {
             return html;
         },
         constructQuery: function (searchValue) {
-            // specify search radius - has to be smaller than 1500 kilometers (932 miles)
-            // by default, use a radius equal to half the width of the bottom border of the map
-            var map = this._map;
-            var radius = this.distance || this.getRadius().radius;
+            var radius = this.getRadius();
             var search = dojo.trim(searchValue);
             if (search.length === 0) {
                 search = "";
             }
-            var range = this.range;
-            var extent = this.extent || map.extent;
-            var center = extent.getCenter();
-            center = esri.geometry.webMercatorToGeographic(center);
-            var geoPoint;
-            if (this.socialSourceX && this.socialSourceY) {
-                geoPoint = this.socialSourceY + "," + this.socialSourceX;
-            } else {
-                geoPoint = center.y + "," + center.x;
-            }
+            var range = this.options.range;
             this.query = {
                 "q": search,
-                "max-results": this.limit,
+                "max-results": this.options.limit,
                 "v": 2,
-                "location": geoPoint,
-                "location-radius": radius + "mi",
+                "location": radius.center.y + "," + radius.center.x,
+                "location-radius": radius.radius + radius.units,
                 "time": range,
                 "start-index": 1,
                 "alt": "json"
             };
-            if (this.key) {
-                this.query.key = this.key;
+            if (this.options.key) {
+                this.query.key = this.options.key;
             }
             // make the actual YouTube API call
             this.pageCount = 1;
@@ -316,9 +287,9 @@ dojo.addOnLoad(function () {
                         if (data.feed.entry.length > 0) {
                             this.mapResults(data);
                             // display results from multiple pages
-                            if ((this.autopage) && (this.maxpage > this.pageCount) && (data.feed.entry.length >= this.limit) && (this.query)) {
+                            if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.feed.entry.length >= this.options.limit) && (this.query)) {
                                 this.pageCount++;
-                                this.query["start-index"] += this.limit;
+                                this.query["start-index"] += this.options.limit;
                                 this.sendRequest(this.baseurl + "?" + dojo.objectToQuery(this.query));
                             } else {
                                 this.onUpdateEnd();
@@ -355,7 +326,6 @@ dojo.addOnLoad(function () {
             return 1; // found and removed
         },
         mapResults: function (j) {
-            var id = this.id;
             var socialInstance = this;
             if (j.error) {
                 console.log(this.i18n.error.general + ": " + j.error);
@@ -365,7 +335,7 @@ dojo.addOnLoad(function () {
             var b = [];
             var k = j.feed.entry;
             dojo.forEach(k, dojo.hitch(this, function (result) {
-                result.smType = id;
+                result.smType = this.options.id;
                 // eliminate video ids which we already have on the map
                 if (this.geocoded_ids[result.id.$t]) {
                     return;
@@ -406,21 +376,10 @@ dojo.addOnLoad(function () {
             this.featureLayer.applyEdits(b, null, null);
             this.onUpdate();
         },
-        onClear: function () {
-            if (this.onClearFunction) {
-                if (typeof this.onClearFunction === 'function') {
-                    this.onClearFunction();
-                }
-            }
-        },
+        onClear: function () {},
         onUpdate: function () {},
         onUpdateEnd: function () {
             this.query = null;
-            if (this.onUpdateEndFunction) {
-                if (typeof this.onUpdateEndFunction === 'function') {
-                    this.onUpdateEndFunction(this.dataPoints.length);
-                }
-            }
         },
         onError: function (info) {
             this.onUpdateEnd();

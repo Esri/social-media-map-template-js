@@ -408,7 +408,7 @@ background: -moz-linear-gradient(top,  #f0f0f0 0%, #fefefe 100%);
     border-radius: 2px;
 }
 
-.barButton .barIcon {
+.barButton .barIcon, .inlineIcon {
     display: inline-block;
     vertical-align: text-bottom;
     width: 16px;
@@ -1009,40 +1009,6 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
     text-align: center;
 }
 
-#settingsDialog .smallTxt {
-    font-size: 11px;
-    color: #666;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.resetCenter {
-    display: inline-block;
-    display: none;
-    width: 16px;
-    height: 16px;
-    vertical-align: text-top;
-    z-index: 2;
-    overflow: hidden;
-    cursor: pointer;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -32px 0px;
-}
-
-.locationButton {
-    margin-right: 10px;
-}
-
-.locationButton .iconBlock {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    vertical-align: top;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -384px 0px;
-}
-
-#socialUseCenter {
-    margin-left: 10px;
-}
-
 .socialIcon {
     background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -160px -16px;
 }
@@ -1080,17 +1046,6 @@ background: -moz-linear-gradient(top,  #bd362f 0%, #ee5f5b 100%);
     display: inline-block;
     width: 120px;
     margin-right: 10px;
-}
-
-.formStyle .sliderTxt {
-    font-size: 12px;
-    display: inline-block;
-    line-height: 16px;
-    padding: 4px 0;
-}
-
-.allOptions {
-    margin-top: 10px;
 }
 
 .twInfo {
