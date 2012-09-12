@@ -26,7 +26,6 @@
    "pointGraphic":"images/map/bluepoint21x29.png",
    "geometryserviceurl":"http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
    "bingMapsKey":"Akt3ZoeZ089qyG3zWQZSWpwV3r864AHStal7Aon21-Fyxwq_KdydAH32LTwhieA8",
-   "crosshairImage":"images/ui/crosshairblue.cur",
    "defaultMenu":"social",
    "showSearchBox":true,
    "showShareMenu":true,
