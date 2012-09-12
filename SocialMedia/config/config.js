@@ -1,7 +1,6 @@
 {
    "appid":"",
    "webmap":"4ff792a3962547caad2d924413c40985",
-   "socialDistance":"regional",
    "socialDisplay":"cluster",
    "showFlickr":true,
    "showFlickrConfig":true,
@@ -39,7 +38,6 @@
    "showGeolocation":true,
    "showAboutDialog":true,
    "showAboutDialogOnLoad":false,
-   "socialPoint":"",
    "locateName":"",
    "locatePoint":"",
    "sourceCountry":"USA"
