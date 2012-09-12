@@ -1,6 +1,6 @@
 {
    "appid":"",
-   "webmap":"4ff792a3962547caad2d924413c40985",
+   "webmap":"fae8cf8ce8594868b9dede55ad5d7068",
    "socialDisplay":"cluster",
    "showFlickr":true,
    "showFlickrConfig":true,
@@ -26,8 +26,8 @@
    "pointGraphic":"images/map/bluepoint21x29.png",
    "geometryserviceurl":"http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
    "proxyUrl":"",
-   "sharingurl":"http://www.arcgis.com/sharing/rest/content/items",
-   "portalUrl":"http://www.arcgis.com/",
+   "sharingurl":"http://devext.arcgis.com/sharing/rest/content/items",
+   "portalUrl":"http://devext.arcgis.com/",
    "bingMapsKey":"",
    "defaultMenu":"social",
    "showSearchBox":true,
