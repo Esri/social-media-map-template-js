@@ -119,10 +119,6 @@
                "value":"Opens the about dialog on page load."
             },
             {
-               "type":"paragraph",
-               "value":"Distance to search for social media."
-            },
-            {
                "type":"string",
                "fieldName":"socialDisplay",
                "tooltip":"Social Display",
