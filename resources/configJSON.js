@@ -346,17 +346,17 @@
       "showFlickr":true,
       "showFlickrConfig":true,
       "flickrChecked":true,
-      "flickrSearch":"food",
+      "flickrSearch":"weather",
       "flickrRange":"this_week",
       "showYouTube":true,
       "showYouTubeConfig":true,
       "youtubeChecked":true,
-      "youtubeSearch":"food",
+      "youtubeSearch":"weather",
       "youtubeRange":"this_month",
       "showTwitter":true,
       "showTwitterConfig":true,
       "twitterChecked":true,
-      "twitterSearch":"#food",
+      "twitterSearch":"#weather",
       "sourceCountry":"USA"
    }
 }
