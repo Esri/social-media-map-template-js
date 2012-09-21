@@ -308,7 +308,7 @@ function addLayerToUI(layerToAdd, index) {
     // append html
     node = dojo.byId('layersList');
     if (node) {
-        dojo.place(html, node, "last");
+        dojo.place(html, node, "first");
     }
 }
 
@@ -393,7 +393,17 @@ function transparencyChange(value) {
     var splitVals = layerID.split(',');
     if (splitVals) {
         for (var j = 0; j < splitVals.length; j++) {
-            map.getLayer(splitVals[j]).setOpacity(newValue);
+            var layer = map.getLayer(splitVals[j]);
+            if(layer){
+                if(layer._fLayers){
+                    for (var k = 0; k < layer._fLayers.length; k++) {
+                        layer._fLayers[k].setOpacity(newValue);
+                    }
+                }
+                else{
+                    layer.setOpacity(newValue);
+                }
+            }
         }
     }
 }

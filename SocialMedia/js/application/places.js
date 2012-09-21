@@ -49,8 +49,8 @@ function placesOnClick() {
                 var newExtent = new esri.geometry.Extent(configOptions.bookmarks[objIndex].extent);
                 // set extent
                 map.setExtent(newExtent);
+                hideAllMenus();
             }
-
         }
     });
     // places click

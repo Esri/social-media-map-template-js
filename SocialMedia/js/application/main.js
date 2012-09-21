@@ -626,6 +626,13 @@ function configureAboutText() {
         if (configOptions.showAboutDialogOnLoad) {
             configOptions.aboutDialog.show();
         }
+        dojo.connect(configOptions.aboutDialog, 'onHide', function(){
+            var buttons = dojo.query('#mapcon .barButton');
+            buttons.removeClass('barSelected');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].blur();
+            }
+        });
     }
 }
 
