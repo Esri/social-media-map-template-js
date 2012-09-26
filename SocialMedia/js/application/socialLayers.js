@@ -12,7 +12,7 @@ function toggleSettingsContent() {
 // return date object for flickr dateFrom and dateTo
 function getFlickrDate(type) {
     var todate = new Date();
-	todate = dojo.date.add(todate, "day", - 1);
+	todate = dojo.date.add(todate, "minute", - 5);
     var fromdate;
     switch (configOptions.flickrRange.toLowerCase()) {
     case "today":
