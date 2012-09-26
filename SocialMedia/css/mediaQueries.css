@@ -32,6 +32,11 @@
         left: auto !important;
         right: 12px !important;
     }
+
+    .esriRtl .slideMenu {
+        left: 12px !important;
+        right: auto !important;
+    }
 }
 
 @media only screen and (max-width: 550px) {

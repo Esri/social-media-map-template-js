@@ -45,6 +45,11 @@ p {
     display: block;
 }
 
+.esriRtl #previewContainer .embedSizing {
+    margin-right: 0;
+    margin-left: 20px;
+}
+
 #previewContainer .embedSizing .item {
     display: block;
     margin-bottom: 6px;
@@ -63,6 +68,11 @@ p {
     background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -144px 0;
 }
 
+.esriRtl #previewContainer .embedSizing .item .itemIcon {
+    margin-right: 0;
+    margin-left: 5px;
+}
+
 #previewContainer .embedSizing .selected .itemIcon {
     background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -128px 0;
 }
@@ -74,6 +84,11 @@ p {
 #previewContainer .embedSizing .item ul li {
     margin-left: 21px;
     margin-bottom: 6px;
+}
+
+.esriRtl #previewContainer .embedSizing .item ul li {
+    margin-left: 0;
+    margin-right: 21px;
 }
 
 #previewContainer .textAreaCon {

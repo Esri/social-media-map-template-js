@@ -6,7 +6,7 @@
    "showFlickrConfig":true,
    "flickrChecked":true,
    "flickrSearch":"weather",
-   "flickrRange":"this_week",
+   "flickrRange":"this_month",
    "flickrKey":"",
    "showYouTube":true,
    "showYouTubeConfig":true,

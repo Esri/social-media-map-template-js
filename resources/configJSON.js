@@ -347,7 +347,7 @@
       "showFlickrConfig":true,
       "flickrChecked":true,
       "flickrSearch":"weather",
-      "flickrRange":"this_week",
+      "flickrRange":"this_month",
       "showYouTube":true,
       "showYouTubeConfig":true,
       "youtubeChecked":true,

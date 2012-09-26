@@ -10,11 +10,11 @@
     line-height: 0px;
 }
 
-.dijitRtl .dojoxResizeHandle {
-    float: right;
-    left: 0px;
+.esriRtl .dojoxResizeHandle {
+    float: left;
     right: auto;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -48px 0;
+    left: 2px;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -64px -16px;
 }
 
 .dojoxResizeNW {

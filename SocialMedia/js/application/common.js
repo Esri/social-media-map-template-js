@@ -206,9 +206,11 @@ function setDefaultConfigOptions() {
     }
     var dirNode = dojo.query('html');
     if (configOptions.isRightToLeft) {
+        configOptions.dir = 'rtl';
         dirNode.attr("dir", "rtl");
         dirNode.addClass('esriRtl');
     } else {
+        configOptions.dir = 'ltr';
         dirNode.attr("dir", "ltr");
         dirNode.addClass('esriLtr');
     }

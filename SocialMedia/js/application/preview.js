@@ -113,7 +113,7 @@ function configureEmbed() {
     html += '</ul>';
     html += '</li>';
     html += '</ul></td><td>';
-    html += '<div id="mapPreviewResize"><div id="map" class="mapLoading"></div></div>';
+    html += '<div id="mapPreviewResize"><div id="map" dir="ltr" class="mapLoading"></div></div>';
     html += '</div></td></tr></tbody></table>';
     html += '<h2>' + i18n.viewer.preview.embed + '</h2>';
     html += '<p>' + i18n.viewer.preview.instruction + '</p>';
@@ -185,6 +185,8 @@ function configureEmbed() {
     var handle = new dojox.layout.ResizeHandle({
         targetId: "mapPreviewResize",
         constrainMax: true,
+        dir: configOptions.dir,
+        textDir: configOptions.dir,
         minWidth: configOptions.embedSizes.minimum.width,
         minHeight: configOptions.embedSizes.minimum.height,
         maxHeight: configOptions.embedSizes.maximum.height,
