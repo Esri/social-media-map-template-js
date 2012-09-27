@@ -2,149 +2,149 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "Ж_english_Я"
+                "scaleBarUnits": "metric"
             },
 			"errors": {
-                "createMap": "Ж_Unable to create map_Я",
-                "general": "Ж_Error_Я",
-                "bingError": "Ж_Deploying this application requires your own Bing Maps key._Я",
-                "noLegend": "Ж_No legend._Я",
-                "heatmap": "Ж_Heatmapping is unsupported on this browser._Я",
-                "noText": "Ж_Please enter a search location._Я",
-                "noLocation": "Ж_Location could not be found._Я",
-                "integersOnly": "Ж_You may only enter integers in this field._Я",
-				"nodesc": "Ж_No description._Я"
+                "createMap": "Не удалось создать карту",
+                "general": "Ошибка",
+                "bingError": "Для размещения этого приложения необходимо иметь собственный ключ Bing Map.",
+                "noLegend": "Легенда отсутствует.",
+                "heatmap": "Тепловые карты не поддерживаются этим браузером.",
+                "noText": "Задайте область поиска.",
+                "noLocation": "Область не найдена.",
+                "integersOnly": "В это поле можно вводить только целочисленные значения.",
+				"nodesc": "Описание отсутствует."
             },
 			"legend": {
-				"menuTitle": "Ж_Legend_Я"
+				"menuTitle": "Легенда"
 			},
             "search": {
-            	"location": "Ж_Location_Я",
-            	"clearLocation": "Ж_Clear Location_Я",
-            	"placeholder": "Ж_Find a place_Я"
+            	"location": "Местоположение",
+            	"clearLocation": "Очистить местоположение",
+            	"placeholder": "Найти место"
             },
 			"layers": {
-				"menuTitle": "Ж_Operational Layers_Я"
+				"menuTitle": "Рабочие слои"
 			},
             "layer": {
-            	"information": "Ж_Information_Я",
-            	"transparency": "Ж_Transparency_Я",
-            	"searchSettings": "Ж_Search Settings_Я",
-            	"filteredBy": "Ж_Filtered by:_Я"
+            	"information": "Информация",
+            	"transparency": "Прозрачность",
+            	"searchSettings": "Параметры поиска",
+            	"filteredBy": "Отфильтровано по:"
             },
             "general": {
-            	"at": "Ж_at_Я",
-				"of": "Ж_of_Я",
-            	"homeExtent": "Ж_Load default map extent_Я",
-				"ok": "Ж_OK_Я",
-				"close": "Ж_Close_Я"
+            	"at": "в",
+				"of": "из",
+            	"homeExtent": "Загрузить экстент карты по умолчанию",
+				"ok": "OK",
+				"close": "Закрыть"
             },
 			"basemap": {
-				"menuTitle": "Ж_Select a basemap_Я",
+				"menuTitle": "Выберите базовую карту",
 			},
             "settings": {
-            	"title": "Ж_Settings_Я",
-            	"searchAll": "Ж_Search all of_Я",
-            	"usingThisKeyword": "Ж_Using keyword(s)_Я",
-            	"search": "Ж_Search_Я",
-            	"fromThePast": "Ж_From the past_Я",
-            	"today": "Ж_Day_Я",
-            	"this_week": "Ж_Week_Я",
-            	"this_month": "Ж_Month_Я",
-            	"all_time": "Ж_All Time_Я",
-            	"atLocation": "Ж_At this location_Я",
-            	"centerOfMap": "Ж_Center of map_Я",
-            	"centerOfMapTitle": "Ж_Use center of map_Я",
-            	"withinThisDistance": "Ж_Within this distance_Я",
-            	"latitude": "Ж_Lat:_Я",
-            	"longitude": "Ж_Long:_Я",
-            	"locationText": "Ж_click on the map to set the origin_Я",
-            	"twSearch": "Ж_How to Use Advanced Twitter Search_Я"
+            	"title": "Настройки",
+            	"searchAll": "Найти все из",
+            	"usingThisKeyword": "Использовать ключевые слова",
+            	"search": "Поиск",
+            	"fromThePast": "Из прошлого поиска",
+            	"today": "День",
+            	"this_week": "Неделя",
+            	"this_month": "Месяц",
+            	"all_time": "Все время",
+            	"atLocation": "В этом местоположении",
+            	"centerOfMap": "Центр карты",
+            	"centerOfMapTitle": "Использовать центр карты",
+            	"withinThisDistance": "В пределах дистанции",
+            	"latitude": "Широта:",
+            	"longitude": "Долгота:",
+            	"locationText": "щелкните на карте, чтобы задать начальную точку",
+            	"twSearch": "Как использовать Расширенный поиск в Twitter"
             },
 			"autoComplete": {
-				"menuTitle": "Ж_Results&hellip;_Я"
+				"menuTitle": "Results&hellip;"
 			},
             "places": {
-				"menuTitle": "Ж_Bookmarked places_Я",
-            	"places": "Ж_Places_Я",
-            	"placesTitle": "Ж_Bookmark Places_Я",
-            	"myLocation": "Ж_My Current Location_Я",
-            	"myLocationTitle": "Ж_Center map to my location_Я"
+				"menuTitle": "Закладки",
+            	"places": "Места",
+            	"placesTitle": "Добавить места в закладки",
+            	"myLocation": "Мое текущее местоположение",
+            	"myLocationTitle": "Центрировать карту по моему местоположению"
             },
             "distanceSlider": {
-            	"local": "Ж_Local_Я",
-            	"regional": "Ж_Regional_Я",
-            	"national": "Ж_National_Я"
+            	"local": "Локальный",
+            	"regional": "Региональный",
+            	"national": "Национальный"
             },
             "about": {
-            	"title": "Ж_About_Я",
-            	"access": "Ж_Access and Use Constraints_Я"
+            	"title": "О",
+            	"access": "Ограничения доступа и использования"
             },
             "buttons": {
-            	"legend": "Ж_Legend_Я",
-            	"legendTitle": "Ж_Show Legend_Я",
-            	"basemap": "Ж_Basemap_Я",
-            	"basemapTitle": "Ж_Switch Basemap_Я",
-            	"layers": "Ж_Layers_Я",
-            	"layersTitle": "Ж_Explore Layers_Я",
-            	"social": "Ж_Social_Я",
-            	"socialTitle": "Ж_Social Media_Я",
-            	"link": "Ж_Link_Я",
-            	"linkTitle": "Ж_Share this configured map_Я",
-            	"about": "Ж_About_Я",
-            	"aboutTitle": "Ж_About this map_Я",
-            	"cluster": "Ж_Clusters_Я",
-            	"heatmap": "Ж_Density_Я"
+            	"legend": "Легенда",
+            	"legendTitle": "Показать легенду",
+            	"basemap": "Базовая карта",
+            	"basemapTitle": "Переключить базовую карту",
+            	"layers": "Слои",
+            	"layersTitle": "Изучение слоев",
+            	"social": "Социальный",
+            	"socialTitle": "Социальная сеть",
+            	"link": "Ссылка",
+            	"linkTitle": "Общий доступ к этой настроенной карте",
+            	"about": "О",
+            	"aboutTitle": "Об этой карте",
+            	"cluster": "Кластеры",
+            	"heatmap": "Плотность"
             },
             "shareMenu": {
-				"menuTitle": "Ж_Share Current View_Я",
-				"shareHeader": "Ж_Share a link to your map_Я",
-            	"facebook": "Ж_Facebook_Я",
-            	"facebookHeader": "Ж_Share on Facebook_Я",
-            	"twitter": "Ж_Twitter_Я",
-            	"twitterHeader": "Ж_Share on Twitter_Я",
-            	"instructionHeader": "Ж_Copy/paste HTML into your web page_Я",
-            	"preview": "Ж_Preview and customize_Я"
+				"menuTitle": "Общий доступ к текущему виду",
+				"shareHeader": "Общий доступ к ссылке на карту",
+            	"facebook": "Facebook",
+            	"facebookHeader": "Разместить в Facebook",
+            	"twitter": "Twitter",
+            	"twitterHeader": "Разместить в Twitter",
+            	"instructionHeader": "Копировать/вставить HTML в веб-страницу",
+            	"preview": "Просмотр и настройка"
             },
             "itemInfo": {
-				"createdLabel": "Ж_created_Я",
-				"ratingsLabel": "Ж_rating_Я",
-				"ratingsLabelPlural": "Ж_ratings_Я",
-				"viewsLabel": "Ж_view_Я",
-				"viewsLabelPlural": "Ж_views_Я",
-				"commentsLabel": "Ж_comment_Я",
-				"commentsLabelPlural": "Ж_comments_Я",
-				"modifiedLabel": "Ж_Last Modified_Я",
-				"by": "Ж_by_Я",
-				"separator": "Ж_,_Я"
+				"createdLabel": "создано",
+				"ratingsLabel": "рейтинг",
+				"ratingsLabelPlural": "рейтинги",
+				"viewsLabel": "вид",
+				"viewsLabelPlural": "просмотров",
+				"commentsLabel": "комментарий",
+				"commentsLabelPlural": "комментарии",
+				"modifiedLabel": "Последние изменения",
+				"by": "от",
+				"separator": ","
 			},
 			"social": {
-				"menuTitle": "Ж_Social Media Layers_Я"
+				"menuTitle": "Слои социальных сетей"
 			},
 			"preview": {
-				"minWidth": "Ж_Minimum width is_Я",
-				"minHeight": "Ж_Minimum height is_Я",
-				"maxWidth": "Ж_Maximum width is_Я",
-				"maxHeight": "Ж_Maximum height is_Я",
-				"customize": "Ж_Customize_Я",
-				"small": "Ж_Small_Я",
-				"medium": "Ж_Medium_Я",
-				"large": "Ж_Large_Я",
-				"custom": "Ж_Custom_Я",
-				"embed": "Ж_Embed_Я",
-				"instruction": "Ж_Copy and paste the following HTML to embed the map on your website._Я"
+				"minWidth": "Минимальная ширина",
+				"minHeight": "Минимальная высота",
+				"maxWidth": "Максимальная ширина",
+				"maxHeight": "Максимальная высота",
+				"customize": "Настройка",
+				"small": "Малый",
+				"medium": "Средний",
+				"large": "Большой",
+				"custom": "Настраиваемый",
+				"embed": "Встроить",
+				"instruction": "Скопируйте и вставьте следующий HTML-код, чтобы встроить карту в ваш веб-сайт."
 			},
 			"flickr": {
-				"title": "Ж_Flickr_Я",
-				"description": "Ж_Photos from Flickr_Я"
+				"title": "Flickr",
+				"description": "Фото с Flickr"
 			},
 			"twitter": {
-				"title": "Ж_Twitter_Я",
-				"description": "Ж_Tweets from Twitter_Я"
+				"title": "Twitter",
+				"description": "Записи из Twitter"
 			},
 			"youtube": {
-				"title": "Ж_YouTube_Я",
-				"description": "Ж_Video from YouTube_Я"
+				"title": "YouTube",
+				"description": "Видео с YouTube"
 			}
         }
     })

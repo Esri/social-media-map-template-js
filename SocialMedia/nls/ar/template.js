@@ -2,149 +2,149 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "بيت_english_لاحقة"
+                "scaleBarUnits": "metric"
             },
 			"errors": {
-                "createMap": "بيت_Unable to create map_لاحقة",
-                "general": "بيت_Error_لاحقة",
-                "bingError": "بيت_Deploying this application requires your own Bing Maps key._لاحقة",
-                "noLegend": "بيت_No legend._لاحقة",
-                "heatmap": "بيت_Heatmapping is unsupported on this browser._لاحقة",
-                "noText": "بيت_Please enter a search location._لاحقة",
-                "noLocation": "بيت_Location could not be found._لاحقة",
-                "integersOnly": "بيت_You may only enter integers in this field._لاحقة",
-				"nodesc": "بيت_No description._لاحقة"
+                "createMap": "يتعذر إنشاء الخريطة",
+                "general": "خطأ",
+                "bingError": "يتطلب نشر هذا التطبيق مفتاح خرائط Bing.",
+                "noLegend": "لا يوجد وسيلة إيضاح",
+                "heatmap": "تكون الخرائط الحرارية غير مدعومة في هذا المستعرض.",
+                "noText": "الرجاء ادخال موقع البحث.",
+                "noLocation": "يتعذر العثور على الموقع.",
+                "integersOnly": "يمكنك ادخال أعداد صحيحة فقط في هذا الحقل.",
+				"nodesc": "لا يوجد وصف."
             },
 			"legend": {
-				"menuTitle": "بيت_Legend_لاحقة"
+				"menuTitle": "مفتاح الخريطة"
 			},
             "search": {
-            	"location": "بيت_Location_لاحقة",
-            	"clearLocation": "بيت_Clear Location_لاحقة",
-            	"placeholder": "بيت_Find a place_لاحقة"
+            	"location": "موقع",
+            	"clearLocation": "مسح الموقع",
+            	"placeholder": "العثور على مكان"
             },
 			"layers": {
-				"menuTitle": "بيت_Operational Layers_لاحقة"
+				"menuTitle": "طبقات تشغيلية"
 			},
             "layer": {
-            	"information": "بيت_Information_لاحقة",
-            	"transparency": "بيت_Transparency_لاحقة",
-            	"searchSettings": "بيت_Search Settings_لاحقة",
-            	"filteredBy": "بيت_Filtered by:_لاحقة"
+            	"information": "معلومات",
+            	"transparency": "معدل الشفافية:",
+            	"searchSettings": "إعدادات البحث",
+            	"filteredBy": "تم التنقية من قبل:"
             },
             "general": {
-            	"at": "بيت_at_لاحقة",
-				"of": "بيت_of_لاحقة",
-            	"homeExtent": "بيت_Load default map extent_لاحقة",
-				"ok": "بيت_OK_لاحقة",
-				"close": "بيت_Close_لاحقة"
+            	"at": "عند",
+				"of": "من",
+            	"homeExtent": "تحميل نطاق الخريطة الافتراضي",
+				"ok": "موافق",
+				"close": "إغلاق"
             },
 			"basemap": {
-				"menuTitle": "بيت_Select a basemap_لاحقة",
+				"menuTitle": "تحديد خريطة أساس",
 			},
             "settings": {
-            	"title": "بيت_Settings_لاحقة",
-            	"searchAll": "بيت_Search all of_لاحقة",
-            	"usingThisKeyword": "بيت_Using keyword(s)_لاحقة",
-            	"search": "بيت_Search_لاحقة",
-            	"fromThePast": "بيت_From the past_لاحقة",
-            	"today": "بيت_Day_لاحقة",
-            	"this_week": "بيت_Week_لاحقة",
-            	"this_month": "بيت_Month_لاحقة",
-            	"all_time": "بيت_All Time_لاحقة",
-            	"atLocation": "بيت_At this location_لاحقة",
-            	"centerOfMap": "بيت_Center of map_لاحقة",
-            	"centerOfMapTitle": "بيت_Use center of map_لاحقة",
-            	"withinThisDistance": "بيت_Within this distance_لاحقة",
-            	"latitude": "بيت_Lat:_لاحقة",
-            	"longitude": "بيت_Long:_لاحقة",
-            	"locationText": "بيت_click on the map to set the origin_لاحقة",
-            	"twSearch": "بيت_How to Use Advanced Twitter Search_لاحقة"
+            	"title": "الإعدادات",
+            	"searchAll": "البحث عن الكل",
+            	"usingThisKeyword": "استخدام الكلمات الأساسية",
+            	"search": "بحث",
+            	"fromThePast": "من الماضي",
+            	"today": "يوم",
+            	"this_week": "اسبوع",
+            	"this_month": "شهر",
+            	"all_time": "طول الوقت",
+            	"atLocation": "في هذا الموقع",
+            	"centerOfMap": "مركز الخريطة",
+            	"centerOfMapTitle": "استخدم مركز الخريطة",
+            	"withinThisDistance": "في هذه المسافة",
+            	"latitude": "خطوط الطول:",
+            	"longitude": "دوائر العرض:",
+            	"locationText": "انقر فوق الخريطة لتعيين نقطة الأصل",
+            	"twSearch": "كيفية استخدام البحث المتقدم في تويتر"
             },
 			"autoComplete": {
-				"menuTitle": "بيت_Results&hellip;_لاحقة"
+				"menuTitle": "Results&hellip;"
 			},
             "places": {
-				"menuTitle": "بيت_Bookmarked places_لاحقة",
-            	"places": "بيت_Places_لاحقة",
-            	"placesTitle": "بيت_Bookmark Places_لاحقة",
-            	"myLocation": "بيت_My Current Location_لاحقة",
-            	"myLocationTitle": "بيت_Center map to my location_لاحقة"
+				"menuTitle": "الأماكن التي تم وضع إشارة مرجعية إليها",
+            	"places": "الأماكن",
+            	"placesTitle": "أماكن العلامة المرجعية",
+            	"myLocation": "موقعي الحالي",
+            	"myLocationTitle": "تمركز الخريطة على موقعي"
             },
             "distanceSlider": {
-            	"local": "بيت_Local_لاحقة",
-            	"regional": "بيت_Regional_لاحقة",
-            	"national": "بيت_National_لاحقة"
+            	"local": "محلي",
+            	"regional": "إقليمي",
+            	"national": "وطني"
             },
             "about": {
-            	"title": "بيت_About_لاحقة",
-            	"access": "بيت_Access and Use Constraints_لاحقة"
+            	"title": "نبذة عن",
+            	"access": "قيود الاستخدام والوصول"
             },
             "buttons": {
-            	"legend": "بيت_Legend_لاحقة",
-            	"legendTitle": "بيت_Show Legend_لاحقة",
-            	"basemap": "بيت_Basemap_لاحقة",
-            	"basemapTitle": "بيت_Switch Basemap_لاحقة",
-            	"layers": "بيت_Layers_لاحقة",
-            	"layersTitle": "بيت_Explore Layers_لاحقة",
-            	"social": "بيت_Social_لاحقة",
-            	"socialTitle": "بيت_Social Media_لاحقة",
-            	"link": "بيت_Link_لاحقة",
-            	"linkTitle": "بيت_Share this configured map_لاحقة",
-            	"about": "بيت_About_لاحقة",
-            	"aboutTitle": "بيت_About this map_لاحقة",
-            	"cluster": "بيت_Clusters_لاحقة",
-            	"heatmap": "بيت_Density_لاحقة"
+            	"legend": "مفتاح الخريطة",
+            	"legendTitle": "إظهار وسيلة الإيضاح",
+            	"basemap": "خريطة أساسية",
+            	"basemapTitle": "تبديل خريطة الأساس",
+            	"layers": "طبقات",
+            	"layersTitle": "استكشاف الطبقات",
+            	"social": "اجتماعي",
+            	"socialTitle": "موقع التواصل الاجتماعي",
+            	"link": "رابط",
+            	"linkTitle": "مشاركة الخريطة المهيأة الحالية",
+            	"about": "نبذة عن",
+            	"aboutTitle": "نبذة عن هذه الخريطة",
+            	"cluster": "تجمعات",
+            	"heatmap": "كثافة"
             },
             "shareMenu": {
-				"menuTitle": "بيت_Share Current View_لاحقة",
-				"shareHeader": "بيت_Share a link to your map_لاحقة",
-            	"facebook": "بيت_Facebook_لاحقة",
-            	"facebookHeader": "بيت_Share on Facebook_لاحقة",
-            	"twitter": "بيت_Twitter_لاحقة",
-            	"twitterHeader": "بيت_Share on Twitter_لاحقة",
-            	"instructionHeader": "بيت_Copy/paste HTML into your web page_لاحقة",
-            	"preview": "بيت_Preview and customize_لاحقة"
+				"menuTitle": "مشاركة العرض الحالي",
+				"shareHeader": "مشاركة رابط الخريطة الخاصة بك",
+            	"facebook": "فيس بوك",
+            	"facebookHeader": "مشاركة على الفيس بوك",
+            	"twitter": "تويتر",
+            	"twitterHeader": "مشاركة على تويتر",
+            	"instructionHeader": "نسخ/لصق HTML داخل صفحة الويب الخاصة بك.",
+            	"preview": "المعاينة والتخصيص"
             },
             "itemInfo": {
-				"createdLabel": "بيت_created_لاحقة",
-				"ratingsLabel": "بيت_rating_لاحقة",
-				"ratingsLabelPlural": "بيت_ratings_لاحقة",
-				"viewsLabel": "بيت_view_لاحقة",
-				"viewsLabelPlural": "بيت_views_لاحقة",
-				"commentsLabel": "بيت_comment_لاحقة",
-				"commentsLabelPlural": "بيت_comments_لاحقة",
-				"modifiedLabel": "بيت_Last Modified_لاحقة",
-				"by": "بيت_by_لاحقة",
-				"separator": "بيت_,_لاحقة"
+				"createdLabel": "تم إنشاء",
+				"ratingsLabel": "التقييم",
+				"ratingsLabelPlural": "التصنيفات",
+				"viewsLabel": "عرض",
+				"viewsLabelPlural": "العرض",
+				"commentsLabel": "تعليق",
+				"commentsLabelPlural": "تعليقات",
+				"modifiedLabel": "آخر تعديل",
+				"by": "حسب",
+				"separator": "،"
 			},
 			"social": {
-				"menuTitle": "بيت_Social Media Layers_لاحقة"
+				"menuTitle": "طبقات موقع التواصل الاجتماعي"
 			},
 			"preview": {
-				"minWidth": "بيت_Minimum width is_لاحقة",
-				"minHeight": "بيت_Minimum height is_لاحقة",
-				"maxWidth": "بيت_Maximum width is_لاحقة",
-				"maxHeight": "بيت_Maximum height is_لاحقة",
-				"customize": "بيت_Customize_لاحقة",
-				"small": "بيت_Small_لاحقة",
-				"medium": "بيت_Medium_لاحقة",
-				"large": "بيت_Large_لاحقة",
-				"custom": "بيت_Custom_لاحقة",
-				"embed": "بيت_Embed_لاحقة",
-				"instruction": "بيت_Copy and paste the following HTML to embed the map on your website._لاحقة"
+				"minWidth": "الحد الأدنى للعرض هو",
+				"minHeight": "الحد الأدنى للارتفاع هو",
+				"maxWidth": "الحد الأقصى للعرض هو",
+				"maxHeight": "الحد الأقصى للارتفاع هو",
+				"customize": "تخصيص",
+				"small": "صغير",
+				"medium": "متوسط",
+				"large": "كبير",
+				"custom": "تخصيص",
+				"embed": "مضمن",
+				"instruction": "نسخ ولصق HTML التالي لتضمين الخريطة على موقع الويب الخاص بك."
 			},
 			"flickr": {
-				"title": "بيت_Flickr_لاحقة",
-				"description": "بيت_Photos from Flickr_لاحقة"
+				"title": "Flickr",
+				"description": "صور من Flickr"
 			},
 			"twitter": {
-				"title": "بيت_Twitter_لاحقة",
-				"description": "بيت_Tweets from Twitter_لاحقة"
+				"title": "تويتر",
+				"description": "تويت من تويتر"
 			},
 			"youtube": {
-				"title": "بيت_YouTube_لاحقة",
-				"description": "بيت_Video from YouTube_لاحقة"
+				"title": "اليوتيوب",
+				"description": "مقطع فيديو من اليوتيوب"
 			}
         }
     })

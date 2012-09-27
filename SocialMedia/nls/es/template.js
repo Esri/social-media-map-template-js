@@ -2,149 +2,149 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "á_english_Ó"
+                "scaleBarUnits": "imperiales"
             },
 			"errors": {
-                "createMap": "á_Unable to create map_Ó",
-                "general": "á_Error_Ó",
-                "bingError": "á_Deploying this application requires your own Bing Maps key._Ó",
-                "noLegend": "á_No legend._Ó",
-                "heatmap": "á_Heatmapping is unsupported on this browser._Ó",
-                "noText": "á_Please enter a search location._Ó",
-                "noLocation": "á_Location could not be found._Ó",
-                "integersOnly": "á_You may only enter integers in this field._Ó",
-				"nodesc": "á_No description._Ó"
+                "createMap": "No se puede crear el mapa",
+                "general": "Error",
+                "bingError": "Para implementar esta aplicación necesitas tu propia clave de Bing Maps.",
+                "noLegend": "No hay ninguna leyenda.",
+                "heatmap": "Los mapas de calor no son compatibles con este navegador.",
+                "noText": "Especifica una ubicación de búsqueda.",
+                "noLocation": "La ubicación no se puede encontrar.",
+                "integersOnly": "Solo puedes escribir enteros en este campo.",
+				"nodesc": "No hay ninguna descripción."
             },
 			"legend": {
-				"menuTitle": "á_Legend_Ó"
+				"menuTitle": "Leyenda"
 			},
             "search": {
-            	"location": "á_Location_Ó",
-            	"clearLocation": "á_Clear Location_Ó",
-            	"placeholder": "á_Find a place_Ó"
+            	"location": "Ubicación",
+            	"clearLocation": "Borrar ubicación",
+            	"placeholder": "Buscar un lugar"
             },
 			"layers": {
-				"menuTitle": "á_Operational Layers_Ó"
+				"menuTitle": "Capas operacionales"
 			},
             "layer": {
-            	"information": "á_Information_Ó",
-            	"transparency": "á_Transparency_Ó",
-            	"searchSettings": "á_Search Settings_Ó",
-            	"filteredBy": "á_Filtered by:_Ó"
+            	"information": "Información",
+            	"transparency": "Transparencia",
+            	"searchSettings": "Configuración de búsqueda",
+            	"filteredBy": "Filtrado por:"
             },
             "general": {
-            	"at": "á_at_Ó",
-				"of": "á_of_Ó",
-            	"homeExtent": "á_Load default map extent_Ó",
-				"ok": "á_OK_Ó",
-				"close": "á_Close_Ó"
+            	"at": "en",
+				"of": "de",
+            	"homeExtent": "Cargar extensión de mapa predeterminada",
+				"ok": "Aceptar",
+				"close": "Cerrar"
             },
 			"basemap": {
-				"menuTitle": "á_Select a basemap_Ó",
+				"menuTitle": "Seleccionar un mapa base",
 			},
             "settings": {
-            	"title": "á_Settings_Ó",
-            	"searchAll": "á_Search all of_Ó",
-            	"usingThisKeyword": "á_Using keyword(s)_Ó",
-            	"search": "á_Search_Ó",
-            	"fromThePast": "á_From the past_Ó",
-            	"today": "á_Day_Ó",
-            	"this_week": "á_Week_Ó",
-            	"this_month": "á_Month_Ó",
-            	"all_time": "á_All Time_Ó",
-            	"atLocation": "á_At this location_Ó",
-            	"centerOfMap": "á_Center of map_Ó",
-            	"centerOfMapTitle": "á_Use center of map_Ó",
-            	"withinThisDistance": "á_Within this distance_Ó",
-            	"latitude": "á_Lat:_Ó",
-            	"longitude": "á_Long:_Ó",
-            	"locationText": "á_click on the map to set the origin_Ó",
-            	"twSearch": "á_How to Use Advanced Twitter Search_Ó"
+            	"title": "Configuración",
+            	"searchAll": "Buscar en todos los",
+            	"usingThisKeyword": "Usando las palabras clave",
+            	"search": "Buscar",
+            	"fromThePast": "Desde el pasado",
+            	"today": "Día",
+            	"this_week": "Semana",
+            	"this_month": "Mes",
+            	"all_time": "Todo el tiempo",
+            	"atLocation": "En esta ubicación",
+            	"centerOfMap": "Centro del mapa",
+            	"centerOfMapTitle": "Usar centro del mapa",
+            	"withinThisDistance": "Dentro de esta distancia",
+            	"latitude": "Lat.:",
+            	"longitude": "Long.:",
+            	"locationText": "haz clic en el mapa para definir el origen",
+            	"twSearch": "Cómo usar la búsqueda avanzada de Twitter"
             },
 			"autoComplete": {
-				"menuTitle": "á_Results&hellip;_Ó"
+				"menuTitle": "Resultados&hellip;"
 			},
             "places": {
-				"menuTitle": "á_Bookmarked places_Ó",
-            	"places": "á_Places_Ó",
-            	"placesTitle": "á_Bookmark Places_Ó",
-            	"myLocation": "á_My Current Location_Ó",
-            	"myLocationTitle": "á_Center map to my location_Ó"
+				"menuTitle": "Lugares con marcador",
+            	"places": "Lugares",
+            	"placesTitle": "Agregar marcador a lugares",
+            	"myLocation": "Mi ubicación actual",
+            	"myLocationTitle": "Centrar mapa en mi ubicación"
             },
             "distanceSlider": {
-            	"local": "á_Local_Ó",
-            	"regional": "á_Regional_Ó",
-            	"national": "á_National_Ó"
+            	"local": "Local",
+            	"regional": "Regional",
+            	"national": "Nacional"
             },
             "about": {
-            	"title": "á_About_Ó",
-            	"access": "á_Access and Use Constraints_Ó"
+            	"title": "Acerca de",
+            	"access": "Restricciones de acceso y uso"
             },
             "buttons": {
-            	"legend": "á_Legend_Ó",
-            	"legendTitle": "á_Show Legend_Ó",
-            	"basemap": "á_Basemap_Ó",
-            	"basemapTitle": "á_Switch Basemap_Ó",
-            	"layers": "á_Layers_Ó",
-            	"layersTitle": "á_Explore Layers_Ó",
-            	"social": "á_Social_Ó",
-            	"socialTitle": "á_Social Media_Ó",
-            	"link": "á_Link_Ó",
-            	"linkTitle": "á_Share this configured map_Ó",
-            	"about": "á_About_Ó",
-            	"aboutTitle": "á_About this map_Ó",
-            	"cluster": "á_Clusters_Ó",
-            	"heatmap": "á_Density_Ó"
+            	"legend": "Leyenda",
+            	"legendTitle": "Mostrar leyenda",
+            	"basemap": "Mapa base",
+            	"basemapTitle": "Cambiar mapa base",
+            	"layers": "Capas",
+            	"layersTitle": "Explorar capas",
+            	"social": "Social",
+            	"socialTitle": "Medios sociales",
+            	"link": "Vínculo",
+            	"linkTitle": "Compartir este mapa configurado",
+            	"about": "Acerca de",
+            	"aboutTitle": "Acerca de este mapa",
+            	"cluster": "Clústeres",
+            	"heatmap": "Densidad"
             },
             "shareMenu": {
-				"menuTitle": "á_Share Current View_Ó",
-				"shareHeader": "á_Share a link to your map_Ó",
-            	"facebook": "á_Facebook_Ó",
-            	"facebookHeader": "á_Share on Facebook_Ó",
-            	"twitter": "á_Twitter_Ó",
-            	"twitterHeader": "á_Share on Twitter_Ó",
-            	"instructionHeader": "á_Copy/paste HTML into your web page_Ó",
-            	"preview": "á_Preview and customize_Ó"
+				"menuTitle": "Compartir vista actual",
+				"shareHeader": "Compartir un vínculo al mapa",
+            	"facebook": "Facebook",
+            	"facebookHeader": "Compartir en Facebook",
+            	"twitter": "Twitter",
+            	"twitterHeader": "Compartir en Twitter",
+            	"instructionHeader": "Copiar/pegar HTML en tu página web",
+            	"preview": "Obtener vista previa y personalizar"
             },
             "itemInfo": {
-				"createdLabel": "á_created_Ó",
-				"ratingsLabel": "á_rating_Ó",
-				"ratingsLabelPlural": "á_ratings_Ó",
-				"viewsLabel": "á_view_Ó",
-				"viewsLabelPlural": "á_views_Ó",
-				"commentsLabel": "á_comment_Ó",
-				"commentsLabelPlural": "á_comments_Ó",
-				"modifiedLabel": "á_Last Modified_Ó",
-				"by": "á_by_Ó",
-				"separator": "á_,_Ó"
+				"createdLabel": "creado",
+				"ratingsLabel": "calificación",
+				"ratingsLabelPlural": "calificaciones",
+				"viewsLabel": "vista",
+				"viewsLabelPlural": "vistas",
+				"commentsLabel": "comentario",
+				"commentsLabelPlural": "comentarios",
+				"modifiedLabel": "Última modificación",
+				"by": "de",
+				"separator": ","
 			},
 			"social": {
-				"menuTitle": "á_Social Media Layers_Ó"
+				"menuTitle": "Capas de medios sociales"
 			},
 			"preview": {
-				"minWidth": "á_Minimum width is_Ó",
-				"minHeight": "á_Minimum height is_Ó",
-				"maxWidth": "á_Maximum width is_Ó",
-				"maxHeight": "á_Maximum height is_Ó",
-				"customize": "á_Customize_Ó",
-				"small": "á_Small_Ó",
-				"medium": "á_Medium_Ó",
-				"large": "á_Large_Ó",
-				"custom": "á_Custom_Ó",
-				"embed": "á_Embed_Ó",
-				"instruction": "á_Copy and paste the following HTML to embed the map on your website._Ó"
+				"minWidth": "La anchura mínima es",
+				"minHeight": "La altura mínima es",
+				"maxWidth": "La anchura máxima es",
+				"maxHeight": "La altura máxima es",
+				"customize": "Personalizar",
+				"small": "Pequeño",
+				"medium": "Mediano",
+				"large": "Grande",
+				"custom": "Personalizado",
+				"embed": "Incrustar",
+				"instruction": "Copia y pega el siguiente HTML para incrustar el mapa en tu sitio web."
 			},
 			"flickr": {
-				"title": "á_Flickr_Ó",
-				"description": "á_Photos from Flickr_Ó"
+				"title": "Flickr",
+				"description": "Fotos de Flickr"
 			},
 			"twitter": {
-				"title": "á_Twitter_Ó",
-				"description": "á_Tweets from Twitter_Ó"
+				"title": "Twitter",
+				"description": "Tweets de Twitter"
 			},
 			"youtube": {
-				"title": "á_YouTube_Ó",
-				"description": "á_Video from YouTube_Ó"
+				"title": "YouTube",
+				"description": "Vídeo de YouTube"
 			}
         }
     })
