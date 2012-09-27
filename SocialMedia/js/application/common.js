@@ -289,7 +289,7 @@ function alertDialog(text) {
 // zebra stripe css object
 function zebraStripe(obj) {
     obj.removeClass("stripe");
-    obj.filter(":nth-child(2)").addClass("stripe");
+    obj.filter(":nth-child(even)").addClass("stripe");
 }
 
 // return correct button class

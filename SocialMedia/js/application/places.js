@@ -3,7 +3,7 @@ function createPlacesListItem(i) {
     // default vars //
     var html = '';
     // list html
-    html += '<li data-index="' + i + '" class="layer placesItem sharedItem checked">';
+    html += '<li data-index="' + i + '" class="layer sharedItem">';
     html += '<span tabindex="0" class="placesIcon placesClick"></span><span class="title placesClick">' + configOptions.bookmarks[i].name.replace(/[\-_]/g, " ") + '</span>';
     html += '</li>';
     // insert list item
@@ -11,7 +11,6 @@ function createPlacesListItem(i) {
     if (node) {
         dojo.place(html, node, "last");
     }
-    zebraStripe(dojo.query('#placesList li.layer'));
 }
 
 // zoom to location: zooms map to location point
@@ -25,7 +24,7 @@ function zoomToLocation(x, y, IPAccuracy) {
 
 // geolocation error
 function geoLocateMapError(error) {
-    console.log(error);
+    alertDialog(error.toString());
 }
 
 // geolocate function: sets map location to users location
