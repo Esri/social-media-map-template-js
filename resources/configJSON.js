@@ -346,17 +346,17 @@
       "showFlickr":true,
       "showFlickrConfig":true,
       "flickrChecked":true,
-      "flickrSearch":"weather",
+      "flickrSearch":"",
       "flickrRange":"this_month",
       "showYouTube":true,
       "showYouTubeConfig":true,
       "youtubeChecked":true,
-      "youtubeSearch":"weather",
+      "youtubeSearch":"",
       "youtubeRange":"this_month",
       "showTwitter":true,
       "showTwitterConfig":true,
       "twitterChecked":true,
-      "twitterSearch":"#weather",
+      "twitterSearch":"",
       "sourceCountry":"USA"
    }
 }

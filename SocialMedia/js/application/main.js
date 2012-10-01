@@ -703,8 +703,7 @@ function configureAppTitle() {
     }
 }
 
-function fixExtent() {
-    map.setExtent(configOptions.startExtent);
+function extentReady() {
     // set zoom level
     if (configOptions.level) {
         map.setLevel(parseInt(configOptions.level, 10));
@@ -717,7 +716,6 @@ function fixExtent() {
             setMarker(point, configOptions.locateName);
         }
     }
-
 }
 
 // Configure
@@ -730,7 +728,7 @@ function configureUserInterface() {
     configureAboutText();
     // short delay
     setTimeout(function () {
-        fixExtent();
+        extentReady();
         setTimeout(function () {
             updateSocialLayers();
             dojo.connect(map, "onExtentChange", function (extent) {
