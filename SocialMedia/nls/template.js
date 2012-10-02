@@ -66,7 +66,7 @@ define({
 			},
             "places": {
 				"menuTitle":"Bookmarked places",
-            	"places":"Places",
+            	"places":"Bookmarks",
             	"placesTitle":"Bookmark Places",
             	"myLocation":"My Current Location",
             	"myLocationTitle":"Center map to my location"
