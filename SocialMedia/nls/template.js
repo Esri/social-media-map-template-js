@@ -145,6 +145,10 @@ define({
 			"youtube":{
 				"title":"YouTube",
 				"description":"Video from YouTube"
+			},
+			"panoramio":{                                 // new
+				"title":"Panoramio",                      // new
+				"description":"Photos from Panoramio"     // new
 			}
         }
     }),

@@ -158,6 +158,7 @@ function setDefaultConfigOptions() {
             height: 250
         }
     };
+    configOptions.socialLayers = [];
     configOptions.previewPage = 'preview.html';
     configOptions.homePage = 'index.html';
     configOptions.flickrID = "flickr";
@@ -174,6 +175,15 @@ function setDefaultConfigOptions() {
     configOptions.twitterDescription = i18n.viewer.twitter.description;
     configOptions.twitterIcon = "images/social/twitter16x16.png";
     configOptions.twitterSymbol = {
+        "url": "images/map/twitter25x30.png",
+        "width": "18.75",
+        "height": "22.5"
+    };
+    configOptions.panoramioID = "panoramio";
+    configOptions.panoramioTitle = i18n.viewer.panoramio.title;
+    configOptions.panoramioDescription = i18n.viewer.panoramio.description;
+    configOptions.panoramioIcon = "images/social/twitter16x16.png";
+    configOptions.panoramioSymbol = {
         "url": "images/map/twitter25x30.png",
         "width": "18.75",
         "height": "22.5"

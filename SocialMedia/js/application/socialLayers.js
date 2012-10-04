@@ -91,96 +91,56 @@ function configureSettingsUI() {
         toggleSettingsContent();
     });
 
-    dojo.query(document).delegate("#YTkwinput", "keyup", function (event) {
+    dojo.query(document).delegate('#' + configOptions.youtubeID + '_input', "keyup", function (event) {
         if (event.keyCode === 13) {
-            changeYouTube();
+            youtubeLayer.change();
         }
     });
-    dojo.query(document).delegate("#TWkwinput", "keyup", function (event) {
+    dojo.query(document).delegate('#' + configOptions.twitterID + '_input', "keyup", function (event) {
         if (event.keyCode === 13) {
-            changeTwitter();
+            twitterLayer.change();
         }
     });
-    dojo.query(document).delegate("#FLkwinput", "keyup", function (event) {
+    dojo.query(document).delegate('#' + configOptions.flickrID + '_input', "keyup", function (event) {
         if (event.keyCode === 13) {
-            changeFlickr();
+            flickrLayer.change();
         }
     });
 
     dojo.query(document).delegate("#ytSubmit", "onclick,keyup", function (event) {
         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-            changeYouTube();
+            youtubeLayer.change();
         }
     });
 
     dojo.query(document).delegate("#twSubmit", "onclick,keyup", function (event) {
         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-            changeTwitter();
+            twitterLayer.change();
         }
     });
 
     dojo.query(document).delegate("#flSubmit", "onclick,keyup", function (event) {
         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-            changeFlickr();
+            flickrLayer.change();
         }
     });
 }
 
 function clearDataPoints() {
-    if (youtubeLayer) {
-        youtubeLayer.clear();
-    }
-    if (twitterLayer) {
-        twitterLayer.clear();
-    }
-    if (flickrLayer) {
-        flickrLayer.clear();
+    for(var i = 0; i < configOptions.socialLayers.length; i++){
+        configOptions.socialLayers[i].clear();
     }
 }
 
-// change social media settings
-function changeYouTube() {
-    configOptions.youtubeSearch = dojo.query('#YTkwinput').attr('value')[0];
-    configOptions.youtubeRange = dojo.query("#youtuberange").attr('value')[0];
-    showLoading('YTLoad');
-    dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + ']').addClass("checked cLoading");
-    setSharing();
-    youtubeLayer.clear();
-    youtubeLayer.update({
-        searchTerm: configOptions.youtubeSearch,
-        range: configOptions.youtubeRange
-    });
-}
-
-// changes twitter keywords and such
-function changeTwitter() {
-    configOptions.twitterSearch = dojo.query('#TWkwinput').attr('value')[0];
-    dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + ']').addClass("checked cLoading");
-    showLoading('TWLoad');
-    setSharing();
-    twitterLayer.clear();
-    twitterLayer.update({
-        searchTerm: configOptions.twitterSearch
-    });
-}
-
-// changes flickr keywords and such
-function changeFlickr() {
-    configOptions.flickrSearch = dojo.query('#FLkwinput').attr('value')[0];
-    configOptions.flickrRange = dojo.query("#flickrrange").attr('value')[0];
-    showLoading('FLLoad');
-    dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + ']').addClass("checked cLoading");
-    setSharing();
-    flickrLayer.clear();
-    var updateObj = {
-        searchTerm: configOptions.flickrSearch
-    };
-    if (configOptions.flickrRange) {
-        updateObj.dateFrom = getFlickrDate('from');
-        updateObj.dateTo = getFlickrDate('to');
+function getSocialLayer(id){
+    for(var i = 0; i < configOptions.socialLayers.length; i++){
+        if(configOptions.socialLayers[i].options.id === id){
+            return configOptions.socialLayers[i];
+        }
     }
-    flickrLayer.update(updateObj);
+    return false;
 }
+
 
 // gets string for social media popup title
 function getSmPopupTitle() {
@@ -191,41 +151,17 @@ function getSmPopupTitle() {
         if (graphic.attributes.smType) {
             var total = configOptions.customPopup.count;
             var current = configOptions.customPopup.selectedIndex + 1;
-            var socialObject = false;
+            var socialObject;
             // if more than 1
             if (total > 1) {
                 pagString = '<span class="pageInfo">(' + dojo.number.format(current) + ' ' + i18n.viewer.general.of + ' ' + dojo.number.format(total) + ')</span>';
             }
-            var ytID, twID, flID, usID = 'unassigned';
-            if (configOptions.showYouTube) {
-                ytID = configOptions.youtubeID;
-            }
-            if (configOptions.showTwitter) {
-                twID = configOptions.twitterID;
-            }
-            if (configOptions.showFlickr) {
-                flID = configOptions.flickrID;
-            }
-            // set social icon
-            switch (graphic.attributes.smType) {
-            case ytID:
+            var layer = getSocialLayer(graphic.attributes.smType);
+            if(layer){
                 socialObject = {
-                    title: configOptions.youtubeTitle,
-                    legendIcon: configOptions.youtubeIcon
+                    title: layer.options.title,
+                    legendIcon: layer.options.legendIcon
                 };
-                break;
-            case twID:
-                socialObject = socialObject = {
-                    title: configOptions.twitterTitle,
-                    legendIcon: configOptions.twitterIcon
-                };
-                break;
-            case flID:
-                socialObject = {
-                    title: configOptions.flickrTitle,
-                    legendIcon: configOptions.flickrIcon
-                };
-                break;
             }
             if (socialObject) {
                 socialString = '<span title="' + socialObject.title + '" class="iconImg" style="background-image:url(' + socialObject.legendIcon + ');"></span>' + '<span class="titleInfo">' + socialObject.title + '</span>';
@@ -242,41 +178,8 @@ function overridePopupTitle() {
 
 // update social layers
 function updateSocialLayers() {
-    if (configOptions.showYouTube) {
-        // if youtube cbox is checked
-        var ytList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + ']');
-        if (dojo.hasClass(ytList[0], "checked")) {
-            ytList.addClass("cLoading");
-            youtubeLayer.update({
-                searchTerm: configOptions.youtubeSearch,
-                range: configOptions.youtubeRange
-            });
-        }
-    }
-    // if twitter cbox is checked
-    if (configOptions.showTwitter) {
-        var twList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + ']');
-        if (dojo.hasClass(twList[0], "checked")) {
-            twList.addClass("cLoading");
-            twitterLayer.update({
-                searchTerm: configOptions.twitterSearch
-            });
-        }
-    }
-    if (configOptions.showFlickr) {
-        // if flickr cbox is checked
-        var flList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + ']');
-        if (dojo.hasClass(flList[0], "checked")) {
-            flList.addClass("cLoading");
-            var updateObj = {
-                searchTerm: configOptions.flickrSearch
-            };
-            if (configOptions.flickrRange) {
-                updateObj.dateFrom = getFlickrDate('from');
-                updateObj.dateTo = getFlickrDate('to');
-            }
-            flickrLayer.update(updateObj);
-        }
+    for(var i = 0; i < configOptions.socialLayers.length; i++){
+        configOptions.socialLayers[i].newQuery();
     }
 }
 
@@ -291,62 +194,13 @@ function resetSocialRefreshTimer() {
 // toggle social media layer on and off
 function toggleMapLayerSM(layerid) {
     clearTimeout(configOptions.autoRefreshTimer);
-    var ytID, twID, flID, usID = false;
-    if (configOptions.showYouTube) {
-        ytID = configOptions.youtubeID;
-    }
-    if (configOptions.showTwitter) {
-        twID = configOptions.twitterID;
-    }
-    if (configOptions.showFlickr) {
-        flID = configOptions.flickrID;
-    }
+    var layer = getSocialLayer(layerid);
     var layerList = dojo.query('#socialMenu li[data-layer="' + layerid + '"]');
     if (dojo.hasClass(layerList[0], 'checked')) {
-        switch (layerid) {
-        case ytID:
-            configOptions.youtubeChecked = true;
-            youtubeLayer.update({
-                searchTerm: configOptions.youtubeSearch,
-                range: configOptions.youtubeRange
-            });
-            break;
-        case twID:
-            configOptions.twitterChecked = true;
-            twitterLayer.update({
-                searchTerm: configOptions.twitterSearch
-            });
-            break;
-        case flID:
-            configOptions.flickrChecked = true;
-            var updateObj = {
-                searchTerm: configOptions.flickrSearch
-            };
-            if (configOptions.flickrRange) {
-                updateObj.dateFrom = getFlickrDate('from');
-                updateObj.dateTo = getFlickrDate('to');
-            }
-            flickrLayer.update(updateObj);
-            break;
-        }
+        layer.newQuery(true);
     } else {
-        switch (layerid) {
-        case ytID:
-            dojo.query('#YTLoad').style('display', 'none');
-            youtubeLayer.clear();
-            configOptions.youtubeChecked = false;
-            break;
-        case twID:
-            dojo.query('#TWLoad').style('display', 'none');
-            twitterLayer.clear();
-            configOptions.twitterChecked = false;
-            break;
-        case flID:
-            dojo.query('#FLLoad').style('display', 'none');
-            flickrLayer.clear();
-            configOptions.flickrChecked = false;
-            break;
-        }
+        dojo.query('#' + layerid + '_load').style('display', 'none');
+        layer.clear();
     }
     setSharing();
 }
@@ -449,9 +303,11 @@ function insertSMItem(obj) {
             html += '<div title="' + i18n.viewer.general.close + '" class="infoHidden">';
             html += '<div class="ihClose"></div>';
             html += '<p>' + obj.description;
+            html += '<span class="filtered">';
             if (obj.searchTerm) {
                 html += ' ' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + obj.searchTerm + '</span>."';
             }
+            html += '</span>';
             html += '</p>';
             html += '</div>';
         }
@@ -467,22 +323,10 @@ function insertSMItem(obj) {
 // update heat map
 function updateDataPoints() {
     var dataPoints = [];
-    if (configOptions.showTwitter) {
-        var twList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + ']');
-        if (twitterLayer.dataPoints && dojo.hasClass(twList[0], "checked")) {
-            dataPoints = dataPoints.concat(twitterLayer.dataPoints);
-        }
-    }
-    if (configOptions.showYouTube) {
-        var ytList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + ']');
-        if (youtubeLayer.dataPoints && dojo.hasClass(ytList[0], "checked")) {
-            dataPoints = dataPoints.concat(youtubeLayer.dataPoints);
-        }
-    }
-    if (configOptions.showFlickr) {
-        var flList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + ']');
-        if (flickrLayer.dataPoints && dojo.hasClass(flList[0], "checked")) {
-            dataPoints = dataPoints.concat(flickrLayer.dataPoints);
+    for(var i = 0; i < configOptions.socialLayers.length; i++){
+        var list = dojo.query('#socialMenu .layer[data-layer=' + configOptions.socialLayers[i].options.id + ']');
+        if (list[0] && configOptions.socialLayers[i].dataPoints && dojo.hasClass(list[0], "checked")) {
+            dataPoints = dataPoints.concat(configOptions.socialLayers[i].dataPoints);
         }
     }
     if (heatLayer) {
@@ -507,8 +351,8 @@ function insertSettingsHTML() {
             html += '<div class="firstDesc"><strong>' + i18n.viewer.settings.searchAll + ' ' + configOptions.flickrTitle + ':</strong></div>';
             html += '<ul class="formStyle">';
             html += '<li>';
-            html += '<label for="FLkwinput">' + i18n.viewer.settings.usingThisKeyword + '</label>';
-            html += '<input id="FLkwinput" class="mapInput inputSingle" type="text" size="20" value="' + configOptions.flickrSearch + '" />';
+            html += '<label for="' + configOptions.flickrID + '_input' + '">' + i18n.viewer.settings.usingThisKeyword + '</label>';
+            html += '<input id="' + configOptions.flickrID + '_input' + '" class="mapInput inputSingle" type="text" size="20" value="' + configOptions.flickrSearch + '" />';
             html += '</li>';
             html += '<li>';
             html += '<label for="flickrrange">' + i18n.viewer.settings.fromThePast + '</label>';
@@ -521,7 +365,7 @@ function insertSettingsHTML() {
             html += '</li>';
             html += '<li>';
             html += '<label for="flSubmit">&nbsp;</label>';
-            html += '<span tabindex="0" id="flSubmit" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="FLLoad"></span>';
+            html += '<span tabindex="0" id="flSubmit" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.flickrID + '_load' + '"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
@@ -533,13 +377,13 @@ function insertSettingsHTML() {
             html += '<div class="firstDesc"><strong>' + i18n.viewer.settings.searchAll + ' ' + configOptions.twitterTitle + ':</strong></div>';
             html += '<ul class="formStyle">';
             html += '<li>';
-            html += '<label for="TWkwinput">' + i18n.viewer.settings.usingThisKeyword + '</label>';
-            html += '<input id="TWkwinput" class="mapInput inputSingle" type="text" size="20" value="' + configOptions.twitterSearch + '" />';
+            html += '<label for="' + configOptions.twitterID + '_input' + '">' + i18n.viewer.settings.usingThisKeyword + '</label>';
+            html += '<input id="' + configOptions.twitterID + '_input' + '" class="mapInput inputSingle" type="text" size="20" value="' + configOptions.twitterSearch + '" />';
             html += '<a title="' + i18n.viewer.settings.twSearch + '" class="twInfo" href="' + location.protocol + '//support.twitter.com/articles/71577-how-to-use-advanced-twitter-search" target="_blank"></a>';
             html += '</li>';
             html += '<li>';
             html += '<label for="twSubmit">&nbsp;</label>';
-            html += '<span tabindex="0" id="twSubmit" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="TWLoad"></span>';
+            html += '<span tabindex="0" id="twSubmit" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.twitterID + '_load' + '"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
@@ -551,12 +395,12 @@ function insertSettingsHTML() {
             html += '<div class="firstDesc"><strong>' + i18n.viewer.settings.searchAll + ' ' + configOptions.youtubeTitle + ':</strong></div>';
             html += '<ul class="formStyle">';
             html += '<li>';
-            html += '<label for="YTkwinput">' + i18n.viewer.settings.usingThisKeyword + '</label>';
-            html += '<input id="YTkwinput" class="mapInput inputSingle" type="text" size="20" value="' + configOptions.youtubeSearch + '" />';
+            html += '<label for="' + configOptions.youtubeID + '_input' + '">' + i18n.viewer.settings.usingThisKeyword + '</label>';
+            html += '<input id="' + configOptions.youtubeID + '_input' + '" class="mapInput inputSingle" type="text" size="20" value="' + configOptions.youtubeSearch + '" />';
             html += '</li>';
             html += '<li>';
-            html += '<label for="youtuberange">' + i18n.viewer.settings.fromThePast + '</label>';
-            html += '<select id="youtuberange">';
+            html += '<label for="' + configOptions.youtubeID + '_range' + '">' + i18n.viewer.settings.fromThePast + '</label>';
+            html += '<select id="' + configOptions.youtubeID + '_range' + '">';
             html += '<option value="today">' + dojo.number.format(1) + ' ' + i18n.viewer.settings.today + '</option>';
             html += '<option value="this_week">' + dojo.number.format(1) + ' ' + i18n.viewer.settings.this_week + '</option>';
             html += '<option value="this_month">' + dojo.number.format(1) + ' ' + i18n.viewer.settings.this_month + '</option>';
@@ -565,7 +409,7 @@ function insertSettingsHTML() {
             html += '</li>';
             html += '<li>';
             html += '<label for="ytSubmit">&nbsp;</label>';
-            html += '<span tabindex="0" class="mapSubmit" id="ytSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="YTLoad"></span>';
+            html += '<span tabindex="0" class="mapSubmit" id="ytSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.youtubeID + '_load' +'"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
@@ -579,7 +423,7 @@ function insertSettingsHTML() {
     }
     //	set select menu values
     if (configOptions.showYouTube) {
-        dojo.query('#youtuberange').attr('value', configOptions.youtubeRange);
+        dojo.query('#' + configOptions.youtubeID + '_range').attr('value', configOptions.youtubeRange);
     }
     //	set select menu values
     if (configOptions.showFlickr) {
@@ -636,6 +480,7 @@ function configureSocialMedia() {
         flickrLayer = new social.flickr({
             map: map,
             title: configOptions.flickrTitle,
+            legendIcon: configOptions.flickrIcon,
             id: configOptions.flickrID,
             searchTerm: configOptions.flickrSearch,
             symbolUrl: configOptions.flickrSymbol.url,
@@ -647,6 +492,7 @@ function configureSocialMedia() {
             dateTo: getFlickrDate('to'),
             apiKey: configOptions.flickrKey
         });
+        configOptions.socialLayers.push(flickrLayer);
         clusterLayer.featureLayer.renderer.addValue({
             value: configOptions.flickrID,
             symbol: new esri.symbol.PictureMarkerSymbol({
@@ -662,6 +508,7 @@ function configureSocialMedia() {
         });
         dojo.connect(flickrLayer, 'onClear', function () {
             updateDataPoints();
+            configOptions.flickrChecked = false;
             var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + '] .count')[0];
             if (node) {
                 node.innerHTML = '';
@@ -669,7 +516,7 @@ function configureSocialMedia() {
         });
         dojo.connect(flickrLayer, 'onUpdateEnd', function () {
             var totalCount = flickrLayer.getStats().geoPoints;
-            hideLoading(dojo.query('#socialMenu ul li[data-layer=' + configOptions.flickrID + ']'), dojo.query('#FLLoad'));
+            hideLoading(dojo.query('#socialMenu ul li[data-layer=' + configOptions.flickrID + ']'), dojo.query('#' + configOptions.flickrID + '_load'));
             var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + '] .keyword')[0];
             if (node) {
                 node.innerHTML = configOptions.flickrSearch;
@@ -683,6 +530,47 @@ function configureSocialMedia() {
                 node.innerHTML = textCount;
             }
         });
+        flickrLayer.newQuery = function(enable){
+            if(enable){
+                configOptions.flickrChecked = true;
+            }
+            var flList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + ']');
+            if (dojo.hasClass(flList[0], "checked")) {
+                flList.addClass("cLoading");
+                var updateObj = {
+                    searchTerm: configOptions.flickrSearch
+                };
+                if (configOptions.flickrRange) {
+                    updateObj.dateFrom = getFlickrDate('from');
+                    updateObj.dateTo = getFlickrDate('to');
+                }
+                flickrLayer.update(updateObj);
+            }
+        };
+        flickrLayer.change = function(){
+            configOptions.flickrSearch = dojo.query('#' + configOptions.flickrID + '_input').attr('value')[0];
+            configOptions.flickrRange = dojo.query("#flickrrange").attr('value')[0];
+            showLoading(configOptions.flickrID + '_load');
+            dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + ']').addClass("checked cLoading");
+            setSharing();
+            var html = '';
+            if(configOptions.flickrSearch){
+                html = ' ' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + configOptions.flickrSearch + '</span>."';
+            }
+            var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + '] .filtered')[0];
+            if(node){
+                node.innerHTML = html;
+            }
+            flickrLayer.clear();
+            var updateObj = {
+                searchTerm: configOptions.flickrSearch
+            };
+            if (configOptions.flickrRange) {
+                updateObj.dateFrom = getFlickrDate('from');
+                updateObj.dateTo = getFlickrDate('to');
+            }
+            flickrLayer.update(updateObj);
+        };
         // insert html
         insertSMItem({
             visible: configOptions.flickrChecked,
@@ -694,11 +582,84 @@ function configureSocialMedia() {
             searchTerm: configOptions.flickrSearch
         });
     }
+    // if panoramio
+    if (configOptions.showPanoramio) {
+        panoramioLayer = new social.panoramio({
+            map: map,
+            title: configOptions.panoramioTitle,
+            legendIcon: configOptions.panoramioIcon,
+            id: configOptions.panoramioID,
+            symbolUrl: configOptions.panoramioSymbol.url,
+            symbolHeight: configOptions.panoramioSymbol.height,
+            symbolWidth: configOptions.panoramioSymbol.width,
+            popupWidth: configOptions.popupWidth,
+            popupHeight: configOptions.popupHeight
+        });
+        configOptions.socialLayers.push(panoramioLayer);
+        clusterLayer.featureLayer.renderer.addValue({
+            value: configOptions.panoramioID,
+            symbol: new esri.symbol.PictureMarkerSymbol({
+                "url": configOptions.panoramioSymbol.url,
+                "height": configOptions.panoramioSymbol.height,
+                "width": configOptions.panoramioSymbol.width,
+                "type": "esriPMS"
+            }),
+            label: configOptions.panoramioTitle
+        });
+        dojo.connect(panoramioLayer, 'onUpdate', function () {
+            updateDataPoints();
+        });
+        dojo.connect(panoramioLayer, 'onClear', function () {
+            updateDataPoints();
+            configOptions.panoramioChecked = false;
+            var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.panoramioID + '] .count')[0];
+            if (node) {
+                node.innerHTML = '';
+            }
+        });
+        dojo.connect(panoramioLayer, 'onUpdateEnd', function () {
+            var totalCount = panoramioLayer.getStats().geoPoints;
+            hideLoading(dojo.query('#socialMenu ul li[data-layer=' + configOptions.panoramioID + ']'), dojo.query('#' + configOptions.panoramioID + '_load'));
+            var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.panoramioID + '] .keyword')[0];
+            if (node) {
+                node.innerHTML = configOptions.panoramioSearch;
+            }
+            var textCount = '';
+            if (totalCount) {
+                textCount = ' (' + totalCount + ')' || '';
+            }
+            node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.panoramioID + '] .count')[0];
+            if (node) {
+                node.innerHTML = textCount;
+            }
+        });
+        panoramioLayer.newQuery = function(enable){
+            if(enable){
+                configOptions.panoramioChecked = true;
+            }
+            var prList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.panoramioID + ']');
+            if (dojo.hasClass(prList[0], "checked")) {
+                prList.addClass("cLoading");
+                panoramioLayer.update();
+            }
+        };
+        panoramioLayer.change = function(){};
+        // insert html
+        insertSMItem({
+            visible: configOptions.panoramioChecked,
+            uniqueID: configOptions.panoramioID,
+            title: configOptions.panoramioTitle,
+            showSocialSettings: false,
+            legendIcon: configOptions.panoramioIcon,
+            description: configOptions.panoramioDescription
+        });
+    }
     // if twitter
     if (configOptions.showTwitter) {
         twitterLayer = new social.twitter({
             map: map,
             title: configOptions.twitterTitle,
+            legendIcon: configOptions.twitterIcon,
             id: configOptions.twitterID,
             searchTerm: configOptions.twitterSearch,
             symbolUrl: configOptions.twitterSymbol.url,
@@ -707,6 +668,7 @@ function configureSocialMedia() {
             popupWidth: configOptions.popupWidth,
             popupHeight: configOptions.popupHeight
         });
+        configOptions.socialLayers.push(twitterLayer);
         clusterLayer.featureLayer.renderer.addValue({
             value: configOptions.twitterID,
             symbol: new esri.symbol.PictureMarkerSymbol({
@@ -722,6 +684,7 @@ function configureSocialMedia() {
         });
         dojo.connect(twitterLayer, 'onClear', function () {
             updateDataPoints();
+            configOptions.twitterChecked = false;
             var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + '] .count')[0];
             if (node) {
                 node.innerHTML = '';
@@ -729,7 +692,7 @@ function configureSocialMedia() {
         });
         dojo.connect(twitterLayer, 'onUpdateEnd', function () {
             var totalCount = twitterLayer.getStats().geoPoints;
-            hideLoading(dojo.query('#socialMenu ul li[data-layer=' + configOptions.twitterID + ']'), dojo.query('#TWLoad'));
+            hideLoading(dojo.query('#socialMenu ul li[data-layer=' + configOptions.twitterID + ']'), dojo.query('#' + configOptions.twitterID + '_load'));
             var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + '] .keyword')[0];
             if (node) {
                 node.innerHTML = configOptions.twitterSearch;
@@ -743,6 +706,36 @@ function configureSocialMedia() {
                 node.innerHTML = textCount;
             }
         });
+        twitterLayer.newQuery = function(enable){
+            if(enable){
+                configOptions.twitterChecked = true;
+            }
+            var twList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + ']');
+            if (dojo.hasClass(twList[0], "checked")) {
+                twList.addClass("cLoading");
+                twitterLayer.update({
+                    searchTerm: configOptions.twitterSearch
+                });
+            }
+        };
+        twitterLayer.change = function(){
+            configOptions.twitterSearch = dojo.query('#' + configOptions.twitterID + '_input').attr('value')[0];
+            dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + ']').addClass("checked cLoading");
+            showLoading(configOptions.twitterID + '_load');
+            setSharing();
+            var html = '';
+            if(configOptions.twitterSearch){
+                html = ' ' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + configOptions.twitterSearch + '</span>."';
+            }
+            var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + '] .filtered')[0];
+            if(node){
+                node.innerHTML = html;
+            }
+            twitterLayer.clear();
+            twitterLayer.update({
+                searchTerm: configOptions.twitterSearch
+            });
+        };
         // insert html
         insertSMItem({
             visible: configOptions.twitterChecked,
@@ -759,6 +752,7 @@ function configureSocialMedia() {
         youtubeLayer = new social.youtube({
             map: map,
             title: configOptions.youtubeTitle,
+            legendIcon: configOptions.youtubeIcon,
             id: configOptions.youtubeID,
             key: configOptions.youtubeKey,
             searchTerm: configOptions.youtubeSearch,
@@ -769,6 +763,7 @@ function configureSocialMedia() {
             popupHeight: configOptions.popupHeight,
             range: configOptions.youtubeRange
         });
+        configOptions.socialLayers.push(youtubeLayer);
         clusterLayer.featureLayer.renderer.addValue({
             value: configOptions.youtubeID,
             symbol: new esri.symbol.PictureMarkerSymbol({
@@ -784,6 +779,7 @@ function configureSocialMedia() {
         });
         dojo.connect(youtubeLayer, 'onClear', function () {
             updateDataPoints();
+            configOptions.youtubeChecked = false;
             var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + '] .count')[0];
             if (node) {
                 node.innerHTML = '';
@@ -791,7 +787,7 @@ function configureSocialMedia() {
         });
         dojo.connect(youtubeLayer, 'onUpdateEnd', function () {
             var totalCount = youtubeLayer.getStats().geoPoints;
-            hideLoading(dojo.query('#socialMenu ul li[data-layer=' + configOptions.youtubeID + ']'), dojo.query('#YTLoad'));
+            hideLoading(dojo.query('#socialMenu ul li[data-layer=' + configOptions.youtubeID + ']'), dojo.query('#' + configOptions.youtubeID + '_load'));
             var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + '] .keyword')[0];
             if (node) {
                 node.innerHTML = configOptions.youtubeSearch;
@@ -805,6 +801,40 @@ function configureSocialMedia() {
                 node.innerHTML = textCount;
             }
         });
+        youtubeLayer.newQuery = function(enable){
+            if(enable){
+                configOptions.youtubeChecked = true;
+            }
+            // if youtube cbox is checked
+            var ytList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + ']');
+            if (dojo.hasClass(ytList[0], "checked")) {
+                ytList.addClass("cLoading");
+                youtubeLayer.update({
+                    searchTerm: configOptions.youtubeSearch,
+                    range: configOptions.youtubeRange
+                });
+            }
+        };
+        youtubeLayer.change = function(){
+            configOptions.youtubeSearch = dojo.query('#' + configOptions.youtubeID + '_input').attr('value')[0];
+            configOptions.youtubeRange = dojo.query('#' + configOptions.youtubeID + '_range').attr('value')[0];
+            showLoading(configOptions.youtubeID + '_load');
+            dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + ']').addClass("checked cLoading");
+            setSharing();
+            var html = '';
+            if(configOptions.youtubeSearch){
+                html = ' ' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + configOptions.youtubeSearch + '</span>."';
+            }
+            var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + '] .filtered')[0];
+            if(node){
+                node.innerHTML = html;
+            }
+            youtubeLayer.clear();
+            youtubeLayer.update({
+                searchTerm: configOptions.youtubeSearch,
+                range: configOptions.youtubeRange
+            });
+        };
         // insert html
         insertSMItem({
             visible: configOptions.youtubeChecked,
@@ -828,14 +858,8 @@ function configureSocialMedia() {
         var arr = [];
         var query = new esri.tasks.Query();
         query.geometry = evt.graphic.attributes.extent;
-        if (configOptions.showTwitter) {
-            arr.push(twitterLayer.featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW));
-        }
-        if (configOptions.showFlickr) {
-            arr.push(flickrLayer.featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW));
-        }
-        if (configOptions.showYouTube) {
-            arr.push(youtubeLayer.featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW));
+        for(var i = 0; i < configOptions.socialLayers.length; i++){
+            arr.push(configOptions.socialLayers[i].featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW));
         }
         configOptions.customPopup.setFeatures(arr);
         configOptions.customPopup.show(evt.mapPoint);

@@ -704,6 +704,7 @@ function configureAppTitle() {
 }
 
 function extentReady() {
+    map.setExtent(configOptions.startExtent);
     // set zoom level
     if (configOptions.level) {
         map.setLevel(parseInt(configOptions.level, 10));

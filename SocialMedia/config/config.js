@@ -18,6 +18,8 @@
    "showTwitterConfig":true,
    "twitterChecked":true,
    "twitterSearch":"",
+   "showPanoramio":true,
+   "panoramioChecked":false,
    "useArcGISOnlineBasemaps":true,
    "basemapGroupTitle":"Community Basemaps",
    "basemapGroupOwner":"esri",

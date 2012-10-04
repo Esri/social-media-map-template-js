@@ -1,0 +1,58 @@
+.panoramio {
+    margin: 0;
+}
+
+.panoramio .title {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.panoramio .username, #map .modernGrey .panoramio .username a {
+    font-size: 12px;
+    color: #999;
+    line-height: 18px;
+    margin-bottom: 5px;
+}
+
+.panoramio .date {
+    font-size: 12px;
+    color: #999;
+    line-height: 16px;
+}
+
+.panoramio .content {
+    margin-bottom: 5px;
+}
+
+.panoramio .prLink {
+    display: inline-block;
+    background: #fff;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    margin-bottom: 5px;
+}
+
+.panoramio img {
+    display: inline-block;
+    min-width: 64px;
+    min-height: 64px;
+    max-width: 350px;
+    max-height: 350px;
+    padding: 4px;
+    -moz-box-shadow: 1px 1px 3px #CCCCCC;
+    -webkit-box-shadow: 1px 1px 3px #CCCCCC;
+    box-shadow: 1px 1px 3px #CCCCCC;
+    border: 1px solid #CCCCCC;
+    background: url(../../images/ui/ajax-loader.gif?v=3.01) no-repeat center center #fff;
+}
+
+.panoramio img:hover, .panoramio img:focus {
+    opacity: 0.85;
+    background: none;
+    -moz-transition: all 0.25s ease;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
