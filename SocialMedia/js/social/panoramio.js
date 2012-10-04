@@ -368,8 +368,10 @@ dojo.addOnLoad(function () {
                         graphic.setAttributes(result);
                         b.push(graphic);
                         this.dataPoints.push({
-                            x: a.x,
-                            y: a.y,
+                            geometry: {
+                                x: a.x,
+                                y: a.y
+                            },
                             symbol: esri.symbol.PictureMarkerSymbol(this.featureCollection.layerDefinition.drawingInfo.renderer.symbol),
                             attributes: result
                         });

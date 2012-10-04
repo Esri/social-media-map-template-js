@@ -416,6 +416,9 @@ function configureSocialMedia() {
     if (isCanvasSupported()) {
         // set up heat layer
         heatLayer = new HeatmapLayer({
+            config: {
+                "useLocalMaximum": true
+            },
             "map": map,
             "domNodeId": "heatLayer",
             "opacity": 0.85
@@ -425,6 +428,7 @@ function configureSocialMedia() {
     // set up cluster layer
     clusterLayer = new modules.ClusterLayer(null, {
         map: map,
+        label: i18n.viewer.buttons.cluster,
         clusterImage: configOptions.clusterImage,
         clusterHoverImage: configOptions.clusterHoverImage
     });

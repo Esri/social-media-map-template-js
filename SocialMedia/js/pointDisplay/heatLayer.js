@@ -15,7 +15,7 @@ dojo.addOnLoad(function () {
             // map var
             this._map = this.properties.map;
             // last data storage
-            this.lastClustered = [];
+            this.lastData = [];
             // map node
             this.domNode = document.getElementById(this.properties.domNodeId);
             // config
@@ -26,6 +26,7 @@ dojo.addOnLoad(function () {
                 radius: 40,
                 debug: false,
                 visible: true,
+                useLocalMaximum: false,
                 gradient: {
                     0.45: "rgb(000,000,255)",
                     0.55: "rgb(000,255,255)",
@@ -41,6 +42,8 @@ dojo.addOnLoad(function () {
             // loaded
             this.loaded = true;
             this.onLoad(this);
+            // global maximum value
+            this.globalMax = 0;
             // connect on resize
             dojo.connect(this._map, "onResize", this, this.resizeHeatmap);
             // heatlayer div styling
@@ -110,48 +113,53 @@ dojo.addOnLoad(function () {
             this.storeHeatmapData(heatPluginData);
         },
         // runs through data and calulates weights and max
-        parseHeatmapData: function (dataPoints) {
+        parseHeatmapData: function (features) {
             // variables
-            var i, parsedData, dataPoint;
+            var i, parsedData, dataPoint, attributes;
             // if data points exist
-            if (dataPoints) {
+            if (features) {
                 // create parsed data object
                 parsedData = {
                     max: 0,
                     data: []
                 };
+                if (!this.config.useLocalMaximum) {
+                    parsedData.max = this.globalMax;
+                }
                 // for each data point
-                for (i = 0; i < dataPoints.length; i++) {
+                for (i = 0; i < features.length; i++) {
                     // create geometry point
-                    dataPoint = esri.geometry.Point(dataPoints[i].x, dataPoints[i].y, this._map.spatialReference);
-                    // if point is in current extent
-                    if (this._map.extent.contains(dataPoint)) {
-                        // if array value is undefined
-                        if (!parsedData.data[dataPoints[i].x]) {
-                            // create empty array value
-                            parsedData.data[dataPoints[i].x] = [];
+                    dataPoint = esri.geometry.Point(features[i].geometry);
+                    // attributes
+                    attributes = features[i].attributes;
+                    // if array value is undefined
+                    if (!parsedData.data[dataPoint.x]) {
+                        // create empty array value
+                        parsedData.data[dataPoint.x] = [];
+                    }
+                    // array value array is undefined
+                    if (!parsedData.data[dataPoint.x][dataPoint.y]) {
+                        // create object in array
+                        parsedData.data[dataPoint.x][dataPoint.y] = {};
+                        // if count is defined in datapoint
+                        if (attributes && attributes.hasOwnProperty('count')) {
+                            // create array value with count of count set in datapoint
+                            parsedData.data[dataPoint.x][dataPoint.y].count = attributes.count;
+                        } else {
+                            // create array value with count of 0
+                            parsedData.data[dataPoint.x][dataPoint.y].count = 0;
                         }
-                        // array value array is undefined
-                        if (!parsedData.data[dataPoints[i].x][dataPoints[i].y]) {
-                            // create object in array
-                            parsedData.data[dataPoints[i].x][dataPoints[i].y] = {};
-                            // if count is defined in datapoint
-                            if (dataPoints[i].hasOwnProperty('count')) {
-                                // create array value with count of count set in datapoint
-                                parsedData.data[dataPoints[i].x][dataPoints[i].y].count = dataPoints[i].count;
-                            } else {
-                                // create array value with count of 0
-                                parsedData.data[dataPoints[i].x][dataPoints[i].y].count = 0;
-                            }
-                        }
-                        // add 1 to the count
-                        parsedData.data[dataPoints[i].x][dataPoints[i].y].count += 1;
-                        // store dataPoint var
-                        parsedData.data[dataPoints[i].x][dataPoints[i].y].dataPoint = dataPoint;
-                        // if count is greater than current max
-                        if (parsedData.max < parsedData.data[dataPoints[i].x][dataPoints[i].y].count) {
-                            // set max to this count
-                            parsedData.max = parsedData.data[dataPoints[i].x][dataPoints[i].y].count;
+                    }
+                    // add 1 to the count
+                    parsedData.data[dataPoint.x][dataPoint.y].count += 1;
+                    // store dataPoint var
+                    parsedData.data[dataPoint.x][dataPoint.y].dataPoint = dataPoint;
+                    // if count is greater than current max
+                    if (parsedData.max < parsedData.data[dataPoint.x][dataPoint.y].count) {
+                        // set max to this count
+                        parsedData.max = parsedData.data[dataPoint.x][dataPoint.y].count;
+                        if (!this.config.useLocalMaximum) {
+                            this.globalMax = parsedData.data[dataPoint.x][dataPoint.y].count;
                         }
                     }
                 }
@@ -159,16 +167,29 @@ dojo.addOnLoad(function () {
                 this.convertHeatmapData(parsedData);
             }
         },
-        // set data function call. same as cluster
-        setData: function (dataPoints) {
+        // set data function call
+        setData: function (features) {
             // set width/height
             this.resizeHeatmap(null, this._map.width, this._map.height);
             // store points
-            this.lastClustered = dataPoints;
-            // create clusters and then store them
-            this.parseHeatmapData(dataPoints);
+            this.lastData = features;
+            // create data and then store it
+            this.parseHeatmapData(features);
             // redraws the heatmap
             this.refresh();
+        },
+        // add one feature to the heatmap
+        addDataPoint: function (feature) {
+            if (feature) {
+                // push to data
+                this.lastData.push(feature);
+                // set data
+                setData(this.lastData);
+            }
+        },
+        // return data set of features
+        exportDataSet: function () {
+            return this.lastData;
         },
         // clear data function
         clearData: function () {
@@ -181,8 +202,8 @@ dojo.addOnLoad(function () {
         },
         // get image
         getImageUrl: function (extent, width, height, callback) {
-            // create heatmap data using last clustered data
-            this.parseHeatmapData(this.lastClustered);
+            // create heatmap data using last data
+            this.parseHeatmapData(this.lastData);
             // image data
             var imageUrl = this.heatMap.get("canvas").toDataURL("image/png");
             // callback
