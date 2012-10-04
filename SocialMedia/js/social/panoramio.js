@@ -94,14 +94,12 @@ dojo.addOnLoad(function () {
                         "type": "esriFieldTypeString",
                         "alias": "width",
                         "length": 1073741822
-                    }
-                    , {
+                    }, {
                         "name": "height",
                         "type": "esriFieldTypeString",
                         "alias": "height",
                         "length": 1073741822
-                    }
-                    , {
+                    }, {
                         "name": "upload_date",
                         "type": "esriFieldTypeString",
                         "alias": "upload_date",
@@ -228,9 +226,6 @@ dojo.addOnLoad(function () {
         formatDate: function (dateObj) {
             if (dateObj) {
                 return dojo.date.locale.format(dateObj, {
-                    datePattern: "h:mma",
-                    selector: "date"
-                }).toLowerCase() + ' &middot; ' + dojo.date.locale.format(dateObj, {
                     datePattern: "d MMM yy",
                     selector: "date"
                 });
@@ -258,8 +253,10 @@ dojo.addOnLoad(function () {
             };
         },
         getWindowContent: function (graphic, socialInstance) {
-            var date = new Date(graphic.attributes.upload_date);
-            console.log(graphic);
+            var date = dojo.date.locale.parse(graphic.attributes.upload_date, {
+                selector: "date",
+                datePattern: "d MMMM y"
+            });
             var html = '';
             html += '<div class="panoramio">';
             html += '<a tabindex="0" class="prLink" href="' + graphic.attributes.photo_url + '" target="_blank">';

@@ -75,7 +75,7 @@ function configUrlParams() {
 // Set sharing links
 function setSharing(isPreviewPage) {
     // parameters to share
-    var urlParams = ['webmap', 'basemap', 'extent', 'locateName', 'layers', 'youtubeSearch', 'youtubeRange', 'youtubeChecked', 'twitterSearch', 'twitterChecked', 'flickrSearch', 'flickrRange', 'flickrChecked', 'socialDisplay', 'locatePoint'];
+    var urlParams = ['webmap', 'basemap', 'extent', 'locateName', 'layers', 'youtubeSearch', 'youtubeRange', 'youtubeChecked', 'twitterSearch', 'twitterChecked', 'flickrSearch', 'flickrRange', 'flickrChecked', 'panoramioChecked', 'socialDisplay', 'locatePoint'];
     if (urlParams) {
         configOptions.shareParams = '';
         // for each parameter

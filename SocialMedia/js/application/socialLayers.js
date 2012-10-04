@@ -91,39 +91,19 @@ function configureSettingsUI() {
         toggleSettingsContent();
     });
 
-    dojo.query(document).delegate('#' + configOptions.youtubeID + '_input', "keyup", function (event) {
-        if (event.keyCode === 13) {
-            youtubeLayer.change();
-        }
-    });
-    dojo.query(document).delegate('#' + configOptions.twitterID + '_input', "keyup", function (event) {
-        if (event.keyCode === 13) {
-            twitterLayer.change();
-        }
-    });
-    dojo.query(document).delegate('#' + configOptions.flickrID + '_input', "keyup", function (event) {
-        if (event.keyCode === 13) {
-            flickrLayer.change();
-        }
-    });
-
-    dojo.query(document).delegate("#ytSubmit", "onclick,keyup", function (event) {
-        if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-            youtubeLayer.change();
-        }
-    });
-
-    dojo.query(document).delegate("#twSubmit", "onclick,keyup", function (event) {
-        if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-            twitterLayer.change();
-        }
-    });
-
-    dojo.query(document).delegate("#flSubmit", "onclick,keyup", function (event) {
-        if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-            flickrLayer.change();
-        }
-    });
+    for(var i = 0; i < configOptions.socialLayers.length; i++){
+        var layer = configOptions.socialLayers[i];
+        dojo.query(document).delegate('#' + layer.options.id + '_input', "keyup", function (event) {
+            if (event.keyCode === 13) {
+                layer.change();
+            }
+        });
+        dojo.query(document).delegate('#' + layer.options.id + '_submit', "onclick,keyup", function (event) {
+            if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
+                layer.change();
+            }
+        });
+    }
 }
 
 function clearDataPoints() {
@@ -140,7 +120,6 @@ function getSocialLayer(id){
     }
     return false;
 }
-
 
 // gets string for social media popup title
 function getSmPopupTitle() {
@@ -364,8 +343,8 @@ function insertSettingsHTML() {
             html += '</select>';
             html += '</li>';
             html += '<li>';
-            html += '<label for="flSubmit">&nbsp;</label>';
-            html += '<span tabindex="0" id="flSubmit" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.flickrID + '_load' + '"></span>';
+            html += '<label for="' + configOptions.flickrID + '_submit' + '">&nbsp;</label>';
+            html += '<span tabindex="0" id="' + configOptions.flickrID + '_submit' + '" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.flickrID + '_load' + '"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
@@ -382,8 +361,8 @@ function insertSettingsHTML() {
             html += '<a title="' + i18n.viewer.settings.twSearch + '" class="twInfo" href="' + location.protocol + '//support.twitter.com/articles/71577-how-to-use-advanced-twitter-search" target="_blank"></a>';
             html += '</li>';
             html += '<li>';
-            html += '<label for="twSubmit">&nbsp;</label>';
-            html += '<span tabindex="0" id="twSubmit" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.twitterID + '_load' + '"></span>';
+            html += '<label for="' + configOptions.twitterID + '_submit' + '">&nbsp;</label>';
+            html += '<span tabindex="0" id="' + configOptions.twitterID + '_submit' + '" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.twitterID + '_load' + '"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
@@ -408,8 +387,8 @@ function insertSettingsHTML() {
             html += '</select>';
             html += '</li>';
             html += '<li>';
-            html += '<label for="ytSubmit">&nbsp;</label>';
-            html += '<span tabindex="0" class="mapSubmit" id="ytSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.youtubeID + '_load' +'"></span>';
+            html += '<label for="' + configOptions.youtubeID + '_submit' + '">&nbsp;</label>';
+            html += '<span tabindex="0" class="mapSubmit" id="' + configOptions.youtubeID + '_submit' + '">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.youtubeID + '_load' +'"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
