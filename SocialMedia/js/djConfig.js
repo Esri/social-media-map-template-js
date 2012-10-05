@@ -16,6 +16,6 @@ var dojoConfig = {
 var i18n, configOptions, map, urlObject;
 
 // Layers
-var clusterLayer, heatLayer, twitterLayer, flickrLayer, youtubeLayer;
+var clusterLayer, heatLayer, twitterLayer, flickrLayer, youtubeLayer, panoramioLayer;
 
 // todo: Arabic CSS RTL.
