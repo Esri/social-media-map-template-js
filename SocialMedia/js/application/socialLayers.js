@@ -192,9 +192,8 @@ function showHeatLayer() {
     }
     if (heatLayer) {
         heatLayer.setVisibility(true);
-    } else {
-        alertDialog(i18n.viewer.errors.heatmap);
     }
+    configOptions.socialDisplay = 'heatmap';
 }
 
 // shows clusters and hides heatmap
@@ -205,6 +204,7 @@ function showClusterLayer() {
     if (clusterLayer) {
         clusterLayer.setVisibility(true);
     }
+    configOptions.socialDisplay = 'cluster';
 }
 
 // toggle display as clusters/heatmap
@@ -214,10 +214,8 @@ function toggleDisplayAs(obj) {
     var dataType = dojo.query(obj).attr('data-type')[0];
     if (dataType === 'heatmap' && isCanvasSupported()) {
         showHeatLayer();
-        configOptions.socialDisplay = 'heatmap';
     } else {
         showClusterLayer();
-        configOptions.socialDisplay = 'cluster';
     }
     configOptions.customPopup.hide();
     setSharing();
@@ -420,15 +418,17 @@ function configureSocialMedia() {
             config: {
                 "useLocalMaximum": true
             },
-            "map": map,
-            "domNodeId": "heatLayer",
-            "opacity": 0.85
+            id: "heatLayer",
+            map: map,
+            domNodeId: "heatLayer",
+            opacity: 0.85
         });
         map.addLayer(heatLayer);
     }
     // set up cluster layer
     clusterLayer = new modules.ClusterLayer(null, {
         map: map,
+        id: "clusterLayer",
         label: i18n.viewer.buttons.cluster,
         clusterImage: configOptions.clusterImage,
         clusterHoverImage: configOptions.clusterHoverImage
@@ -440,19 +440,9 @@ function configureSocialMedia() {
     });
     // set default visible of the two
     if (configOptions.socialDisplay === 'heatmap' && isCanvasSupported()) {
-        if (heatLayer) {
-            heatLayer.setVisibility(true);
-        }
-        if (clusterLayer) {
-            clusterLayer.setVisibility(false);
-        }
+        showHeatLayer();
     } else {
-        if (heatLayer) {
-            heatLayer.setVisibility(false);
-        }
-        if (clusterLayer) {
-            clusterLayer.setVisibility(true);
-        }
+        showClusterLayer();
     }
     // append list container
     var node = dojo.byId('socialMenu');
@@ -461,7 +451,7 @@ function configureSocialMedia() {
     }
     // if flickr
     if (configOptions.showFlickr) {
-        flickrLayer = new social.flickr({
+        var flickrLayer = new social.flickr({
             map: map,
             title: configOptions.flickrTitle,
             legendIcon: configOptions.flickrIcon,
@@ -568,7 +558,7 @@ function configureSocialMedia() {
     }
     // if panoramio
     if (configOptions.showPanoramio) {
-        panoramioLayer = new social.panoramio({
+        var panoramioLayer = new social.panoramio({
             map: map,
             title: configOptions.panoramioTitle,
             legendIcon: configOptions.panoramioIcon,
@@ -640,7 +630,7 @@ function configureSocialMedia() {
     }
     // if twitter
     if (configOptions.showTwitter) {
-        twitterLayer = new social.twitter({
+        var twitterLayer = new social.twitter({
             map: map,
             title: configOptions.twitterTitle,
             legendIcon: configOptions.twitterIcon,
@@ -733,7 +723,7 @@ function configureSocialMedia() {
     }
     // if youtube
     if (configOptions.showYouTube) {
-        youtubeLayer = new social.youtube({
+        var youtubeLayer = new social.youtube({
             map: map,
             title: configOptions.youtubeTitle,
             legendIcon: configOptions.youtubeIcon,
