@@ -46,6 +46,16 @@ function getFlickrDate(type) {
     }
 }
 
+function smLayerChange(event){
+    if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
+        var id = dojo.query(this).attr('data-id')[0];
+        var layer = getSocialLayer(id);
+        if(layer){
+            layer.change();
+        }
+    }
+}
+
 // settings panel ui
 function configureSettingsUI() {
     var props = {
@@ -92,17 +102,8 @@ function configureSettingsUI() {
     });
 
     for(var i = 0; i < configOptions.socialLayers.length; i++){
-        var layer = configOptions.socialLayers[i];
-        dojo.query(document).delegate('#' + layer.options.id + '_input', "keyup", function (event) {
-            if (event.keyCode === 13) {
-                layer.change();
-            }
-        });
-        dojo.query(document).delegate('#' + layer.options.id + '_submit', "onclick,keyup", function (event) {
-            if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-                layer.change();
-            }
-        });
+        dojo.query(document).delegate('#' + configOptions.socialLayers[i].options.id + '_input', "keyup", smLayerChange);
+        dojo.query(document).delegate('#' + configOptions.socialLayers[i].options.id + '_submit', "onclick,keyup", smLayerChange);
     }
 }
 
@@ -331,11 +332,11 @@ function insertSettingsHTML() {
             html += '<ul class="formStyle">';
             html += '<li>';
             html += '<label for="' + configOptions.flickrID + '_input' + '">' + i18n.viewer.settings.usingThisKeyword + '</label>';
-            html += '<input id="' + configOptions.flickrID + '_input' + '" class="mapInput inputSingle" type="text" size="20" value="' + configOptions.flickrSearch + '" />';
+            html += '<input data-id="' + configOptions.flickrID + '" id="' + configOptions.flickrID + '_input' + '" class="mapInput inputSingle" type="text" size="20" value="' + configOptions.flickrSearch + '" />';
             html += '</li>';
             html += '<li>';
-            html += '<label for="flickrrange">' + i18n.viewer.settings.fromThePast + '</label>';
-            html += '<select id="flickrrange">';
+            html += '<label for="' + configOptions.flickrID + '_range">' + i18n.viewer.settings.fromThePast + '</label>';
+            html += '<select id="' + configOptions.flickrID + '_range">';
             html += '<option value="today">' + dojo.number.format(1) + ' ' + i18n.viewer.settings.today + '</option>';
             html += '<option value="this_week">' + dojo.number.format(1) + ' ' + i18n.viewer.settings.this_week + '</option>';
             html += '<option value="this_month">' + dojo.number.format(1) + ' ' + i18n.viewer.settings.this_month + '</option>';
@@ -344,7 +345,7 @@ function insertSettingsHTML() {
             html += '</li>';
             html += '<li>';
             html += '<label for="' + configOptions.flickrID + '_submit' + '">&nbsp;</label>';
-            html += '<span tabindex="0" id="' + configOptions.flickrID + '_submit' + '" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.flickrID + '_load' + '"></span>';
+            html += '<span data-id="' + configOptions.flickrID + '" tabindex="0" id="' + configOptions.flickrID + '_submit' + '" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.flickrID + '_load' + '"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
@@ -357,12 +358,12 @@ function insertSettingsHTML() {
             html += '<ul class="formStyle">';
             html += '<li>';
             html += '<label for="' + configOptions.twitterID + '_input' + '">' + i18n.viewer.settings.usingThisKeyword + '</label>';
-            html += '<input id="' + configOptions.twitterID + '_input' + '" class="mapInput inputSingle" type="text" size="20" value="' + configOptions.twitterSearch + '" />';
+            html += '<input data-id="' + configOptions.twitterID + '" id="' + configOptions.twitterID + '_input' + '" class="mapInput inputSingle" type="text" size="20" value="' + configOptions.twitterSearch + '" />';
             html += '<a title="' + i18n.viewer.settings.twSearch + '" class="twInfo" href="' + location.protocol + '//support.twitter.com/articles/71577-how-to-use-advanced-twitter-search" target="_blank"></a>';
             html += '</li>';
             html += '<li>';
             html += '<label for="' + configOptions.twitterID + '_submit' + '">&nbsp;</label>';
-            html += '<span tabindex="0" id="' + configOptions.twitterID + '_submit' + '" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.twitterID + '_load' + '"></span>';
+            html += '<span data-id="' + configOptions.twitterID + '" tabindex="0" id="' + configOptions.twitterID + '_submit' + '" class="mapSubmit">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.twitterID + '_load' + '"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
@@ -375,7 +376,7 @@ function insertSettingsHTML() {
             html += '<ul class="formStyle">';
             html += '<li>';
             html += '<label for="' + configOptions.youtubeID + '_input' + '">' + i18n.viewer.settings.usingThisKeyword + '</label>';
-            html += '<input id="' + configOptions.youtubeID + '_input' + '" class="mapInput inputSingle" type="text" size="20" value="' + configOptions.youtubeSearch + '" />';
+            html += '<input data-id="' + configOptions.youtubeID + '" id="' + configOptions.youtubeID + '_input' + '" class="mapInput inputSingle" type="text" size="20" value="' + configOptions.youtubeSearch + '" />';
             html += '</li>';
             html += '<li>';
             html += '<label for="' + configOptions.youtubeID + '_range' + '">' + i18n.viewer.settings.fromThePast + '</label>';
@@ -388,7 +389,7 @@ function insertSettingsHTML() {
             html += '</li>';
             html += '<li>';
             html += '<label for="' + configOptions.youtubeID + '_submit' + '">&nbsp;</label>';
-            html += '<span tabindex="0" class="mapSubmit" id="' + configOptions.youtubeID + '_submit' + '">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.youtubeID + '_load' +'"></span>';
+            html += '<span data-id="' + configOptions.youtubeID + '" tabindex="0" class="mapSubmit" id="' + configOptions.youtubeID + '_submit' + '">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.youtubeID + '_load' +'"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
@@ -406,7 +407,7 @@ function insertSettingsHTML() {
     }
     //	set select menu values
     if (configOptions.showFlickr) {
-        dojo.query('#flickrrange').attr('value', configOptions.flickrRange);
+        dojo.query('#' + configOptions.flickrID + '_range').attr('value', configOptions.flickrRange);
     }
 }
 
@@ -475,7 +476,6 @@ function configureSocialMedia() {
             dateTo: getFlickrDate('to'),
             apiKey: configOptions.flickrKey
         });
-        configOptions.socialLayers.push(flickrLayer);
         clusterLayer.featureLayer.renderer.addValue({
             value: configOptions.flickrID,
             symbol: new esri.symbol.PictureMarkerSymbol({
@@ -532,7 +532,7 @@ function configureSocialMedia() {
         };
         flickrLayer.change = function(){
             configOptions.flickrSearch = dojo.query('#' + configOptions.flickrID + '_input').attr('value')[0];
-            configOptions.flickrRange = dojo.query("#flickrrange").attr('value')[0];
+            configOptions.flickrRange = dojo.query('#' + configOptions.flickrID + '_range').attr('value')[0];
             showLoading(configOptions.flickrID + '_load');
             dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + ']').addClass("checked cLoading");
             setSharing();
@@ -564,6 +564,7 @@ function configureSocialMedia() {
             description: configOptions.flickrDescription,
             searchTerm: configOptions.flickrSearch
         });
+        configOptions.socialLayers.push(flickrLayer);
     }
     // if panoramio
     if (configOptions.showPanoramio) {
@@ -578,7 +579,6 @@ function configureSocialMedia() {
             popupWidth: configOptions.popupWidth,
             popupHeight: configOptions.popupHeight
         });
-        configOptions.socialLayers.push(panoramioLayer);
         clusterLayer.featureLayer.renderer.addValue({
             value: configOptions.panoramioID,
             symbol: new esri.symbol.PictureMarkerSymbol({
@@ -636,6 +636,7 @@ function configureSocialMedia() {
             legendIcon: configOptions.panoramioIcon,
             description: configOptions.panoramioDescription
         });
+        configOptions.socialLayers.push(panoramioLayer);
     }
     // if twitter
     if (configOptions.showTwitter) {
@@ -651,7 +652,6 @@ function configureSocialMedia() {
             popupWidth: configOptions.popupWidth,
             popupHeight: configOptions.popupHeight
         });
-        configOptions.socialLayers.push(twitterLayer);
         clusterLayer.featureLayer.renderer.addValue({
             value: configOptions.twitterID,
             symbol: new esri.symbol.PictureMarkerSymbol({
@@ -729,6 +729,7 @@ function configureSocialMedia() {
             description: configOptions.twitterDescription,
             searchTerm: configOptions.twitterSearch
         });
+        configOptions.socialLayers.push(twitterLayer);
     }
     // if youtube
     if (configOptions.showYouTube) {
@@ -746,7 +747,6 @@ function configureSocialMedia() {
             popupHeight: configOptions.popupHeight,
             range: configOptions.youtubeRange
         });
-        configOptions.socialLayers.push(youtubeLayer);
         clusterLayer.featureLayer.renderer.addValue({
             value: configOptions.youtubeID,
             symbol: new esri.symbol.PictureMarkerSymbol({
@@ -828,6 +828,7 @@ function configureSocialMedia() {
             description: configOptions.youtubeDescription,
             searchTerm: configOptions.youtubeSearch
         });
+        configOptions.socialLayers.push(youtubeLayer);
     }
     insertSMToggle();
     insertSettingsHTML();

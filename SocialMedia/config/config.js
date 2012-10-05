@@ -7,7 +7,7 @@
    "flickrChecked":true,
    "flickrSearch":"",
    "flickrRange":"this_month",
-   "flickrKey":"",
+   "flickrKey":"404ebea7d5bc27aa5251d1207620e99b",
    "showYouTube":true,
    "showYouTubeConfig":true,
    "youtubeChecked":true,
