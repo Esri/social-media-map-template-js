@@ -1516,6 +1516,24 @@ background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%);
     margin-bottom: 10px;
 }
 
+#aboutDialog .desc p, #aboutDialog .license p{
+    margin:10px 0;
+}
+
+#aboutDialog .desc ul, #aboutDialog .license ul{
+    margin:10px 1em;
+    display: block;
+    padding: 0 0 0 35px;
+    list-style-type: disc;
+}
+
+#aboutDialog .desc ol, #aboutDialog .license ol{
+    margin:10px 1em;
+    display: block;
+    padding: 0 0 0 35px;
+    list-style-type: decimal;
+}
+
 #aboutDialog .thumb {
     display: block;
     float: right;
