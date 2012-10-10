@@ -18,7 +18,7 @@
    "showTwitterConfig":true,
    "twitterChecked":true,
    "twitterSearch":"",
-   "showPanoramio":false,
+   "showPanoramio":true,
    "panoramioChecked":false,
    "useArcGISOnlineBasemaps":true,
    "basemapGroupTitle":"Community Basemaps",
