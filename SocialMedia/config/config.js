@@ -1,7 +1,7 @@
 {
    "appid":"",
    "webmap":"4ff792a3962547caad2d924413c40985",
-   "socialDisplay":"cluster",
+   "socialDisplay":"point",
    "showFlickr":true,
    "showFlickrConfig":true,
    "flickrChecked":true,
@@ -18,7 +18,7 @@
    "showTwitterConfig":true,
    "twitterChecked":true,
    "twitterSearch":"",
-   "showPanoramio":true,
+   "showPanoramio":false,
    "panoramioChecked":false,
    "useArcGISOnlineBasemaps":true,
    "basemapGroupTitle":"Community Basemaps",

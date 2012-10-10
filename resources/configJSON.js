@@ -125,6 +125,10 @@
                "label":"Social Display:",
                "options":[
                   {
+                     "label":"Points",
+                     "value":"point"
+                  },
+                  {
                      "label":"Cluster",
                      "value":"cluster"
                   },
@@ -342,7 +346,7 @@
       "showGeolocation":true,
       "showAboutDialog":true,
       "showAboutDialogOnLoad":false,
-      "socialDisplay":"cluster",
+      "socialDisplay":"point",
       "showFlickr":true,
       "showFlickrConfig":true,
       "flickrChecked":true,

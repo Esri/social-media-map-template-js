@@ -12,7 +12,7 @@ function toggleSettingsContent() {
 // return date object for flickr dateFrom and dateTo
 function getFlickrDate(type) {
     var todate = new Date();
-	todate = dojo.date.add(todate, "minute", - 5);
+    todate = dojo.date.add(todate, "minute", - 5);
     var fromdate;
     switch (configOptions.flickrRange.toLowerCase()) {
     case "today":
@@ -46,11 +46,11 @@ function getFlickrDate(type) {
     }
 }
 
-function smLayerChange(event){
+function smLayerChange(event) {
     if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
         var id = dojo.query(this).attr('data-id')[0];
         var layer = getSocialLayer(id);
-        if(layer){
+        if (layer) {
             layer.change();
         }
     }
@@ -101,21 +101,21 @@ function configureSettingsUI() {
         toggleSettingsContent();
     });
 
-    for(var i = 0; i < configOptions.socialLayers.length; i++){
+    for (var i = 0; i < configOptions.socialLayers.length; i++) {
         dojo.query(document).delegate('#' + configOptions.socialLayers[i].options.id + '_input', "keyup", smLayerChange);
         dojo.query(document).delegate('#' + configOptions.socialLayers[i].options.id + '_submit', "onclick,keyup", smLayerChange);
     }
 }
 
 function clearDataPoints() {
-    for(var i = 0; i < configOptions.socialLayers.length; i++){
+    for (var i = 0; i < configOptions.socialLayers.length; i++) {
         configOptions.socialLayers[i].clear();
     }
 }
 
-function getSocialLayer(id){
-    for(var i = 0; i < configOptions.socialLayers.length; i++){
-        if(configOptions.socialLayers[i].options.id === id){
+function getSocialLayer(id) {
+    for (var i = 0; i < configOptions.socialLayers.length; i++) {
+        if (configOptions.socialLayers[i].options.id === id) {
             return configOptions.socialLayers[i];
         }
     }
@@ -137,7 +137,7 @@ function getSmPopupTitle() {
                 pagString = '<span class="pageInfo">(' + dojo.number.format(current) + ' ' + i18n.viewer.general.of + ' ' + dojo.number.format(total) + ')</span>';
             }
             var layer = getSocialLayer(graphic.attributes.smType);
-            if(layer){
+            if (layer) {
                 socialObject = {
                     title: layer.options.title,
                     legendIcon: layer.options.legendIcon
@@ -158,7 +158,7 @@ function overridePopupTitle() {
 
 // update social layers
 function updateSocialLayers() {
-    for(var i = 0; i < configOptions.socialLayers.length; i++){
+    for (var i = 0; i < configOptions.socialLayers.length; i++) {
         configOptions.socialLayers[i].newQuery();
     }
 }
@@ -185,26 +185,52 @@ function toggleMapLayerSM(layerid) {
     setSharing();
 }
 
-// toggle heat/cluster
-function showHeatLayer() {
-    if (clusterLayer) {
-        clusterLayer.setVisibility(false);
+// display points
+function pointDisplay(display) {
+    var i;
+    switch (display) {
+    case 'heatmap':
+        if (clusterLayer) {
+            clusterLayer.setVisibility(false);
+        }
+        if (heatLayer) {
+            heatLayer.setVisibility(true);
+        }
+        if (configOptions.socialLayers) {
+            for (i = 0; i < configOptions.socialLayers.length; i++) {
+                configOptions.socialLayers[i].hide();
+            }
+        }
+        configOptions.socialDisplay = 'heatmap';
+        break;
+    case 'cluster':
+        if (heatLayer) {
+            heatLayer.setVisibility(false);
+        }
+        if (clusterLayer) {
+            clusterLayer.setVisibility(true);
+        }
+        if (configOptions.socialLayers) {
+            for (i = 0; i < configOptions.socialLayers.length; i++) {
+                configOptions.socialLayers[i].hide();
+            }
+        }
+        configOptions.socialDisplay = 'cluster';
+        break;
+    default:
+        if (heatLayer) {
+            heatLayer.setVisibility(false);
+        }
+        if (clusterLayer) {
+            clusterLayer.setVisibility(false);
+        }
+        if (configOptions.socialLayers) {
+            for (i = 0; i < configOptions.socialLayers.length; i++) {
+                configOptions.socialLayers[i].show();
+            }
+        }
+        configOptions.socialDisplay = 'point';
     }
-    if (heatLayer) {
-        heatLayer.setVisibility(true);
-    }
-    configOptions.socialDisplay = 'heatmap';
-}
-
-// shows clusters and hides heatmap
-function showClusterLayer() {
-    if (heatLayer) {
-        heatLayer.setVisibility(false);
-    }
-    if (clusterLayer) {
-        clusterLayer.setVisibility(true);
-    }
-    configOptions.socialDisplay = 'cluster';
 }
 
 // toggle display as clusters/heatmap
@@ -213,9 +239,11 @@ function toggleDisplayAs(obj) {
     // data type variable
     var dataType = dojo.query(obj).attr('data-type')[0];
     if (dataType === 'heatmap' && isCanvasSupported()) {
-        showHeatLayer();
+        pointDisplay('heatmap');
+    } else if (dataType === 'cluster') {
+        pointDisplay('cluster');
     } else {
-        showClusterLayer();
+        pointDisplay('point');
     }
     configOptions.customPopup.hide();
     setSharing();
@@ -228,15 +256,20 @@ function insertSMToggle() {
     if (isCanvasSupported()) {
         var clusterClass = '';
         var heatmapClass = '';
+        var pointClass = '';
         var html = '';
         if (configOptions.socialDisplay === 'heatmap') {
             heatmapClass = 'buttonSelected';
-        } else {
+        } else if (configOptions.socialDisplay === 'cluster') {
             clusterClass = 'buttonSelected';
+        } else {
+            pointClass = 'buttonSelected';
         }
+        html += '<div class="displayAsText">' + i18n.viewer.buttons.displayAs + '</div>';
         html += '<div id="displayAs" class="displayAs">';
-        html += '<span tabindex="0" data-type="cluster" class="mapButton clusterButton buttonLeft ' + clusterClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.cluster + '</span>';
-        html += '<span tabindex="0" data-type="heatmap" class="mapButton heatButton buttonRight ' + heatmapClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.heatmap + '</span>';
+        html += '<span tabindex="0" title="' + i18n.viewer.buttons.point + '" data-type="point" class="mapButton pointButton buttonLeft ' + pointClass + '"><span class="iconBlock"></span></span>';
+        html += '<span tabindex="0" title="' + i18n.viewer.buttons.cluster + '" data-type="cluster" class="mapButton clusterButton buttonCenter ' + clusterClass + '"><span class="iconBlock"></span></span>';
+        html += '<span tabindex="0" title="' + i18n.viewer.buttons.heatmap + '" data-type="heatmap" class="mapButton heatButton buttonRight ' + heatmapClass + '"><span class="iconBlock"></span></span>';
         html += '</div>';
         var node = dojo.byId('socialMenu');
         if (node) {
@@ -301,7 +334,7 @@ function insertSMItem(obj) {
 // update heat map
 function updateDataPoints() {
     var dataPoints = [];
-    for(var i = 0; i < configOptions.socialLayers.length; i++){
+    for (var i = 0; i < configOptions.socialLayers.length; i++) {
         var list = dojo.query('#socialMenu .layer[data-layer=' + configOptions.socialLayers[i].options.id + ']');
         if (list[0] && configOptions.socialLayers[i].dataPoints && dojo.hasClass(list[0], "checked")) {
             dataPoints = dataPoints.concat(configOptions.socialLayers[i].dataPoints);
@@ -387,7 +420,7 @@ function insertSettingsHTML() {
             html += '</li>';
             html += '<li>';
             html += '<label for="' + configOptions.youtubeID + '_submit' + '">&nbsp;</label>';
-            html += '<span data-id="' + configOptions.youtubeID + '" tabindex="0" class="mapSubmit" id="' + configOptions.youtubeID + '_submit' + '">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.youtubeID + '_load' +'"></span>';
+            html += '<span data-id="' + configOptions.youtubeID + '" tabindex="0" class="mapSubmit" id="' + configOptions.youtubeID + '_submit' + '">' + i18n.viewer.settings.search + '</span><span class="Status" id="' + configOptions.youtubeID + '_load' + '"></span>';
             html += '</li>';
             html += '</ul>';
             html += '</div>';
@@ -438,12 +471,6 @@ function configureSocialMedia() {
         title: i18n.viewer.social.menuTitle,
         layer: clusterLayer.featureLayer
     });
-    // set default visible of the two
-    if (configOptions.socialDisplay === 'heatmap' && isCanvasSupported()) {
-        showHeatLayer();
-    } else {
-        showClusterLayer();
-    }
     // append list container
     var node = dojo.byId('socialMenu');
     if (node) {
@@ -503,8 +530,8 @@ function configureSocialMedia() {
                 node.innerHTML = textCount;
             }
         });
-        flickrLayer.newQuery = function(enable){
-            if(enable){
+        flickrLayer.newQuery = function (enable) {
+            if (enable) {
                 configOptions.flickrChecked = true;
             }
             var flList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + ']');
@@ -520,18 +547,18 @@ function configureSocialMedia() {
                 flickrLayer.update(updateObj);
             }
         };
-        flickrLayer.change = function(){
+        flickrLayer.change = function () {
             configOptions.flickrSearch = dojo.query('#' + configOptions.flickrID + '_input').attr('value')[0];
             configOptions.flickrRange = dojo.query('#' + configOptions.flickrID + '_range').attr('value')[0];
             showLoading(configOptions.flickrID + '_load');
             dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + ']').addClass("checked cLoading");
             setSharing();
             var html = '';
-            if(configOptions.flickrSearch){
+            if (configOptions.flickrSearch) {
                 html = ' ' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + configOptions.flickrSearch + '</span>."';
             }
             var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.flickrID + '] .filtered')[0];
-            if(node){
+            if (node) {
                 node.innerHTML = html;
             }
             flickrLayer.clear();
@@ -606,8 +633,8 @@ function configureSocialMedia() {
                 node.innerHTML = textCount;
             }
         });
-        panoramioLayer.newQuery = function(enable){
-            if(enable){
+        panoramioLayer.newQuery = function (enable) {
+            if (enable) {
                 configOptions.panoramioChecked = true;
             }
             var prList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.panoramioID + ']');
@@ -616,7 +643,7 @@ function configureSocialMedia() {
                 panoramioLayer.update();
             }
         };
-        panoramioLayer.change = function(){};
+        panoramioLayer.change = function () {};
         // insert html
         insertSMItem({
             visible: configOptions.panoramioChecked,
@@ -679,8 +706,8 @@ function configureSocialMedia() {
                 node.innerHTML = textCount;
             }
         });
-        twitterLayer.newQuery = function(enable){
-            if(enable){
+        twitterLayer.newQuery = function (enable) {
+            if (enable) {
                 configOptions.twitterChecked = true;
             }
             var twList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + ']');
@@ -691,17 +718,17 @@ function configureSocialMedia() {
                 });
             }
         };
-        twitterLayer.change = function(){
+        twitterLayer.change = function () {
             configOptions.twitterSearch = dojo.query('#' + configOptions.twitterID + '_input').attr('value')[0];
             dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + ']').addClass("checked cLoading");
             showLoading(configOptions.twitterID + '_load');
             setSharing();
             var html = '';
-            if(configOptions.twitterSearch){
+            if (configOptions.twitterSearch) {
                 html = ' ' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + configOptions.twitterSearch + '</span>."';
             }
             var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.twitterID + '] .filtered')[0];
-            if(node){
+            if (node) {
                 node.innerHTML = html;
             }
             twitterLayer.clear();
@@ -774,8 +801,8 @@ function configureSocialMedia() {
                 node.innerHTML = textCount;
             }
         });
-        youtubeLayer.newQuery = function(enable){
-            if(enable){
+        youtubeLayer.newQuery = function (enable) {
+            if (enable) {
                 configOptions.youtubeChecked = true;
             }
             // if youtube cbox is checked
@@ -788,18 +815,18 @@ function configureSocialMedia() {
                 });
             }
         };
-        youtubeLayer.change = function(){
+        youtubeLayer.change = function () {
             configOptions.youtubeSearch = dojo.query('#' + configOptions.youtubeID + '_input').attr('value')[0];
             configOptions.youtubeRange = dojo.query('#' + configOptions.youtubeID + '_range').attr('value')[0];
             showLoading(configOptions.youtubeID + '_load');
             dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + ']').addClass("checked cLoading");
             setSharing();
             var html = '';
-            if(configOptions.youtubeSearch){
+            if (configOptions.youtubeSearch) {
                 html = ' ' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + configOptions.youtubeSearch + '</span>."';
             }
             var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.youtubeID + '] .filtered')[0];
-            if(node){
+            if (node) {
                 node.innerHTML = html;
             }
             youtubeLayer.clear();
@@ -823,7 +850,14 @@ function configureSocialMedia() {
     insertSMToggle();
     insertSettingsHTML();
     configureSettingsUI();
-
+    // set default visible of the two
+    if (configOptions.socialDisplay === 'heatmap' && isCanvasSupported()) {
+        pointDisplay('heatmap');
+    } else if (configOptions.socialDisplay === 'cluster') {
+        pointDisplay('cluster');
+    } else {
+        pointDisplay('point');
+    }
     // onclick connect
     dojo.connect(clusterLayer.featureLayer, "onClick",
 
@@ -832,7 +866,7 @@ function configureSocialMedia() {
         var arr = [];
         var query = new esri.tasks.Query();
         query.geometry = evt.graphic.attributes.extent;
-        for(var i = 0; i < configOptions.socialLayers.length; i++){
+        for (var i = 0; i < configOptions.socialLayers.length; i++) {
             arr.push(configOptions.socialLayers[i].featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW));
         }
         configOptions.customPopup.setFeatures(arr);

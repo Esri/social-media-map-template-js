@@ -93,6 +93,8 @@ define({
             	"linkTitle":"Share this configured map",
             	"about":"About",
             	"aboutTitle":"About this map",
+            	"displayAs":"Display as:",      // NEW
+            	"point":"Points",              // NEW
             	"cluster":"Clusters",
             	"heatmap":"Density"
             },

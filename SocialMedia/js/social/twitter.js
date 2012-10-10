@@ -108,7 +108,7 @@ dojo.addOnLoad(function () {
                 id: this.options.id,
                 outFields: ["*"],
                 infoTemplate: this.infoTemplate,
-                visible: false
+                visible: true
             });
             this.options.map.addLayer(this.featureLayer);
             dojo.connect(this.featureLayer, "onClick", dojo.hitch(this, function (evt) {
