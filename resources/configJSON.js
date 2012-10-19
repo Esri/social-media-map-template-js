@@ -332,6 +332,32 @@
                ]
             }
          ]
+      },
+      {
+         "category":"<b>Panoramio Options</b>",
+         "fields":[
+            {
+               "type":"boolean",
+               "fieldName":"showPanoramio",
+               "label":"Show Panoramio",
+               "tooltip":"Show Panoramio"
+            },
+            {
+               "type":"paragraph",
+               "value":"Show Panoramio on this template."
+            },
+
+            {
+               "type":"boolean",
+               "fieldName":"panoramioChecked",
+               "label":"Checked",
+               "tooltip":"Checked"
+            },
+            {
+               "type":"paragraph",
+               "value":"Turn this layer on by default."
+            }
+         ]
       }
    ],
    "values":{
@@ -361,6 +387,8 @@
       "showTwitterConfig":true,
       "twitterChecked":true,
       "twitterSearch":"",
+      "showPanoramio":false,
+      "panoramioChecked":false,
       "sourceCountry":"USA"
    }
 }

@@ -112,6 +112,7 @@ dojo.addOnLoad(function () {
             });
             this.options.map.addLayer(this.featureLayer);
             dojo.connect(this.featureLayer, "onClick", dojo.hitch(this, function (evt) {
+                dojo.stopEvent(evt);
                 var query = new esri.tasks.Query();
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
                 var deferred = this.featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
