@@ -17,5 +17,3 @@ var i18n, configOptions, map, urlObject;
 
 // Layers
 var clusterLayer, heatLayer;
-
-// todo: Arabic CSS RTL.
