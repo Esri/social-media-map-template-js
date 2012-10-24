@@ -38,6 +38,7 @@
    "showBasemapMenu":true,
    "showLayersMenu":true,
    "showLegendMenu":true,
+   "showDisplaySwitch":true,
    "showPlaces":true,
    "showGeolocation":true,
    "showAboutDialog":true,

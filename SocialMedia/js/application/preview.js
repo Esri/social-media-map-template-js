@@ -116,7 +116,7 @@ function configureEmbed() {
     html += '<div id="mapPreviewResize"><div id="map" dir="ltr" class="mapLoading"></div></div>';
     html += '</div></td></tr></tbody></table>';
     html += '<h2>' + i18n.viewer.preview.embed + '</h2>';
-    html += '<p>' + i18n.viewer.preview.instruction + '</p>';
+    html += '<div class="instruction">' + i18n.viewer.preview.instruction + '</div>';
     html += '<div class="textAreaCon">';
     html += '<textarea id="inputEmbed" value="" class="" size="30" rows="5" readonly></textarea>';
     html += '</div>';

@@ -94,6 +94,12 @@
             },
             {
                "type":"boolean",
+               "fieldName":"showDisplaySwitch",
+               "label":"Show Point Display Switch",
+               "tooltip":"Show Point Display Switch"
+            },
+            {
+               "type":"boolean",
                "fieldName":"showGeolocation",
                "label":"Show Geolocate Option",
                "tooltip":"Show Geolocate Option"
@@ -373,20 +379,21 @@
       "showAboutDialog":true,
       "showAboutDialogOnLoad":false,
       "socialDisplay":"point",
+      "showDisplaySwitch": true,
       "showFlickr":true,
       "showFlickrConfig":true,
       "flickrChecked":true,
-      "flickrSearch":"",
+      "flickrSearch":"weather",
       "flickrRange":"this_month",
       "showYouTube":true,
       "showYouTubeConfig":true,
       "youtubeChecked":true,
-      "youtubeSearch":"",
+      "youtubeSearch":"weather",
       "youtubeRange":"this_month",
       "showTwitter":true,
       "showTwitterConfig":true,
       "twitterChecked":true,
-      "twitterSearch":"",
+      "twitterSearch":"weather",
       "showPanoramio":false,
       "panoramioChecked":false,
       "sourceCountry":"USA"

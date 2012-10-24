@@ -253,11 +253,18 @@ function toggleDisplayAs(obj) {
 
 // heatmap / clusters toggle
 function insertSMToggle() {
-    if (isCanvasSupported()) {
+    if (configOptions.showDisplaySwitch) {
         var clusterClass = '';
         var heatmapClass = '';
         var pointClass = '';
+        var clusterButton = 'buttonCenter ';
         var html = '';
+        if(!isCanvasSupported()){
+            clusterButton = 'buttonRight ';
+            if(configOptions.socialDisplay === 'heatmap'){
+                configOptions.socialDisplay = 'point';
+            }
+        }
         if (configOptions.socialDisplay === 'heatmap') {
             heatmapClass = 'buttonSelected';
         } else if (configOptions.socialDisplay === 'cluster') {
@@ -268,8 +275,10 @@ function insertSMToggle() {
         html += '<div class="displayAsText">' + i18n.viewer.buttons.displayAs + '</div>';
         html += '<div id="displayAs" class="displayAs">';
         html += '<span tabindex="0" title="' + i18n.viewer.buttons.point + '" data-type="point" class="mapButton pointButton buttonLeft ' + pointClass + '"><span class="iconBlock"></span></span>';
-        html += '<span tabindex="0" title="' + i18n.viewer.buttons.cluster + '" data-type="cluster" class="mapButton clusterButton buttonCenter ' + clusterClass + '"><span class="iconBlock"></span></span>';
-        html += '<span tabindex="0" title="' + i18n.viewer.buttons.heatmap + '" data-type="heatmap" class="mapButton heatButton buttonRight ' + heatmapClass + '"><span class="iconBlock"></span></span>';
+        html += '<span tabindex="0" title="' + i18n.viewer.buttons.cluster + '" data-type="cluster" class="mapButton clusterButton ' + clusterButton + clusterClass + '"><span class="iconBlock"></span></span>';
+        if(isCanvasSupported()){
+            html += '<span tabindex="0" title="' + i18n.viewer.buttons.heatmap + '" data-type="heatmap" class="mapButton heatButton buttonRight ' + heatmapClass + '"><span class="iconBlock"></span></span>';
+        }
         html += '</div>';
         var node = dojo.byId('socialMenu');
         if (node) {
@@ -280,8 +289,6 @@ function insertSMToggle() {
                 toggleDisplayAs(this);
             }
         });
-    } else {
-        configOptions.socialDisplay = 'cluster';
     }
 }
 
@@ -313,13 +320,13 @@ function insertSMItem(obj) {
         if (obj.description) {
             html += '<div title="' + i18n.viewer.general.close + '" class="infoHidden">';
             html += '<div class="ihClose"></div>';
-            html += '<p>' + obj.description;
+            html += '<div>' + obj.description;
             html += '<span class="filtered">';
             if (obj.searchTerm) {
                 html += ' ' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + obj.searchTerm + '</span>."';
             }
             html += '</span>';
-            html += '</p>';
+            html += '</div>';
             html += '</div>';
         }
         html += '</li>';
@@ -493,6 +500,11 @@ function configureSocialMedia() {
             dateTo: getFlickrDate('to'),
             apiKey: configOptions.flickrKey
         });
+        configOptions.layerInfos.push({
+            defaultSymbol: true,
+            title: configOptions.flickrTitle,
+            layer: flickrLayer.featureLayer
+        });
         clusterLayer.featureLayer.renderer.addValue({
             value: configOptions.flickrID,
             symbol: new esri.symbol.PictureMarkerSymbol({
@@ -596,6 +608,11 @@ function configureSocialMedia() {
             popupWidth: configOptions.popupWidth,
             popupHeight: configOptions.popupHeight
         });
+        configOptions.layerInfos.push({
+            defaultSymbol: true,
+            title: configOptions.panoramioTitle,
+            layer: panoramioLayer.featureLayer
+        });
         clusterLayer.featureLayer.renderer.addValue({
             value: configOptions.panoramioID,
             symbol: new esri.symbol.PictureMarkerSymbol({
@@ -668,6 +685,11 @@ function configureSocialMedia() {
             symbolWidth: configOptions.twitterSymbol.width,
             popupWidth: configOptions.popupWidth,
             popupHeight: configOptions.popupHeight
+        });
+        configOptions.layerInfos.push({
+            defaultSymbol: true,
+            title: configOptions.twitterTitle,
+            layer: twitterLayer.featureLayer
         });
         clusterLayer.featureLayer.renderer.addValue({
             value: configOptions.twitterID,
@@ -763,6 +785,11 @@ function configureSocialMedia() {
             popupWidth: configOptions.popupWidth,
             popupHeight: configOptions.popupHeight,
             range: configOptions.youtubeRange
+        });
+        configOptions.layerInfos.push({
+            defaultSymbol: true,
+            title: configOptions.youtubeTitle,
+            layer: youtubeLayer.featureLayer
         });
         clusterLayer.featureLayer.renderer.addValue({
             value: configOptions.youtubeID,

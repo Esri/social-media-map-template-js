@@ -13,7 +13,6 @@ dojo.require("esri.dijit.Legend");
 dojo.require("dojox.layout.ResizeHandle");
 dojo.require("dijit.form.Slider");
 dojo.require("dijit.Dialog");
-dojo.require("dojox.form.Rating");
 dojo.require("dojo.number");
 // Localization
 dojo.requireLocalization("esriTemplate", "template");

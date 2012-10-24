@@ -32,6 +32,11 @@ h3 {
     line-height: 18px;
 }
 
+h4, h5, h6 {
+    font-size: 13px;
+    line-height: 18px;
+}
+
 a {
     text-decoration: none;
     outline: 0;
@@ -337,10 +342,14 @@ b, strong {
 
 #autoComplete ul {
     margin: 6px 0;
+    list-style: none;
+    padding: 0;
 }
 
 #autoComplete li {
     padding: 6px 10px;
+    list-style: none;
+    margin: 0;
     cursor: pointer;
 }
 
@@ -813,6 +822,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 }
 
 #shareControls h3 {
+    margin: 0;
     margin-bottom: 5px;
     font-size: 12px;
 }
@@ -952,11 +962,16 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 
 .listMenu ul {
     margin: 6px 0;
+    list-style: none;
+    padding: 0;
 }
 
 .listMenu ul li {
     line-height: 16px;
     vertical-align: middle;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .listMenu ul li.layer {
@@ -1229,9 +1244,13 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 .formStyle {
     margin: 0;
     padding: 0;
+    list-style: none;
 }
 
 .formStyle li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
     margin-bottom: 10px;
 }
 
@@ -1518,63 +1537,6 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -304px 0;
 }
 
-#aboutDialog h2 {
-    margin-bottom: 10px;
-}
-
-#aboutDialog .desc p, #aboutDialog .license p {
-    margin: 10px 0;
-}
-
-#aboutDialog .desc ul, #aboutDialog .license ul {
-    margin: 10px 1em;
-    display: block;
-    padding: 0 0 0 35px;
-    list-style-type: disc;
-}
-
-#aboutDialog .desc ol, #aboutDialog .license ol {
-    margin: 10px 1em;
-    display: block;
-    padding: 0 0 0 35px;
-    list-style-type: decimal;
-}
-
-#aboutDialog .thumb {
-    display: block;
-    float: right;
-    margin: 0 0 10px 10px;
-    padding: 4px;
-    -moz-box-shadow: 1px 1px 3px #CCCCCC;
-    -webkit-box-shadow: 1px 1px 3px #CCCCCC;
-    box-shadow: 1px 1px 3px #CCCCCC;
-    border: 1px solid #CCCCCC;
-    background: url(../images/ui/ajax-loader.gif?v=3.01) no-repeat center center #fff;
-}
-
-.esriRtl #aboutDialog .thumb {
-    float: left;
-    margin: 0 10px 10px 0;
-}
-
-#aboutDialog .thumb img {
-    display: block;
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    height: 133px;
-}
-
 #aboutDialog .license {
     margin-bottom: 10px;
-}
-
-#aboutDialog .date {
-    margin: 10px 0;
-}
-
-#aboutDialog .ratings {
-    margin-bottom: 10px;
-    font-size: 11px;
-    color: #999;
 }

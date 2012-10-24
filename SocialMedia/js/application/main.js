@@ -225,6 +225,13 @@ function resizeMap() {
     }, 500);
 }
 
+function hideAboutMap(){
+    if (configOptions.aboutDialog) {
+        configOptions.aboutDialog.hide();
+        dojo.query('#aboutMap').removeClass('barSelected');
+    }
+}
+
 // Toggle show/hide about map info
 function toggleAboutMap(obj) {
     if (configOptions.aboutDialog) {
@@ -541,60 +548,7 @@ function configureAboutText() {
         var html = '';
         html += '<div class="padContainer">';
         html += '<h2>' + configOptions.itemInfo.item.title + '</h2>';
-        var widget = new dojox.form.Rating({
-            numStars: 5,
-            value: configOptions.itemInfo.item.avgRating
-        }, null);
-        html += '<div class="ratings">' + widget.domNode.outerHTML;
-        html += ' (';
-        // Ratings
-        if (configOptions.itemInfo.item.numRatings) {
-            var pluralRatings = i18n.viewer.itemInfo.ratingsLabel;
-            if (configOptions.itemInfo.item.numRatings > 1) {
-                pluralRatings = i18n.viewer.itemInfo.ratingsLabelPlural;
-            }
-            html += dojo.number.format(configOptions.itemInfo.item.numRatings) + ' ' + pluralRatings;
-        }
-        // comments
-        if (configOptions.itemInfo.item.numComments) {
-            if (configOptions.itemInfo.item.numRatings) {
-                html += i18n.viewer.itemInfo.separator + ' ';
-            }
-            var pluralComments = i18n.viewer.itemInfo.commentsLabel;
-            if (configOptions.itemInfo.item.numComments > 1) {
-                pluralComments = i18n.viewer.itemInfo.commentsLabelPlural;
-            }
-            html += dojo.number.format(configOptions.itemInfo.item.numComments) + ' ' + pluralComments;
-        }
-        if ((configOptions.itemInfo.item.numRatings) || (configOptions.itemInfo.item.numComments)) {
-            html += i18n.viewer.itemInfo.separator + ' ';
-        }
-        var pluralViews = i18n.viewer.itemInfo.viewsLabel;
-        if (configOptions.itemInfo.item.numViews > 1) {
-            pluralViews = i18n.viewer.itemInfo.viewsLabelPlural;
-        }
-        html += dojo.number.format(configOptions.itemInfo.item.numViews) + ' ' + pluralViews;
-        // close container
-        html += ')</div>';
-        if (configOptions.itemInfo.item.thumbnail) {
-            html += '<a tabindex="0" class="thumb" target="_blank" href="' + configOptions.portalUrl + 'home/item.html?id=' + configOptions.itemInfo.item.id + '"><img src="' + configOptions.sharingurl + '/' + configOptions.itemInfo.item.id + '/info/' + configOptions.itemInfo.item.thumbnail + '" alt="' + configOptions.itemInfo.item.title + '" title="' + configOptions.itemInfo.item.title + '" /></a>';
-        }
         html += '<div class="desc">' + configOptions.itemInfo.item.description + '</div>';
-        // vars
-        var modifiedDate, modifiedLocalized;
-        // modified date
-        if (configOptions.itemInfo.item.modified) {
-            // date object
-            modifiedDate = new Date(configOptions.itemInfo.item.modified);
-            // date format for locale
-            modifiedLocalized = dojo.date.locale.format(modifiedDate, {
-                selector: "date",
-                datePattern: "MMM d, yyyy"
-            });
-        }
-        if (modifiedLocalized) {
-            html += '<div class="date">' + i18n.viewer.itemInfo.modifiedLabel + ' ' + modifiedLocalized + '. </div>';
-        }
         html += '<div class="clear"></div>';
         if (configOptions.itemInfo.item.licenseInfo) {
             html += '<h3>' + i18n.viewer.about.access + '</h3>';
@@ -733,6 +687,8 @@ function configureUserInterface() {
         setTimeout(function () {
             updateSocialLayers();
             dojo.connect(map, "onExtentChange", function (extent) {
+                // hide about panel if open
+                hideAboutMap();
                 // update current extent
                 configOptions.extent = [extent.xmin, extent.ymin, extent.xmax, extent.ymax];
                 // update sharing link

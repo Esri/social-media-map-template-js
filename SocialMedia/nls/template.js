@@ -35,7 +35,7 @@ define({
             "general": {
             	"at":"at",
 				"of":"of",
-            	"homeExtent":"Load default map extent",
+            	"homeExtent":"Load home view",
 				"ok":"OK",
 				"close":"Close"
             },
