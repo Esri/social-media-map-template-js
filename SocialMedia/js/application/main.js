@@ -550,7 +550,9 @@ function configureAboutText() {
         html += '<h2>' + configOptions.itemInfo.item.title + '</h2>';
         html += '<div class="desc">' + configOptions.itemInfo.item.description + '</div>';
         html += '<div class="clear"></div>';
-        if (configOptions.itemInfo.item.licenseInfo) {
+        // see if not just empty HTML tags
+        var result = configOptions.itemInfo.item.licenseInfo.replace(/(<([^>]+)>)/ig, "");
+        if (configOptions.itemInfo.item.licenseInfo && result) {
             html += '<h3>' + i18n.viewer.about.access + '</h3>';
             html += '<div class="license">' + configOptions.itemInfo.item.licenseInfo + '</div>';
         }

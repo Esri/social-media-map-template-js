@@ -717,6 +717,39 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd362f', endColorstr='#ee5f5b',GradientType=0 );
 }
 
+.buttonTop{
+    text-align: left;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left:1px solid #ccc;
+    border-right:1px solid #ccc;
+    -moz-border-radius:2px 2px 0 0;
+    -webkit-border-radius: 2px 2px 0 0;
+    border-radius: 2px 2px 0 0;
+}
+
+.buttonBottom{
+    text-align: left;
+    border-top: 0;
+    border-bottom: 1px solid #ccc;
+    border-left:1px solid #ccc;
+    border-right:1px solid #ccc;
+    -moz-border-radius:0 0 2px 2px;
+    -webkit-border-radius: 0 0 2px 2px;
+    border-radius: 0 0 2px 2px;
+}
+
+.buttonMiddle{
+    text-align: left;
+    border-top: 0;
+    border-bottom: 1px solid #ccc;
+    border-left:1px solid #ccc;
+    border-right:1px solid #ccc;
+    -moz-border-radius:0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
 .modernGrey .dijitButtonNode {
     border: 0;
 }
@@ -1122,12 +1155,19 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 }
 
 .listMenu .displayAs {
-    text-align: center;
-    padding: 4px 10px 10px 10px;
+    padding: 0 10px 10px 10px;
+}
+
+.listMenu .displayAs .mapButton{
+    display:block;
 }
 
 .listMenu .displayAsText {
-    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: bold;
+    height: 16px;
+    margin: 0 0 10px 0;
+    padding: 0;
 }
 
 /*-------------------------------------------------- */
@@ -1213,30 +1253,42 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     display: inline-block;
     width: 16px;
     height: 16px;
+    margin-right: 5px;
     vertical-align: top;
     background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -64px 0px;
+}
+
+.esriRtl .pointButton .iconBlock {
+    margin-right: 0;
+    margin-left: 5px;
 }
 
 .clusterButton .iconBlock {
     display: inline-block;
     width: 16px;
     height: 16px;
+     margin-right: 5px;
     vertical-align: top;
     background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -160px 0px;
+}
+
+.esriRtl .clusterButton .iconBlock {
+    margin-right: 0;
+    margin-left: 5px;
 }
 
 .heatButton .iconBlock {
     display: inline-block;
     width: 16px;
     height: 16px;
-    margin-right: 3px;
+     margin-right: 5px;
     vertical-align: top;
     background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -176px 0px;
 }
 
 .esriRtl .heatButton .iconBlock {
     margin-right: 0;
-    margin-left: 3px;
+    margin-left: 5px;
 }
 /*-------------------------------------------------- */
 /* FORM FLOAT CONTAINER */

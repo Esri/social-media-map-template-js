@@ -7,6 +7,7 @@ function toggleChecked(obj) {
         list.addClass('cLoading');
     }
     dojo.toggleClass(list[0], 'checked');
+    setSharing();
 }
 
 // removes layer from list of visible layers

@@ -257,10 +257,10 @@ function insertSMToggle() {
         var clusterClass = '';
         var heatmapClass = '';
         var pointClass = '';
-        var clusterButton = 'buttonCenter ';
+        var clusterButton = 'buttonMiddle ';
         var html = '';
         if(!isCanvasSupported()){
-            clusterButton = 'buttonRight ';
+            clusterButton = 'buttonBottom ';
             if(configOptions.socialDisplay === 'heatmap'){
                 configOptions.socialDisplay = 'point';
             }
@@ -272,12 +272,12 @@ function insertSMToggle() {
         } else {
             pointClass = 'buttonSelected';
         }
-        html += '<div class="displayAsText">' + i18n.viewer.buttons.displayAs + '</div>';
         html += '<div id="displayAs" class="displayAs">';
-        html += '<span tabindex="0" title="' + i18n.viewer.buttons.point + '" data-type="point" class="mapButton pointButton buttonLeft ' + pointClass + '"><span class="iconBlock"></span></span>';
-        html += '<span tabindex="0" title="' + i18n.viewer.buttons.cluster + '" data-type="cluster" class="mapButton clusterButton ' + clusterButton + clusterClass + '"><span class="iconBlock"></span></span>';
+        html += '<div class="displayAsText">' + i18n.viewer.buttons.displayAs + '</div>';
+        html += '<div tabindex="0" title="' + i18n.viewer.buttons.point + '" data-type="point" class="mapButton pointButton buttonTop ' + pointClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.point + '</div>';
+        html += '<div tabindex="0" title="' + i18n.viewer.buttons.cluster + '" data-type="cluster" class="mapButton clusterButton ' + clusterButton + clusterClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.cluster + '</div>';
         if(isCanvasSupported()){
-            html += '<span tabindex="0" title="' + i18n.viewer.buttons.heatmap + '" data-type="heatmap" class="mapButton heatButton buttonRight ' + heatmapClass + '"><span class="iconBlock"></span></span>';
+            html += '<div tabindex="0" title="' + i18n.viewer.buttons.heatmap + '" data-type="heatmap" class="mapButton heatButton buttonBottom ' + heatmapClass + '"><span class="iconBlock"></span>' + i18n.viewer.buttons.heatmap + '</div>';
         }
         html += '</div>';
         var node = dojo.byId('socialMenu');
