@@ -547,7 +547,7 @@ function configureAboutText() {
         node = dojo.byId('aboutDialog');
         var html = '';
         html += '<div class="padContainer">';
-        html += '<h2>' + configOptions.itemInfo.item.title + '</h2>';
+        html += '<h2 tabindex="0">' + configOptions.itemInfo.item.title + '</h2>';
         html += '<div class="desc">' + configOptions.itemInfo.item.description + '</div>';
         html += '<div class="clear"></div>';
         // see if not just empty HTML tags
