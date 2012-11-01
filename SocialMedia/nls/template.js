@@ -151,6 +151,10 @@ define({
 			"panoramio":{
 				"title":"Panoramio",                      // new
 				"description":"Photos from Panoramio"     // new
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                      // new
+				"description":"Incident reports from Ushahidi"     // new
 			}
         }
     }),

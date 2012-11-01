@@ -782,6 +782,8 @@ function configurePopup() {
     // connects for popup
     dojo.connect(configOptions.customPopup, "maximize", hideAllMenus);
     dojo.connect(configOptions.customPopup, "onSelectionChange", overridePopupTitle);
+    dojo.connect(configOptions.customPopup, "onShow", overridePopupTitle);
+    dojo.connect(configOptions.customPopup, "onSetFeatures", overridePopupTitle);
     // popup theme
     dojo.addClass(configOptions.customPopup.domNode, "modernGrey");
 }

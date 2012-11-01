@@ -153,6 +153,7 @@ function getSmPopupTitle() {
 
 // overrides popup title for social media to add image
 function overridePopupTitle() {
+    hideAllMenus();
     configOptions.customPopup.setTitle(getSmPopupTitle());
 }
 
@@ -874,6 +875,85 @@ function configureSocialMedia() {
         });
         configOptions.socialLayers.push(youtubeLayer);
     }
+    // if ushahidi
+    if (configOptions.showUshahidi) {
+        var ushahidiLayer = new social.ushahidi({
+            map: map,
+            title: configOptions.ushahidiTitle,
+            legendIcon: configOptions.ushahidiIcon,
+            id: configOptions.ushahidiID,
+            url: configOptions.ushahidiUrl,
+            symbolUrl: configOptions.ushahidiSymbol.url,
+            symbolHeight: configOptions.ushahidiSymbol.height,
+            symbolWidth: configOptions.ushahidiSymbol.width,
+            popup: configOptions.customPopup,
+            popupWidth: configOptions.popupWidth,
+            popupHeight: configOptions.popupHeight
+        });
+        configOptions.layerInfos.push({
+            defaultSymbol: true,
+            title: configOptions.ushahidiTitle,
+            layer: ushahidiLayer.featureLayer
+        });
+        clusterLayer.featureLayer.renderer.addValue({
+            value: configOptions.ushahidiID,
+            symbol: new esri.symbol.PictureMarkerSymbol({
+                "url": configOptions.ushahidiSymbol.url,
+                "height": configOptions.ushahidiSymbol.height,
+                "width": configOptions.ushahidiSymbol.width,
+                "type": "esriPMS"
+            }),
+            label: configOptions.ushahidiTitle
+        });
+        dojo.connect(ushahidiLayer, 'onUpdate', function () {
+            updateDataPoints();
+        });
+        dojo.connect(ushahidiLayer, 'onClear', function () {
+            updateDataPoints();
+            configOptions.ushahidiChecked = false;
+            var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.ushahidiID + '] .count')[0];
+            if (node) {
+                node.innerHTML = '';
+            }
+        });
+        dojo.connect(ushahidiLayer, 'onUpdateEnd', function () {
+            var totalCount = ushahidiLayer.getStats().geoPoints;
+            hideLoading(dojo.query('#socialMenu ul li[data-layer=' + configOptions.ushahidiID + ']'), dojo.query('#' + configOptions.panoramioID + '_load'));
+            var node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.ushahidiID + '] .keyword')[0];
+            if (node) {
+                node.innerHTML = configOptions.ushahidiSearch;
+            }
+            var textCount = '';
+            if (totalCount) {
+                textCount = ' (' + totalCount + ')' || '';
+            }
+            node = dojo.query('#socialMenu .layer[data-layer=' + configOptions.ushahidiID + '] .count')[0];
+            if (node) {
+                node.innerHTML = textCount;
+            }
+        });
+        ushahidiLayer.newQuery = function (enable) {
+            if (enable) {
+                configOptions.ushahidiChecked = true;
+            }
+            var uhList = dojo.query('#socialMenu .layer[data-layer=' + configOptions.ushahidiID + ']');
+            if (dojo.hasClass(uhList[0], "checked")) {
+                uhList.addClass("cLoading");
+                ushahidiLayer.update();
+            }
+        };
+        ushahidiLayer.change = function () {};
+        // insert html
+        insertSMItem({
+            visible: configOptions.ushahidiChecked,
+            uniqueID: configOptions.ushahidiID,
+            title: configOptions.ushahidiTitle,
+            showSocialSettings: false,
+            legendIcon: configOptions.ushahidiIcon,
+            description: configOptions.ushahidiDescription
+        });
+        configOptions.socialLayers.push(ushahidiLayer);
+    }
     insertSMToggle();
     insertSettingsHTML();
     configureSettingsUI();
@@ -886,9 +966,7 @@ function configureSocialMedia() {
         pointDisplay('point');
     }
     // onclick connect
-    dojo.connect(clusterLayer.featureLayer, "onClick",
-
-    function (evt) {
+    dojo.connect(clusterLayer.featureLayer, "onClick",function (evt) {
         dojo.stopEvent(evt);
         var arr = [];
         var query = new esri.tasks.Query();
@@ -899,8 +977,6 @@ function configureSocialMedia() {
         configOptions.customPopup.setFeatures(arr);
         configOptions.customPopup.show(evt.mapPoint);
         configOptions.customPopup.resize(configOptions.popupWidth, configOptions.popupHeight);
-        overridePopupTitle();
-        hideAllMenus();
     });
 
     // zebra stripe layers

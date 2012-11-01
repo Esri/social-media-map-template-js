@@ -197,6 +197,15 @@ function setDefaultConfigOptions() {
         "width": "18.75",
         "height": "22.5"
     };
+    configOptions.ushahidiID = "ushahidi";
+    configOptions.ushahidiTitle = i18n.viewer.ushahidi.title;
+    configOptions.ushahidiDescription = i18n.viewer.ushahidi.description;
+    configOptions.ushahidiIcon = "images/social/ushahidi16x16.png";
+    configOptions.ushahidiSymbol = {
+        "url": "images/map/ushahidi25x30.png",
+        "width": "18.75",
+        "height": "22.5"
+    };
     if (!configOptions.layerInfos) {
         configOptions.layerInfos = [];
     }
