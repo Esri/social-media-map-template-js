@@ -728,6 +728,10 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     border-radius: 2px 2px 0 0;
 }
 
+.esriRtl .buttonTop {
+    text-align: right;
+}
+
 .buttonBottom {
     text-align: left;
     border-top: 0;
@@ -739,6 +743,10 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     border-radius: 0 0 2px 2px;
 }
 
+.esriRtl .buttonBottom {
+    text-align: right;
+}
+
 .buttonMiddle {
     text-align: left;
     border-top: 0;
@@ -748,6 +756,10 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
+}
+
+.esriRtl .buttonMiddle {
+    text-align: right;
 }
 
 .modernGrey .dijitButtonNode {

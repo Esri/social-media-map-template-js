@@ -443,10 +443,19 @@ function updateRightMenuOffset(button, menu) {
         var offset = dojo.position(buttonObj);
         var vs = dojo.window.getBox();
         if (offset) {
-            var position = vs.w - (offset.x + offset.w);
-            dojo.style(menuObj, {
-                "right": position + 'px'
-            });
+            if(configOptions.isRightToLeft){
+                console.log('bleh');
+                var position = offset.x;
+                dojo.style(menuObj, {
+                    "left": position + 'px'
+                });
+            }
+            else{
+                var position = vs.w - (offset.x + offset.w);
+                dojo.style(menuObj, {
+                    "right": position + 'px'
+                });
+            }
         }
     }
 }
@@ -455,12 +464,21 @@ function updateRightMenuOffset(button, menu) {
 function updateLeftMenuOffset(button, menu) {
     var btn = dojo.query(button)[0];
     var mnu = dojo.query(menu)[0];
+    var vs = dojo.window.getBox();
     if (btn && mnu) {
         var offset = dojo.position(btn);
-        var leftOffset = offset.x;
-        dojo.style(mnu, {
-            "left": leftOffset + 'px'
-        });
+        if(configOptions.isRightToLeft){
+            var leftOffset = vs.w - (offset.x + offset.w);
+            dojo.style(mnu, {
+                "right": leftOffset + 'px'
+            });
+        }
+        else{
+            var leftOffset = offset.x;
+            dojo.style(mnu, {
+                "left": leftOffset + 'px'
+            });
+        }
     }
 }
 
