@@ -7,10 +7,10 @@ dojo.addOnLoad(function () {
             constructor: "manual"
         },
         constructor: function (options) {
-            this.i18n = dojo.i18n.getLocalization("esriTemplate", "flickr");
+            this.i18n = dojo.i18n.getLocalization("esriTemplate", "ushahidi");
             var socialInstance = this;
             this.options = {
-                autopage: true,
+                autopage: false,
                 url: '',
                 maxpage: 6,
                 limit: 100,
@@ -46,39 +46,9 @@ dojo.addOnLoad(function () {
                     "fields": [{
                         "name": "OBJECTID",
                         "type": "esriFieldTypeOID"
-                    }, {
-                        "name": "smType",
-                        "type": "esriFieldTypeString",
-                        "alias": "smType",
-                        "length": 100
-                    }, {
-                        "name": "id",
-                        "type": "esriFieldTypeString",
-                        "alias": "id",
-                        "length": 100
-                    }, {
-                        "name": "owner",
-                        "type": "esriFieldTypeString",
-                        "alias": "User",
-                        "length": 100
-                    }, {
-                        "name": "latitude",
-                        "type": "esriFieldTypeDouble",
-                        "alias": "latitude",
-                        "length": 1073741822
-                    }, {
-                        "name": "longitude",
-                        "type": "esriFieldTypeDouble",
-                        "alias": "longitude",
-                        "length": 1073741822
-                    }, {
-                        "name": "title",
-                        "type": "esriFieldTypeString",
-                        "alias": "Title",
-                        "length": 1073741822
                     }],
-                    "globalIdField": "id",
-                    "displayField": "title"
+                    "globalIdField": "OBJECTID",
+                    "displayField": "OBJECTID"
                 },
                 featureSet: {
                     "features": [],
@@ -258,9 +228,10 @@ dojo.addOnLoad(function () {
             var content = '<div class="uhContent">';
             content += '<p><strong>' + graphic.attributes.incident.incidenttitle + '</strong></p>';
             // MEDIA
+            var i;
             var media = graphic.attributes.media;
             if(media && media.length > 0) {
-                for(var i = 0; i < media.length; i++){
+                for(i = 0; i < media.length; i++){
                     if(parseInt(media[i].type, 10) === 1) {
                         content += '<p class="imgBlock"><a target="_blank" href="' + media[i].link_url + '"><img src="' + media[i].thumb_url + '" /></a></p>';
                     }
@@ -302,18 +273,19 @@ dojo.addOnLoad(function () {
                 by: 'bounds',
                 c: '',
                 sort: 0,
+                id: 0,
                 sw: radius.minPoint.x + ',' + radius.minPoint.y,
                 ne: radius.maxPoint.x + ',' + radius.maxPoint.y,
                 resp: 'jsonp',
                 limit: this.options.limit,
-                orderfield: 'incidentdate'
+                orderfield: 'incidentid'
             };
-            // make the actual Flickr API call
+            // make the actual API call
             this.pageCount = 1;
             this.sendRequest(this.options.url + "?" + dojo.objectToQuery(this.query));
         },
         sendRequest: function (url) {
-            // get the results from Flickr for each page
+            // get the results for each page
             var deferred = esri.request({
                 url: url,
                 handleAs: "json",
@@ -324,13 +296,14 @@ dojo.addOnLoad(function () {
                 handle: dojo.hitch(this, function (e, obj) {
                     var data = obj.json.payload;
                     var error = e;
+                    console.log(data);
                     if (parseInt(error.code, 10) === 0) {
                         if (data.incidents.length > 0) {
                             this.mapResults(data);
                             // display results for multiple pages
-                            if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (false) && (this.query)) {
+                            if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.incidents.length === this.options.limit) && (this.query)) {
                                 this.pageCount++;
-                                this.query.page++;
+                                this.query.id = data.incidents[data.incidents.length - 1].incident.incidentid;
                                 this.sendRequest(this.options.url + "?" + dojo.objectToQuery(this.query));
                             } else {
                                 this.onUpdateEnd();
@@ -369,7 +342,7 @@ dojo.addOnLoad(function () {
                 if (this.geocoded_ids[result.incident.incidentid]) {
                     return;
                 }
-                this.geocoded_ids[result.id] = true;
+                this.geocoded_ids[result.incident.incidentid] = true;
                 var geoPoint = null;
                 if (result.incident.locationlatitude) {
                     var g = [result.incident.locationlatitude, result.incident.locationlongitude];

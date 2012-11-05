@@ -516,6 +516,9 @@ function configureSocialMedia() {
             }),
             label: configOptions.flickrTitle
         });
+        dojo.connect(flickrLayer.featureLayer, 'onClick', function () {
+            overridePopupTitle();
+        });
         dojo.connect(flickrLayer, 'onUpdate', function () {
             updateDataPoints();
         });
@@ -624,6 +627,9 @@ function configureSocialMedia() {
             }),
             label: configOptions.panoramioTitle
         });
+        dojo.connect(panoramioLayer.featureLayer, 'onClick', function () {
+            overridePopupTitle();
+        });
         dojo.connect(panoramioLayer, 'onUpdate', function () {
             updateDataPoints();
         });
@@ -704,6 +710,9 @@ function configureSocialMedia() {
         });
         dojo.connect(twitterLayer, 'onUpdate', function () {
             updateDataPoints();
+        });
+        dojo.connect(twitterLayer.featureLayer, 'onClick', function () {
+            overridePopupTitle();
         });
         dojo.connect(twitterLayer, 'onClear', function () {
             updateDataPoints();
@@ -804,6 +813,9 @@ function configureSocialMedia() {
         });
         dojo.connect(youtubeLayer, 'onUpdate', function () {
             updateDataPoints();
+        });
+        dojo.connect(youtubeLayer.featureLayer, 'onClick', function () {
+            overridePopupTitle();
         });
         dojo.connect(youtubeLayer, 'onClear', function () {
             updateDataPoints();
@@ -908,6 +920,9 @@ function configureSocialMedia() {
         dojo.connect(ushahidiLayer, 'onUpdate', function () {
             updateDataPoints();
         });
+        dojo.connect(ushahidiLayer.featureLayer, 'onClick', function () {
+            overridePopupTitle();
+        });
         dojo.connect(ushahidiLayer, 'onClear', function () {
             updateDataPoints();
             configOptions.ushahidiChecked = false;
@@ -977,6 +992,7 @@ function configureSocialMedia() {
         configOptions.customPopup.setFeatures(arr);
         configOptions.customPopup.show(evt.mapPoint);
         configOptions.customPopup.resize(configOptions.popupWidth, configOptions.popupHeight);
+        overridePopupTitle();
     });
 
     // zebra stripe layers

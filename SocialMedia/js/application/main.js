@@ -731,7 +731,6 @@ function webmapReturned(response) {
     // webmap
     map = response.map;
     // map connect functions
-    dojo.connect(configOptions.customPopup, "onHide", clearPopupValues);
     dojo.connect(window, "onresize", resizeMap);
     // webmap item info
     configOptions.itemInfo = response.itemInfo;
@@ -782,8 +781,7 @@ function configurePopup() {
     // connects for popup
     dojo.connect(configOptions.customPopup, "maximize", hideAllMenus);
     dojo.connect(configOptions.customPopup, "onSelectionChange", overridePopupTitle);
-    dojo.connect(configOptions.customPopup, "onShow", overridePopupTitle);
-    dojo.connect(configOptions.customPopup, "onSetFeatures", overridePopupTitle);
+    dojo.connect(configOptions.customPopup, "onHide", clearPopupValues);
     // popup theme
     dojo.addClass(configOptions.customPopup.domNode, "modernGrey");
 }
