@@ -1,4 +1,3 @@
-dojo.requireLocalization("esriTemplate", "twitter");
 dojo.provide("social.twitter");
 dojo.addOnLoad(function () {
     dojo.declare("social.twitter", null, {
@@ -7,7 +6,6 @@ dojo.addOnLoad(function () {
             constructor: "manual"
         },
         constructor: function (options) {
-            this.i18n = dojo.i18n.getLocalization("esriTemplate", "twitter");
             dojo.io.script.get({
                 url: location.protocol + '//platform.twitter.com/widgets.js'
             });
@@ -28,7 +26,7 @@ dojo.addOnLoad(function () {
             };
             dojo.safeMixin(this.options, options);
             if (this.options.map === null) {
-                throw this.i18n.error.reference;
+                throw 'Reference to esri.Map object required';
             }
             this.baseurl = location.protocol + "//search.twitter.com/search.json";
             this.featureCollection = {
@@ -262,9 +260,9 @@ dojo.addOnLoad(function () {
                 locale = tmp[0];
             }
             html += '<div class="actions">';
-            html += '<a title="' + this.i18n.general.reply + '" class="reply" href="https://twitter.com/intent/tweet?in_reply_to=' + graphic.attributes.id_str + '&lang=' + locale + '"></a> ';
-            html += '<a title="' + this.i18n.general.retweet + '" class="retweet" href="https://twitter.com/intent/retweet?tweet_id=' + graphic.attributes.id_str + '&lang=' + locale + '"></a> ';
-            html += '<a title="' + this.i18n.general.favorite + '" class="favorite" href="https://twitter.com/intent/favorite?tweet_id=' + graphic.attributes.id_str + '&lang=' + locale + '"></a> ';
+            html += '<a title="" class="reply" href="https://twitter.com/intent/tweet?in_reply_to=' + graphic.attributes.id_str + '&lang=' + locale + '"></a> ';
+            html += '<a title="" class="retweet" href="https://twitter.com/intent/retweet?tweet_id=' + graphic.attributes.id_str + '&lang=' + locale + '"></a> ';
+            html += '<a title="" class="favorite" href="https://twitter.com/intent/favorite?tweet_id=' + graphic.attributes.id_str + '&lang=' + locale + '"></a> ';
             html += '</div>';
             html += '</div>';
             return html;
@@ -321,9 +319,9 @@ dojo.addOnLoad(function () {
                 }),
                 error: dojo.hitch(this, function (e) {
                     if (deferred.canceled) {
-                        console.log(this.i18n.error.cancelled);
+                        console.log('Search Cancelled');
                     } else {
-                        console.log(this.i18n.error.general + ": " + e.message);
+                        console.log('Search error' + ": " + e.message);
                     }
                     this.onError(e);
                 })
@@ -345,7 +343,7 @@ dojo.addOnLoad(function () {
         mapResults: function (j) {
             var socialInstance = this;
             if (j.error) {
-                console.log(this.i18n.error.general + ": " + j.error);
+                console.log('Search error' + ": " + j.error);
                 this.onError(j.error);
                 return;
             }

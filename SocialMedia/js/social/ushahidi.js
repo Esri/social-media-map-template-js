@@ -1,4 +1,3 @@
-dojo.requireLocalization("esriTemplate", "ushahidi");
 dojo.provide("social.ushahidi");
 dojo.addOnLoad(function () {
     dojo.declare("social.ushahidi", null, {
@@ -7,7 +6,6 @@ dojo.addOnLoad(function () {
             constructor: "manual"
         },
         constructor: function (options) {
-            this.i18n = dojo.i18n.getLocalization("esriTemplate", "ushahidi");
             var socialInstance = this;
             this.options = {
                 autopage: false,
@@ -26,7 +24,7 @@ dojo.addOnLoad(function () {
             };
             dojo.safeMixin(this.options, options);
             if (this.options.map === null) {
-                throw this.i18n.error.reference;
+                throw 'Reference to esri.Map object required';
             }
             this.featureCollection = {
                 layerDefinition: {

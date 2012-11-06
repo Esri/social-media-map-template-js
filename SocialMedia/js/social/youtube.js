@@ -1,4 +1,3 @@
-dojo.requireLocalization("esriTemplate", "youtube");
 dojo.provide("social.youtube");
 dojo.addOnLoad(function () {
     dojo.declare("social.youtube", null, {
@@ -7,7 +6,6 @@ dojo.addOnLoad(function () {
             constructor: "manual"
         },
         constructor: function (options) {
-            this.i18n = dojo.i18n.getLocalization("esriTemplate", "youtube");
             var socialInstance = this;
             this.options = {
                 autopage: true,
@@ -26,7 +24,7 @@ dojo.addOnLoad(function () {
             };
             dojo.safeMixin(this.options, options);
             if (this.options.map === null) {
-                throw this.i18n.error.reference;
+                throw 'Reference to esri.Map object required';
             }
             this.baseurl = location.protocol + "//gdata.youtube.com/feeds/api/videos";
             this.featureCollection = {
@@ -305,9 +303,9 @@ dojo.addOnLoad(function () {
                 }),
                 error: dojo.hitch(this, function (e) {
                     if (deferred.canceled) {
-                        console.log(this.i18n.error.cancelled);
+                        console.log('Search Cancelled');
                     } else {
-                        console.log(this.i18n.error.general + ": " + e.message);
+                        console.log('Search error' + ": " + e.message);
                     }
                     this.onError(e);
                 })
@@ -329,7 +327,7 @@ dojo.addOnLoad(function () {
         mapResults: function (j) {
             var socialInstance = this;
             if (j.error) {
-                console.log(this.i18n.error.general + ": " + j.error);
+                console.log('Search error' + ": " + j.error);
                 this.onError(j.error);
                 return;
             }

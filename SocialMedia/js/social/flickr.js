@@ -1,4 +1,3 @@
-dojo.requireLocalization("esriTemplate", "flickr");
 dojo.provide("social.flickr");
 dojo.addOnLoad(function () {
     dojo.declare("social.flickr", null, {
@@ -7,7 +6,6 @@ dojo.addOnLoad(function () {
             constructor: "manual"
         },
         constructor: function (options) {
-            this.i18n = dojo.i18n.getLocalization("esriTemplate", "flickr");
             var socialInstance = this;
             this.options = {
                 autopage: true,
@@ -27,7 +25,7 @@ dojo.addOnLoad(function () {
             };
             dojo.safeMixin(this.options, options);
             if (this.options.map === null) {
-                throw this.i18n.error.reference;
+                throw 'Reference to esri.Map object required';
             }
             if (location.protocol === "https:") {
                 this.baseurl = "http://api.flickr.com/services/rest/";
@@ -297,9 +295,9 @@ dojo.addOnLoad(function () {
                 }),
                 error: dojo.hitch(this, function (e) {
                     if (deferred.canceled) {
-                        console.log(this.i18n.error.cancelled);
+                        console.log('Search Cancelled');
                     } else {
-                        console.log(this.i18n.error.general + ": " + e.message);
+                        console.log('Search error' + ": " + e.message);
                     }
                     this.onError(e);
                 })
