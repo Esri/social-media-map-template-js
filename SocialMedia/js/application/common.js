@@ -439,19 +439,19 @@ function setExtentValues() {
 function updateRightMenuOffset(button, menu) {
     var buttonObj = dojo.query(button)[0];
     var menuObj = dojo.query(menu)[0];
+    var position;
     if (buttonObj && menuObj) {
         var offset = dojo.position(buttonObj);
         var vs = dojo.window.getBox();
         if (offset) {
             if(configOptions.isRightToLeft){
-                console.log('bleh');
-                var position = offset.x;
+                position = offset.x;
                 dojo.style(menuObj, {
                     "left": position + 'px'
                 });
             }
             else{
-                var position = vs.w - (offset.x + offset.w);
+                position = vs.w - (offset.x + offset.w);
                 dojo.style(menuObj, {
                     "right": position + 'px'
                 });
@@ -465,16 +465,17 @@ function updateLeftMenuOffset(button, menu) {
     var btn = dojo.query(button)[0];
     var mnu = dojo.query(menu)[0];
     var vs = dojo.window.getBox();
+    var leftOffset;
     if (btn && mnu) {
         var offset = dojo.position(btn);
         if(configOptions.isRightToLeft){
-            var leftOffset = vs.w - (offset.x + offset.w);
+            leftOffset = vs.w - (offset.x + offset.w);
             dojo.style(mnu, {
                 "right": leftOffset + 'px'
             });
         }
         else{
-            var leftOffset = offset.x;
+            leftOffset = offset.x;
             dojo.style(mnu, {
                 "left": leftOffset + 'px'
             });

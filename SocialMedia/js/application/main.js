@@ -759,7 +759,7 @@ function webmapReturned(response) {
     // start extent
     setExtentValues();
     // if local impact
-    if(typeof initLocalImpact == 'function' && configOptions.localImpact && configOptions.localImpact.enabled) {
+    if(typeof initLocalImpact === 'function' && configOptions.localImpact && configOptions.localImpact.enabled) {
         initLocalImpact();
     }
 }
