@@ -343,19 +343,21 @@ function createBMGallery() {
         basemapsGroup: basemapGroup,
         map: map
     }, dojo.create("div"));
-    // start it up
-    configOptions.bmDijit.startup();
     // on error
     dojo.connect(configOptions.bmDijit, "onError", function (msg) {
         console.log(msg);
     });
     // on change
-    dojo.connect(configOptions.bmDijit, "onSelectionChange", baseMapChanged);
+    dojo.connect(configOptions.bmDijit, "onSelectionChange", function(){
+		baseMapChanged();
+	});
     // on initial load
     dojo.connect(configOptions.bmDijit, "onLoad", function () {
         dojo.query('#map').removeClass('mapLoading');
         selectCurrentBasemap();
     });
+	// start it up
+    configOptions.bmDijit.startup();
 }
 
 // Gets current basemap ID by its title
@@ -404,10 +406,13 @@ function selectCurrentBasemap() {
 function baseMapChanged() {
     // get currently selected basemap
     var basemap = configOptions.bmDijit.getSelected();
-    // update global
-    configOptions.basemap = basemap.itemId;
-    // set sharing links and embed code
+	if(basemap && basemap.itemId){
+		// update global
+		configOptions.basemap = basemap.itemId;
+	}
+	// set sharing links and embed code
     setSharing();
+	hideAllMenus();
 }
 
 // Show spinner on object
