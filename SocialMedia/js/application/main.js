@@ -620,7 +620,10 @@ function createCustomSlider() {
         node.innerHTML = html;
     }
     dojo.connect(map, "onZoomEnd", function (evt) {
-        configOptions.mapZoomBar.set("value", map.getLevel());
+		var level = map.getLevel();
+		if(level !== -1 && configOptions.mapZoomBar){
+			configOptions.mapZoomBar.set("value", level);
+		}
     });
     setTimeout(function () {
         var sliderMax;
@@ -631,22 +634,24 @@ function createCustomSlider() {
         if (map._params && map._params.lods) {
             sliderMax = map._params.lods.length - 1;
         }
-        configOptions.mapZoomBar = new dijit.form.VerticalSlider({
-            name: "slider",
-            showButtons: true,
-            value: mapLevel,
-            minimum: 0,
-            maximum: sliderMax,
-            discreteValues: sliderMax,
-            style: 'height:130px;',
-            intermediateChanges: true,
-            onChange: function (value) {
-                var level = parseInt(value, 10);
-                if (map.getLevel() !== level) {
-                    map.setLevel(level);
-                }
-            }
-        }, "customZoom");
+		if(typeof sliderMax !== 'undefined' && typeof mapLevel !== 'undefined' ){
+			configOptions.mapZoomBar = new dijit.form.VerticalSlider({
+				name: "slider",
+				showButtons: true,
+				value: mapLevel,
+				minimum: 0,
+				maximum: sliderMax,
+				discreteValues: sliderMax,
+				style: 'height:130px;',
+				intermediateChanges: true,
+				onChange: function (value) {
+					var level = parseInt(value, 10);
+					if (map.getLevel() !== level) {
+						map.setLevel(level);
+					}
+				}
+			}, "customZoom");
+		}
     }, 500);
 }
 
