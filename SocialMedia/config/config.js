@@ -1,4 +1,4 @@
-{
+var configOptions = {
    "appid":"",
    "webmap":"4ff792a3962547caad2d924413c40985",
    "socialDisplay":"point",
@@ -23,7 +23,7 @@
    //"showUshahidi":true,
    //"showUshahidiConfig":true,
    //"ushahidiChecked":true,
-   //"ushahidiUrl":"https://fairfaxcountysandy.crowdmap.com/api",
+   //"ushahidiUrl":"https://hpsandy.crowdmap.com/api",
    "useArcGISOnlineBasemaps":true,
    "basemapGroupTitle":"Community Basemaps",
    "basemapGroupOwner":"esri",
@@ -50,4 +50,4 @@
    "locateName":"",
    "locatePoint":"",
    "sourceCountry":"USA"
-}
+};

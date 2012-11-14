@@ -661,7 +661,10 @@ function configureAppTitle() {
     var node = dojo.byId('mapTitle');
     if (node) {
         node.innerHTML = configOptions.itemInfo.item.title;
+        dojo.query(node).attr('title', configOptions.itemInfo.item.title);
     }
+    dojo.query('meta[name="Description"]').attr('content', configOptions.itemInfo.item.snippet);
+    dojo.query('meta[property="og:image"]').attr('content', configOptions.sharingurl + '/' + configOptions.itemInfo.item.id + '/info/' + configOptions.itemInfo.item.thumbnail);
 }
 
 function extentReady() {
@@ -830,21 +833,7 @@ function init() {
 dojo.addOnLoad(function () {
     // set localization
     i18n = dojo.i18n.getLocalization("esriTemplate", "template");
-    var requestHandle = esri.request({
-        url: 'config/config.js',
-        callbackParamName: "callback",
-        // on load
-        load: function (data) {
-            // set plugin.configOptions to default config
-            configOptions = data;
-            // set options
-            setConfigOptions();
-            // dojo ready
-            setAppIdSettings(init);
-        },
-        // on error
-        error: function (response) {
-            alertDialog(i18n.viewer.errors.general + ': ' + response);
-        }
-    });
+    setConfigOptions();
+    // dojo ready
+    setAppIdSettings(init);
 });

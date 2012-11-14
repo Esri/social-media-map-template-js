@@ -268,12 +268,13 @@ dojo.addOnLoad(function () {
             var radius = this.getRadius();
             this.query = {
                 task: 'incidents',
-                by: 'bounds',
+                //by: 'bounds',
+                by: 'sinceid',
                 c: '',
                 sort: 0,
                 id: 0,
-                sw: radius.minPoint.x + ',' + radius.minPoint.y,
-                ne: radius.maxPoint.x + ',' + radius.maxPoint.y,
+                //sw: radius.minPoint.x + ',' + radius.minPoint.y,
+                //ne: radius.maxPoint.x + ',' + radius.maxPoint.y,
                 resp: 'jsonp',
                 limit: this.options.limit,
                 orderfield: 'incidentid'
@@ -294,7 +295,6 @@ dojo.addOnLoad(function () {
                 handle: dojo.hitch(this, function (e, obj) {
                     var data = obj.json.payload;
                     var error = e;
-                    console.log(data);
                     if (parseInt(error.code, 10) === 0) {
                         if (data.incidents.length > 0) {
                             this.mapResults(data);
