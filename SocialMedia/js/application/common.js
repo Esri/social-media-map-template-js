@@ -347,14 +347,16 @@ function createBMGallery() {
     dojo.connect(configOptions.bmDijit, "onError", function (msg) {
         console.log(msg);
     });
-    // on change
-    dojo.connect(configOptions.bmDijit, "onSelectionChange", function(){
-		baseMapChanged();
-	});
     // on initial load
     dojo.connect(configOptions.bmDijit, "onLoad", function () {
         dojo.query('#map').removeClass('mapLoading');
         selectCurrentBasemap();
+        setTimeout(function(){
+            // on change
+            dojo.connect(configOptions.bmDijit, "onSelectionChange", function(){
+        		baseMapChanged();
+        	});
+        }, 1000);
     });
 	// start it up
     configOptions.bmDijit.startup();
