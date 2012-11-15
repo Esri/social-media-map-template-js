@@ -3,8 +3,8 @@ function createPlacesListItem(i) {
     // default vars //
     var html = '';
     // list html
-    html += '<li data-index="' + i + '" class="layer sharedItem">';
-    html += '<span tabindex="0" class="placesIcon placesClick"></span><span class="title placesClick">' + configOptions.bookmarks[i].name.replace(/[\-_]/g, " ") + '</span>';
+    html += '<li data-index="' + i + '" class="layer sharedItem placesClick">';
+    html += configOptions.bookmarks[i].name.replace(/[\-_]/g, " ");
     html += '</li>';
     // insert list item
     var node = dojo.byId('placesList');
@@ -42,7 +42,7 @@ function placesOnClick() {
     // places click
     dojo.query(document).delegate("#placesList .placesClick", "onclick,keyup", function (event) {
         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-            objIndex = dojo.query(this).parent().attr('data-index');
+            objIndex = dojo.query(this).attr('data-index');
             if (objIndex !== -1) {
                 // create extent
                 var newExtent = new esri.geometry.Extent(configOptions.bookmarks[objIndex].extent);

@@ -49,5 +49,8 @@ var configOptions = {
    "showAboutDialogOnLoad":false,
    "locateName":"",
    "locatePoint":"",
+   "inappSvcURL":"http://services.arcgis.com/QJfoC7c7Z2icolha/ArcGIS/rest/services/fai/FeatureServer/2",
+   "badWordsURL":"http://tm2-elb-1378978824.us-east-1.elb.amazonaws.com/ArcGIS/rest/services/SharedTools/Filter/MapServer/1",
+   "mailServer":"http://tmappsevents.esri.com/Website/pim_fai/fai.php",
    "sourceCountry":"USA"
 };

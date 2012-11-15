@@ -1536,63 +1536,27 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 /* Places */
 /*-------------------------------------------------- */
 .placesMenuIcon {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -64px 0px;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -176px -16px;
 }
 
 #placesMenu {
     width: 250px;
 }
 
-#placesMenu #shareAddCon {
-    display: none;
-}
-
-#placesMenu .title {
-    display: inline-block;
-    max-width: 208px;
-    width: 208px;
-    overflow: hidden;
-    vertical-align: middle;
+#placesMenu .sharedItem{
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
 }
 
-#placesMenu .placesIcon {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-right: 6px;
-    vertical-align: text-bottom;
-}
-
-.esriRtl #placesMenu .placesIcon {
-    margin-right: 0;
-    margin-left: 6px;
-}
-
-#placesMenu .placesIcon:hover, #placesMenu .placesIcon:focus {
-    opacity: 0.75;
-}
-
-#placesMenu .sharedItem .placesIcon {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -64px 0px;
-}
-
-#placesMenu .placesClick {
-    cursor: pointer;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-#placesMenu li .placesIcon:hover, #placesMenu li .placesIcon:focus {
-    opacity: 0.75;
-}
-
-#placesMenu li .title:hover, #placesMenu li .title:focus {
-    opacity: 0.75;
+#placesMenu .sharedItem:hover{
+    color: #fff;
+    background-color: #007ac2;
 }
 /*-------------------------------------------------- */
 /*  About */
