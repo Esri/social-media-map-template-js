@@ -827,6 +827,13 @@ function init() {
     addSlideMenus();
     // Create Map
     createWebMap();
+    // filtering
+    if(typeof createSMFBadWords === 'function') {
+         createSMFBadWords();
+    }
+    if(typeof createSMFOffensive === 'function') {
+        createSMFOffensive();
+    }
 }
 
 // On load of libraries

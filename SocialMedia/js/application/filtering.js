@@ -1,137 +1,105 @@
-/*------------------------------------*/
-// SHOW SMFAI RESULTS
-/*------------------------------------*/
-
 function showSMFAIResults(featureSet) {
-    if(featureSet && featureSet.features) {
-        dojo.forEach(featureSet.features, function (feature, index) {
+    if (featureSet && featureSet.features) {
+        dojo.forEach(featureSet.features, function(feature, index) {
             var featureObj = {
-            	id: index,
+                id: index,
                 type: feature.attributes.type,
                 author: feature.attributes.author
             };
-            var dontAdd = SMFAI_LUT.get(featureObj);
-            if(!dontAdd) {
-                SMFAI_LUT.add(featureObj);
-            }
-            else {
-                console.log('duplicate');
+            var dontAdd = configOptions.bannedUsers.get(featureObj);
+            if (!dontAdd) {
+                configOptions.bannedUsers.add(featureObj);
             }
         });
     }
 }
-/*------------------------------------*/
-// GET SM LOOKUP
-/*------------------------------------*/
 
-function getSMLookup() {
-    if(userConfig.inappSvcURL && SMFAIQuery) {
-        SMFAIQueryTask.execute(SMFAIQuery, function (fset) {
+function replaceFlag() {
+    var node = dojo.byId('inFlag');
+    if (node) {
+        node.innerHTML = '<span id="inFlagComplete"><span class="LoadingComplete"></span>Content flagged</span>';
+    }
+}
+
+function replaceFlagError() {
+    var node = dojo.byId('inFlag');
+    if (node) {
+        node.innerHTML = 'Error flagging content.';
+    }
+}
+
+function ReportInapp() {
+    if (configOptions.proxyURL && configOptions.bannedUsersService && configOptions.flagMailServer) {
+        var requestHandle = esri.request({
+            url: configOptions.flagMailServer,
+            content: {
+                "op": "send",
+                "auth": "esriadmin",
+                "author": inappFeat.attributes.author,
+                "appname": configOptions.appName,
+                "type": inappFeat.attributes.type,
+                "content": inappFeat.attributes.content
+            },
+            handleAs: 'json',
+            callbackParamName: 'callback',
+            // on load
+            load: function() {
+                replaceFlag();
+            },
+            error: function() {
+                replaceFlagError();
+            }
+        });
+    } else {
+        replaceFlagError();
+    }
+}
+
+function createSMFOffensive() {
+    if (configOptions.bannedUsersService) {
+        // offensive users data store
+        configOptions.bannedUsers = new dojo.store.Memory();
+        // offensive users task
+        configOptions.bannedUsersTask = new esri.tasks.QueryTask(configOptions.bannedUsersService);
+        // offensive users query
+        configOptions.bannedUsersQuery = new esri.tasks.Query();
+        configOptions.bannedUsersQuery.where = '1=1';
+        configOptions.bannedUsersQuery.returnCountOnly = false;
+        configOptions.bannedUsersQuery.returnIdsOnly = false;
+        configOptions.bannedUsersQuery.outFields = ["*"];
+        configOptions.bannedUsersTask.execute(configOptions.bannedUsersQuery, function(fset) {
             showSMFAIResults(fset);
         });
     }
 }
-/*------------------------------------*/
-// Send Report Email Notification
-/*------------------------------------*/
-
-function sendReportEmail() {
-    //clear any existing timer
-    clearTimeout(emailTimer);
-    // pop open email after delay for apply edits
-    emailTimer = setTimeout(function () {
-        if(mailString) {
-            window.location.href = mailString;
-        }
-    }, 500);
-}
-/*------------------------------------*/
-// Replace Flag
-/*------------------------------------*/
-
-function replaceFlag() {
-    $('#inFlag').html('<span id="inFlagComplete"><span class="LoadingComplete"></span>Content flagged</span>');
-}
-/*------------------------------------*/
-// REPORT IN APP
-/*------------------------------------*/
-
-function ReportInapp() {
-    if(userConfig.proxyURL && userConfig.inappSvcURL && userConfig.mailServer) {
-        $.ajax({
-            url: userConfig.mailServer,
-            data: {
-                "op": "send",
-                "auth": "esriadmin",
-                "author": inappFeat.attributes.author,
-                "appname": userConfig.appName,
-                "type": inappFeat.attributes.type,
-                "content": inappFeat.attributes.content
-            },
-            dataType: 'jsonp',
-            success: function (result, textStatus, jqXHR) {
-                replaceFlag();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                sendReportEmail();
-                replaceFlag();
-            }
-        });
-    }
-    else {
-        replaceFlag();
-        sendReportEmail();
-    }
-}
-
-
-/*------------------------------------*/
-// create the offensive users filter
-/*------------------------------------*/
-
-function createSMFOffensive() {
-    // offensive users data store
-    SMFAI_LUT = new dojo.store.Memory();
-    if(userConfig.inappSvcURL) {
-        // offensive users task
-        SMFAIQueryTask = new esri.tasks.QueryTask(userConfig.inappSvcURL);
-        // offensive users query
-        SMFAIQuery = new esri.tasks.Query();
-        SMFAIQuery.where = '1=1';
-        SMFAIQuery.returnCountOnly = false;
-        SMFAIQuery.returnIdsOnly = false;
-        SMFAIQuery.outFields = ["*"];
-    }
-}
-/*------------------------------------*/
-// Bad words list
-/*------------------------------------*/
 
 function createSMFBadWords() {
-    // BAD WORDS LIST
-    badWordsList = [];
-    if(userConfig.badWordsURL) {
-        // Bad Words Task
-        badWordsTask = new esri.tasks.QueryTask(userConfig.badWordsURL);
-        // Bad Words Query
-        badWordsQuery = new esri.tasks.Query();
-        badWordsQuery.where = '1=1';
-        badWordsQuery.returnGeometry = false;
-        badWordsQuery.outFields = ["word"];
-        badWordsTask.execute(badWordsQuery, function (fset) {
-            for(i = 0; i < fset.features.length; i++) {
-                badWordsList.push(fset.features[i].attributes.word);
+    configOptions.bannedWords = [];
+    if (configOptions.bannedWordsService) {
+        configOptions.bannedWordsTask = new esri.tasks.QueryTask(configOptions.bannedWordsService);
+        configOptions.bannedWordsQuery = new esri.tasks.Query();
+        configOptions.bannedWordsQuery.where = '1=1';
+        configOptions.bannedWordsQuery.returnGeometry = false;
+        configOptions.bannedWordsQuery.outFields = ["word"];
+        configOptions.bannedWordsTask.execute(configOptions.bannedWordsQuery, function(fset) {
+            for (i = 0; i < fset.features.length; i++) {
+                configOptions.bannedWords.push(fset.features[i].attributes.word);
             }
         });
     }
 }
 
+if (configOptions.bannedUsersService) {
+    dojo.require("dojo.store.Memory");
+}
 
-/*------------------------------------*/
-    // INAPPROPRIATE ONCLICK
-    /*------------------------------------*/
-    $(document).on('click', '#reportItem', function (event) {
-    	$('#inFlag').html('<span id="reportLoading"></span> Reporting&hellip;');
-    	showLoading('reportLoading');
-        ReportInapp();
+dojo.addOnLoad(function() {
+    dojo.query(document).delegate(dojo.byId('reportItem'), 'click', function(event) {
+        var node = dojo.byId('inFlag');
+        if (node) {
+            node.innerHTML = '<span id="reportLoading"></span> Reporting&hellip;';
+            showLoading('reportLoading');
+            ReportInapp();
+        }
     });
+});

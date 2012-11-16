@@ -353,7 +353,7 @@
       "showAboutDialog":true,
       "showAboutDialogOnLoad":false,
       "socialDisplay":"point",
-      "showDisplaySwitch": true,
+      "showDisplaySwitch":true,
       "showFlickr":true,
       "showFlickrConfig":true,
       "flickrChecked":true,
