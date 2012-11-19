@@ -94,12 +94,14 @@ if (configOptions.bannedUsersService) {
 }
 
 dojo.addOnLoad(function() {
-    dojo.query(document).delegate(dojo.byId('reportItem'), 'click', function(event) {
-        var node = dojo.byId('inFlag');
-        if (node) {
-            node.innerHTML = '<span id="reportLoading"></span> Reporting&hellip;';
-            showLoading('reportLoading');
-            ReportInapp();
-        }
-    });
+    if (configOptions.bannedUsersService) {
+        dojo.query(document).delegate(dojo.query('#reportItem'), 'click', function(event) {
+            var node = dojo.byId('inFlag');
+            if (node) {
+                node.innerHTML = '<span id="reportLoading"></span> Reporting&hellip;';
+                showLoading('reportLoading');
+                ReportInapp();
+            }
+        });
+    }
 });

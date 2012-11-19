@@ -403,7 +403,7 @@ dojo.addOnLoad(function () {
                 }
                 if (geoPoint) {
                     // last check to make sure we parsed it right
-                    if (isNaN(geoPoint.x) || isNaN(geoPoint.y)) {
+                    if (isNaN(geoPoint.x) || isNaN(geoPoint.y) || (parseInt(geoPoint.x, 10) === 0 && parseInt(geoPoint.y, 10) === 0)) {
                         //discard bad geopoints
                         this.stats.noGeo++;
                     } else {

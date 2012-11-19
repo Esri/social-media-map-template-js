@@ -551,10 +551,12 @@ function configureAboutText() {
         html += '<div class="desc">' + configOptions.itemInfo.item.description + '</div>';
         html += '<div class="clear"></div>';
         // see if not just empty HTML tags
-        var result = configOptions.itemInfo.item.licenseInfo.replace(/(<([^>]+)>)/ig, "");
-        if (configOptions.itemInfo.item.licenseInfo && result) {
-            html += '<h3>' + i18n.viewer.about.access + '</h3>';
-            html += '<div class="license">' + configOptions.itemInfo.item.licenseInfo + '</div>';
+        if(configOptions.itemInfo.item.licenseInfo){
+            var result = configOptions.itemInfo.item.licenseInfo.replace(/(<([^>]+)>)/ig, "");
+            if (configOptions.itemInfo.item.licenseInfo && result) {
+                html += '<h3>' + i18n.viewer.about.access + '</h3>';
+                html += '<div class="license">' + configOptions.itemInfo.item.licenseInfo + '</div>';
+            }
         }
         html += '</div>';
         if (node) {
@@ -568,7 +570,8 @@ function configureAboutText() {
             }
         });
         var props = {
-            style: "width:450px;",
+            //style: "width:550px;",
+            style: "width:52%; max-width:725px; min-width:400px;",
             draggable: true,
             modal: false,
             showTitle: true,
@@ -584,9 +587,11 @@ function configureAboutText() {
         }
         dojo.connect(configOptions.aboutDialog, 'onHide', function(){
             var buttons = dojo.query('#mapcon .barButton');
-            buttons.removeClass('barSelected');
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].blur();
+            if(buttons && buttons.length > 0){
+                buttons.removeClass('barSelected');
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].blur();
+                }
             }
         });
     }
