@@ -215,21 +215,7 @@ function configureEmbed() {
 dojo.addOnLoad(function () {
     // set localization
     i18n = dojo.i18n.getLocalization("esriTemplate", "template");
-    var requestHandle = esri.request({
-        url: 'config/config.js',
-        callbackParamName: "callback",
-        // on load
-        load: function (data) {
-            // set plugin.configOptions to default config
-            configOptions = data;
-            // set options
-            setConfigOptions();
-            // dojo ready
-            setAppIdSettings(configureEmbed);
-        },
-        // on error
-        error: function (response) {
-            alertDialog(i18n.viewer.errors.general + ': ' + response);
-        }
-    });
+    setConfigOptions();
+    // dojo ready
+    setAppIdSettings(configureEmbed);
 });
