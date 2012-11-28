@@ -4,7 +4,7 @@ The Social Media Template has an innovative use of social media, which allows yo
 
 [View it live](http://www.arcgis.com/apps/SocialMedia/index.html)
 
-![App](https://raw.github.com/Esri/social-media-map-template-js/master/resources/item.png) 
+![App](https://raw.github.com/Esri/social-media-map-template-js/master/resources/item.png)
 
 ## Features
 Users have the ability to view social data from Twitter, YouTube, and Flickr. Social media points are rendered client-side using clustering or displayed as a heat map. Mapping social data provides insight into what people are saying and where they are saying it. By adding social intelligence to the map and by analyzing the conversations, you can see the most engaging posts to get a better understanding of how an event spreads.
@@ -48,7 +48,7 @@ Find a bug or want to request a new feature?  Please let us know by submitting a
 
 ## Contributing
 
-Anyone and everyone is welcome to contribute. 
+Anyone and everyone is welcome to contribute.
 
 ## Licensing
 Copyright 2012 Esri
@@ -65,4 +65,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-A copy of the license is available in the repository's [license.txt](https://raw.github.com/Esri/switch-basemaps-js/master/license.txt) file.
+A copy of the license is available in the repository's [license.txt](https://raw.github.com/Esri/social-media-map-template-js/master/license.txt) file.
