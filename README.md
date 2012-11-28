@@ -1,4 +1,4 @@
-# socialmedia-map-template-js
+# social-media-map-template-js
 
 The Social Media Template has an innovative use of social media, which allows you to display up-to-date, keyword-targeted social media points on a map. [more info](http://www.arcgis.com/home/item.html?id=18230986538047b4b761715f0b5dd913).
 
@@ -24,8 +24,9 @@ The search radius is determined by the current radius up to the maximum radius t
 ## Instructions
 
 1. Download and unzip the .zip file or clone the repo.
-2. Web-enable the directory or copy/paste the source to your own .html file.
+2. Web-enable the directory.
 3. Access the .html page.
+4. See the readme.html page for configuration options.
 
  [New to Github? Get started here.](https://github.com/)
 
