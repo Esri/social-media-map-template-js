@@ -155,6 +155,9 @@ function getSmPopupTitle() {
 function overridePopupTitle() {
     hideAllMenus();
     configOptions.customPopup.setTitle(getSmPopupTitle());
+    if(typeof addReportInAppButton === 'function') {
+        addReportInAppButton();
+    }
 }
 
 // update social layers

@@ -14,6 +14,18 @@ function showSMFAIResults(featureSet) {
     }
 }
 
+function addReportInAppButton() {
+    if (configOptions.bannedUsersService) {
+        removeReportInAppButton();
+        var html = '<span id="inFlag"><a id="reportItem">Flag as inappropriate</a></span>';
+        dojo.place(html, dojo.query('.esriPopup .actionList')[0], 'last');
+    }
+}
+
+function removeReportInAppButton() {
+    dojo.query('#inFlag').orphan();
+}
+
 function replaceFlag() {
     var node = dojo.byId('inFlag');
     if (node) {
