@@ -327,6 +327,9 @@ dojo.addOnLoad(function () {
             var k = j.photos.photo;
             dojo.forEach(k, dojo.hitch(this, function (result) {
                 result.smType = this.options.id;
+                result.filterType = 4;
+                result.filterContent = 'http://www.flickr.com/photos/' + result.owner + '/' + result.id + '/in/photostream';
+                result.filterAuthor = result.owner;
                 // eliminate geo photos which we already have on the map
                 if (this.geocoded_ids[result.id]) {
                     return;

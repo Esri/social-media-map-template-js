@@ -351,6 +351,9 @@ dojo.addOnLoad(function () {
             var k = j.results;
             dojo.forEach(k, dojo.hitch(this, function (result) {
                 result.smType = this.options.id;
+                result.filterType = 2;
+                result.filterContent = 'https://twitter.com/#!/' + result.from_user_id_str + '/status/' + result.id_str;
+                result.filterAuthor = result.from_user;
                 // eliminate Tweets which we have on the map
                 if (this.geocoded_ids[result.id]) {
                     return;

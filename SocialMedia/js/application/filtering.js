@@ -19,6 +19,14 @@ function addReportInAppButton() {
         removeReportInAppButton();
         var html = '<span id="inFlag"><a id="reportItem">Flag as inappropriate</a></span>';
         dojo.place(html, dojo.query('.esriPopup .actionList')[0], 'last');
+        configOptions.flagConnect = dojo.connect(dojo.byId('reportItem'), 'onclick', function(event) {
+            var node = dojo.byId('inFlag');
+            if (node) {
+                node.innerHTML = '<span id="reportLoading"></span> Reporting&hellip;';
+                showLoading('reportLoading');
+                ReportInapp();
+            }
+        });
     }
 }
 
@@ -34,6 +42,7 @@ function replaceFlag() {
 }
 
 function replaceFlagError() {
+    console.log('bleh');
     var node = dojo.byId('inFlag');
     if (node) {
         node.innerHTML = 'Error flagging content.';
@@ -41,16 +50,16 @@ function replaceFlagError() {
 }
 
 function ReportInapp() {
-    if (configOptions.proxyURL && configOptions.bannedUsersService && configOptions.flagMailServer) {
+    if (configOptions.bannedUsersService && configOptions.flagMailServer) {
         var requestHandle = esri.request({
             url: configOptions.flagMailServer,
             content: {
                 "op": "send",
                 "auth": "esriadmin",
-                "author": inappFeat.attributes.author,
-                "appname": configOptions.appName,
-                "type": inappFeat.attributes.type,
-                "content": inappFeat.attributes.content
+                "author": configOptions.activeFeature.attributes.filterAuthor,
+                "appname": configOptions.itemInfo.item.title,
+                "type": configOptions.activeFeature.attributes.filterType,
+                "content": configOptions.activeFeature.attributes.filterContent
             },
             handleAs: 'json',
             callbackParamName: 'callback',
@@ -104,16 +113,3 @@ function createSMFBadWords() {
 if (configOptions.bannedUsersService) {
     dojo.require("dojo.store.Memory");
 }
-
-dojo.addOnLoad(function() {
-    if (configOptions.bannedUsersService) {
-        dojo.query(document).delegate(dojo.query('#reportItem'), 'click', function(event) {
-            var node = dojo.byId('inFlag');
-            if (node) {
-                node.innerHTML = '<span id="reportLoading"></span> Reporting&hellip;';
-                showLoading('reportLoading');
-                ReportInapp();
-            }
-        });
-    }
-});

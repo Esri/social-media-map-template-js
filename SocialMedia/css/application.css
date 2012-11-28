@@ -1532,6 +1532,17 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     margin-right: 5px;
 }
 
+#reportLoading{
+    width: 16px;
+    height: 16px;
+    vertical-align: bottom;
+    margin:0 2px 0 0;
+}
+
+.esriRtl #reportLoading{
+    margin:0 0 0 2px;
+}
+
 /*-------------------------------------------------- */
 /* Places */
 /*-------------------------------------------------- */

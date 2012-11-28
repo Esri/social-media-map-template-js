@@ -148,6 +148,7 @@ function getSmPopupTitle() {
             }
         }
     }
+    configOptions.activeFeature = graphic;
     return socialString + pagString;
 }
 

@@ -335,6 +335,9 @@ dojo.addOnLoad(function () {
             var k = j.feed.entry;
             dojo.forEach(k, dojo.hitch(this, function (result) {
                 result.smType = this.options.id;
+                result.filterType = 3;
+                result.filterContent = result.link[0].href;
+                result.filterAuthor = result.author[0].name.$t;
                 // eliminate video ids which we already have on the map
                 if (this.geocoded_ids[result.id.$t]) {
                     return;
