@@ -1,3 +1,7 @@
+if (configOptions.bannedUsersService) {
+    dojo.require("dojo.store.Memory");
+}
+
 function showSMFAIResults(featureSet) {
     if (featureSet && featureSet.features) {
         dojo.forEach(featureSet.features, function(feature, index) {
@@ -90,6 +94,30 @@ function createSMFOffensive() {
         configOptions.bannedUsersQuery.outFields = ["*"];
         configOptions.bannedUsersTask.execute(configOptions.bannedUsersQuery, function(fset) {
             showSMFAIResults(fset);
+            // Banned twitter users
+            configOptions.bannedTwitter = [];
+            var twitterQuery = configOptions.bannedUsers.query({
+                type: 2
+            });
+            for(var i = 0; i < twitterQuery.length; i++){
+                configOptions.bannedTwitter.push(twitterQuery[i].author);
+            }
+            // Banned flickr users
+            configOptions.bannedFlickr = [];
+            var flickrQuery = configOptions.bannedUsers.query({
+                type: 4
+            });
+            for(var i = 0; i < flickrQuery.length; i++){
+                configOptions.bannedFlickr.push(flickrQuery[i].author);
+            }
+            // Banned youtube users
+            configOptions.bannedYoutube = [];
+            var youtubeQuery = configOptions.bannedUsers.query({
+                type: 3
+            });
+            for(var i = 0; i < youtubeQuery.length; i++){
+                configOptions.bannedYoutube.push(youtubeQuery[i].author);
+            }
         });
     }
 }
@@ -108,8 +136,4 @@ function createSMFBadWords() {
             }
         });
     }
-}
-
-if (configOptions.bannedUsersService) {
-    dojo.require("dojo.store.Memory");
 }
