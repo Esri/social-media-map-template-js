@@ -1,23 +1,3 @@
-if (configOptions.bannedUsersService) {
-    dojo.require("dojo.store.Memory");
-}
-
-function showSMFAIResults(featureSet) {
-    if (featureSet && featureSet.features) {
-        dojo.forEach(featureSet.features, function(feature, index) {
-            var featureObj = {
-                id: index,
-                type: feature.attributes.type,
-                author: feature.attributes.author
-            };
-            var dontAdd = configOptions.bannedUsers.get(featureObj);
-            if (!dontAdd) {
-                configOptions.bannedUsers.add(featureObj);
-            }
-        });
-    }
-}
-
 function addReportInAppButton() {
     if (configOptions.bannedUsersService) {
         removeReportInAppButton();
@@ -82,8 +62,6 @@ function ReportInapp() {
 
 function createSMFOffensive() {
     if (configOptions.bannedUsersService) {
-        // offensive users data store
-        configOptions.bannedUsers = new dojo.store.Memory();
         // offensive users task
         configOptions.bannedUsersTask = new esri.tasks.QueryTask(configOptions.bannedUsersService);
         // offensive users query
@@ -91,39 +69,43 @@ function createSMFOffensive() {
         configOptions.bannedUsersQuery.where = '1=1';
         configOptions.bannedUsersQuery.returnCountOnly = false;
         configOptions.bannedUsersQuery.returnIdsOnly = false;
-        configOptions.bannedUsersQuery.outFields = ["*"];
+        configOptions.bannedUsersQuery.outFields = ["type", "author"];
         configOptions.bannedUsersTask.execute(configOptions.bannedUsersQuery, function(fset) {
-            showSMFAIResults(fset);
             // Banned twitter users
-            configOptions.bannedTwitter = [];
-            var twitterQuery = configOptions.bannedUsers.query({
-                type: 2
-            });
-            for(var i = 0; i < twitterQuery.length; i++){
-                configOptions.bannedTwitter.push(twitterQuery[i].author);
+            if (!configOptions.filterTwitterUsers) {
+                configOptions.filterTwitterUsers = [];
             }
             // Banned flickr users
-            configOptions.bannedFlickr = [];
-            var flickrQuery = configOptions.bannedUsers.query({
-                type: 4
-            });
-            for(var i = 0; i < flickrQuery.length; i++){
-                configOptions.bannedFlickr.push(flickrQuery[i].author);
+            if (!configOptions.filterFlickrUsers) {
+                configOptions.filterFlickrUsers = [];
             }
             // Banned youtube users
-            configOptions.bannedYoutube = [];
-            var youtubeQuery = configOptions.bannedUsers.query({
-                type: 3
-            });
-            for(var i = 0; i < youtubeQuery.length; i++){
-                configOptions.bannedYoutube.push(youtubeQuery[i].author);
+            if (!configOptions.filterYoutubeUsers) {
+                configOptions.filterYoutubeUsers = [];
+            }
+            // features
+            var features = fset.features;
+            // for each feature
+            for (var i = 0; i < features.length; i++) {
+                // add to twitter list
+                if (parseInt(features[i].attributes.type, 10) === 2) {
+                    configOptions.filterTwitterUsers.push(features[i].attributes.author);
+                }
+                // add to youtube list
+                else if (parseInt(features[i].attributes.type, 10) === 3) {
+                    configOptions.filterYoutubeUsers.push(features[i].attributes.author);
+                }
+                // add to flickr list
+                else if (parseInt(features[i].attributes.type, 10) === 4) {
+                    configOptions.filterFlickrUsers.push(features[i].attributes.author);
+                }
             }
         });
     }
 }
 
 function createSMFBadWords() {
-    configOptions.bannedWords = [];
+    configOptions.filterWords = [];
     if (configOptions.bannedWordsService) {
         configOptions.bannedWordsTask = new esri.tasks.QueryTask(configOptions.bannedWordsService);
         configOptions.bannedWordsQuery = new esri.tasks.Query();
@@ -132,7 +114,7 @@ function createSMFBadWords() {
         configOptions.bannedWordsQuery.outFields = ["word"];
         configOptions.bannedWordsTask.execute(configOptions.bannedWordsQuery, function(fset) {
             for (i = 0; i < fset.features.length; i++) {
-                configOptions.bannedWords.push(fset.features[i].attributes.word);
+                configOptions.filterWords.push(fset.features[i].attributes.word);
             }
         });
     }

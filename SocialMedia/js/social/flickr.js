@@ -8,6 +8,8 @@ dojo.addOnLoad(function () {
         constructor: function (options) {
             var socialInstance = this;
             this.options = {
+                filterUsers: [],
+                filterWords: [],
                 autopage: true,
                 maxpage: 6,
                 limit: 100,

@@ -8,6 +8,8 @@ dojo.addOnLoad(function () {
         constructor: function (options) {
             var socialInstance = this;
             this.options = {
+                filterUsers: [],
+                filterWords: [],
                 autopage: true,
                 maxpage: 6,
                 limit: 50,
@@ -337,7 +339,7 @@ dojo.addOnLoad(function () {
                 result.smType = this.options.id;
                 result.filterType = 3;
                 result.filterContent = result.link[0].href;
-                result.filterAuthor = result.author[0].name.$t;
+                result.filterAuthor = result.author[0].yt$userId.$t;
                 // eliminate video ids which we already have on the map
                 if (this.geocoded_ids[result.id.$t]) {
                     return;

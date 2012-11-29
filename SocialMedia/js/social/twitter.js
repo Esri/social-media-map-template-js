@@ -11,6 +11,8 @@ dojo.addOnLoad(function () {
             });
             var socialInstance = this;
             this.options = {
+                filterUsers: [],
+                filterWords: [],
                 autopage: true,
                 maxpage: 6,
                 limit: 100,
@@ -353,7 +355,7 @@ dojo.addOnLoad(function () {
                 result.smType = this.options.id;
                 result.filterType = 2;
                 result.filterContent = 'https://twitter.com/#!/' + result.from_user_id_str + '/status/' + result.id_str;
-                result.filterAuthor = result.from_user;
+                result.filterAuthor = result.from_user_id;
                 // eliminate Tweets which we have on the map
                 if (this.geocoded_ids[result.id]) {
                     return;

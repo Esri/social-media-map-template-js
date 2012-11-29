@@ -492,6 +492,8 @@ function configureSocialMedia() {
     if (configOptions.showFlickr) {
         var flickrLayer = new social.flickr({
             map: map,
+            filterUsers: configOptions.filterFlickrUsers,
+            filterWords: configOptions.filterWords,
             title: configOptions.flickrTitle,
             legendIcon: configOptions.flickrIcon,
             id: configOptions.flickrID,
@@ -687,6 +689,8 @@ function configureSocialMedia() {
     if (configOptions.showTwitter) {
         var twitterLayer = new social.twitter({
             map: map,
+            filterUsers: configOptions.filterTwitterUsers,
+            filterWords: configOptions.filterWords,
             title: configOptions.twitterTitle,
             legendIcon: configOptions.twitterIcon,
             id: configOptions.twitterID,
@@ -788,6 +792,8 @@ function configureSocialMedia() {
     if (configOptions.showYouTube) {
         var youtubeLayer = new social.youtube({
             map: map,
+            filterUsers: configOptions.filterYoutubeUsers,
+            filterWords: configOptions.filterWords,
             title: configOptions.youtubeTitle,
             legendIcon: configOptions.youtubeIcon,
             id: configOptions.youtubeID,
