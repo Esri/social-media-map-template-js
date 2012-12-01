@@ -40,7 +40,7 @@ define({
 				"close":"Close"
             },
 			"basemap": {
-				"menuTitle":"Select a basemap",
+				"menuTitle":"Select a basemap"
 			},
             "settings": {
             	"title":"Settings",

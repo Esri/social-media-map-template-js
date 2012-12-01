@@ -6,7 +6,7 @@ dojo.addOnLoad(function () {
             constructor: "manual"
         },
         constructor: function (options) {
-            var socialInstance = this;
+            var _self = this;
             this.options = {
                 autopage: false,
                 url: '',
@@ -55,10 +55,10 @@ dojo.addOnLoad(function () {
             };
             this.infoTemplate = new esri.InfoTemplate();
             this.infoTemplate.setTitle(function (graphic) {
-                return socialInstance.options.title;
+                return _self.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
-                return socialInstance.getWindowContent(graphic, socialInstance);
+                return _self.getWindowContent(graphic, _self);
             });
             this.featureLayer = new esri.layers.FeatureLayer(this.featureCollection, {
                 id: this.options.id,
@@ -214,14 +214,14 @@ dojo.addOnLoad(function () {
                 maxPoint: maxPoint
             };
         },
-        getWindowContent: function (graphic, socialInstance) {
+        getWindowContent: function (graphic, _self) {
             // FORMAT DATE
             var date = dojo.date.locale.parse(graphic.attributes.incident.incidentdate, {
                 selector: "date",
                 datePattern: "yyy-MM-dd HH:mm:ss"
             });
             // LINK THE LINKS
-            var linkedText = socialInstance.parseURL(graphic.attributes.incident.incidentdescription);
+            var linkedText = _self.parseURL(graphic.attributes.incident.incidentdescription);
             // CONTENT
             var content = '<div class="uhContent">';
             content += '<p><strong>' + graphic.attributes.incident.incidenttitle + '</strong></p>';
@@ -331,7 +331,7 @@ dojo.addOnLoad(function () {
             return 1; // found and removed
         },
         mapResults: function (j) {
-            var socialInstance = this;
+            var _self = this;
             var b = [];
             var k = j.incidents;
             dojo.forEach(k, dojo.hitch(this, function (result) {

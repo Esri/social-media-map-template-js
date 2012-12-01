@@ -6,7 +6,7 @@ dojo.addOnLoad(function () {
             constructor: "manual"
         },
         constructor: function (options) {
-            var socialInstance = this;
+            var _self = this;
             this.options = {
                 filterUsers: [],
                 filterWords: [],
@@ -106,10 +106,10 @@ dojo.addOnLoad(function () {
             };
             this.infoTemplate = new esri.InfoTemplate();
             this.infoTemplate.setTitle(function (graphic) {
-                return socialInstance.options.title;
+                return _self.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
-                return socialInstance.getWindowContent(graphic, socialInstance);
+                return _self.getWindowContent(graphic, _self);
             });
             this.featureLayer = new esri.layers.FeatureLayer(this.featureCollection, {
                 id: this.options.id,
@@ -226,14 +226,14 @@ dojo.addOnLoad(function () {
                 units: "mi"
             };
         },
-        getWindowContent: function (graphic, socialInstance) {
+        getWindowContent: function (graphic, _self) {
             var mdy = graphic.attributes.published.$t.substring(0, 10);
             var time = graphic.attributes.published.$t.substring(11, 19);
             var date = dojo.date.locale.parse(mdy + '-' + time, {
                 selector: "date",
                 datePattern: "y-M-d-H:m:s"
             });
-            var linkedText = socialInstance.parseURL(graphic.attributes.media$group.media$description.$t);
+            var linkedText = _self.parseURL(graphic.attributes.media$group.media$description.$t);
             var videoWidth = 250;
             var videoHeight = 188;
             if (graphic.attributes.media$group.yt$aspectRatio) {
@@ -326,8 +326,21 @@ dojo.addOnLoad(function () {
             }
             return 1; // found and removed
         },
+		findWordInText: function (word, text) {
+            if(word && text) {
+                // text
+                var searchString = text.toLowerCase();
+                // word
+                var badWord = ' ' + word.toLowerCase() + ' ';
+                // IF FOUND
+                if(searchString.indexOf(badWord) > -1) {
+                    return true;
+                }
+            }
+            return false;
+        },
         mapResults: function (j) {
-            var socialInstance = this;
+            var _self = this;
             if (j.error) {
                 console.log('Search error' + ": " + j.error);
                 this.onError(j.error);
@@ -344,6 +357,34 @@ dojo.addOnLoad(function () {
                 if (this.geocoded_ids[result.id.$t]) {
                     return;
                 }
+				// filter variable
+				var filter = false, i;
+				// check for filterd user
+				if(_self.options.filterUsers && _self.options.filterUsers.length){
+					for(i = 0; i < _self.options.filterUsers.length; i++){
+						if(_self.options.filterUsers[i].toString() === result.author[0].yt$userId.$t.toString()){
+							filter = true;
+							break;
+						}
+					}
+				}
+				// check if contains bad word
+				if(!filter && _self.options.filterWords && _self.options.filterWords.length){
+					for(i = 0; i < _self.options.filterWords.length; i++){
+						if(_self.findWordInText(_self.options.filterWords[i], result.title.$t)){
+							filter = true;
+							break;
+						}
+						if(_self.findWordInText( _self.options.filterWords[i], result.media$group.media$description.$t)){
+							filter = true;
+							break;
+						}
+					}
+				}
+				// if this feature needs to be filtered
+				if(filter){
+					return;
+				}
                 this.geocoded_ids[result.id.$t] = true;
                 var geoPoint = null;
                 if (result.georss$where) {

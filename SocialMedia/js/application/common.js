@@ -134,26 +134,26 @@ function setDefaultConfigOptions() {
     configOptions.popupHeight = 200;
     configOptions.previewSize = {
         "width": 900,
-        "height": 750
+            "height": 750
     };
     configOptions.embedSizes = {
         "small": {
             width: 480,
             height: 360
         },
-        "medium": {
+            "medium": {
             width: 700,
             height: 525
         },
-        "large": {
+            "large": {
             width: 940,
             height: 705
         },
-        "maximum": {
+            "maximum": {
             width: 1900,
             height: 1200
         },
-        "minimum": {
+            "minimum": {
             width: 350,
             height: 250
         }
@@ -167,8 +167,8 @@ function setDefaultConfigOptions() {
     configOptions.flickrIcon = "images/social/flickr16x16.png";
     configOptions.flickrSymbol = {
         "url": "images/map/flickr25x30.png",
-        "width": "18.75",
-        "height": "22.5"
+            "width": "18.75",
+            "height": "22.5"
     };
     configOptions.twitterID = "twitter";
     configOptions.twitterTitle = i18n.viewer.twitter.title;
@@ -176,8 +176,8 @@ function setDefaultConfigOptions() {
     configOptions.twitterIcon = "images/social/twitter16x16.png";
     configOptions.twitterSymbol = {
         "url": "images/map/twitter25x30.png",
-        "width": "18.75",
-        "height": "22.5"
+            "width": "18.75",
+            "height": "22.5"
     };
     configOptions.panoramioID = "panoramio";
     configOptions.panoramioTitle = i18n.viewer.panoramio.title;
@@ -185,8 +185,8 @@ function setDefaultConfigOptions() {
     configOptions.panoramioIcon = "images/social/panoramio16x16.png";
     configOptions.panoramioSymbol = {
         "url": "images/map/panoramio25x30.png",
-        "width": "18.75",
-        "height": "22.5"
+            "width": "18.75",
+            "height": "22.5"
     };
     configOptions.youtubeID = "youtube";
     configOptions.youtubeTitle = i18n.viewer.youtube.title;
@@ -194,8 +194,8 @@ function setDefaultConfigOptions() {
     configOptions.youtubeIcon = "images/social/youtube16x16.png";
     configOptions.youtubeSymbol = {
         "url": "images/map/youtube25x30.png",
-        "width": "18.75",
-        "height": "22.5"
+            "width": "18.75",
+            "height": "22.5"
     };
     configOptions.ushahidiID = "ushahidi";
     configOptions.ushahidiTitle = i18n.viewer.ushahidi.title;
@@ -203,8 +203,8 @@ function setDefaultConfigOptions() {
     configOptions.ushahidiIcon = "images/social/ushahidi16x16.png";
     configOptions.ushahidiSymbol = {
         "url": "images/map/ushahidi25x30.png",
-        "width": "18.75",
-        "height": "22.5"
+            "width": "18.75",
+            "height": "22.5"
     };
     if (!configOptions.layerInfos) {
         configOptions.layerInfos = [];
@@ -317,12 +317,12 @@ function getButtonClass(i, size) {
         return 'buttonSingle';
     } else {
         switch (i) {
-        case 1:
-            return 'buttonLeft';
-        case size:
-            return 'buttonRight';
-        default:
-            return 'buttonCenter';
+            case 1:
+                return 'buttonLeft';
+            case size:
+                return 'buttonRight';
+            default:
+                return 'buttonCenter';
         }
     }
 }
@@ -351,14 +351,14 @@ function createBMGallery() {
     dojo.connect(configOptions.bmDijit, "onLoad", function () {
         dojo.query('#map').removeClass('mapLoading');
         selectCurrentBasemap();
-        setTimeout(function(){
+        setTimeout(function () {
             // on change
-            dojo.connect(configOptions.bmDijit, "onSelectionChange", function(){
-        		baseMapChanged();
-        	});
+            dojo.connect(configOptions.bmDijit, "onSelectionChange", function () {
+                baseMapChanged();
+            });
         }, 1000);
     });
-	// start it up
+    // start it up
     configOptions.bmDijit.startup();
 }
 
@@ -408,13 +408,13 @@ function selectCurrentBasemap() {
 function baseMapChanged() {
     // get currently selected basemap
     var basemap = configOptions.bmDijit.getSelected();
-	if(basemap && basemap.itemId){
-		// update global
-		configOptions.basemap = basemap.itemId;
-	}
-	// set sharing links and embed code
+    if (basemap && basemap.itemId) {
+        // update global
+        configOptions.basemap = basemap.itemId;
+    }
+    // set sharing links and embed code
     setSharing();
-	hideAllMenus();
+    hideAllMenus();
 }
 
 // Show spinner on object
@@ -451,13 +451,12 @@ function updateRightMenuOffset(button, menu) {
         var offset = dojo.position(buttonObj);
         var vs = dojo.window.getBox();
         if (offset) {
-            if(configOptions.isRightToLeft){
+            if (configOptions.isRightToLeft) {
                 position = offset.x;
                 dojo.style(menuObj, {
                     "left": position + 'px'
                 });
-            }
-            else{
+            } else {
                 position = vs.w - (offset.x + offset.w);
                 dojo.style(menuObj, {
                     "right": position + 'px'
@@ -475,13 +474,12 @@ function updateLeftMenuOffset(button, menu) {
     var leftOffset;
     if (btn && mnu) {
         var offset = dojo.position(btn);
-        if(configOptions.isRightToLeft){
+        if (configOptions.isRightToLeft) {
             leftOffset = vs.w - (offset.x + offset.w);
             dojo.style(mnu, {
                 "right": leftOffset + 'px'
             });
-        }
-        else{
+        } else {
             leftOffset = offset.x;
             dojo.style(mnu, {
                 "left": leftOffset + 'px'

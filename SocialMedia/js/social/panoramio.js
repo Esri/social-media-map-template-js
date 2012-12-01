@@ -6,7 +6,7 @@ dojo.addOnLoad(function () {
             constructor: "manual"
         },
         constructor: function (options) {
-            var socialInstance = this;
+            var _self = this;
             this.options = {
                 autopage: true,
                 maxpage: 6,
@@ -128,10 +128,10 @@ dojo.addOnLoad(function () {
             };
             this.infoTemplate = new esri.InfoTemplate();
             this.infoTemplate.setTitle(function (graphic) {
-                return socialInstance.options.title;
+                return _self.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
-                return socialInstance.getWindowContent(graphic, socialInstance);
+                return _self.getWindowContent(graphic, _self);
             });
             this.featureLayer = new esri.layers.FeatureLayer(this.featureCollection, {
                 id: this.options.id,
@@ -251,7 +251,7 @@ dojo.addOnLoad(function () {
                 maxPoint: maxPoint
             };
         },
-        getWindowContent: function (graphic, socialInstance) {
+        getWindowContent: function (graphic, _self) {
             var date = dojo.date.locale.parse(graphic.attributes.upload_date, {
                 selector: "date",
                 datePattern: "d MMMM y"
@@ -336,7 +336,7 @@ dojo.addOnLoad(function () {
             return 1; // found and removed
         },
         mapResults: function (j) {
-            var socialInstance = this;
+            var _self = this;
             if (j.error) {
                 console.log("mapResults error: " + j.error);
                 this.onError(j.error);

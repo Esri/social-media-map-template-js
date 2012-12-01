@@ -6,7 +6,7 @@ dojo.addOnLoad(function () {
             constructor: "manual"
         },
         constructor: function (options) {
-            var socialInstance = this;
+            var _self = this;
             this.options = {
                 filterUsers: [],
                 filterWords: [],
@@ -93,10 +93,10 @@ dojo.addOnLoad(function () {
             };
             this.infoTemplate = new esri.InfoTemplate();
             this.infoTemplate.setTitle(function (graphic) {
-                return socialInstance.options.title;
+                return _self.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
-                return socialInstance.getWindowContent(graphic, socialInstance);
+                return _self.getWindowContent(graphic, _self);
             });
             this.featureLayer = new esri.layers.FeatureLayer(this.featureCollection, {
                 id: this.options.id,
@@ -219,7 +219,7 @@ dojo.addOnLoad(function () {
                 maxPoint: maxPoint
             };
         },
-        getWindowContent: function (graphic, socialInstance) {
+        getWindowContent: function (graphic, _self) {
             var date = new Date(parseInt(graphic.attributes.dateupload * 1000, 10));
             var html = '';
             html += '<div class="flContent">';
@@ -234,7 +234,7 @@ dojo.addOnLoad(function () {
             html += '<div class="date">' + this.formatDate(date) + '</div>';
             html += '</div>';
             return html;
-        },
+        },	
         constructQuery: function (searchValue) {
             var search = dojo.trim(searchValue);
             if (search.length === 0) {
@@ -318,8 +318,21 @@ dojo.addOnLoad(function () {
             }
             return 1; // found and removed
         },
+		findWordInText: function (word, text) {
+            if(word && text) {
+                // text
+                var searchString = text.toLowerCase();
+                // word
+                var badWord = ' ' + word.toLowerCase() + ' ';
+                // if found
+                if(searchString.indexOf(badWord) > -1) {
+                    return true;
+                }
+            }
+            return false;
+        },
         mapResults: function (j) {
-            var socialInstance = this;
+            var _self = this;
             if (j.error) {
                 console.log("mapResults error: " + j.error);
                 this.onError(j.error);
@@ -336,6 +349,34 @@ dojo.addOnLoad(function () {
                 if (this.geocoded_ids[result.id]) {
                     return;
                 }
+				// filter variable
+				var filter = false, i;
+				// check for filterd user
+				if(_self.options.filterUsers && _self.options.filterUsers.length){
+					for(i = 0; i < _self.options.filterUsers.length; i++){
+						if(_self.options.filterUsers[i].toString() === result.owner.toString()){
+							filter = true;
+							break;
+						}
+					}
+				}
+				// check if contains bad word
+				if(!filter && _self.options.filterWords && _self.options.filterWords.length){
+					for(i = 0; i < _self.options.filterWords.length; i++){
+						if(_self.findWordInText(_self.options.filterWords[i], result.title)){
+							filter = true;
+							break;
+						}
+						if(_self.findWordInText( _self.options.filterWords[i], result.description._content)){
+							filter = true;
+							break;
+						}
+					}
+				}
+				// if this feature needs to be filtered
+				if(filter){
+					return;
+				}
                 this.geocoded_ids[result.id] = true;
                 var geoPoint = null;
                 if (result.latitude) {

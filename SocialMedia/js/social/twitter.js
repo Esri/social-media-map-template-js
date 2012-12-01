@@ -9,7 +9,7 @@ dojo.addOnLoad(function () {
             dojo.io.script.get({
                 url: location.protocol + '//platform.twitter.com/widgets.js'
             });
-            var socialInstance = this;
+            var _self = this;
             this.options = {
                 filterUsers: [],
                 filterWords: [],
@@ -99,10 +99,10 @@ dojo.addOnLoad(function () {
             };
             this.infoTemplate = new esri.InfoTemplate();
             this.infoTemplate.setTitle(function (graphic) {
-                return socialInstance.config.title;
+                return _self.config.title;
             });
             this.infoTemplate.setContent(function (graphic) {
-                return socialInstance.getWindowContent(graphic, socialInstance);
+                return _self.getWindowContent(graphic, _self);
             });
             this.featureLayer = new esri.layers.FeatureLayer(this.featureCollection, {
                 id: this.options.id,
@@ -231,11 +231,11 @@ dojo.addOnLoad(function () {
                 units: "mi"
             };
         },
-        getWindowContent: function (graphic, socialInstance) {
+        getWindowContent: function (graphic, _self) {
             var date = new Date(graphic.attributes.created_at);
-            var linkedText = socialInstance.parseURL(graphic.attributes.text);
-            linkedText = socialInstance.parseUsername(linkedText);
-            linkedText = socialInstance.parseHashtag(linkedText);
+            var linkedText = _self.parseURL(graphic.attributes.text);
+            linkedText = _self.parseUsername(linkedText);
+            linkedText = _self.parseHashtag(linkedText);
             // define content for the tweet pop-up window.
             var html = '';
             html += '<div class="twContent">';
@@ -342,8 +342,21 @@ dojo.addOnLoad(function () {
             }
             return 1; // found and removed
         },
+		findWordInText: function (word, text) {
+            if(word && text) {
+                // text
+                var searchString = text.toLowerCase();
+                // word
+                var badWord = ' ' + word.toLowerCase() + ' ';
+                // IF FOUND
+                if(searchString.indexOf(badWord) > -1) {
+                    return true;
+                }
+            }
+            return false;
+        },
         mapResults: function (j) {
-            var socialInstance = this;
+            var _self = this;
             if (j.error) {
                 console.log('Search error' + ": " + j.error);
                 this.onError(j.error);
@@ -360,6 +373,30 @@ dojo.addOnLoad(function () {
                 if (this.geocoded_ids[result.id]) {
                     return;
                 }
+				// filter variable
+				var filter = false, i;
+				// check for filterd user
+				if(_self.options.filterUsers && _self.options.filterUsers.length){
+					for(i = 0; i < _self.options.filterUsers.length; i++){
+						if(_self.options.filterUsers[i].toString() === result.from_user_id.toString()){
+							filter = true;
+							break;
+						}
+					}
+				}
+				// check if contains bad word
+				if(!filter && _self.options.filterWords && _self.options.filterWords.length){
+					for(i = 0; i < _self.options.filterWords.length; i++){
+						if(_self.findWordInText(_self.options.filterWords[i], result.text)){
+							filter = true;
+							break;
+						}
+					}
+				}
+				// if this feature needs to be filtered
+				if(filter){
+					return;
+				}
                 this.geocoded_ids[result.id] = true;
                 var geoPoint = null;
                 if (result.geo) {
