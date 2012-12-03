@@ -1,10 +1,17 @@
-dojo.provide("social.flickr");
-dojo.addOnLoad(function () {
-    dojo.declare("social.flickr", null, {
-        // Doc: http://docs.dojocampus.org/dojo/declare#chaining
-        "-chains-": {
-            constructor: "manual"
-        },
+require([
+    "dojo/_base/declare",
+    "dojo/_base/connect",
+    "dojo/_base/array",
+    "dojo/_base/lang",
+    "dojo/_base/event",
+    "dojo/io-query",
+    "dojo/date/locale",
+    "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
+    "esri/geometry",
+    "esri/utils"
+],
+function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
+    declare("social.flickr", null, {
         constructor: function (options) {
             var _self = this;
             this.options = {
@@ -25,7 +32,7 @@ dojo.addOnLoad(function () {
                 dateTo: '',
                 apikey: ''
             };
-            dojo.safeMixin(this.options, options);
+            declare.safeMixin(this.options, options);
             if (this.options.map === null) {
                 throw 'Reference to esri.Map object required';
             }
@@ -105,8 +112,8 @@ dojo.addOnLoad(function () {
                 visible: true
             });
             this.options.map.addLayer(this.featureLayer);
-            dojo.connect(this.featureLayer, "onClick", dojo.hitch(this, function (evt) {
-                dojo.stopEvent(evt);
+            connect.connect(this.featureLayer, "onClick", lang.hitch(this, function (evt) {
+                event.stop(evt);
                 var query = new esri.tasks.Query();
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
                 var deferred = this.featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
@@ -125,7 +132,7 @@ dojo.addOnLoad(function () {
             this.loaded = true;
         },
         update: function (options) {
-            dojo.safeMixin(this.options, options);
+            declare.safeMixin(this.options, options);
             this.constructQuery(this.options.searchTerm);
         },
         pointToExtent: function (map, point, toleranceInPixel) {
@@ -136,7 +143,7 @@ dojo.addOnLoad(function () {
         clear: function () {
             // cancel any outstanding requests
             this.query = null;
-            dojo.forEach(this.deferreds, function (def) {
+            arr.forEach(this.deferreds, function (def) {
                 def.cancel();
             });
             if (this.deferreds) {
@@ -189,10 +196,10 @@ dojo.addOnLoad(function () {
         // Format Date Object
         formatDate: function (dateObj) {
             if (dateObj) {
-                return dojo.date.locale.format(dateObj, {
+                return locale.format(dateObj, {
                     datePattern: "h:mma",
                     selector: "date"
-                }).toLowerCase() + ' &middot; ' + dojo.date.locale.format(dateObj, {
+                }).toLowerCase() + ' &middot; ' + locale.format(dateObj, {
                     datePattern: "d MMM yy",
                     selector: "date"
                 });
@@ -234,9 +241,9 @@ dojo.addOnLoad(function () {
             html += '<div class="date">' + this.formatDate(date) + '</div>';
             html += '</div>';
             return html;
-        },	
+        },
         constructQuery: function (searchValue) {
-            var search = dojo.trim(searchValue);
+            var search = lang.trim(searchValue);
             if (search.length === 0) {
                 search = "";
             }
@@ -261,7 +268,7 @@ dojo.addOnLoad(function () {
             }
             // make the actual Flickr API call
             this.pageCount = 1;
-            this.sendRequest(this.baseurl + "?" + dojo.objectToQuery(this.query));
+            this.sendRequest(this.baseurl + "?" + ioQuery.objectToQuery(this.query));
         },
         sendRequest: function (url) {
             // get the results from Flickr for each page
@@ -271,7 +278,7 @@ dojo.addOnLoad(function () {
                 timeout: 10000,
                 callbackParamName: "jsoncallback",
                 preventCache: true,
-                load: dojo.hitch(this, function (data) {
+                load: lang.hitch(this, function (data) {
                     if (data.stat !== 'fail') {
                         if (data.photos.photo.length > 0) {
                             this.mapResults(data);
@@ -279,7 +286,7 @@ dojo.addOnLoad(function () {
                             if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.photos.page < data.photos.pages) && (this.query)) {
                                 this.pageCount++;
                                 this.query.page++;
-                                this.sendRequest(this.baseurl + "?" + dojo.objectToQuery(this.query));
+                                this.sendRequest(this.baseurl + "?" + ioQuery.objectToQuery(this.query));
                             } else {
                                 this.onUpdateEnd();
                             }
@@ -295,11 +302,11 @@ dojo.addOnLoad(function () {
                         this.onUpdateEnd();
                     }
                 }),
-                error: dojo.hitch(this, function (e) {
+                error: lang.hitch(this, function (e) {
                     if (deferred.canceled) {
                         console.log('Search Cancelled');
                     } else {
-                        console.log('Search error' + ": " + e.message);
+                        console.log('Search error' + ": " + e.message.toString());
                     }
                     this.onError(e);
                 })
@@ -308,7 +315,7 @@ dojo.addOnLoad(function () {
         },
         unbindDef: function (dfd) {
             // if deferred has already finished, remove from deferreds array
-            var index = dojo.indexOf(this.deferreds, dfd);
+            var index = arr.indexOf(this.deferreds, dfd);
             if (index === -1) {
                 return; // did not find
             }
@@ -340,7 +347,7 @@ dojo.addOnLoad(function () {
             }
             var b = [];
             var k = j.photos.photo;
-            dojo.forEach(k, dojo.hitch(this, function (result) {
+            arr.forEach(k, lang.hitch(this, function (result) {
                 result.smType = this.options.id;
                 result.filterType = 4;
                 result.filterContent = 'http://www.flickr.com/photos/' + result.owner + '/' + result.id + '/in/photostream';
@@ -419,5 +426,5 @@ dojo.addOnLoad(function () {
         onUpdateEnd: function () {
             this.query = null;
         }
-    }); // end of class declaration
-}); // end of addOnLoad
+    });
+});

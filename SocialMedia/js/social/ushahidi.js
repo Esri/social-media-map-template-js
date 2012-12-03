@@ -1,15 +1,23 @@
-dojo.provide("social.ushahidi");
-dojo.addOnLoad(function () {
-    dojo.declare("social.ushahidi", null, {
-        // Doc: http://docs.dojocampus.org/dojo/declare#chaining
-        "-chains-": {
-            constructor: "manual"
-        },
+require([
+    "dojo/_base/declare",
+    "dojo/_base/connect",
+    "dojo/_base/array",
+    "dojo/_base/lang",
+    "dojo/_base/event",
+    "dojo/io-query",
+    "dojo/date/locale",
+    "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
+    "esri/geometry",
+    "esri/utils"
+],
+function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
+    declare("social.ushahidi", null, {
         constructor: function (options) {
             var _self = this;
             this.options = {
                 autopage: false,
                 url: '',
+                category: '',
                 maxpage: 6,
                 limit: 100,
                 title: '',
@@ -22,7 +30,7 @@ dojo.addOnLoad(function () {
                 popupHeight: 200,
                 popupWidth: 290
             };
-            dojo.safeMixin(this.options, options);
+            declare.safeMixin(this.options, options);
             if (this.options.map === null) {
                 throw 'Reference to esri.Map object required';
             }
@@ -67,8 +75,8 @@ dojo.addOnLoad(function () {
                 visible: true
             });
             this.options.map.addLayer(this.featureLayer);
-            dojo.connect(this.featureLayer, "onClick", dojo.hitch(this, function (evt) {
-                dojo.stopEvent(evt);
+            connect.connect(this.featureLayer, "onClick", lang.hitch(this, function (evt) {
+                event.stop(evt);
                 var query = new esri.tasks.Query();
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
                 var deferred = this.featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
@@ -86,41 +94,8 @@ dojo.addOnLoad(function () {
             this.geocoded_ids = {};
             this.loaded = true;
         },
-        /*------------------------------------*/
-        // Get Categories
-        /*------------------------------------*/
-        getCategories: function () {
-            var deferred = dojo.xhrPost({
-                url: configOptions.proxyURL + '?' + this.options.url,
-                handleAs: "json",
-                timeout: 15000,
-                content: {
-                    task: 'categories',
-                    resp: 'json'
-                },
-                preventCache: true,
-                handle: dojo.hitch(this, function (data) {
-                    // IF NO ERROR
-                    if(!parseInt(data.error.code, 10)) {
-                        var categories = data.payload.categories;
-                        if(categories) {
-                            var html = '';
-                            html += '<option value="0">All</option>';
-                            for(var i = 0; i < categories.length; i++) {
-                                html += '<option value="' + categories[i].category.id + '">' + categories[i].category.title + '</option>';
-                            }
-                            dojo.query('#uhCategories')[0].innerHTML = html;
-                        }
-                    }
-                    else {
-                        console.log(data.error.code + ": " + data.error.message);
-                    }
-                })
-            });
-            this.deferreds.push(deferred);
-        },
         update: function (options) {
-            dojo.safeMixin(this.options, options);
+            declare.safeMixin(this.options, options);
             this.constructQuery(this.options.searchTerm);
         },
         pointToExtent: function (map, point, toleranceInPixel) {
@@ -131,7 +106,7 @@ dojo.addOnLoad(function () {
         clear: function () {
             // cancel any outstanding requests
             this.query = null;
-            dojo.forEach(this.deferreds, function (def) {
+            arr.forEach(this.deferreds, function (def) {
                 def.cancel();
             });
             if (this.deferreds) {
@@ -184,10 +159,10 @@ dojo.addOnLoad(function () {
         // Format Date Object
         formatDate: function (dateObj) {
             if (dateObj) {
-                return dojo.date.locale.format(dateObj, {
+                return locale.format(dateObj, {
                     datePattern: "h:mma",
                     selector: "date"
-                }).toLowerCase() + ' &middot; ' + dojo.date.locale.format(dateObj, {
+                }).toLowerCase() + ' &middot; ' + locale.format(dateObj, {
                     datePattern: "d MMM yy",
                     selector: "date"
                 });
@@ -216,7 +191,7 @@ dojo.addOnLoad(function () {
         },
         getWindowContent: function (graphic, _self) {
             // FORMAT DATE
-            var date = dojo.date.locale.parse(graphic.attributes.incident.incidentdate, {
+            var date = locale.parse(graphic.attributes.incident.incidentdate, {
                 selector: "date",
                 datePattern: "yyy-MM-dd HH:mm:ss"
             });
@@ -228,28 +203,27 @@ dojo.addOnLoad(function () {
             // MEDIA
             var i;
             var media = graphic.attributes.media;
-            if(media && media.length > 0) {
-                for(i = 0; i < media.length; i++){
-                    if(parseInt(media[i].type, 10) === 1) {
+            if (media && media.length > 0) {
+                for (i = 0; i < media.length; i++) {
+                    if (parseInt(media[i].type, 10) === 1) {
                         content += '<p class="imgBlock"><a target="_blank" href="' + media[i].link_url + '"><img src="' + media[i].thumb_url + '" /></a></p>';
-                    }
-                    else {
+                    } else {
                         content += '<p><a target="_blank" href="' + media[i].link + '">' + media[i].link + '</a></p>';
                     }
                 }
             }
             content += '<p>' + linkedText + '</p>';
-            if(graphic.attributes.incident.locationname){
+            if (graphic.attributes.incident.locationname) {
                 content += '<p>' + graphic.attributes.incident.locationname + '</p>';
             }
             content += '<div class="clear"></div>';
             // CATEGORIES
-            if(graphic.attributes.categories && graphic.attributes.categories.length > 0) {
+            if (graphic.attributes.categories && graphic.attributes.categories.length > 0) {
                 content += '<p>';
                 content += 'Category type(s): ';
-                for(i = 0; i < graphic.attributes.categories.length; i++) {
+                for (i = 0; i < graphic.attributes.categories.length; i++) {
                     content += graphic.attributes.categories[i].category.title;
-                    if(i !== (graphic.attributes.categories.length - 1)) {
+                    if (i !== (graphic.attributes.categories.length - 1)) {
                         content += ', ';
                     }
                 }
@@ -261,10 +235,6 @@ dojo.addOnLoad(function () {
             return content;
         },
         constructQuery: function () {
-            var selectedCat = this.catid = dojo.query('#uhCategories')[0];
-            if(selectedCat) {
-                this.catid = parseInt(selectedCat.value, 10);
-            }
             var radius = this.getRadius();
             this.query = {
                 task: 'incidents',
@@ -279,9 +249,13 @@ dojo.addOnLoad(function () {
                 limit: this.options.limit,
                 orderfield: 'incidentid'
             };
+            if (this.options.category) {
+                this.query.by = 'catid';
+                this.query.id = this.options.category;
+            }
             // make the actual API call
             this.pageCount = 1;
-            this.sendRequest(this.options.url + "?" + dojo.objectToQuery(this.query));
+            this.sendRequest(this.options.url + "?" + ioQuery.objectToQuery(this.query));
         },
         sendRequest: function (url) {
             // get the results for each page
@@ -292,7 +266,7 @@ dojo.addOnLoad(function () {
                 callbackParamName: "callback",
                 preventCache: true,
                 failOk: true,
-                handle: dojo.hitch(this, function (e, obj) {
+                handle: lang.hitch(this, function (e, obj) {
                     var data = obj.json.payload;
                     var error = e;
                     if (parseInt(error.code, 10) === 0) {
@@ -302,7 +276,7 @@ dojo.addOnLoad(function () {
                             if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.incidents.length === this.options.limit) && (this.query)) {
                                 this.pageCount++;
                                 this.query.id = data.incidents[data.incidents.length - 1].incident.incidentid;
-                                this.sendRequest(this.options.url + "?" + dojo.objectToQuery(this.query));
+                                this.sendRequest(this.options.url + "?" + ioQuery.objectToQuery(this.query));
                             } else {
                                 this.onUpdateEnd();
                             }
@@ -320,7 +294,7 @@ dojo.addOnLoad(function () {
         },
         unbindDef: function (dfd) {
             // if deferred has already finished, remove from deferreds array
-            var index = dojo.indexOf(this.deferreds, dfd);
+            var index = arr.indexOf(this.deferreds, dfd);
             if (index === -1) {
                 return; // did not find
             }
@@ -334,7 +308,7 @@ dojo.addOnLoad(function () {
             var _self = this;
             var b = [];
             var k = j.incidents;
-            dojo.forEach(k, dojo.hitch(this, function (result) {
+            arr.forEach(k, lang.hitch(this, function (result) {
                 result.smType = this.options.id;
                 // eliminate geo photos which we already have on the map
                 if (this.geocoded_ids[result.incident.incidentid]) {
@@ -369,7 +343,6 @@ dojo.addOnLoad(function () {
                 } else {
                     this.stats.noGeo++;
                 }
-
             }));
             this.featureLayer.applyEdits(b, null, null);
             this.onUpdate();
@@ -382,5 +355,5 @@ dojo.addOnLoad(function () {
         onUpdateEnd: function () {
             this.query = null;
         }
-    }); // end of class declaration
-}); // end of addOnLoad
+    });
+});
