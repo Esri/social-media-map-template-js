@@ -757,26 +757,35 @@ function webmapReturned(response) {
     configOptions.itemLayers = response.itemInfo.itemData.operationalLayers;
     // webmap basemap title by default
     configOptions.basemapTitle = response.itemInfo.itemData.baseMap.title;
-    dojo.connect(map, 'onLoad', function(){
-        // create basemap gallery widget
-        createBMGallery();
-        // set up social media
-        configureSocialMedia();
-        // set up layer menu
-        configureLayers();
-        // set up places menu
-        configurePlaces();
-        // resize map
-        resizeMap();
-        // init UI
-        configureUserInterface();
-        // start extent
-        setExtentValues();
-        // if local impact
-        if(typeof initLocalImpact === 'function' && configOptions.localImpact && configOptions.localImpact.enabled) {
-            initLocalImpact();
-        }
-    });
+	// once map is loaded
+	if (map.loaded) {
+		mapIsLoaded();
+	} else {
+		dojo.connect(map, "onLoad", function () {
+			mapIsLoaded();
+		});
+	}
+}
+
+function mapIsLoaded(){
+	// create basemap gallery widget
+	createBMGallery();
+	// set up social media
+	configureSocialMedia();
+	// set up layer menu
+	configureLayers();
+	// set up places menu
+	configurePlaces();
+	// resize map
+	resizeMap();
+	// init UI
+	configureUserInterface();
+	// start extent
+	setExtentValues();
+	// if local impact
+	if(typeof initLocalImpact === 'function' && configOptions.localImpact && configOptions.localImpact.enabled) {
+		initLocalImpact();
+	}
 }
 
 // Info window popup creation
