@@ -137,19 +137,22 @@ function showResults(results, resultNumber) {
         if (resultNumber) {
             numResult = resultNumber;
         }
+		var sr = new esri.SpatialReference(results.spatialReference);
         // new extent
         var extent = new esri.geometry.Extent(results.locations[numResult].extent);
+		extent.setSpatialReference(sr);
         // center of extent
-        var point = extent.getCenter();
+        var point = new esri.geometry.Point(results.locations[numResult].feature.geometry);
+		point.setSpatialReference(sr);
         // set marker
         configOptions.locatePoint[0] = point.x;
         configOptions.locatePoint[1] = point.y;
-        // set point marker
-        setMarker(point, results.locations[numResult].name);
         dojo.query('#address').attr('value', results.locations[numResult].name);
         configOptions.locateName = results.locations[numResult].name;
         // Set extent
         map.setExtent(extent);
+		// set point marker
+        setMarker(point, results.locations[numResult].name);
     } else {
         alertDialog(i18n.viewer.errors.noLocation);
         resetLocateLayer();

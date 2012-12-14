@@ -461,7 +461,7 @@ b, strong {
     border-right: 1px solid #ccc;
 }
 
-.esriRtl .inputCenter, .buttonCenter {
+.esriRtl .inputCenter, .esriRtl .buttonCenter {
     border-right: none;
     border-left: 1px solid #ccc;
 }
