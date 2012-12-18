@@ -7,20 +7,20 @@
 			"errors": {
                 "createMap": "Não foi possível criar o mapa",
                 "general": "Erro",
-                "bingError": "A implantação deste aplicativo exige uma chave Bing Maps própria.",
-                "noLegend": "Nenhuma legenda.",
-                "heatmap": "O mapa de aquecimento não tem suporte neste navegador.",
-                "noText": "Insira um local de pesquisa.",
-                "noLocation": "Não foi possível encontrar o local.",
-                "integersOnly": "Você pode inserir somente valores inteiros neste campo.",
-				"nodesc": "Nenhuma descrição."
+                "bingError": "A implementação desta aplicação requer uma chave Bing Maps própria.",
+                "noLegend": "Sem legenda.",
+                "heatmap": "Mapas de HotSpots não são suportados neste browser.",
+                "noText": "Introduza uma localização para pesquisar.",
+                "noLocation": "Não foi possível encontrar a localização.",
+                "integersOnly": "Apenas pode inserir valores inteiros neste campo.",
+				"nodesc": "Sem descrição."
             },
 			"legend": {
 				"menuTitle": "Legenda"
 			},
             "search": {
             	"location": "Local",
-            	"clearLocation": "Limpar Local",
+            	"clearLocation": "Limpar Localização",
             	"placeholder": "Encontrar um lugar"
             },
 			"layers": {
@@ -35,7 +35,7 @@
             "general": {
             	"at": "em",
 				"of": "de",
-            	"homeExtent": "Carregar extensão de mapa padrão",
+            	"homeExtent": "Carregar extensão por defeito do mapa",
 				"ok": "OK",
 				"close": "Fechar"
             },
@@ -45,14 +45,14 @@
             "settings": {
             	"title": "Configurações",
             	"searchAll": "Pesquisar todos",
-            	"usingThisKeyword": "Utilizando palavras-chaves",
+            	"usingThisKeyword": "Utilizando palavras-chave",
             	"search": "Pesquisar",
             	"fromThePast": "Antigos",
             	"today": "Dia",
             	"this_week": "Semana",
             	"this_month": "Mês",
             	"all_time": "Todos os Tempos",
-            	"atLocation": "Deste local",
+            	"atLocation": "Nesta localização",
             	"centerOfMap": "Centro do mapa",
             	"centerOfMapTitle": "Utilizar centro do mapa",
             	"withinThisDistance": "Dentro desta distância",
@@ -67,9 +67,9 @@
             "places": {
 				"menuTitle": "Locais marcados",
             	"places": "Lugares",
-            	"placesTitle": "Lugares do Marcadores",
-            	"myLocation": "Meu Local Atual",
-            	"myLocationTitle": "Centralizar mapa no meu local"
+            	"placesTitle": "Guardar Marcador para Lugar",
+            	"myLocation": "A Minha Localização Atual",
+            	"myLocationTitle": "Centrar o mapa na minha localização"
             },
             "distanceSlider": {
             	"local": "Local",
@@ -82,31 +82,31 @@
             },
             "buttons": {
             	"legend": "Legenda",
-            	"legendTitle": "Mostrar legenda",
+            	"legendTitle": "Exibir legenda",
             	"basemap": "Mapa Base",
-            	"basemapTitle": "Trocar Mapa Base",
+            	"basemapTitle": "Mudar Mapa Base",
             	"layers": "Camadas",
             	"layersTitle": "Explorar Camadas",
             	"social": "Social",
-            	"socialTitle": "Mídia Social",
-            	"link": "Link",
-            	"linkTitle": "Compartilhar este mapa configurado",
+            	"socialTitle": "Media Social",
+            	"link": "Ligação",
+            	"linkTitle": "Partilhar este mapa configurado",
             	"about": "Sobre",
             	"aboutTitle": "Sobre este mapa",
 				"displayAs":"Display As",      
             	"point":"Points",
-            	"cluster": "Agrupamentos",
+            	"cluster": "Clusters",
             	"heatmap": "Densidade"
             },
             "shareMenu": {
-				"menuTitle": "Compartilhar Visualização Atual",
-				"shareHeader": "Compartilhar um link no mapa",
+				"menuTitle": "Partilhar a Visualização Atual",
+				"shareHeader": "Partilhar uma ligação para o seu mapa",
             	"facebook": "Facebook",
-            	"facebookHeader": "Compartilhar no Facebook",
+            	"facebookHeader": "Partilhar no Facebook",
             	"twitter": "Twitter",
-            	"twitterHeader": "Compartilhar no Twitter",
-            	"instructionHeader": "Copiar/colar HTML na página da web",
-            	"preview": "Visualizar e personalizar"
+            	"twitterHeader": "Partilhar no Twitter",
+            	"instructionHeader": "Copiar/colar código HTML na página web",
+            	"preview": "Pré-Visualizar e personalizar"
             },
             "itemInfo": {
 				"createdLabel": "criado",
@@ -121,20 +121,20 @@
 				"separator": ","
 			},
 			"social": {
-				"menuTitle": "Camadas de Mídia Social"
+				"menuTitle": "Camadas de Media Social"
 			},
 			"preview": {
 				"minWidth": "A largura mínima é",
 				"minHeight": "A altura mínima é",
-				"maxWidth": "A lagura máxima é",
+				"maxWidth": "A largura máxima é",
 				"maxHeight": "A altura máxima é",
 				"customize": "Personalizar",
 				"small": "Pequeno",
 				"medium": "Médio",
 				"large": "Grande",
 				"custom": "Personalizar",
-				"embed": "Anexar",
-				"instruction": "Copia e cola a seguinte HTML para anexar o mapa no site da web."
+				"embed": "Incorporar",
+				"instruction": "Copie e cole o seguinte código HTML para incorporar o mapa no seu site na web."
 			},
 			"flickr": {
 				"title": "Flickr",

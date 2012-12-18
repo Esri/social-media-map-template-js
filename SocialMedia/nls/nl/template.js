@@ -93,6 +93,8 @@
             	"linkTitle": "Deze geconfigureerde kaart delen",
             	"about": "Over",
             	"aboutTitle": "Informatie over deze kaart",
+				"displayAs":"Display As",      
+            	"point":"Points",
             	"cluster": "Clusters",
             	"heatmap": "Dichtheid"
             },
@@ -145,6 +147,14 @@
 			"youtube": {
 				"title": "YouTube",
 				"description": "Video van YouTube"
+			},
+			"panoramio":{
+				"title":"Panoramio",                     
+				"description":"Photos from Panoramio"    
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                     
+				"description":"Incident reports from Ushahidi"    
 			}
         }
     })

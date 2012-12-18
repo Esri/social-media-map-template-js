@@ -9,9 +9,9 @@
                 "general": "Erreur",
                 "bingError": "Le déploiement de cette application nécessite votre propre clé Bing Maps.",
                 "noLegend": "Aucune légende.",
-                "heatmap": "La création des cartes de densité n'est pas prise en charge sur ce navigateur.",
-                "noText": "Entrez l'emplacement à rechercher.",
-                "noLocation": "L'emplacement est introuvable.",
+                "heatmap": "La création des cartes de densité n\'est pas prise en charge sur ce navigateur.",
+                "noText": "Entrez l\'emplacement à rechercher.",
+                "noLocation": "L\'emplacement est introuvable.",
                 "integersOnly": "Vous ne pouvez entrer que des entiers dans ce champ.",
 				"nodesc": "Aucune description."
             },
@@ -20,7 +20,7 @@
 			},
             "search": {
             	"location": "Emplacement",
-            	"clearLocation": "Effacer l'emplacement",
+            	"clearLocation": "Effacer l\'emplacement",
             	"placeholder": "Rechercher un site"
             },
 			"layers": {
@@ -58,7 +58,7 @@
             	"withinThisDistance": "A cette distance",
             	"latitude": "Lat :",
             	"longitude": "Long :",
-            	"locationText": "cliquez sur la carte pour définir l'origine",
+            	"locationText": "cliquez sur la carte pour définir l\'origine",
             	"twSearch": "Utilisation de la recherche Twitter avancée"
             },
 			"autoComplete": {
@@ -93,6 +93,8 @@
             	"linkTitle": "Partager cette carte configurée",
             	"about": "A propos",
             	"aboutTitle": "A propos de cette carte",
+				"displayAs":"Display As",      
+            	"point":"Points",
             	"cluster": "Agrégats",
             	"heatmap": "Densité"
             },
@@ -145,6 +147,14 @@
 			"youtube": {
 				"title": "YouTube",
 				"description": "Vidéos de YouTube"
+			},
+			"panoramio":{
+				"title":"Panoramio",                     
+				"description":"Photos from Panoramio"    
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                     
+				"description":"Incident reports from Ushahidi"    
 			}
         }
     })

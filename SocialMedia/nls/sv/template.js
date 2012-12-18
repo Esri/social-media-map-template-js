@@ -93,6 +93,8 @@
             	"linkTitle": "Dela den här konfigurerade kartan",
             	"about": "Om",
             	"aboutTitle": "Om den här kartan",
+				"displayAs":"Display As",      
+            	"point":"Points",
             	"cluster": "Kluster",
             	"heatmap": "Densitet"
             },
@@ -145,6 +147,14 @@
 			"youtube": {
 				"title": "YouTube",
 				"description": "Video från YouTube"
+			},
+			"panoramio":{
+				"title":"Panoramio",                     
+				"description":"Photos from Panoramio"    
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                     
+				"description":"Incident reports from Ushahidi"    
 			}
         }
     })

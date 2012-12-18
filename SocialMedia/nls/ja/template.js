@@ -93,6 +93,8 @@
             	"linkTitle": "この構成済みマップを共有",
             	"about": "情報",
             	"aboutTitle": "このマップについて",
+				"displayAs":"Display As",      
+            	"point":"Points",
             	"cluster": "クラスタ",
             	"heatmap": "密度"
             },
@@ -116,7 +118,7 @@
 				"commentsLabelPlural": "コメント",
 				"modifiedLabel": "最終変更日",
 				"by": "作成者",
-				"separator": "、"
+				"separator": ","
 			},
 			"social": {
 				"menuTitle": "ソーシャル メディア レイヤ"
@@ -145,6 +147,14 @@
 			"youtube": {
 				"title": "YouTube",
 				"description": "YouTube の動画"
+			},
+			"panoramio":{
+				"title":"Panoramio",                     
+				"description":"Photos from Panoramio"    
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                     
+				"description":"Incident reports from Ushahidi"    
 			}
         }
     })

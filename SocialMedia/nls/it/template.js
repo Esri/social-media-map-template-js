@@ -58,7 +58,7 @@
             	"withinThisDistance": "Entro questa distanza",
             	"latitude": "Lat:",
             	"longitude": "Long:",
-            	"locationText": "fare clic sulla mappa per impostare l'origine",
+            	"locationText": "fare clic sulla mappa per impostare l\'origine",
             	"twSearch": "Come utilizzare la ricerca avanzata con Twitter"
             },
 			"autoComplete": {
@@ -93,6 +93,8 @@
             	"linkTitle": "Condividi la mappa configurata",
             	"about": "Informazioni",
             	"aboutTitle": "Informazioni sulla mappa",
+				"displayAs":"Display As",      
+            	"point":"Points",
             	"cluster": "Cluster",
             	"heatmap": "Densità"
             },
@@ -145,6 +147,14 @@
 			"youtube": {
 				"title": "YouTube",
 				"description": "Video di YouTube"
+			},
+			"panoramio":{
+				"title":"Panoramio",                     
+				"description":"Photos from Panoramio"    
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                     
+				"description":"Incident reports from Ushahidi"    
 			}
         }
     })

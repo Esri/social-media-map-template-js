@@ -93,6 +93,8 @@
             	"linkTitle": "Общий доступ к этой настроенной карте",
             	"about": "О",
             	"aboutTitle": "Об этой карте",
+				"displayAs":"Display As",      
+            	"point":"Points",
             	"cluster": "Кластеры",
             	"heatmap": "Плотность"
             },
@@ -145,6 +147,14 @@
 			"youtube": {
 				"title": "YouTube",
 				"description": "Видео с YouTube"
+			},
+			"panoramio":{
+				"title":"Panoramio",                     
+				"description":"Photos from Panoramio"    
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                     
+				"description":"Incident reports from Ushahidi"    
 			}
         }
     })

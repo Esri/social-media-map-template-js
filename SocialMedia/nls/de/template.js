@@ -77,7 +77,7 @@
             	"national": "National"
             },
             "about": {
-            	"title": "Info über",
+            	"title": "Info zu",
             	"access": "Zugriffs- und Nutzungsbeschränkungen"
             },
             "buttons": {
@@ -91,8 +91,10 @@
             	"socialTitle": "Soziale Medien",
             	"link": "Link",
             	"linkTitle": "Diese konfigurierte Karte freigeben",
-            	"about": "Info über",
+            	"about": "Info zu",
             	"aboutTitle": "Info zu dieser Karte",
+				"displayAs":"Display As",      
+            	"point":"Points",
             	"cluster": "Cluster",
             	"heatmap": "Dichte"
             },
@@ -145,6 +147,14 @@
 			"youtube": {
 				"title": "YouTube",
 				"description": "Video aus YouTube"
+			},
+			"panoramio":{
+				"title":"Panoramio",                     
+				"description":"Photos from Panoramio"    
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                     
+				"description":"Incident reports from Ushahidi"    
 			}
         }
     })

@@ -93,6 +93,8 @@
             	"linkTitle": "이 구성된 맵 공유",
             	"about": "정보",
             	"aboutTitle": "이 맵 정보",
+				"displayAs":"Display As",      
+            	"point":"Points",
             	"cluster": "클러스터",
             	"heatmap": "밀도"
             },
@@ -145,6 +147,14 @@
 			"youtube": {
 				"title": "YouTube",
 				"description": "YouTube의 동영상"
+			},
+			"panoramio":{
+				"title":"Panoramio",                     
+				"description":"Photos from Panoramio"    
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                     
+				"description":"Incident reports from Ushahidi"    
 			}
         }
     })

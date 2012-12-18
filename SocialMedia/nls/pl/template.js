@@ -93,6 +93,8 @@
             	"linkTitle": "Udostępnij mapę skonfigurowaną",
             	"about": "Informacje o",
             	"aboutTitle": "Informacje o mapie",
+				"displayAs":"Display As",      
+            	"point":"Points",
             	"cluster": "Klastry",
             	"heatmap": "Gęstość"
             },
@@ -145,6 +147,14 @@
 			"youtube": {
 				"title": "YouTube",
 				"description": "Filmy z YouTube"
+			},
+			"panoramio":{
+				"title":"Panoramio",                     
+				"description":"Photos from Panoramio"    
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                     
+				"description":"Incident reports from Ushahidi"    
 			}
         }
     })

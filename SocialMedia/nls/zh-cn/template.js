@@ -65,7 +65,7 @@
 				"menuTitle": "结果&hellip;"
 			},
             "places": {
-				"menuTitle": "加书签的地点",
+				"menuTitle": "书签标记地点",
             	"places": "地点",
             	"placesTitle": "书签地点",
             	"myLocation": "我的当前位置",
@@ -93,6 +93,8 @@
             	"linkTitle": "共享此配置地图",
             	"about": "关于",
             	"aboutTitle": "关于本地图",
+				"displayAs":"Display As",      
+            	"point":"Points",
             	"cluster": "聚类",
             	"heatmap": "密度"
             },
@@ -116,7 +118,7 @@
 				"commentsLabelPlural": "评论",
 				"modifiedLabel": "上次修改时间",
 				"by": "修改者",
-				"separator": "，"
+				"separator": ","
 			},
 			"social": {
 				"menuTitle": "社交媒体图层"
@@ -145,6 +147,14 @@
 			"youtube": {
 				"title": "YouTube",
 				"description": "YouTube 中的视频"
+			},
+			"panoramio":{
+				"title":"Panoramio",                     
+				"description":"Photos from Panoramio"    
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                     
+				"description":"Incident reports from Ushahidi"    
 			}
         }
     })

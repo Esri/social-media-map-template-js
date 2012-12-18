@@ -93,6 +93,8 @@
             	"linkTitle": "Partajare această hartă configurată",
             	"about": "Despre",
             	"aboutTitle": "Despre această hartă",
+				"displayAs":"Display As",      
+            	"point":"Points",
             	"cluster": "Grupări",
             	"heatmap": "Densitate"
             },
@@ -145,6 +147,14 @@
 			"youtube": {
 				"title": "YouTube",
 				"description": "Videoclip de pe YouTube"
+			},
+			"panoramio":{
+				"title":"Panoramio",                     
+				"description":"Photos from Panoramio"    
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                     
+				"description":"Incident reports from Ushahidi"    
 			}
         }
     })

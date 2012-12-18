@@ -93,6 +93,8 @@
             	"linkTitle": "مشاركة الخريطة المهيأة الحالية",
             	"about": "نبذة عن",
             	"aboutTitle": "نبذة عن هذه الخريطة",
+				"displayAs":"Display As",      
+            	"point":"Points",
             	"cluster": "تجمعات",
             	"heatmap": "كثافة"
             },
@@ -108,15 +110,15 @@
             },
             "itemInfo": {
 				"createdLabel": "تم إنشاء",
-				"ratingsLabel": "التقييم",
-				"ratingsLabelPlural": "التصنيفات",
+				"ratingsLabel": "تصنيف",
+				"ratingsLabelPlural": "تصنيفات",
 				"viewsLabel": "عرض",
-				"viewsLabelPlural": "العرض",
+				"viewsLabelPlural": "المشاهدات",
 				"commentsLabel": "تعليق",
 				"commentsLabelPlural": "تعليقات",
 				"modifiedLabel": "آخر تعديل",
 				"by": "حسب",
-				"separator": "،"
+				"separator": ","
 			},
 			"social": {
 				"menuTitle": "طبقات موقع التواصل الاجتماعي"
@@ -145,6 +147,14 @@
 			"youtube": {
 				"title": "اليوتيوب",
 				"description": "مقطع فيديو من اليوتيوب"
+			},
+			"panoramio":{
+				"title":"Panoramio",                     
+				"description":"Photos from Panoramio"    
+			},
+			"ushahidi":{
+				"title":"Ushahidi",                     
+				"description":"Incident reports from Ushahidi"    
 			}
         }
     })
