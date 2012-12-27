@@ -93,8 +93,8 @@ define({
             	"linkTitle":"Share this configured map",
             	"about":"About",
             	"aboutTitle":"About this map",
-            	"displayAs":"Display As",
-            	"point":"Points",
+            	"displayAs":"Display As",      
+            	"point":"Points",              
             	"cluster":"Clusters",
             	"heatmap":"Density"
             },
@@ -149,12 +149,12 @@ define({
 				"description":"Videos from YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",
-				"description":"Photos from Panoramio"
+				"title":"Panoramio",                      
+				"description":"Photos from Panoramio"     
 			},
 			"ushahidi":{
-				"title":"Ushahidi",
-				"description":"Incident reports from Ushahidi"
+				"title":"Ushahidi",                      
+				"description":"Incident reports from Ushahidi"     
 			}
         }
     }),
