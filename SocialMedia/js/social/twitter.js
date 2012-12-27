@@ -13,7 +13,7 @@ require([
     "esri/utils"
 ],
 function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esri) {
-    declare("social.twitter", null, {
+    var Widget = declare("social.twitter", null, {
         constructor: function (options) {
             var _self = this;
             this.options = {
@@ -491,4 +491,5 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
             this.onUpdateEnd();
         }
     });
+    return Widget;
 });

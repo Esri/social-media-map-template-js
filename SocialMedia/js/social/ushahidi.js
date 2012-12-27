@@ -11,7 +11,7 @@ require([
     "esri/utils"
 ],
 function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
-    declare("social.ushahidi", null, {
+    var Widget = declare("social.ushahidi", null, {
         constructor: function (options) {
             var _self = this;
             this.options = {
@@ -356,4 +356,5 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
             this.query = null;
         }
     });
+    return Widget;
 });

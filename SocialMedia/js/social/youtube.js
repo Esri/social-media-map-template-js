@@ -11,7 +11,7 @@ require([
     "esri/utils"
 ],
 function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
-    declare("social.youtube", null, {
+    var Widget = declare("social.youtube", null, {
         constructor: function (options) {
             var _self = this;
             this.options = {
@@ -439,4 +439,5 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
             this.onUpdateEnd();
         }
     });
+    return Widget;
 });
