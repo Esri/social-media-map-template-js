@@ -9,7 +9,7 @@ require([
     "esri/utils"
 ],
 function(declare, domConstruct, query, domStyle, connect, esri) {
-    var Widget = declare("HeatmapLayer", [esri.layers.DynamicMapServiceLayer], {
+    var Widget = declare("modules.HeatmapLayer", [esri.layers.DynamicMapServiceLayer], {
         properties: {},
         heatMap: null,
         // constructor

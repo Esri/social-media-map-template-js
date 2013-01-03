@@ -459,7 +459,7 @@ function configureSocialMedia() {
     // if canvas is supported
     if (isCanvasSupported()) {
         // set up heat layer
-        heatLayer = new HeatmapLayer({
+        heatLayer = new modules.HeatmapLayer({
             config: {
                 "useLocalMaximum": true
             },
