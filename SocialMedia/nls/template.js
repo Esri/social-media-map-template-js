@@ -2,7 +2,9 @@ define({
     "root": ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "english"
+                "scaleBarUnits": "english",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "MMM d, yyyy" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "Unable to create map",
@@ -90,17 +92,17 @@ define({
             	"social":"Social",
             	"socialTitle":"Social Media",
             	"link":"Link",
-            	"linkTitle":"Share this configured map",
+            	"linkTitle":"Share this web app",
             	"about":"About",
             	"aboutTitle":"About this map",
-            	"displayAs":"Display As",      
-            	"point":"Points",              
+            	"displayAs":"Display As",
+            	"point":"Points",
             	"cluster":"Clusters",
             	"heatmap":"Density"
             },
             "shareMenu":{
 				"menuTitle":"Share Current View",
-				"shareHeader":"Share a link to your map",
+				"shareHeader":"Share a link to your web app",
             	"facebook":"Facebook",
             	"facebookHeader":"Share on Facebook",
             	"twitter":"Twitter",
@@ -149,12 +151,12 @@ define({
 				"description":"Videos from YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                      
-				"description":"Photos from Panoramio"     
+				"title":"Panoramio",
+				"description":"Photos from Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                      
-				"description":"Incident reports from Ushahidi"     
+				"title":"Ushahidi",
+				"description":"Incident reports from Ushahidi"
 			}
         }
     }),

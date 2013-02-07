@@ -18,12 +18,13 @@
 <!-- End iOS -->
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="http://servicesbeta.esri.com/jsapi/arcgis/3.2/js/esri/css/esri.css" />
+<link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/js/esri/css/esri.css" />
 <link rel="stylesheet" type="text/css" href="css/application.css" />
 <link rel="stylesheet" type="text/css" href="css/mediaQueries.css" />
 <link rel="stylesheet" type="text/css" href="css/dialog.css" />
 <link rel="stylesheet" type="text/css" href="css/slider.css" />
 <link rel="stylesheet" type="text/css" href="css/dijit.css" />
+<link rel="stylesheet" type="text/css" href="css/geocoder.css" />
 <link rel="stylesheet" type="text/css" href="css/social/twitter.css" />
 <link rel="stylesheet" type="text/css" href="css/social/youtube.css" />
 <link rel="stylesheet" type="text/css" href="css/social/flickr.css" />
@@ -46,24 +47,15 @@
   })();
 </script>
 <script type="text/javascript" src="config/config.js"></script>
-<script type="text/javascript" src="js/djConfig.js"></script>
-<script type="text/javascript" src="http://servicesbeta.esri.com/jsapi/arcgis/?v=3.3"></script>
-<script type="text/javascript" src="js/requires.js"></script>
+<script type="text/javascript" src="js/application/djConfig.js"></script>
+<script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=3.3"></script>
 <script type="text/javascript" src="js/plugins/respond.js"></script>
 <script type="text/javascript" src="js/plugins/heatmap.js"></script>
-<script type="text/javascript" src="js/pointDisplay/heatLayer.js"></script>
-<script type="text/javascript" src="js/pointDisplay/clusterLayer.js"></script>
-<script type="text/javascript" src="js/social/flickr.js"></script>
-<script type="text/javascript" src="js/social/youtube.js"></script>
-<script type="text/javascript" src="js/social/twitter.js"></script>
-<script type="text/javascript" src="js/social/panoramio.js"></script>
-<script type="text/javascript" src="js/social/ushahidi.js"></script>
-<script type="text/javascript" src="js/application/socialLayers.js"></script>
-<script type="text/javascript" src="js/application/mapLayers.js"></script>
-<script type="text/javascript" src="js/application/places.js"></script>
-<script type="text/javascript" src="js/application/common.js"></script>
-<script type="text/javascript" src="js/application/filtering.js"></script>
-<script type="text/javascript" src="js/application/main.js"></script>
+<script type="text/javascript">
+require(["application/main"], function(application){
+    new application(configOptions);
+});
+</script>
 <!-- End JavaScript -->
 </head>
 <body class="modernGrey">
@@ -75,7 +67,9 @@
 			<div id="topMenuCon">
 				<div id="topMenuLeft">
 					<h1 id="mapTitle"></h1>
-					<div id="locateBox"></div>
+					<div id="locateBox">
+    					<div id="geocoderSearch"></div>
+					</div>
 					<div class="buttonCon">
 					   <div id="placesCon"></div>
 					   <div id="shareMap"></div>

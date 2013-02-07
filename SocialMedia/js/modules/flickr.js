@@ -1,4 +1,4 @@
-require([
+define([
     "dojo/_base/declare",
     "dojo/_base/connect",
     "dojo/_base/array",
@@ -11,7 +11,7 @@ require([
     "esri/utils"
 ],
 function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
-    var Widget = declare("social.youtube", null, {
+    var Widget = declare("modules.flickr", null, {
         constructor: function (options) {
             var _self = this;
             this.options = {
@@ -19,23 +19,30 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                 filterWords: [],
                 autopage: true,
                 maxpage: 6,
-                limit: 50,
+                limit: 100,
                 title: '',
-                id: 'youtube',
+                id: 'flickr',
+                datePattern: "MMM d, yyyy",
+                timePattern: "h:mma",
                 searchTerm: '',
                 symbolUrl: '',
                 symbolHeight: 22.5,
                 symbolWidth: 18.75,
                 popupHeight: 200,
                 popupWidth: 290,
-                key: '',
-                range: 'all_time'
+                dateFrom: '',
+                dateTo: '',
+                apikey: ''
             };
             declare.safeMixin(this.options, options);
             if (this.options.map === null) {
                 throw 'Reference to esri.Map object required';
             }
-            this.baseurl = location.protocol + "//gdata.youtube.com/feeds/api/videos";
+            if (location.protocol === "https:") {
+                this.baseurl = "http://api.flickr.com/services/rest/";
+            } else {
+                this.baseurl = "https://secure.flickr.com/services/rest/";
+            }
             this.featureCollection = {
                 layerDefinition: {
                     "geometryType": "esriGeometryPoint",
@@ -60,43 +67,25 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                         "alias": "smType",
                         "length": 100
                     }, {
-                        "name": "published",
-                        "type": "esriFieldTypeDate",
-                        "alias": "Created"
-                    }, {
-                        "name": "updated",
-                        "type": "esriFieldTypeDate",
-                        "alias": "Updated"
-                    }, {
                         "name": "id",
                         "type": "esriFieldTypeString",
                         "alias": "id",
                         "length": 100
                     }, {
-                        "name": "description",
+                        "name": "owner",
                         "type": "esriFieldTypeString",
-                        "alias": "description",
-                        "length": 500
-                    }, {
-                        "name": "author",
-                        "type": "esriFieldTypeString",
-                        "alias": "Author",
+                        "alias": "User",
                         "length": 100
                     }, {
-                        "name": "thumbnail",
-                        "type": "esriFieldTypeString",
-                        "alias": "Thumbnail",
-                        "length": 100
-                    }, {
-                        "name": "location",
-                        "type": "esriFieldTypeString",
-                        "alias": "Location",
+                        "name": "latitude",
+                        "type": "esriFieldTypeDouble",
+                        "alias": "latitude",
                         "length": 1073741822
                     }, {
-                        "name": "src",
-                        "type": "esriFieldTypeString",
-                        "alias": "Source",
-                        "length": 100
+                        "name": "longitude",
+                        "type": "esriFieldTypeDouble",
+                        "alias": "longitude",
+                        "length": 1073741822
                     }, {
                         "name": "title",
                         "type": "esriFieldTypeString",
@@ -153,30 +142,6 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
             var toleraceInMapCoords = toleranceInPixel * pixelWidth;
             return new esri.geometry.Extent(point.x - toleraceInMapCoords, point.y - toleraceInMapCoords, point.x + toleraceInMapCoords, point.y + toleraceInMapCoords, map.spatialReference);
         },
-        show: function () {
-            this.featureLayer.setVisibility(true);
-        },
-        formatDate: function (dateObj) {
-            if (dateObj) {
-                return locale.format(dateObj, {
-                    datePattern: "h:mma",
-                    selector: "date"
-                }).toLowerCase() + ' &middot; ' + locale.format(dateObj, {
-                    datePattern: "d MMM yy",
-                    selector: "date"
-                });
-            }
-        },
-        hide: function () {
-            this.featureLayer.setVisibility(false);
-        },
-        setVisibility: function (val) {
-            if (val) {
-                this.show();
-            } else {
-                this.hide();
-            }
-        },
         clear: function () {
             // cancel any outstanding requests
             this.query = null;
@@ -186,14 +151,14 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
             if (this.deferreds) {
                 this.deferreds.length = 0;
             }
-            // remove existing videos
+            // remove existing Photos
             if (this.options.map.infoWindow.isShowing) {
                 this.options.map.infoWindow.hide();
             }
             if (this.featureLayer.graphics.length > 0) {
                 this.featureLayer.applyEdits(null, null, this.featureLayer.graphics);
             }
-            // clear data and stats
+            // clear data
             this.stats = {
                 geoPoints: 0,
                 noGeo: 0,
@@ -217,87 +182,113 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
         getPoints: function () {
             return this.dataPoints;
         },
+        show: function () {
+            this.featureLayer.setVisibility(true);
+        },
+        hide: function () {
+            this.featureLayer.setVisibility(false);
+        },
+        setVisibility: function (val) {
+            if (val) {
+                this.show();
+            } else {
+                this.hide();
+            }
+        },
+        // Format Date Object
+        formatDate: function (dateObj) {
+            var _self = this;
+            if (dateObj) {
+                return locale.format(dateObj, {
+                    datePattern: _self.options.timePattern,
+                    selector: "date"
+                }).toLowerCase() + ' &middot; ' + locale.format(dateObj, {
+                    datePattern: _self.options.datePattern,
+                    selector: "date"
+                });
+            }
+        },
         getExtent: function () {
             return esri.graphicsExtent(this.featureLayer.graphics);
         },
         getRadius: function () {
             var map = this.options.map;
-            var extent = map.extent;
-            this.maxRadius = 621;
+            var extent = this.options.map.extent;
+            var center = extent.getCenter();
+            this.maxRadius = 600;
             var radius = Math.min(this.maxRadius, Math.ceil(esri.geometry.getLength(new esri.geometry.Point(extent.xmin, extent.ymin, map.spatialReference), new esri.geometry.Point(extent.xmax, extent.ymin, map.spatialReference)) * 3.281 / 5280 / 2));
-            radius = Math.round(radius, 0);
-            var geoPoint = esri.geometry.webMercatorToGeographic(map.extent.getCenter());
+            var dist = (radius) / 2;
+            dist = dist * 10;
+            dist = (dist * 160.934).toFixed(3);
+            dist = parseFloat(dist);
+            var geoPoint = new esri.geometry.Point(center.x, center.y, map.spatialReference);
+            minPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x - dist, geoPoint.y - dist, map.spatialReference));
+            maxPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x + dist, geoPoint.y + dist, map.spatialReference));
             return {
-                radius: radius,
-                center: geoPoint,
-                units: "mi"
+                minPoint: minPoint,
+                maxPoint: maxPoint
             };
         },
         getWindowContent: function (graphic, _self) {
-            var mdy = graphic.attributes.published.$t.substring(0, 10);
-            var time = graphic.attributes.published.$t.substring(11, 19);
-            var date = locale.parse(mdy + '-' + time, {
-                selector: "date",
-                datePattern: "y-M-d-H:m:s"
-            });
-            var linkedText = _self.parseURL(graphic.attributes.media$group.media$description.$t);
-            var videoWidth = 250;
-            var videoHeight = 188;
-            if (graphic.attributes.media$group.yt$aspectRatio) {
-                videoHeight = 140;
-            }
+            var date = new Date(parseInt(graphic.attributes.dateupload * 1000, 10));
             var html = '';
-            html += '<div class="ytContent">';
-            html += '<div class="video" style="width:' + videoWidth + 'px;height:' + videoHeight + 'px;">';
-            html += '<iframe width="' + videoWidth + '" height="' + videoHeight + '" src="' + location.protocol + '//www.youtube.com/embed/' + graphic.attributes.media$group.yt$videoid.$t + '?wmode=opaque" frameborder="0" allowfullscreen></iframe>';
-            html += '</div>';
-            html += '<h3 class="title">' + graphic.attributes.title.$t + '</h3>';
-            html += '<div class="username"><a tabindex="0" href="' + location.protocol + '//www.youtube.com/user/' + graphic.attributes.author[0].name.$t + '" target="_blank">' + graphic.attributes.author[0].name.$t + '</a></div>';
-            html += '<div class="content">' + linkedText + '</div>';
+            html += '<div class="flContent">';
+            html += '<a tabindex="0" class="flImgA" href="' + location.protocol + '//www.flickr.com/photos/' + graphic.attributes.owner + '/' + graphic.attributes.id + '/in/photostream" target="_blank">';
+            html += '<img width="' + graphic.attributes.width_s + '" height="' + graphic.attributes.height_s + '" src="' + graphic.attributes.url_s + '">';
+            html += '</a>';
+            html += '<h3 class="title">' + graphic.attributes.title + '</h3>';
+            html += '<div class="username"><a tabindex="0" href="' + location.protocol + '//www.flickr.com/photos/' + graphic.attributes.owner + '/" target="_blank">' + graphic.attributes.ownername + '</a></div>';
+            if (graphic.attributes.description._content) {
+                html += '<div class="content">' + graphic.attributes.description._content + '</div>';
+            }
             html += '<div class="date">' + this.formatDate(date) + '</div>';
             html += '</div>';
             return html;
         },
         constructQuery: function (searchValue) {
-            var radius = this.getRadius();
             var search = lang.trim(searchValue);
             if (search.length === 0) {
                 search = "";
             }
-            var range = this.options.range;
+            var radius = this.getRadius();
             this.query = {
-                "q": search,
-                "max-results": this.options.limit,
-                "v": 2,
-                "location": radius.center.y + "," + radius.center.x,
-                "location-radius": radius.radius + radius.units,
-                "time": range,
-                "start-index": 1,
-                "alt": "json"
+                bbox: radius.minPoint.x + "," + radius.minPoint.y + "," + radius.maxPoint.x + "," + radius.maxPoint.y,
+                extras: "description, date_upload, owner_name, geo, url_s",
+                per_page: this.options.limit,
+                sort: 'date-posted-desc',
+                safe_search: 2,
+                content_type: 1,
+                tags: search,
+                method: "flickr.photos.search",
+                api_key: this.options.apiKey,
+                has_geo: 1,
+                page: 1,
+                format: "json"
             };
-            if (this.options.key) {
-                this.query.key = this.options.key;
+            if (this.options.dateTo && this.options.dateFrom) {
+                this.query.max_taken_date = Math.round(this.options.dateTo / 1000);
+                this.query.min_taken_date = Math.round(this.options.dateFrom / 1000);
             }
-            // make the actual YouTube API call
+            // make the actual Flickr API call
             this.pageCount = 1;
             this.sendRequest(this.baseurl + "?" + ioQuery.objectToQuery(this.query));
         },
         sendRequest: function (url) {
-            // get the results from YouTube for each page
+            // get the results from Flickr for each page
             var deferred = esri.request({
                 url: url,
-                timeout: 10000,
                 handleAs: "json",
+                timeout: 10000,
+                callbackParamName: "jsoncallback",
                 preventCache: true,
-                callbackParamName: "callback",
                 load: lang.hitch(this, function (data) {
-                    if (data.feed.entry) {
-                        if (data.feed.entry.length > 0) {
+                    if (data.stat !== 'fail') {
+                        if (data.photos.photo.length > 0) {
                             this.mapResults(data);
-                            // display results from multiple pages
-                            if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.feed.entry.length >= this.options.limit) && (this.query)) {
+                            // display results for multiple pages
+                            if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.photos.page < data.photos.pages) && (this.query)) {
                                 this.pageCount++;
-                                this.query["start-index"] += this.options.limit;
+                                this.query.page++;
                                 this.sendRequest(this.baseurl + "?" + ioQuery.objectToQuery(this.query));
                             } else {
                                 this.onUpdateEnd();
@@ -307,6 +298,10 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                             this.onUpdateEnd();
                         }
                     } else {
+                        if (data.code === 100) {
+                            console.log(data.code + ' - ' + this.options.title + ': ' + data.message);
+                        }
+                        // No results found, try another search term
                         this.onUpdateEnd();
                     }
                 }),
@@ -314,7 +309,7 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                     if (deferred.canceled) {
                         console.log('Search Cancelled');
                     } else {
-                        console.log('Search error' + ": " + e.message);
+                        console.log('Search error' + ": " + e.message.toString());
                     }
                     this.onError(e);
                 })
@@ -333,14 +328,14 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
             }
             return 1; // found and removed
         },
-        findWordInText: function (word, text) {
-            if (word && text) {
+		findWordInText: function (word, text) {
+            if(word && text) {
                 // text
                 var searchString = text.toLowerCase();
                 // word
                 var badWord = ' ' + word.toLowerCase() + ' ';
-                // IF FOUND
-                if (searchString.indexOf(badWord) > -1) {
+                // if found
+                if(searchString.indexOf(badWord) > -1) {
                     return true;
                 }
             }
@@ -349,59 +344,54 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
         mapResults: function (j) {
             var _self = this;
             if (j.error) {
-                console.log('Search error' + ": " + j.error);
+                console.log("mapResults error: " + j.error);
                 this.onError(j.error);
                 return;
             }
             var b = [];
-            var k = j.feed.entry;
+            var k = j.photos.photo;
             arr.forEach(k, lang.hitch(this, function (result) {
                 result.smType = this.options.id;
-                result.filterType = 3;
-                result.filterContent = result.link[0].href;
-                result.filterAuthor = result.author[0].yt$userId.$t;
-                // eliminate video ids which we already have on the map
-                if (this.geocoded_ids[result.id.$t]) {
+                result.filterType = 4;
+                result.filterContent = 'http://www.flickr.com/photos/' + result.owner + '/' + result.id + '/in/photostream';
+                result.filterAuthor = result.owner;
+                // eliminate geo photos which we already have on the map
+                if (this.geocoded_ids[result.id]) {
                     return;
                 }
-                // filter variable
-                var filter = false,
-                    i;
-                // check for filterd user
-                if (_self.options.filterUsers && _self.options.filterUsers.length) {
-                    for (i = 0; i < _self.options.filterUsers.length; i++) {
-                        if (_self.options.filterUsers[i].toString() === result.author[0].yt$userId.$t.toString()) {
-                            filter = true;
-                            break;
-                        }
-                    }
-                }
-                // check if contains bad word
-                if (!filter && _self.options.filterWords && _self.options.filterWords.length) {
-                    for (i = 0; i < _self.options.filterWords.length; i++) {
-                        if (_self.findWordInText(_self.options.filterWords[i], result.title.$t)) {
-                            filter = true;
-                            break;
-                        }
-                        if (_self.findWordInText(_self.options.filterWords[i], result.media$group.media$description.$t)) {
-                            filter = true;
-                            break;
-                        }
-                    }
-                }
-                // if this feature needs to be filtered
-                if (filter) {
-                    return;
-                }
-                this.geocoded_ids[result.id.$t] = true;
+				// filter variable
+				var filter = false, i;
+				// check for filterd user
+				if(_self.options.filterUsers && _self.options.filterUsers.length){
+					for(i = 0; i < _self.options.filterUsers.length; i++){
+						if(_self.options.filterUsers[i].toString() === result.owner.toString()){
+							filter = true;
+							break;
+						}
+					}
+				}
+				// check if contains bad word
+				if(!filter && _self.options.filterWords && _self.options.filterWords.length){
+					for(i = 0; i < _self.options.filterWords.length; i++){
+						if(_self.findWordInText(_self.options.filterWords[i], result.title)){
+							filter = true;
+							break;
+						}
+						if(_self.findWordInText( _self.options.filterWords[i], result.description._content)){
+							filter = true;
+							break;
+						}
+					}
+				}
+				// if this feature needs to be filtered
+				if(filter){
+					return;
+				}
+                this.geocoded_ids[result.id] = true;
                 var geoPoint = null;
-                if (result.georss$where) {
-                    if (result.georss$where.gml$Point) {
-                        if (result.georss$where.gml$Point.gml$pos) {
-                            var g = result.georss$where.gml$Point.gml$pos.$t.split(' ');
-                            geoPoint = new esri.geometry.Point(parseFloat(g[1]), parseFloat(g[0]));
-                        }
-                    }
+                if (result.latitude) {
+                    var g = [result.latitude, result.longitude];
+                    geoPoint = new esri.geometry.Point(parseFloat(g[1]), parseFloat(g[0]));
                 }
                 if (geoPoint) {
                     if (isNaN(geoPoint.x) || isNaN(geoPoint.y)) {
@@ -426,17 +416,18 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                 } else {
                     this.stats.noGeo++;
                 }
+
             }));
             this.featureLayer.applyEdits(b, null, null);
             this.onUpdate();
         },
         onClear: function () {},
+        onError: function (info) {
+            this.onUpdateEnd();
+        },
         onUpdate: function () {},
         onUpdateEnd: function () {
             this.query = null;
-        },
-        onError: function (info) {
-            this.onUpdateEnd();
         }
     });
     return Widget;

@@ -1,4 +1,4 @@
-require([
+define([
     "dojo/_base/kernel",
     "dojo/request/script",
     "dojo/_base/declare",
@@ -13,7 +13,7 @@ require([
     "esri/utils"
 ],
 function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esri) {
-    var Widget = declare("social.twitter", null, {
+    var Widget = declare("modules.twitter", null, {
         constructor: function (options) {
             var _self = this;
             this.options = {
@@ -24,6 +24,8 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                 limit: 100,
                 title: '',
                 id: 'twitter',
+                datePattern: "MMM d, yyyy",
+                timePattern: "h:mma",
                 searchTerm: '',
                 symbolUrl: '',
                 symbolHeight: 22.5,
@@ -217,12 +219,13 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
         },
         // Format Date Object
         formatDate: function (dateObj) {
+            var _self = this;
             if (dateObj) {
                 return locale.format(dateObj, {
-                    datePattern: "h:mma",
+                    datePattern: _self.options.timePattern,
                     selector: "date"
                 }).toLowerCase() + ' &middot; ' + locale.format(dateObj, {
-                    datePattern: "d MMM yy",
+                    datePattern: _self.options.datePattern,
                     selector: "date"
                 });
             }
@@ -332,7 +335,7 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                     if (deferred.canceled) {
                         console.log('Search Cancelled');
                     } else {
-                        console.log('Search error' + ": " + e.message);
+                        console.log('Search error' + ": " + e.message.toString());
                     }
                     this.onError(e);
                 })

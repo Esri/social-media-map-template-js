@@ -1,4 +1,4 @@
-require([
+define([
     "dojo/_base/declare",
     "dojo/_base/connect",
     "dojo/_base/array",
@@ -11,18 +11,17 @@ require([
     "esri/utils"
 ],
 function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
-    var Widget = declare("social.ushahidi", null, {
+    var Widget = declare("modules.panoramio", null, {
         constructor: function (options) {
             var _self = this;
             this.options = {
-                autopage: false,
-                url: '',
-                category: '',
+                autopage: true,
                 maxpage: 6,
                 limit: 100,
                 title: '',
-                categoryId: 0,
-                id: 'ushahidi',
+                id: 'panoramio',
+                datePattern: "MMM d, yyyy",
+                timePattern: "h:mma",
                 searchTerm: '',
                 symbolUrl: '',
                 symbolHeight: 22.5,
@@ -33,6 +32,11 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
             declare.safeMixin(this.options, options);
             if (this.options.map === null) {
                 throw 'Reference to esri.Map object required';
+            }
+            if (location.protocol === "https:") {
+                this.baseurl = "https://www.panoramio.com/map/get_panoramas.php";
+            } else {
+                this.baseurl = "http://www.panoramio.com/map/get_panoramas.php";
             }
             this.featureCollection = {
                 layerDefinition: {
@@ -52,9 +56,79 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                     "fields": [{
                         "name": "OBJECTID",
                         "type": "esriFieldTypeOID"
+                    }, {
+                        "name": "smType",
+                        "type": "esriFieldTypeString",
+                        "alias": "smType",
+                        "length": 100
+                    }, {
+                        "name": "id",
+                        "type": "esriFieldTypeString",
+                        "alias": "photo_id",
+                        "length": 100
+                    }, {
+                        "name": "owner_name",
+                        "type": "esriFieldTypeString",
+                        "alias": "User",
+                        "length": 100
+                    }, {
+                        "name": "latitude",
+                        "type": "esriFieldTypeDouble",
+                        "alias": "latitude",
+                        "length": 1073741822
+                    }, {
+                        "name": "longitude",
+                        "type": "esriFieldTypeDouble",
+                        "alias": "longitude",
+                        "length": 1073741822
+                    }, {
+                        "name": "photo_title",
+                        "type": "esriFieldTypeString",
+                        "alias": "Title",
+                        "length": 1073741822
+                    }, {
+                        "name": "photo_url",
+                        "type": "esriFieldTypeString",
+                        "alias": "URL",
+                        "length": 1073741822
+                    }, {
+                        "name": "photo_file_url",
+                        "type": "esriFieldTypeString",
+                        "alias": "Photo URL",
+                        "length": 1073741822
+                    }, {
+                        "name": "width",
+                        "type": "esriFieldTypeString",
+                        "alias": "width",
+                        "length": 1073741822
+                    }, {
+                        "name": "height",
+                        "type": "esriFieldTypeString",
+                        "alias": "height",
+                        "length": 1073741822
+                    }, {
+                        "name": "upload_date",
+                        "type": "esriFieldTypeString",
+                        "alias": "upload_date",
+                        "length": 1073741822
+                    }, {
+                        "name": "owner_id",
+                        "type": "esriFieldTypeString",
+                        "alias": "owner_id",
+                        "length": 1073741822
+                    }, {
+                        "name": "owner_name",
+                        "type": "esriFieldTypeString",
+                        "alias": "owner_name",
+                        "length": 1073741822
+                    }, {
+                        "name": "owner_url",
+                        "type": "esriFieldTypeString",
+                        "alias": "owner_url",
+                        "length": 1073741822
                     }],
-                    "globalIdField": "OBJECTID",
-                    "displayField": "OBJECTID"
+                    "globalIdField": "photo_id",
+                    "displayField": "photo_title"
                 },
                 featureSet: {
                     "features": [],
@@ -158,12 +232,13 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
         },
         // Format Date Object
         formatDate: function (dateObj) {
+            var _self = this;
             if (dateObj) {
                 return locale.format(dateObj, {
-                    datePattern: "h:mma",
+                    datePattern: _self.options.timePattern,
                     selector: "date"
                 }).toLowerCase() + ' &middot; ' + locale.format(dateObj, {
-                    datePattern: "d MMM yy",
+                    datePattern: _self.options.datePattern,
                     selector: "date"
                 });
             }
@@ -175,7 +250,7 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
             var map = this.options.map;
             var extent = this.options.map.extent;
             var center = extent.getCenter();
-            this.maxRadius = 1000;
+            this.maxRadius = 600;
             var radius = Math.min(this.maxRadius, Math.ceil(esri.geometry.getLength(new esri.geometry.Point(extent.xmin, extent.ymin, map.spatialReference), new esri.geometry.Point(extent.xmax, extent.ymin, map.spatialReference)) * 3.281 / 5280 / 2));
             var dist = (radius) / 2;
             dist = dist * 10;
@@ -190,72 +265,41 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
             };
         },
         getWindowContent: function (graphic, _self) {
-            // FORMAT DATE
-            var date = locale.parse(graphic.attributes.incident.incidentdate, {
+            var date = locale.parse(graphic.attributes.upload_date, {
                 selector: "date",
-                datePattern: "yyy-MM-dd HH:mm:ss"
+                datePattern: "d MMMM y"
             });
-            // LINK THE LINKS
-            var linkedText = _self.parseURL(graphic.attributes.incident.incidentdescription);
-            // CONTENT
-            var content = '<div class="uhContent">';
-            content += '<p><strong>' + graphic.attributes.incident.incidenttitle + '</strong></p>';
-            // MEDIA
-            var i;
-            var media = graphic.attributes.media;
-            if (media && media.length > 0) {
-                for (i = 0; i < media.length; i++) {
-                    if (parseInt(media[i].type, 10) === 1) {
-                        content += '<p class="imgBlock"><a target="_blank" href="' + media[i].link_url + '"><img src="' + media[i].thumb_url + '" /></a></p>';
-                    } else {
-                        content += '<p><a target="_blank" href="' + media[i].link + '">' + media[i].link + '</a></p>';
-                    }
-                }
-            }
-            content += '<p>' + linkedText + '</p>';
-            if (graphic.attributes.incident.locationname) {
-                content += '<p>' + graphic.attributes.incident.locationname + '</p>';
-            }
-            content += '<div class="clear"></div>';
-            // CATEGORIES
-            if (graphic.attributes.categories && graphic.attributes.categories.length > 0) {
-                content += '<p>';
-                content += 'Category type(s): ';
-                for (i = 0; i < graphic.attributes.categories.length; i++) {
-                    content += graphic.attributes.categories[i].category.title;
-                    if (i !== (graphic.attributes.categories.length - 1)) {
-                        content += ', ';
-                    }
-                }
-                content += '</p>';
-            }
-            /*Add support for inappropriate content filter.*/
-            content += '<p>' + this.formatDate(date) + '</p>';
-            content += '</div>';
-            return content;
+            var html = '';
+            html += '<div class="panoramio">';
+            html += '<a tabindex="0" class="prLink" href="' + graphic.attributes.photo_url + '" target="_blank">';
+            html += '<img width="' + graphic.attributes.width + '" height="' + graphic.attributes.height + '" src="' + graphic.attributes.photo_file_url + '">';
+            html += '</a>';
+            html += '<h3 class="title">' + graphic.attributes.photo_title + '</h3>';
+            html += '<div class="username"><a tabindex="0" href="' + graphic.attributes.owner_url + '" target="_blank">' + graphic.attributes.owner_name + '</a></div>';
+            html += '<div class="date">' + this.formatDate(date) + '</div>';
+            html += '</div>';
+            return html;
         },
-        constructQuery: function () {
+        constructQuery: function (searchValue) {
+            var search = lang.trim(searchValue);
+            if (search.length === 0) {
+                search = "";
+            }
             var radius = this.getRadius();
             this.query = {
-                task: 'incidents',
-                //by: 'bounds',
-                by: 'sinceid',
-                c: '',
-                sort: 0,
-                id: 0,
-                //sw: radius.minPoint.x + ',' + radius.minPoint.y,
-                //ne: radius.maxPoint.x + ',' + radius.maxPoint.y,
-                resp: 'jsonp',
-                limit: this.options.limit,
-                orderfield: 'incidentid'
+                minx: radius.minPoint.x,
+                miny: radius.minPoint.y,
+                maxx: radius.maxPoint.x,
+                maxy: radius.maxPoint.y,
+                mapFilter: false,
+                from: 0,
+                to: this.options.limit,
+                set: "public",
+                size: "small"
             };
-            if (this.options.category) {
-                this.query.by = 'catid';
-                this.query.id = this.options.category;
-            }
             // make the actual API call
             this.pageCount = 1;
-            this.sendRequest(this.options.url + "?" + ioQuery.objectToQuery(this.query));
+            this.sendRequest(this.baseurl + "?" + ioQuery.objectToQuery(this.query));
         },
         sendRequest: function (url) {
             // get the results for each page
@@ -264,30 +308,30 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                 handleAs: "json",
                 timeout: 10000,
                 callbackParamName: "callback",
-                preventCache: true,
-                failOk: true,
-                handle: lang.hitch(this, function (e, obj) {
-                    var data = obj.json.payload;
-                    var error = e;
-                    if (parseInt(error.code, 10) === 0) {
-                        if (data.incidents.length > 0) {
-                            this.mapResults(data);
-                            // display results for multiple pages
-                            if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.incidents.length === this.options.limit) && (this.query)) {
-                                this.pageCount++;
-                                this.query.id = data.incidents[data.incidents.length - 1].incident.incidentid;
-                                this.sendRequest(this.options.url + "?" + ioQuery.objectToQuery(this.query));
-                            } else {
-                                this.onUpdateEnd();
-                            }
+                load: lang.hitch(this, function (data) {
+                    if (data.count) {
+                        this.mapResults(data);
+                        // display results for multiple pages
+                        if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.has_more) && (this.query)) {
+                            this.pageCount++;
+                            this.query.to = this.query.to + this.options.limit;
+                            this.query.from = this.query.from + this.options.limit;
+                            this.sendRequest(this.baseurl + "?" + ioQuery.objectToQuery(this.query));
                         } else {
-                            // No results found, try another search term
                             this.onUpdateEnd();
                         }
                     } else {
                         // No results found, try another search term
                         this.onUpdateEnd();
                     }
+                }),
+                error: lang.hitch(this, function (e) {
+                    if (deferred.canceled) {
+                        console.log('Search Cancelled');
+                    } else {
+                        console.log('Search error' + ": " + e.message.toString());
+                    }
+                    this.onError(e);
                 })
             });
             this.deferreds.push(deferred);
@@ -306,18 +350,23 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
         },
         mapResults: function (j) {
             var _self = this;
+            if (j.error) {
+                console.log("mapResults error: " + j.error);
+                this.onError(j.error);
+                return;
+            }
             var b = [];
-            var k = j.incidents;
+            var k = j.photos;
             arr.forEach(k, lang.hitch(this, function (result) {
                 result.smType = this.options.id;
                 // eliminate geo photos which we already have on the map
-                if (this.geocoded_ids[result.incident.incidentid]) {
+                if (this.geocoded_ids[result.photo_id]) {
                     return;
                 }
-                this.geocoded_ids[result.incident.incidentid] = true;
+                this.geocoded_ids[result.photo_id] = true;
                 var geoPoint = null;
-                if (result.incident.locationlatitude) {
-                    var g = [result.incident.locationlatitude, result.incident.locationlongitude];
+                if (result.latitude) {
+                    var g = [result.latitude, result.longitude];
                     geoPoint = new esri.geometry.Point(parseFloat(g[1]), parseFloat(g[0]));
                 }
                 if (geoPoint) {
