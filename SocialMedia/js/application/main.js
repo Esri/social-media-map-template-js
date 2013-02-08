@@ -2682,7 +2682,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             if (_self.options.showSearchBox) {
 
                 var html = '<div id="spotlight" class="spotlight"><\/div>';
-                dojo.place(html, dojo.byId('map_container'), 'last');
+                domConstruct.place(html, dom.byId('map_container'), 'last');
 
                 _self._geocoder = new esri.dijit.Geocoder({
                     map: _self.map,
@@ -2736,7 +2736,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 });
 
                 // on clear test
-                dojo.connect(_self._geocoder, 'onClear', function(){
+                connect.connect(_self._geocoder, 'onClear', function(){
                     _self.removeSpotlight();
                     _self.resetLocateLayer();
                     _self.clearPopupValues();
