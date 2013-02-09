@@ -2972,7 +2972,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             _self.setStartLevel();
             _self.setStartMarker();
             _self.configureAppTitle();
-            _self.rightSideMenuButtons();
             _self.configureShareMenu();
             _self.configureAboutText();
             _self.configurePlaces();
@@ -2994,12 +2993,13 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             });
             _self.createCustomSlider();
             _self.setSharing();
-            // create basemap gallery widget
-            _self.createBMGallery(_self.map);
             // set up social media
             _self.configureSocialMedia();
             // set up layer menu
             _self.configureLayers();
+            _self.rightSideMenuButtons();
+            // create basemap gallery widget
+            _self.createBMGallery(_self.map);
             // resize map
             _self.resizeMap();
             _self.updateSocialLayers();
