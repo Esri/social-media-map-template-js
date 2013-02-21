@@ -402,17 +402,16 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             var _self = this;
             //need to set the sharing url here so that when we query the applciation and organization the correct
             //location is searched.
-            if(location.host.indexOf("arcgis.com") === -1){ //default (Not Hosted no org specified)
+            if (location.host.indexOf("arcgis.com") === -1) { //default (Not Hosted no org specified)
                 esri.arcgis.utils.arcgisUrl = location.protocol + "//www.arcgis.com/sharing/rest/content/items";
-             }else{ //hosted app
-                 esri.arcgis.utils.arcgisUrl = location.protocol + '//' + location.host + "/sharing/rest/content/items";
-                 _self.options.proxyUrl =  location.protocol + '//' + location.host + "/sharing/proxy";
-             }
-             //if the sharing url is set overwrite value
-            if(_self.options.sharingurl !== ""){
-               esri.arcgis.utils.arcgisUrl = _self.options.sharingurl + "/sharing/rest/content/items";
+            } else { //hosted app
+                esri.arcgis.utils.arcgisUrl = location.protocol + '//' + location.host + "/sharing/rest/content/items";
+                _self.options.proxyUrl = location.protocol + '//' + location.host + "/sharing/proxy";
             }
-            else{
+            //if the sharing url is set overwrite value
+            if (_self.options.sharingurl !== "") {
+                esri.arcgis.utils.arcgisUrl = _self.options.sharingurl + "/sharing/rest/content/items";
+            } else {
                 _self.options.sharingurl = location.protocol + "//www.arcgis.com/";
             }
             esri.dijit._arcgisUrl = _self.options.sharingurl + 'sharing/rest';
@@ -458,7 +457,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             _self._alertDialog = new Dialog(props, dom.byId('alertDialog'));
             _self._alertDialog.show();
             var closeAlert = dom.byId("closeAlert");
-            if(closeAlert){
+            if (closeAlert) {
                 _self.alertCloseConnect = on(closeAlert, "click, keyup", function (event) {
                     if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                         _self._alertDialog.hide();
@@ -701,7 +700,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             }
             // Settings Menu Config
             var cfgMenu = dom.byId("cfgMenu");
-            if(cfgMenu){
+            if (cfgMenu) {
                 on(cfgMenu, ".mapButton:click, .mapButton:keyup", function (event) {
                     if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                         query('#cfgMenu .mapButton').removeClass('buttonSelected');
@@ -714,7 +713,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 });
             }
             var collapseIcon = dom.byId("collapseIcon");
-            if(collapseIcon){
+            if (collapseIcon) {
                 on(collapseIcon, "click", function (event) {
                     if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                         _self.toggleSettingsContent();
@@ -722,7 +721,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 });
             }
             var socialList = dom.byId("socialList");
-            if(socialList){
+            if (socialList) {
                 on(socialList, ".toggle:click, .toggle:keyup", function (event) {
                     if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                         _self.toggleChecked(this);
@@ -732,7 +731,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 });
             }
             var settingsDialog = dom.byId("settingsDialog");
-            if(settingsDialog){
+            if (settingsDialog) {
                 on(settingsDialog, ".dijitDialogTitleBar:dblclick", function (event) {
                     _self.toggleSettingsContent();
                 });
@@ -744,7 +743,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
         socialMediaChangeEvents: function (i) {
             var _self = this;
             var input = dom.byId(_self.options.socialLayers[i].options.id + '_input');
-            if(input){
+            if (input) {
                 on(input, "keyup", function (event) {
                     if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                         var id = query(this).attr('data-id')[0];
@@ -753,7 +752,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 });
             }
             var submit = dom.byId(_self.options.socialLayers[i].options.id + '_submit');
-            if(submit){
+            if (submit) {
                 on(submit, "click, keyup", function (event) {
                     if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                         var id = query(this).attr('data-id')[0];
@@ -950,7 +949,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     domConstruct.place(html, node, "last");
                 }
                 var displayAs = dom.byId("displayAs");
-                if(displayAs){
+                if (displayAs) {
                     on(displayAs, ".mapButton:click, .mapButton:keyup", function (event) {
                         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                             _self.toggleDisplayAs(this);
@@ -1123,16 +1122,16 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 node.innerHTML = html;
             }
             if (_self.options.showUshahidi) {
-                _self.ushahidiLayer.getCategories().then(function(categories){
-                    if(categories){
-                         _self.ushahidiCategoryArray = categories;
+                _self.ushahidiLayer.getCategories().then(function (categories) {
+                    if (categories) {
+                        _self.ushahidiCategoryArray = categories;
                         var catHTML = '';
                         catHTML += '<option value="0">All</option>';
-                        for(var i = 0; i < categories.length; i++){
+                        for (var i = 0; i < categories.length; i++) {
                             catHTML += '<option title="' + categories[i].category.description + '" value="' + categories[i].category.id + '">' + categories[i].category.title + '</option>';
                         }
                         var categoryID = dom.byId(_self.options.ushahidiID + '_category');
-                        if(categoryID){
+                        if (categoryID) {
                             categoryID.innerHTML = catHTML;
                         }
                     }
@@ -1147,11 +1146,11 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 query('#' + _self.options.flickrID + '_range').attr('value', _self.options.flickrRange);
             }
         },
-        getUshahidCategory: function(id){
+        getUshahidCategory: function (id) {
             var _self = this;
-            if(_self.ushahidiCategoryArray.length){
-                for(var i = 0; i < _self.ushahidiCategoryArray.length; i++){
-                    if(parseInt(_self.ushahidiCategoryArray[i].category.id, 10) === parseInt(id, 10)){
+            if (_self.ushahidiCategoryArray.length) {
+                for (var i = 0; i < _self.ushahidiCategoryArray.length; i++) {
+                    if (parseInt(_self.ushahidiCategoryArray[i].category.id, 10) === parseInt(id, 10)) {
                         console.log('yes');
                         return _self.ushahidiCategoryArray[i].category;
                     }
@@ -1230,7 +1229,10 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     }),
                     label: _self.options.flickrTitle
                 });
-                connect.connect(flickrLayer.featureLayer, 'onClick', function () {
+                connect.connect(flickrLayer.featureLayer, 'onClick', function (evt) {
+                    if (evt.graphic && evt.graphic.geometry) {
+                        _self.map.centerAt(evt.graphic.geometry);
+                    }
                     _self.overridePopupTitle();
                 });
                 connect.connect(flickrLayer, 'onUpdate', function () {
@@ -1343,7 +1345,10 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     }),
                     label: _self.options.panoramioTitle
                 });
-                connect.connect(panoramioLayer.featureLayer, 'onClick', function () {
+                connect.connect(panoramioLayer.featureLayer, 'onClick', function (evt) {
+                    if (evt.graphic && evt.graphic.geometry) {
+                        _self.map.centerAt(evt.graphic.geometry);
+                    }
                     _self.overridePopupTitle();
                 });
                 connect.connect(panoramioLayer, 'onUpdate', function () {
@@ -1431,7 +1436,10 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 connect.connect(twitterLayer, 'onUpdate', function () {
                     _self.updateDataPoints();
                 });
-                connect.connect(twitterLayer.featureLayer, 'onClick', function () {
+                connect.connect(twitterLayer.featureLayer, 'onClick', function (evt) {
+                    if (evt.graphic && evt.graphic.geometry) {
+                        _self.map.centerAt(evt.graphic.geometry);
+                    }
                     _self.overridePopupTitle();
                 });
                 connect.connect(twitterLayer, 'onClear', function () {
@@ -1538,7 +1546,10 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 connect.connect(youtubeLayer, 'onUpdate', function () {
                     _self.updateDataPoints();
                 });
-                connect.connect(youtubeLayer.featureLayer, 'onClick', function () {
+                connect.connect(youtubeLayer.featureLayer, 'onClick', function (evt) {
+                    if (evt.graphic && evt.graphic.geometry) {
+                        _self.map.centerAt(evt.graphic.geometry);
+                    }
                     _self.overridePopupTitle();
                 });
                 connect.connect(youtubeLayer, 'onClear', function () {
@@ -1646,7 +1657,10 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 connect.connect(ushahidiLayer, 'onUpdate', function () {
                     _self.updateDataPoints();
                 });
-                connect.connect(ushahidiLayer.featureLayer, 'onClick', function () {
+                connect.connect(ushahidiLayer.featureLayer, 'onClick', function (evt) {
+                    if (evt.graphic && evt.graphic.geometry) {
+                        _self.map.centerAt(evt.graphic.geometry);
+                    }
                     _self.overridePopupTitle();
                 });
                 connect.connect(ushahidiLayer, 'onClear', function () {
@@ -1663,7 +1677,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     var node = query('#socialMenu .layer[data-layer=' + _self.options.ushahidiID + '] .keyword')[0];
                     if (node) {
                         var cat = _self.getUshahidCategory(_self.options.ushahidiCategory);
-                        if(cat){
+                        if (cat) {
                             var title = cat.title;
                             node.innerHTML = title;
                         }
@@ -1695,11 +1709,10 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     var html = '';
                     if (_self.options.ushahidiCategory) {
                         var cat = _self.getUshahidCategory(_self.options.ushahidiCategory);
-                        if(cat){
+                        if (cat) {
                             var title = cat.title;
                             html = ' ' + i18n.viewer.layer.filteredBy + ' "<span class="keyword">' + title + '</span>."';
                         }
-
                     }
                     var node = query('#socialMenu .layer[data-layer=' + _self.options.ushahidiID + '] .filtered')[0];
                     if (node) {
@@ -1747,6 +1760,9 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 _self.options.customPopup.setFeatures(arr);
                 _self.options.customPopup.show(evt.mapPoint);
                 _self.options.customPopup.resize(_self.options.popupWidth, _self.options.popupHeight);
+                if (evt.graphic && evt.graphic.geometry) {
+                    _self.map.centerAt(evt.graphic.geometry);
+                }
                 _self.overridePopupTitle();
             });
             // zebra stripe layers
@@ -1871,7 +1887,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
         configureLayerUI: function () {
             var _self = this;
             var layersList = dom.byId("layersList");
-            if(layersList){
+            if (layersList) {
                 on(layersList, ".toggle:click, .toggle:keyup", function (event) {
                     if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                         _self.toggleChecked(this);
@@ -2247,7 +2263,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             var _self = this;
             // places click
             var placesList = dom.byId("placesList");
-            if(placesList){
+            if (placesList) {
                 on(placesList, ".placesClick:click, .placesClick:keyup", function (event) {
                     if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                         objIndex = query(this).attr('data-index');
@@ -2263,7 +2279,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             }
             // places click
             var placesButton = dom.byId("placesButton");
-            if(placesButton){
+            if (placesButton) {
                 on(placesButton, "click, keyup", function (event) {
                     if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                         _self.toggleMenus('places');
@@ -2299,7 +2315,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 }
             }
         },
-
         // clear the locate graphic
         resetLocateLayer: function () {
             var _self = this;
@@ -2309,7 +2324,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             _self.options.locateName = "";
             _self.setSharing();
         },
-
         setMarker: function (point, address) {
             var _self = this;
             if (_self.options.pointGraphic) {
@@ -2324,6 +2338,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 } else {
                     _self.options.locateLayer = new esri.layers.GraphicsLayer();
                     connect.connect(_self.options.locateLayer, "onClick",
+
                     function (evt) {
                         _self.clearPopupValues();
                         event.stop(evt);
@@ -2340,7 +2355,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 });
                 _self.options.locateLayer.add(locationGraphic);
                 var content = "<strong>" + address + "</strong>";
-
                 _self.options.customPopup.setContent(content);
                 _self.options.customPopup.setTitle(i18n.viewer.search.location);
                 _self.options.customPopup.show(point);
@@ -2349,7 +2363,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
         // resize map
         resizeMap: function () {
             var _self = this;
-            if(_self.mapTimer){
+            if (_self.mapTimer) {
                 //clear any existing resize timer
                 clearTimeout(_self.mapTimer);
             }
@@ -2614,7 +2628,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 // embed click
                 if (_self.options.previewPage) {
                     var embedOptions = dom.byId("embedOptions");
-                    if(embedOptions){
+                    if (embedOptions) {
                         // on click
                         on(embedOptions, "click, keyup", function (event) {
                             if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -2629,7 +2643,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 }
                 // toggle share menu
                 var shareIcon = dom.byId("shareIcon");
-                if(shareIcon){
+                if (shareIcon) {
                     on(shareIcon, "click, keyup", function (event) {
                         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                             _self.toggleMenus('share');
@@ -2637,7 +2651,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     });
                 }
                 var fbImage = dom.byId("fbImage");
-                if(fbImage){
+                if (fbImage) {
                     // share buttons
                     on(fbImage, "click, keyup", function (event) {
                         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
@@ -2647,7 +2661,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     });
                 }
                 var twImage = dom.byId("twImage");
-                if(twImage){
+                if (twImage) {
                     on(twImage, "click, keyup", function (event) {
                         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                             _self.setTWLink(_self.options.shareURL);
@@ -2656,91 +2670,72 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     });
                 }
                 var inputShare = dom.byId("inputShare");
-                if(inputShare){
+                if (inputShare) {
                     on(inputShare, "click", function (event) {
                         this.select();
                     });
                 }
                 var quickEmbedCode = dom.byId("quickEmbedCode");
-                if(quickEmbedCode){
+                if (quickEmbedCode) {
                     on(quickEmbedCode, "click", function (event) {
                         this.select();
                     });
                 }
             }
         },
-        removeSpotlight: function(){
+        removeSpotlight: function () {
             query('.spotlight').removeClass('spotlight-active');
         },
         // show search
         configureSearchBox: function () {
             var _self = this;
             if (_self.options.showSearchBox) {
-
                 var html = '<div id="spotlight" class="spotlight"><\/div>';
                 domConstruct.place(html, dom.byId('map_container'), 'last');
-
                 _self._geocoder = new esri.dijit.Geocoder({
                     map: _self.map,
                     theme: 'modernGrey',
                     autoComplete: true
                 }, dom.byId("geocoderSearch"));
-
                 // on select test
-                connect.connect(_self._geocoder, 'onSelect', function(result){
-                    var spotlight = connect.connect(_self.map, 'onExtentChange', function(){
+                connect.connect(_self._geocoder, 'onSelect', function (result) {
+                    var spotlight = connect.connect(_self.map, 'onExtentChange', function () {
                         var geom = esri.geometry.toScreenGeometry(_self.map.extent, _self.map.width, _self.map.height, result.extent);
                         var width = geom.xmax - geom.xmin;
                         var height = geom.ymin - geom.ymax;
                         var max = height;
-                        if(width > height){
+                        if (width > height) {
                             max = width;
                         }
-                        var margin = '-' + Math.floor(max/2) + 'px 0 0 -' + Math.floor(max/2) + 'px';
+                        var margin = '-' + Math.floor(max / 2) + 'px 0 0 -' + Math.floor(max / 2) + 'px';
                         var pt = result.feature.geometry;
-
-
-
                         _self.setMarker(pt, result.name);
-
                         query('.spotlight').addClass('spotlight-active').style({
                             width: max + 'px',
                             height: max + 'px',
                             margin: margin
                         });
-
                         _self.setSharing();
-
                         connect.disconnect(spotlight);
                     });
                 });
-
-                connect.connect(_self._geocoder, 'onFindResults', function(response){
-                    if(!response.results.length){
+                connect.connect(_self._geocoder, 'onFindResults', function (response) {
+                    if (!response.results.length) {
                         _self.alertDialog(i18n.viewer.errors.noLocation);
                         _self.resetLocateLayer();
                     }
                 });
-
-
-
-
                 _self._geocoder.startup();
-
-                connect.connect(_self.map, 'onExtentChange', function(){
+                connect.connect(_self.map, 'onExtentChange', function () {
                     _self.removeSpotlight();
                 });
-
                 // on clear test
-                connect.connect(_self._geocoder, 'onClear', function(){
+                connect.connect(_self._geocoder, 'onClear', function () {
                     _self.removeSpotlight();
                     _self.resetLocateLayer();
                     _self.clearPopupValues();
                     _self.map.infoWindow.hide();
                 });
-
-
-
                 if (_self.options.locateName) {
                     _self._search.set('value', _self.options.locateName);
                 }
@@ -2774,7 +2769,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     node.innerHTML = html;
                 }
                 var aboutMap = dom.byId("aboutMap");
-                if(aboutMap){
+                if (aboutMap) {
                     on(aboutMap, "click, keyup", function (event) {
                         if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                             this.blur();
@@ -2830,7 +2825,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             }
             // Home extent
             var homeExtent = dom.byId("homeExtent");
-            if(homeExtent){
+            if (homeExtent) {
                 on(homeExtent, "click, keyup", function (event) {
                     if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                         _self.map.setExtent(_self.options.startExtent);
@@ -2984,7 +2979,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
         mapIsLoaded: function () {
             var _self = this;
             // map connect functions
-            connect.connect(window, "onresize", function(){
+            connect.connect(window, "onresize", function () {
                 _self.resizeMap();
             });
             _self.createCustomSlider();
@@ -3093,5 +3088,5 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             }
         }
     });
-return Widget;
+    return Widget;
 });
