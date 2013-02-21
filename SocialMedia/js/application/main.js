@@ -412,6 +412,10 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             if(_self.options.sharingurl !== ""){
                esri.arcgis.utils.arcgisUrl = _self.options.sharingurl + "/sharing/rest/content/items";
             }
+            else{
+                _self.options.sharingurl = location.protocol + "//www.arcgis.com/";
+            }
+            esri.dijit._arcgisUrl = _self.options.sharingurl + 'sharing/rest';
             // Set geometry to HTTPS if protocol is used
             if (_self.options.geometryserviceurl && location.protocol === "https:") {
                 _self.options.geometryserviceurl = _self.options.geometryserviceurl.replace('http:', 'https:');
@@ -419,10 +423,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             // https locator url
             if (_self.options.locatorserviceurl && location.protocol === "https:") {
                 _self.options.locatorserviceurl = _self.options.locatorserviceurl.replace('http:', 'https:');
-            }
-            // https portal url
-            if (esri.arcgis.utils.arcgisUrl && location.protocol === "https:") {
-                esri.arcgis.utils.arcgisUrl = esri.arcgis.utils.arcgisUrl.replace('http:', 'https:');
             }
             esri.config.defaults.geometryService = new esri.tasks.GeometryService(_self.options.geometryserviceurl);
             esri.config.defaults.io.proxyUrl = _self.options.proxyUrl;
