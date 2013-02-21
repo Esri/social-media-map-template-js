@@ -370,7 +370,7 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
         mapResults: function (j) {
             var _self = this;
             if (j.error) {
-                console.log('Search error' + ": " + j.error);
+                console.log('Search error' + ": " + j.error.toString());
                 this.onError(j.error);
                 return;
             }

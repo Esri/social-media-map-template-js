@@ -194,7 +194,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             var deferred = new Deferred();
             if (_self.options.appid) {
                 var requestHandle = esri.request({
-                    url: _self.options.sharingurl + "/" + _self.options.appid + "/data",
+                    url: esri.arcgis.utils.arcgisUrl + "/" + _self.options.appid + "/data",
                     content: {
                         f: "json"
                     },
@@ -289,16 +289,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
         // set defaults for config
         setDefaultOptions: function () {
             var _self = this;
-            _self.options.templateVersion = "3.01";
-            if (!_self.options.portalUrl) {
-                _self.options.portalUrl = location.protocol + '//' + location.host + "/";
-            }
-            if (!_self.options.proxyUrl) {
-                _self.options.proxyUrl = location.protocol + '//' + location.host + "/sharing/proxy";
-            }
-            if (!_self.options.sharingurl) {
-                _self.options.sharingurl = location.protocol + '//' + location.host + "/sharing/rest/content/items";
-            }
             if (!_self.options.locateName) {
                 _self.options.locateName = "";
             }
@@ -410,6 +400,18 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
         // make sure config options are correct
         validateConfig: function () {
             var _self = this;
+            //need to set the sharing url here so that when we query the applciation and organization the correct
+            //location is searched.
+            if(location.host.indexOf("arcgis.com") === -1){ //default (Not Hosted no org specified)
+                esri.arcgis.utils.arcgisUrl = location.protocol + "//www.arcgis.com/sharing/rest/content/items";
+             }else{ //hosted app
+                 esri.arcgis.utils.arcgisUrl = location.protocol + '//' + location.host + "/sharing/rest/content/items";
+                 _self.options.proxyUrl =  location.protocol + '//' + location.host + "/sharing/proxy";
+             }
+             //if the sharing url is set overwrite value
+            if(_self.options.sharingurl !== ""){
+               esri.arcgis.utils.arcgisUrl = _self.options.sharingurl + "/sharing/rest/content/items";
+            }
             // Set geometry to HTTPS if protocol is used
             if (_self.options.geometryserviceurl && location.protocol === "https:") {
                 _self.options.geometryserviceurl = _self.options.geometryserviceurl.replace('http:', 'https:');
@@ -418,16 +420,10 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             if (_self.options.locatorserviceurl && location.protocol === "https:") {
                 _self.options.locatorserviceurl = _self.options.locatorserviceurl.replace('http:', 'https:');
             }
-            // https sharing url
-            if (_self.options.sharingurl && location.protocol === "https:") {
-                _self.options.sharingurl = _self.options.sharingurl.replace('http:', 'https:');
-            }
             // https portal url
-            if (_self.options.portalUrl && location.protocol === "https:") {
-                _self.options.portalUrl = _self.options.portalUrl.replace('http:', 'https:');
+            if (esri.arcgis.utils.arcgisUrl && location.protocol === "https:") {
+                esri.arcgis.utils.arcgisUrl = esri.arcgis.utils.arcgisUrl.replace('http:', 'https:');
             }
-            // set defaults
-            esri.arcgis.utils.arcgisUrl = _self.options.sharingurl;
             esri.config.defaults.geometryService = new esri.tasks.GeometryService(_self.options.geometryserviceurl);
             esri.config.defaults.io.proxyUrl = _self.options.proxyUrl;
             esri.config.defaults.io.corsEnabledServers = [location.protocol + '//' + location.host];
@@ -2901,7 +2897,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 query(node).attr('title', _self.itemInfo.item.title);
             }
             query('meta[name="Description"]').attr('content', _self.itemInfo.item.snippet);
-            query('meta[property="og:image"]').attr('content', _self.options.sharingurl + '/' + _self.itemInfo.item.id + '/info/' + _self.itemInfo.item.thumbnail);
+            query('meta[property="og:image"]').attr('content', esri.arcgis.utils.arcgisUrl + '/' + _self.itemInfo.item.id + '/info/' + _self.itemInfo.item.thumbnail);
         },
         // Hide dropdown menu
         hideMenu: function (menuObj) {

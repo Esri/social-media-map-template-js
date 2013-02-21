@@ -1,6 +1,6 @@
 var configOptions = {
-   "appid":"a12238e4d8d54288b12b1cf7988cae59",
-   "webmap":"",
+   "appid":"",
+   "webmap":"4ff792a3962547caad2d924413c40985",
    "socialDisplay":"point",
    "showFlickr":true,
    "showFlickrConfig":true,
@@ -20,7 +20,7 @@ var configOptions = {
    "twitterSearch":"weather",
    "showPanoramio":false,
    "panoramioChecked":false,
-   "showUshahidi":true,
+   "showUshahidi":false,
    "ushahidiChecked":true,
    "showUshahidiConfig":true,
    "ushahidiCategory": 0,
@@ -33,8 +33,7 @@ var configOptions = {
    "pointGraphic":"images/map/bluepoint21x29.png",
    "geometryserviceurl":"http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
    "proxyUrl":"",
-   "sharingurl":"http://www.arcgis.com/sharing/rest/content/items",
-   "portalUrl":"http://www.arcgis.com/",
+   "sharingurl":"",
    "bingMapsKey":"Akt3ZoeZ089qyG3zWQZSWpwV3r864AHStal7Aon21-Fyxwq_KdydAH32LTwhieA8",
    "defaultMenu":"social",
    "showSearchBox":true,
@@ -49,8 +48,5 @@ var configOptions = {
    "showAboutDialog":true,
    "showAboutDialogOnLoad":false,
    "locateName":"",
-   "locatePoint":"",
-   "bannedUsersService":"http://services.arcgis.com/QJfoC7c7Z2icolha/ArcGIS/rest/services/fai/FeatureServer/2",
-   "bannedWordsService":"http://tm2-elb-1378978824.us-east-1.elb.amazonaws.com/ArcGIS/rest/services/SharedTools/Filter/MapServer/1",
-   "flagMailServer":"http://tmappsevents.esri.com/Website/pim_fai/fai.php"
+   "locatePoint":""
 };

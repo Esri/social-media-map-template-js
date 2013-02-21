@@ -110,7 +110,6 @@
 		<li><b>geometryserviceurl:</b> Service to use to geolocate geometries. Set to a custom URL if needed. The default value will be satisfactory for most web maps.</li>
 		<li><b>proxyUrl:</b> Leave this unchanged to use the proxy page packaged with the application. If using another proxy page, change the proxyURL value to point to the desired proxy page.</li>
 		<li><b>sharingurl:</b> Portal sharing URL.</li>
-		<li><b>portalUrl:</b> URL for portal.</li>
 		<li><b>bingMapsKey:</b> An alpha-numeric key is required to display base maps by Bing Maps. When the value is a valid key, Bing Maps’ base map options are automatically added to the Basemap menu. If needed, generate a key by creating a developer account at http://www.bingmapsportal.com/ and selecting "Create or view keys".</li>
 		<li><b>defaultMenu:</b> Menu to be shown on page load. Valid options are: 'places', 'basemap', 'layers', 'social', 'legend' or 'none'.</li>
 		<li><b>showSearchBox:</b> To add or remove the ‘Find a place’ search box to let users search for a place,
@@ -141,19 +140,17 @@ bookmarks can be saved at a time. Note – if more than 5 bookmarks are defined 
 </p>
 <ol>
 	<li>Open config.js in a text editor.</li>
-	<li>Locate the options for "sharingurl" and "portalUrl".
+	<li>Locate the options for "sharingurl".
 	<div>
 		<pre>
-			 "sharingurl":"http://www.arcgis.com/sharing/rest/content/items",
-			 "portalUrl":"http://www.arcgis.com/",
+			 "sharingurl":"http://www.arcgis.com/",
 		</pre>
 	</div>
 	</li>
 	<li>Change these settings to point to your portal's URL instead of using ArcGIS.com's URL.
 	<div>
 		<pre>
-			 "sharingurl":"<span class="selector">http://www.myorg.com/sharing/rest/content/items</span>",
-			 "portalUrl":"<span class="selector">http://www.myorg.com/</span>",
+			 "sharingurl":"<span class="selector">http://www.myorg.com/>/span>"
 		</pre>
 	</div>
 	</li>
