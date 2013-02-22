@@ -402,19 +402,21 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             var _self = this;
             //need to set the sharing url here so that when we query the applciation and organization the correct
             //location is searched.
-            if (location.host.indexOf("arcgis.com") === -1) { //default (Not Hosted no org specified)
+            if (location.host.indexOf("arcgis.com") === -1) {
+                //default (Not Hosted no org specified)
                 esri.arcgis.utils.arcgisUrl = location.protocol + "//www.arcgis.com/sharing/rest/content/items";
-            } else { //hosted app
+            } else {
+                // org app
                 esri.arcgis.utils.arcgisUrl = location.protocol + '//' + location.host + "/sharing/rest/content/items";
                 _self.options.proxyUrl = location.protocol + '//' + location.host + "/sharing/proxy";
             }
             //if the sharing url is set overwrite value
-            if (_self.options.sharingurl !== "") {
-                esri.arcgis.utils.arcgisUrl = _self.options.sharingurl + "/sharing/rest/content/items";
+            if (_self.options.sharingurl) {
+                esri.arcgis.utils.arcgisUrl = _self.options.sharingurl + 'sharing/rest/content/items';
+                esri.dijit._arcgisUrl = _self.options.sharingurl + 'sharing/rest';
             } else {
-                _self.options.sharingurl = location.protocol + "//www.arcgis.com/";
+                esri.dijit._arcgisUrl = location.protocol + "//www.arcgis.com/sharing/rest/";
             }
-            esri.dijit._arcgisUrl = _self.options.sharingurl + 'sharing/rest';
             // Set geometry to HTTPS if protocol is used
             if (_self.options.geometryserviceurl && location.protocol === "https:") {
                 _self.options.geometryserviceurl = _self.options.geometryserviceurl.replace('http:', 'https:');
