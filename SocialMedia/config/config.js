@@ -24,7 +24,7 @@ var configOptions = {
    "ushahidiChecked":true,
    "showUshahidiConfig":true,
    "ushahidiCategory": 0,
-   "ushahidiUrl":"https://bnestorm.crowdmap.com/api",
+   "ushahidiUrl":"",
    "useArcGISOnlineBasemaps":true,
    "basemapGroupTitle":"Community Basemaps",
    "basemapGroupOwner":"esri",
