@@ -7,6 +7,6 @@
 
 define('CONSUMER_KEY', 'bqNeQgeAD7YVJmbRHE3VQ');
 define('CONSUMER_SECRET', 'MkZxdRjpexHC3CGdf4nOklsMimNkyoQvk9P60xEp1fY');
-define('OAUTH_CALLBACK', 'http://webninja.esri.com/twitter2/oauth/callback.php');
+define('OAUTH_CALLBACK', 'http://maczombie.esri.com/git/social-media-map-template-js/resources/twitter_oauth/callback.php');
 define('OAUTH_COOKIE', 'smt_twitter');
 define('OAUTH_COOKIE_DOMAIN', '.esri.com');

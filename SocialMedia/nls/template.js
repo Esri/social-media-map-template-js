@@ -126,7 +126,7 @@ define({
 				"menuTitle":"Social Media Layers",
 				"screenName": "Screen name",
 				"signIn": "Sign in",
-				"signOut": "Sign out"
+				"switchAccount": "Switch account"
 			},
 			"preview":{
 				"minWidth":"Minimum width is",

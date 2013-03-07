@@ -1075,7 +1075,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                         if(parsedCookie.screen_name){
                             html += '<li>';
                             html += '<label>' + i18n.viewer.social.screenName + '</label>';
-                            html += '<span"><a href="' + location.protocol + '//twitter.com/' + parsedCookie.screen_name + '">' + parsedCookie.screen_name + '</a><a class="oAuthSignOut" href="' + _self.options.twitterUrl + 'signout.php">' + i18n.viewer.social.signOut + '</a></span>';
+                            html += '<span"><a href="' + location.protocol + '//twitter.com/' + parsedCookie.screen_name + '">' + parsedCookie.screen_name + '</a><a class="oAuthSwitchAccount" href="' + _self.options.twitterUrl + 'switch_account.php">' + i18n.viewer.social.switchAccount + '</a></span>';
                             html += '</li>';
                         }
                     }
@@ -1460,7 +1460,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     query('#socialMenu .layer[data-layer=' + _self.options.twitterID + ']').addClass('unauthenticated');
                     node = query('#socialMenu .layer[data-layer=' + _self.options.twitterID + '] .oAuthSignIn')[0];
                     if (node) {
-                        node.innerHTML = '<a href="' + _self.options.twitterUrl + 'signin.php">' + i18n.viewer.social.signIn + '</a>';
+                        node.innerHTML = '<a href="' + _self.options.twitterUrl + 'sign_in.php">' + i18n.viewer.social.signIn + '</a>';
                     }
                 });
                 connect.connect(twitterLayer, 'onUpdate', function () {

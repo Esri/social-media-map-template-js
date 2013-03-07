@@ -26,7 +26,7 @@ if(isset($_SERVER['HTTP_REFERER'])){
 switch ($auth_connection->http_code) {
     case 200:
         // Build authorize URL and redirect user to Twitter
-        $url = $auth_connection->getAuthorizeURL($request_token['oauth_token']);
+        $url = $auth_connection->getAuthorizeURL($request_token['oauth_token'], true);
         break;
     default:
         // error code

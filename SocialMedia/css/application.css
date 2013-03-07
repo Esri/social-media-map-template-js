@@ -921,7 +921,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     vertical-align: top;
 }
 
-.oAuthSignOut{
+.oAuthSwitchAccount{
     margin: 0 0 0 8px;
     display: inline-block;
 }
