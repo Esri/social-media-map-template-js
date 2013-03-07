@@ -17,10 +17,11 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
         constructor: function (options) {
             var _self = this;
             this.options = {
+                url: "",
                 filterUsers: [],
                 filterWords: [],
                 autopage: true,
-                maxpage: 6,
+                maxpage: 5,
                 limit: 100,
                 title: '',
                 id: 'twitter',
@@ -38,7 +39,6 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
             if (this.options.map === null) {
                 throw 'Reference to esri.Map object required';
             }
-            this.baseurl = location.protocol + "//search.twitter.com/search.json";
             this.featureCollection = {
                 layerDefinition: {
                     "geometryType": "esriGeometryPoint",
@@ -244,6 +244,7 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
             };
         },
         getWindowContent: function (graphic, _self) {
+            console.log(graphic);
             var date = new Date(graphic.attributes.created_at);
             var linkedText = _self.parseURL(graphic.attributes.text);
             linkedText = _self.parseUsername(linkedText);
@@ -251,22 +252,22 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
             // define content for the tweet pop-up window.
             var html = '';
             html += '<div class="twContent">';
-            if (graphic.attributes.profile_image_url) {
+            if (graphic.attributes.user.profile_image_url) {
                 var imageURL;
                 if (location.protocol === "https:") {
-                    imageURL = graphic.attributes.profile_image_url_https;
+                    imageURL = graphic.attributes.user.profile_image_url_https;
                 } else {
-                    imageURL = graphic.attributes.profile_image_url;
+                    imageURL = graphic.attributes.user.profile_image_url;
                 }
-                html += '<a tabindex="0" class="twImage" href="' + location.protocol + '//twitter.com/' + graphic.attributes.from_user + '/statuses/' + graphic.attributes.id_str + '" target="_blank"><img class="shadow" src="' + imageURL + '" width="40" height="40"></a>';
+                html += '<a tabindex="0" class="twImage" href="' + location.protocol + '//twitter.com/' + graphic.attributes.user.screen_name + '/status/' + graphic.attributes.id_str + '" target="_blank"><img class="shadow" src="' + imageURL + '" width="40" height="40"></a>';
             }
             html += '<div class="followButton"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=' + graphic.attributes.from_user + '&lang=' + locale + '&show_count=false&show_screen_name=false" style="width:60px; height:20px;"></iframe></div>';
-            html += '<h3 class="twUsername">' + graphic.attributes.from_user_name + '</h3>';
-            html += '<div class="twUser"><a target="_blank" href="' + location.protocol + '//twitter.com/' + graphic.attributes.from_user + '">&#64;' + graphic.attributes.from_user + '</a></div>';
+            html += '<h3 class="twUsername">' + graphic.attributes.user.name + '</h3>';
+            html += '<div class="twUser"><a target="_blank" href="' + location.protocol + '//twitter.com/' + graphic.attributes.user.screen_name + '">&#64;' + graphic.attributes.user.screen_name + '</a></div>';
             html += '<div class="clear"></div>';
             html += '<div class="tweet">' + linkedText + '</div>';
             if (graphic.attributes.created_at) {
-                html += '<div class="twDate"><a target="_blank" href="' + location.protocol + '//twitter.com/' + graphic.attributes.from_user + '/statuses/' + graphic.attributes.id_str + '">' + this.formatDate(date) + '</a></div>';
+                html += '<div class="twDate"><a target="_blank" href="' + location.protocol + '//twitter.com/' + graphic.attributes.user.screen_name + '/status/' + graphic.attributes.id_str + '">' + this.formatDate(date) + '</a></div>';
             }
             var tmp = dojo.locale.split('-');
             var locale = 'en';
@@ -294,19 +295,21 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
             }
             this.query = {
                 q: search,
-                rpp: this.options.limit,
+                count: this.options.limit,
                 result_type: this.options.result_type,
-                geocode: radius.center.y + "," + radius.center.x + "," + radius.radius + radius.units,
-                page: 1
+                include_entities: false,
+                geocode: radius.center.y + "," + radius.center.x + "," + radius.radius + radius.units
             };
             if (locale) {
                 this.query.locale = locale;
             }
             // start Twitter API call of several pages
             this.pageCount = 1;
-            this.sendRequest(this.baseurl + "?" + ioQuery.objectToQuery(this.query));
+            this.sendRequest(this.options.url + "?" + ioQuery.objectToQuery(this.query));
         },
+        authenticate: function(){},
         sendRequest: function (url) {
+            var _self = this;
             // get the results from twitter for each page
             var deferred = esri.request({
                 url: url,
@@ -315,20 +318,37 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                 callbackParamName: "callback",
                 preventCache: true,
                 load: lang.hitch(this, function (data) {
-                    if (data.results.length > 0) {
+                    if(data.errors && data.errors.length > 0){
+                        var errors = data.errors;
+                        // each error
+                        for(var i = 0; i < errors.length; i++){
+                            // auth error
+                            if(errors[i].code === 215){
+                                console.log(errors);
+                                _self.onUpdateEnd();
+                                _self.authenticated = false;
+                            }
+                        }
+                    }
+                    else if(data && data.signedout){
+                        _self.authenticate();
+                        _self.onUpdateEnd();
+                        _self.authenticated = false;
+                    }
+                    else if (data.statuses && data.statuses.length > 0) {
+                        _self.authenticated = true;
                         this.mapResults(data);
                         // display results for multiple pages
-                        if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.next_page !== undefined) && (this.query)) {
+                        if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.search_metadata.next_results) && (this.query)) {
                             this.pageCount++;
-                            this.query.page++;
-                            this.query.max_id = data.max_id;
-                            this.sendRequest(this.baseurl + "?" + ioQuery.objectToQuery(this.query));
+                            this.sendRequest(this.options.url + data.search_metadata.next_results);
                         } else {
                             this.onUpdateEnd();
                         }
                     } else {
                         // No results found, try another search term
                         this.onUpdateEnd();
+                        _self.authenticated = true;
                     }
                 }),
                 error: lang.hitch(this, function (e) {
@@ -375,12 +395,12 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                 return;
             }
             var b = [];
-            var k = j.results;
+            var k = j.statuses;
             arr.forEach(k, lang.hitch(this, function (result) {
                 result.smType = this.options.id;
                 result.filterType = 2;
-                result.filterContent = 'https://twitter.com/#!/' + result.from_user_id_str + '/status/' + result.id_str;
-                result.filterAuthor = result.from_user_id;
+                result.filterContent = 'https://twitter.com/#!/' + result.user.id_str + '/status/' + result.id_str;
+                result.filterAuthor = result.user.id_str;
                 // eliminate Tweets which we have on the map
                 if (this.geocoded_ids[result.id]) {
                     return;
@@ -391,7 +411,7 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                 // check for filterd user
                 if (_self.options.filterUsers && _self.options.filterUsers.length) {
                     for (i = 0; i < _self.options.filterUsers.length; i++) {
-                        if (_self.options.filterUsers[i].toString() === result.from_user_id.toString()) {
+                        if (_self.options.filterUsers[i].toString() === result.user.id_str.toString()) {
                             filter = true;
                             break;
                         }

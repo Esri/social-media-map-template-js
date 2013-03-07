@@ -910,6 +910,23 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     display: none;
 }
 
+.listMenu .unauthenticated{
+    color:#ccc;
+}
+
+.listMenu li .oAuthSignIn{
+    margin: 0 0 0 8px;
+    display: inline-block;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.oAuthSignOut{
+    margin: 0 0 0 8px;
+    display: inline-block;
+}
+
+
 .listMenu li .cBox {
     display: inline-block;
     width: 16px;
@@ -917,6 +934,10 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     background: url(../images/ui/uiSprite.png?v=3.01) no-repeat 0 0px;
     cursor: pointer;
     margin: 0 8px 0 0;
+}
+
+.listMenu .unauthenticated .cBox{
+    opacity: 0.5;
 }
 
 .esriRtl .listMenu li .cBox {
@@ -942,11 +963,19 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     cursor: default;
 }
 
+.listMenu .unauthenticated .toggle{
+    cursor: default;
+}
+
 .listMenu .cBicon {
     display: inline-block;
     width: 16px;
     height: 16px;
     margin: 0 8px 0 0;
+}
+
+.listMenu .unauthenticated .cBicon{
+    opacity: 0.5;
 }
 
 .esriRtl .listMenu .cBicon {
@@ -957,7 +986,6 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     display: inline-block;
     height: 16px;
     vertical-align: top;
-    width: 160px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1004,6 +1032,11 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     float: left;
     margin-left: 0;
     margin-right: 5px;
+}
+
+
+.listMenu .unauthenticated .cBconfig, .listMenu .unauthenticated .cBinfo{
+    display: none;
 }
 
 .listMenu .cBinfo:hover, .listMenu .cBinfo:focus {
@@ -1060,6 +1093,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 /*-------------------------------------------------- */
 .infoHidden {
     display: none;
+    color:#000;
     position: absolute;
     margin: 0 -1px 0 0;
     top: -1px;

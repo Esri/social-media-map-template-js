@@ -29,6 +29,8 @@ define([
     "dijit/form/VerticalSlider",
     "dojo/NodeList-traverse",
     "dojo/NodeList-manipulate",
+    "dojo/cookie",
+    "dojo/json",
     "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
     "esri/dijit/Geocoder",
     "esri/geometry",
@@ -38,7 +40,7 @@ define([
     "esri/widgets",
     "esri/arcgis/utils"
  ],
-function (ready, declare, connect, Deferred, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, date, number, win, on, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, esri) {
+function (ready, declare, connect, Deferred, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, date, number, win, on, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, cookie, JSON, esri) {
     var Widget = declare("application.main", null, {
         constructor: function (options) {
             var _self = this;
@@ -962,6 +964,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
         },
         // insert social media list item
         insertSMItem: function (obj) {
+            var _self = this;
             if (obj) {
                 // layer default class
                 var layerClass = 'layer';
@@ -983,7 +986,12 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 }
                 html += '<span tabindex="0" class="toggle cBox"></span>';
                 html += '<span tabindex="0" class="toggle cBicon"><img alt="' + obj.title + '" title="' + obj.title + '" width="16" height="16" src="' + obj.legendIcon + '" /></span>';
-                html += '<span tabindex="0" class="toggle cBtitle">' + obj.title + '<span class="count"></span></span>';
+                html += '<span tabindex="0" class="toggle cBtitle">' + obj.title;
+                html += '<span class="count"></span>';
+                html += '</span>';
+                if(obj.oAuth){
+                    html += '<span class="oAuthSignIn"></span>';
+                }
                 html += '<div class="clear"></div>';
                 if (obj.description) {
                     html += '<div title="' + i18n.viewer.general.close + '" class="infoHidden">';
@@ -1061,6 +1069,16 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     html += '<div class="cfgPanel" data-layer="' + _self.options.twitterID + '">';
                     html += '<div class="firstDesc"><strong>' + i18n.viewer.settings.searchAll + ' ' + _self.options.twitterTitle + ':</strong></div>';
                     html += '<ul class="formStyle">';
+                    var cookieValue = cookie('smt_twitter');
+                    if(cookieValue){
+                        var parsedCookie = JSON.parse(cookieValue);
+                        if(parsedCookie.screen_name){
+                            html += '<li>';
+                            html += '<label>' + i18n.viewer.social.screenName + '</label>';
+                            html += '<span"><a href="' + location.protocol + '//twitter.com/' + parsedCookie.screen_name + '">' + parsedCookie.screen_name + '</a><a class="oAuthSignOut" href="' + _self.options.twitterUrl + 'signout.php">' + i18n.viewer.social.signOut + '</a></span>';
+                            html += '</li>';
+                        }
+                    }
                     html += '<li>';
                     html += '<label for="' + _self.options.twitterID + '_input' + '">' + i18n.viewer.settings.usingThisKeyword + '</label>';
                     html += '<input data-id="' + _self.options.twitterID + '" id="' + _self.options.twitterID + '_input' + '" class="mapInput inputSingle" type="text" size="20" value="' + _self.options.twitterSearch + '" />';
@@ -1406,6 +1424,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             if (_self.options.showTwitter) {
                 var twitterLayer = new Twitter({
                     map: _self.map,
+                    url: _self.options.twitterUrl,
                     filterUsers: _self.options.filterTwitterUsers,
                     filterWords: _self.options.filterWords,
                     title: _self.options.twitterTitle,
@@ -1434,6 +1453,15 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                         "type": "esriPMS"
                     }),
                     label: _self.options.twitterTitle
+                });
+                connect.connect(twitterLayer, 'authenticate', function (url) {
+                    _self.toggleChecked(query('#socialMenu .layer[data-layer=' + _self.options.twitterID + '] .cBox')[0]);
+                    _self.toggleMapLayerSM(_self.options.twitterID);
+                    query('#socialMenu .layer[data-layer=' + _self.options.twitterID + ']').addClass('unauthenticated');
+                    node = query('#socialMenu .layer[data-layer=' + _self.options.twitterID + '] .oAuthSignIn')[0];
+                    if (node) {
+                        node.innerHTML = '<a href="' + _self.options.twitterUrl + 'signin.php">' + i18n.viewer.social.signIn + '</a>';
+                    }
                 });
                 connect.connect(twitterLayer, 'onUpdate', function () {
                     _self.updateDataPoints();
@@ -1506,9 +1534,11 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     showSocialSettings: _self.options.showTwitterConfig,
                     legendIcon: _self.options.twitterIcon,
                     description: _self.options.twitterDescription,
-                    searchTerm: _self.options.twitterSearch
+                    searchTerm: _self.options.twitterSearch,
+                    oAuth: true
                 });
                 _self.options.socialLayers.push(twitterLayer);
+                _self._twitterLayer = twitterLayer;
             }
             // if youtube
             if (_self.options.showYouTube) {
@@ -2811,7 +2841,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             var _self = this;
             var node = dom.byId('zoomSlider');
             var html = '';
-            if (_self.options.showGeolocation && navigator.geolocation) {
+            if (_self.options.showGeolocation && "geolocation" in navigator) {
                 html += '<div tabindex="0" title="' + i18n.viewer.places.myLocationTitle + '" id="geoLocate"></div>';
             } else {
                 _self.options.showGeolocation = false;

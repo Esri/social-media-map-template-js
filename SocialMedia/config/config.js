@@ -18,6 +18,7 @@ var configOptions = {
    "showTwitterConfig":true,
    "twitterChecked":true,
    "twitterSearch":"weather",
+   "twitterUrl":"http://webninja.esri.com/twitter2/oauth/",
    "showPanoramio":false,
    "panoramioChecked":false,
    "showUshahidi":false,

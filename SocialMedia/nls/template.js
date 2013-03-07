@@ -123,7 +123,10 @@ define({
 				"separator":","
 			},
 			"social":{
-				"menuTitle":"Social Media Layers"
+				"menuTitle":"Social Media Layers",
+				"screenName": "Screen name",
+				"signIn": "Sign in",
+				"signOut": "Sign out"
 			},
 			"preview":{
 				"minWidth":"Minimum width is",
