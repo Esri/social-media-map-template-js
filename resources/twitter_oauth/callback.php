@@ -10,6 +10,7 @@ if(isset($_COOKIE[OAUTH_COOKIE])){
     // redirect back to app
     if(isset($_SESSION['oauth_referrer'])){
         header('Location: '.$_SESSION['oauth_referrer']);
+        exit;
     }
 }
 else{
@@ -26,11 +27,16 @@ else{
         // set cookie
         setcookie(OAUTH_COOKIE, json_encode($access_token), $cookie_life, '/', OAUTH_COOKIE_DOMAIN);
         header('Location: ./callback.php');
+        exit;
     }
     else{
        // redirect
         if(isset($_SESSION['oauth_referrer'])){
             header('Location: '.$_SESSION['oauth_referrer']);
         }
+        else{
+            header('Location: '.OAUTH_CALLBACK);
+        }
+        exit;
     }
 }

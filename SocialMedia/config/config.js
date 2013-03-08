@@ -19,6 +19,7 @@ var configOptions = {
    "twitterChecked":true,
    "twitterSearch":"weather",
    "twitterUrl":"http://maczombie.esri.com/git/social-media-map-template-js/resources/twitter_oauth/",
+   "twitterCookie":"template_twitter_auth",
    "showPanoramio":false,
    "panoramioChecked":false,
    "showUshahidi":false,

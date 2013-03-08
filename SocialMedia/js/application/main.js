@@ -48,7 +48,13 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             declare.safeMixin(_self.options, options);
             _self.setOptions();
             ready(function () {
-                _self.setAppIdSettings().then(function () {
+                _self.getItemData().then(function (response) {
+                    if(response){
+                        // check for false value strings
+                        var appSettings = _self.setFalseValues(response.values);
+                        // set other config options from app id
+                        _self.options = declare.safeMixin(_self.options, appSettings);
+                    }
                     _self.init();
                 });
             });
@@ -191,24 +197,27 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             return obj;
         },
         // set application configuration settings
-        setAppIdSettings: function () {
+        getItemData: function (all) {
             var _self = this;
             var deferred = new Deferred();
             if (_self.options.appid) {
+                var dataUrl;
+                if(all){
+                    dataUrl = esri.arcgis.utils.arcgisUrl + "/" + _self.options.appid;
+                }
+                else{
+                    dataUrl = esri.arcgis.utils.arcgisUrl + "/" + _self.options.appid + "/data";
+                }
                 var requestHandle = esri.request({
-                    url: esri.arcgis.utils.arcgisUrl + "/" + _self.options.appid + "/data",
+                    url: dataUrl,
                     content: {
                         f: "json"
                     },
                     callbackParamName: "callback",
                     // on load
                     load: function (response) {
-                        // check for false value strings
-                        var appSettings = _self.setFalseValues(response.values);
-                        // set other config options from app id
-                        _self.options = declare.safeMixin(_self.options, appSettings);
                         // callback function
-                        deferred.resolve();
+                        deferred.resolve(response);
                     },
                     // on error
                     error: function (response) {
@@ -1069,7 +1078,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     html += '<div class="cfgPanel" data-layer="' + _self.options.twitterID + '">';
                     html += '<div class="firstDesc"><strong>' + i18n.viewer.settings.searchAll + ' ' + _self.options.twitterTitle + ':</strong></div>';
                     html += '<ul class="formStyle">';
-                    var cookieValue = cookie('smt_twitter');
+                    var cookieValue = cookie(_self.options.twitterCookie);
                     if(cookieValue){
                         var parsedCookie = JSON.parse(cookieValue);
                         if(parsedCookie.screen_name){
@@ -1171,7 +1180,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             if (_self.ushahidiCategoryArray.length) {
                 for (var i = 0; i < _self.ushahidiCategoryArray.length; i++) {
                     if (parseInt(_self.ushahidiCategoryArray[i].category.id, 10) === parseInt(id, 10)) {
-                        console.log('yes');
                         return _self.ushahidiCategoryArray[i].category;
                     }
                 }
@@ -1852,54 +1860,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             }
             _self.setSharing();
         },
-        // Build a list of layers for the incoming web map.
-        buildLayersList: function (layers) {
-            //layers  arg is  response.itemInfo.itemData.operationalLayers;
-            var layerInfos = [];
-            array.forEach(layers, function (mapLayer, index) {
-                var layerInfo = {};
-                if (mapLayer.featureCollection && mapLayer.type !== "CSV") {
-                    if (mapLayer.featureCollection.showLegend === true) {
-                        array.forEach(mapLayer.featureCollection.layers, function (fcMapLayer) {
-                            if (fcMapLayer.showLegend !== false) {
-                                layerInfo = {
-                                    "layer": fcMapLayer.layerObject,
-                                    "title": mapLayer.title,
-                                    "defaultSymbol": false
-                                };
-                                if (mapLayer.featureCollection.layers.length > 1) {
-                                    layerInfo.title += " - " + fcMapLayer.layerDefinition.name;
-                                }
-                                layerInfos.push(layerInfo);
-                            }
-                        });
-                    }
-                } else if (mapLayer.showLegend !== false && mapLayer.layerObject) {
-                    var showDefaultSymbol = false;
-                    if (mapLayer.layerObject.version < 10.1 && (mapLayer.layerObject instanceof esri.layers.ArcGISDynamicMapServiceLayer || mapLayer.layerObject instanceof esri.layers.ArcGISTiledMapServiceLayer)) {
-                        showDefaultSymbol = true;
-                    }
-                    layerInfo = {
-                        "layer": mapLayer.layerObject,
-                        "title": mapLayer.title,
-                        "defaultSymbol": showDefaultSymbol
-                    };
-                    //does it have layers too? If so check to see if showLegend is false
-                    if (mapLayer.layers) {
-                        var hideLayers = array.map(array.filter(mapLayer.layers, function (lyr) {
-                            return (lyr.showLegend === false);
-                        }), function (lyr) {
-                            return lyr.id;
-                        });
-                        if (hideLayers.length) {
-                            layerInfo.hideLayers = hideLayers;
-                        }
-                    }
-                    layerInfos.push(layerInfo);
-                }
-            });
-            return layerInfos;
-        },
         // change active layers
         getActiveLayerIndex: function (layerid) {
             var _self = this;
@@ -2190,8 +2150,10 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     if (!_self.options.layerInfos) {
                         _self.options.layerInfos = [];
                     }
+                    // get legend layers
+                    var legendLayers = esri.arcgis.utils.getLegendLayers(_self.mapResponse);
                     // build layers
-                    _self.options.layerInfos = _self.options.layerInfos.concat(_self.buildLayersList(_self.itemInfo.itemData.operationalLayers));
+                    _self.options.layerInfos = _self.options.layerInfos.concat(legendLayers);
                     var node;
                     if (_self.options.showLegendMenu) {
                         node = dom.byId('legendMenu');
@@ -2985,12 +2947,8 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             }
             query('#mapcon .slideMenu').style('display', 'none');
         },
-        // webmap object returned. Create map data
-        webmapReturned: function (response) {
+        webmapNext: function(){
             var _self = this;
-            // webmap
-            _self.map = response.map;
-            _self.itemInfo = response.itemInfo;
             _self.setStartExtent();
             _self.setStartLevel();
             _self.setStartMarker();
@@ -3005,6 +2963,33 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 connect.connect(_self.map, "onLoad", function () {
                     _self.mapIsLoaded();
                 });
+            }
+        },
+        // webmap object returned. Create map data
+        webmapReturned: function (response) {
+            var _self = this;
+            // map response
+            _self.mapResponse = response;
+            // webmap
+            _self.map = response.map;
+            _self.itemInfo = response.itemInfo;
+            if (_self.options.appid) {
+                // get webapp object item info
+                _self.getItemData(true).then(function(resp){
+                    if(resp && resp.length){
+                        for (var i in resp) {
+                           if (resp.hasOwnProperty(i) && resp[i] === "" || resp[i] === null ) {
+                               delete resp[i];
+                            }
+                        }
+                        // set other config options from app id
+                        _self.itemInfo.item = declare.safeMixin(_self.itemInfo.item, appSettings);
+                    }
+                    _self.webmapNext();
+                });
+            }
+            else{
+                _self.webmapNext();
             }
         },
         onMapLoad: function () {},

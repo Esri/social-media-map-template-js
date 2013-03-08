@@ -12,13 +12,17 @@ if(isset($_COOKIE[OAUTH_COOKIE])){
     session_destroy();
     session_start();
     // set referrer url to return to
-    if(isset($_SERVER['HTTP_REFERER']) && !isset($_SESSION['oauth_referrer'])){
+    if(isset($_SERVER['HTTP_REFERER'])){
         $_SESSION['oauth_referrer'] = $_SERVER['HTTP_REFERER'];
+    }
+    else{
+        $_SESSION['oauth_referrer'] = OAUTH_CALLBACK;
     }
     // remove cookie
     setcookie(OAUTH_COOKIE, json_encode($access_token), time() - 3600, '/', OAUTH_COOKIE_DOMAIN);
     // reload
     header('Location: ./switch_account.php');
+    exit;
 }
 else{
     // connect to twitter
@@ -42,4 +46,8 @@ else{
     if(isset($url)){
         header('Location: '.$url);
     }
+    else{
+        header('Location: '.OAUTH_CALLBACK);
+    }
+    exit;
 }

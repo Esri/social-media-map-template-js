@@ -22,18 +22,16 @@ if(isset($_SERVER['HTTP_REFERER'])){
     $_SESSION['oauth_referrer'] = $_SERVER['HTTP_REFERER'];
 }
 
-// If last connection failed don't display authorization link.
-switch ($auth_connection->http_code) {
-    case 200:
-        // Build authorize URL and redirect user to Twitter
-        $url = $auth_connection->getAuthorizeURL($request_token['oauth_token'], true);
-        break;
-    default:
-        // error code
-        $url = $_SESSION['oauth_referrer'];
+if($auth_connection->http_code == 200){
+    // Build authorize URL and redirect user to Twitter
+    $url = $auth_connection->getAuthorizeURL($request_token['oauth_token'], true);
 }
 
 // redirect
 if(isset($url)){
     header('Location: '.$url);
 }
+else{
+    header('Location: '.OAUTH_CALLBACK);
+}
+exit;
