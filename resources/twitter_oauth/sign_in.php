@@ -8,6 +8,12 @@ require_once('twitteroauth/twitteroauth.php');
 require_once('config.php');
 header('Content-Type: application/json');
 
+// check if cookie exists
+if(isset($_COOKIE[OAUTH_COOKIE])){
+    // remove cookie
+    setcookie(OAUTH_COOKIE, '', time() - 3600, '/', OAUTH_COOKIE_DOMAIN);
+}
+
 // connect to twitter
 $auth_connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
 

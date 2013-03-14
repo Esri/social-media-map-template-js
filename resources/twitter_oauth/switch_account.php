@@ -19,7 +19,7 @@ if(isset($_COOKIE[OAUTH_COOKIE])){
         $_SESSION['oauth_referrer'] = OAUTH_CALLBACK;
     }
     // remove cookie
-    setcookie(OAUTH_COOKIE, json_encode($access_token), time() - 3600, '/', OAUTH_COOKIE_DOMAIN);
+    setcookie(OAUTH_COOKIE, '', time() - 3600, '/', OAUTH_COOKIE_DOMAIN);
     // reload
     header('Location: ./switch_account.php');
     exit;
