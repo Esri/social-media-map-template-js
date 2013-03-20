@@ -491,7 +491,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             // basemap gallery
             _self.basemapDijit = new esri.dijit.BasemapGallery({
                 showArcGISBasemaps: _self.options.useArcGISOnlineBasemaps,
-                bingMapsKey: _self.options.bingMapsKey,
                 basemapsGroup: basemapGroup,
                 map: _self.map
             }, domConstruct.create("div"));
