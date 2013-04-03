@@ -68,7 +68,7 @@ body {
     margin-right: 5px;
     width: 16px;
     height: 16px;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -144px 0;
+    background: url(../images/ui/uiSprite.png) no-repeat -144px 0;
 }
 
 .esriRtl #previewContainer .embedSizing .item .itemIcon {
@@ -77,7 +77,7 @@ body {
 }
 
 #previewContainer .embedSizing .selected .itemIcon {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -128px 0;
+    background: url(../images/ui/uiSprite.png) no-repeat -128px 0;
 }
 
 #previewContainer .embedSizing .item ul {

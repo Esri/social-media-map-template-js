@@ -86,11 +86,11 @@ b, strong {
 }
 
 .Loading {
-    background: url(../images/ui/ajax-loader.gif?v=3.01) no-repeat center center;
+    background: url(../images/ui/ajax-loader.gif) no-repeat center center;
 }
 
 .LoadingComplete {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -352px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -352px 0px;
 }
 /*-------------------------------------------------- */
 /* Map Properties */
@@ -115,7 +115,7 @@ b, strong {
 }
 
 .mapLoading {
-    background: url(../images/ui/ajax-loader.gif?v=3.01) no-repeat center center;
+    background: url(../images/ui/ajax-loader.gif) no-repeat center center;
 }
 /*-------------------------------------------------- */
 /* TOP MENU BAR */
@@ -237,7 +237,7 @@ b, strong {
 /* SHARE BUTTON */
 /*-------------------------------------------------- */
 #shareIcon .iconBlock {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -256px 0;
+    background: url(../images/ui/uiSprite.png) no-repeat -256px 0;
 }
 /*-------------------------------------------------- */
 /* BUTTONS AND INPUT BOXES */
@@ -678,7 +678,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     float: right;
     overflow: hidden;
     cursor: pointer;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -80px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -80px 0px;
 }
 
 .esriRtl .slideMenu .menuClose .closeButton {
@@ -792,7 +792,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     display: inline-block;
     height: 16px;
     width: 16px;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -128px -16px;
+    background: url(../images/ui/uiSprite.png) no-repeat -128px -16px;
     margin-right: 4px;
     vertical-align: bottom;
 }
@@ -821,7 +821,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     display: inline-block;
     height: 16px;
     width: 16px;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -144px -16px;
+    background: url(../images/ui/uiSprite.png) no-repeat -144px -16px;
     margin-right: 4px;
     vertical-align: bottom;
 }
@@ -857,7 +857,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 }
 
 .basemapIcon {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -96px 0;
+    background: url(../images/ui/uiSprite.png) no-repeat -96px 0;
 }
 /*-------------------------------------------------- */
 /* Legend Menu */
@@ -867,14 +867,14 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 }
 
 .legendIcon {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -368px 0;
+    background: url(../images/ui/uiSprite.png) no-repeat -368px 0;
 }
 /*-------------------------------------------------- */
 /* EXPLORE LAYERS */
 /*-------------------------------------------------- */
 
 .layersIcon {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -112px 0;
+    background: url(../images/ui/uiSprite.png) no-repeat -112px 0;
 }
 
 .listMenu ul {
@@ -931,7 +931,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     display: inline-block;
     width: 16px;
     height: 16px;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat 0 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat 0 0px;
     cursor: pointer;
     margin: 0 8px 0 0;
 }
@@ -945,11 +945,11 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 }
 
 .listMenu li.checked .cBox {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -16px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -16px 0px;
 }
 
 .listMenu li.cLoading .cBox {
-    background: url(../images/ui/ajax-loader.gif?v=3.01) no-repeat center center;
+    background: url(../images/ui/ajax-loader.gif) no-repeat center center;
 }
 
 .listMenu li .toggle {
@@ -1008,7 +1008,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     cursor: pointer;
     float: right;
     margin-left: 5px;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -304px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -304px 0px;
 }
 
 .esriRtl .listMenu .cBinfo {
@@ -1025,7 +1025,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     cursor: pointer;
     margin-left: 5px;
     float: right;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -336px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -336px 0px;
 }
 
 .esriRtl .listMenu .cBconfig {
@@ -1044,7 +1044,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 }
 
 .listMenu .active .cBinfo {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -288px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -288px 0px;
 }
 
 .listMenu .active .cBinfo:hover, .listMenu .active .cBinfo:focus {
@@ -1133,7 +1133,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     height: 16px;
     cursor: pointer;
     overflow: hidden;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -80px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -80px 0px;
 }
 
 .esriRtl .infoHidden .ihClose {
@@ -1165,7 +1165,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 }
 
 .socialIcon {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -160px -16px;
+    background: url(../images/ui/uiSprite.png) no-repeat -160px -16px;
 }
 
 .pointButton .iconBlock {
@@ -1174,7 +1174,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     height: 16px;
     margin-right: 5px;
     vertical-align: top;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -64px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -64px 0px;
 }
 
 .esriRtl .pointButton .iconBlock {
@@ -1188,7 +1188,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     height: 16px;
     margin-right: 5px;
     vertical-align: top;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -160px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -160px 0px;
 }
 
 .esriRtl .clusterButton .iconBlock {
@@ -1202,7 +1202,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     height: 16px;
     margin-right: 5px;
     vertical-align: top;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -176px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -176px 0px;
 }
 
 .esriRtl .heatButton .iconBlock {
@@ -1243,7 +1243,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     vertical-align: text-bottom;
     cursor: pointer;
     margin-left: 5px;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -304px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -304px 0px;
 }
 
 .esriRtl .twInfo {
@@ -1295,7 +1295,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     cursor: pointer;
     height: 26px;
     width: 26px;
-    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -115px 0;
+    background: url(../images/ui/zoomBar.png) no-repeat -115px 0;
 }
 
 #geoLocate {
@@ -1303,11 +1303,11 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     cursor: pointer;
     height: 23px;
     width: 26px;
-    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -89px 0;
+    background: url(../images/ui/zoomBar.png) no-repeat -89px 0;
 }
 
 #homeExtent.noGeo {
-    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -141px 0;
+    background: url(../images/ui/zoomBar.png) no-repeat -141px 0;
 }
 
 /*-------------------------------------------------- */
@@ -1348,20 +1348,20 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 
 #map .modernGrey .titleButton {
     top: 6px;
-    background-image: url(../images/ui/popup.png?v=3.01);
+    background-image: url(../images/ui/popup.png);
 }
 
 #map .modernGrey .pointer, #map .modernGrey .outerPointer {
-    background-image: url(../images/ui/popup.png?v=3.01);
+    background-image: url(../images/ui/popup.png);
 }
 
 #map .modernGrey .titleButton, #map .modernGrey .pointer, #map .modernGrey .esriViewPopup .gallery .mediaHandle, #map .modernGrey .esriViewPopup .gallery .mediaIcon {
-    background-image: url(../images/ui/popup.png?v=3.01);
+    background-image: url(../images/ui/popup.png);
 }
 
 #map .modernGrey .titlePane .spinner {
     margin-top: 6px;
-    background: url(../images/ui/ajax-loader.gif?v=3.01) no-repeat;
+    background: url(../images/ui/ajax-loader.gif) no-repeat;
 }
 
 #map .modernGrey .titleButton.maximize {
@@ -1453,7 +1453,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 /* Places */
 /*-------------------------------------------------- */
 .placesMenuIcon {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -176px -16px;
+    background: url(../images/ui/uiSprite.png) no-repeat -176px -16px;
 }
 
 #placesMenu {
@@ -1480,7 +1480,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 /*-------------------------------------------------- */
 
 .aboutInfo {
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -304px 0;
+    background: url(../images/ui/uiSprite.png) no-repeat -304px 0;
 }
 
 #aboutDialog .license {

@@ -22,11 +22,11 @@
     height: 16px;
     margin-right: 4px;
     vertical-align: text-bottom;
-    background: url(../../images/ui/twitterSprite.png?v=3.01) no-repeat 0 0;
+    background: url(../../images/ui/twitterSprite.png) no-repeat 0 0;
 }
 
 .twContent .reply:hover, .twContent .reply:focus {
-    background: url(../../images/ui/twitterSprite.png?v=3.01) no-repeat -16px 0;
+    background: url(../../images/ui/twitterSprite.png) no-repeat -16px 0;
 }
 
 .twContent .retweet {
@@ -35,11 +35,11 @@
     height: 16px;
     margin-right: 4px;
     vertical-align: text-bottom;
-    background: url(../../images/ui/twitterSprite.png?v=3.01) no-repeat -80px 0;
+    background: url(../../images/ui/twitterSprite.png) no-repeat -80px 0;
 }
 
 .twContent .retweet:hover, .twContent .retweet:focus {
-    background: url(../../images/ui/twitterSprite.png?v=3.01) no-repeat -96px 0;
+    background: url(../../images/ui/twitterSprite.png) no-repeat -96px 0;
 }
 
 .twContent .favorite {
@@ -48,11 +48,11 @@
     height: 16px;
     margin-right: 4px;
     vertical-align: text-bottom;
-    background: url(../../images/ui/twitterSprite.png?v=3.01) no-repeat -32px 0;
+    background: url(../../images/ui/twitterSprite.png) no-repeat -32px 0;
 }
 
 .twContent .favorite:hover, .twContent .favorite:focus {
-    background: url(../../images/ui/twitterSprite.png?v=3.01) no-repeat -48px 0;
+    background: url(../../images/ui/twitterSprite.png) no-repeat -48px 0;
 }
 
 .twContent .twUser {
@@ -108,7 +108,7 @@
     -webkit-box-shadow: 1px 1px 3px #CCCCCC;
     box-shadow: 1px 1px 3px #CCCCCC;
     border: 1px solid #CCCCCC;
-    background: url(../../images/ui/ajax-loader.gif?v=3.01) no-repeat center center #fff;
+    background: url(../../images/ui/ajax-loader.gif) no-repeat center center #fff;
 }
 
 .twContent .twImage:hover img, .twContent .twImage:focus img {

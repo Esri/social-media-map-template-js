@@ -123,7 +123,7 @@
 .modernGrey .esriGeocoder .esriGeocoderSearch {
     cursor: pointer;
     margin-left: 6px;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -272px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -272px 0px;
 }
 
 .dj_rtl .modernGrey .esriGeocoder .esriGeocoderSearch {
@@ -149,11 +149,11 @@
 .modernGrey .esriGeocoderHasValue .esriGeocoderReset {
     cursor: pointer;
     display: block;
-    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -32px 0px;
+    background: url(../images/ui/uiSprite.png) no-repeat -32px 0px;
 }
 
 .modernGrey .esriGeocoderLoading .esriGeocoderReset {
-    background: url(../images/ui/ajax-loader.gif?v=3.01) no-repeat center center;
+    background: url(../images/ui/ajax-loader.gif) no-repeat center center;
 }
 
 .modernGrey .esriGeocoder .esriGeocoderReset:hover,.modernGrey .esriGeocoder .esriGeocoderReset:focus {

@@ -58,7 +58,7 @@
     border: 0;
     width: 11px;
     height: 26px;
-    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -78px 0;
+    background: url(../images/ui/zoomBar.png) no-repeat -78px 0;
     cursor: move;
 	cursor:ew-resize;
 }
@@ -67,7 +67,7 @@
     border: 0;
     width: 26px;
     height: 11px;
-    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -52px 0;
+    background: url(../images/ui/zoomBar.png) no-repeat -52px 0;
     cursor: move;
 	cursor:ns-resize;
 }
@@ -85,7 +85,7 @@
 .modernGrey .dijitSliderDecrementIconV,
 .modernGrey .dijitSliderIncrementIconV {
     cursor: pointer;
-    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat;
+    background: url(../images/ui/zoomBar.png) no-repeat;
 }
 
 .modernGrey .dijitSliderDecrementIconH, .modernGrey .dijitSliderIncrementIconH {
