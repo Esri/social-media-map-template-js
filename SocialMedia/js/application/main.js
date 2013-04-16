@@ -29,6 +29,7 @@ define([
     "dijit/form/VerticalSlider",
     "dojo/NodeList-traverse",
     "dojo/NodeList-manipulate",
+    "config/commonConfig",
     "dojo/cookie",
     "dojo/json",
     "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
@@ -40,7 +41,7 @@ define([
     "esri/widgets",
     "esri/arcgis/utils"
  ],
-function (ready, declare, connect, Deferred, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, date, number, win, on, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, cookie, JSON, esri) {
+function (ready, declare, connect, Deferred, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, date, number, win, on, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, templateConfig, cookie, JSON, esri) {
     var Widget = declare("application.main", null, {
         constructor: function (options) {
             var _self = this;

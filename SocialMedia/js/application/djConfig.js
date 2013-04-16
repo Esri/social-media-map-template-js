@@ -13,5 +13,9 @@ var dojoConfig = {
     {
         name: "application",
         location: locationPath + '/js/application/'
+    },
+    {
+        name: "config",
+        location: locationPath + '/config'
     }]
 };
