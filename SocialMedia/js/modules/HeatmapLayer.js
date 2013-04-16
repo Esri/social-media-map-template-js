@@ -6,7 +6,9 @@ define([
 	"dojo/_base/connect",
     "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
     "esri/geometry",
-    "esri/utils"
+    "esri/layers/ArcGISDynamicMapServiceLayer",
+    "esri/utils",
+    "dojo/domReady!"
 ],
 function(declare, domConstruct, query, domStyle, connect, esri) {
     var Widget = declare("modules.HeatmapLayer", [esri.layers.DynamicMapServiceLayer], {

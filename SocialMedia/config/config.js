@@ -18,7 +18,7 @@ var configOptions = {
    "showTwitterConfig":true,
    "twitterChecked":true,
    "twitterSearch":"weather",
-   "twitterUrl":"http://webninja.esri.com/git/social-media-map-template-js/resources/twitter_oauth/",
+   "twitterUrl":"http://tmappsevents.esri.com/website/twitter-oauth-proxy-php/",
    "twitterCookie":"template_twitter_auth",
    "showPanoramio":false,
    "panoramioChecked":false,
