@@ -303,7 +303,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             if (!_self.options.locateName) {
                 _self.options.locateName = "";
             }
-            _self.options.locatorserviceurl = location.protocol + '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer';
             _self.options.popupWidth = 290;
             _self.options.popupHeight = 200;
             _self.options.previewSize = {
@@ -429,14 +428,14 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 esri.dijit._arcgisUrl = location.protocol + "//www.arcgis.com/sharing/rest/";
             }
             // Set geometry to HTTPS if protocol is used
-            if (_self.options.geometryserviceurl && location.protocol === "https:") {
-                _self.options.geometryserviceurl = _self.options.geometryserviceurl.replace('http:', 'https:');
+            if (templateConfig.helperServices.geometry.url && location.protocol === "https:") {
+                templateConfig.helperServices.geometry.url = templateConfig.helperServices.geometry.url.replace('http:', 'https:');
             }
             // https locator url
-            if (_self.options.locatorserviceurl && location.protocol === "https:") {
-                _self.options.locatorserviceurl = _self.options.locatorserviceurl.replace('http:', 'https:');
+            if (templateConfig.helperServices.geocode.url && location.protocol === "https:") {
+                templateConfig.helperServices.geocode.url = templateConfig.helperServices.geocode.url.replace('http:', 'https:');
             }
-            esri.config.defaults.geometryService = new esri.tasks.GeometryService(_self.options.geometryserviceurl);
+            esri.config.defaults.geometryService = new esri.tasks.GeometryService(templateConfig.helperServices.geometry.url);
             esri.config.defaults.io.proxyUrl = _self.options.proxyUrl;
             esri.config.defaults.io.corsEnabledServers = [location.protocol + '//' + location.host];
             esri.config.defaults.io.alwaysUseProxy = false;
@@ -2719,9 +2718,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     }
                 });
                 _self._geocoder.startup();
-                connect.connect(_self.map, 'onExtentChange', function () {
-                    _self.removeSpotlight();
-                });
                 // on clear test
                 connect.connect(_self._geocoder, 'onClear', function () {
                     _self.removeSpotlight();
@@ -3013,6 +3009,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             _self.configureSearchBox();
             setTimeout(function () {
                 connect.connect(_self.map, "onExtentChange", function (extent) {
+                    _self.removeSpotlight();
                     // hide about panel if open
                     _self.hideAboutMap();
                     // update current extent
@@ -3074,8 +3071,8 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     infoWindow: _self.options.customPopup,
                     isScrollWheelZoom: true
                 },
-                bingMapsKey: _self.options.bingMapsKey,
-                geometryServiceURL: _self.options.geometryserviceurl
+                bingMapsKey: templateConfig.bingMapsKey,
+                geometryServiceURL: templateConfig.helperServices.geometry.url
             });
             // on successful response
             mapDeferred.addCallback(function (response) {
