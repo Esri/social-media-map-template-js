@@ -1152,21 +1152,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             var switchAccountNode = dom.byId('oAuthSwitchAccountTwitter');
             if(switchAccountNode){
                 on(switchAccountNode, 'click', function(){
-                    var pathRegex = new RegExp(/\/[^\/]+$/);
-                    var callback = encodeURIComponent(location.protocol + '//' + location.host + location.pathname.replace(pathRegex, '') + 'oauth-callback.html');
-                    var w = screen.width / 2;
-                    var h = screen.height / 1.5;
-                    var left = (screen.width / 2) - (w / 2);
-                    var top = (screen.height / 2) - (h / 2);
-                     window.open(
-                      _self.options.twitterUrl + 'switch_account.php?callback=' + callback, 
-                      "twoAuth",
-                      'scrollbars=yes, resizable=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left,
-                      true
-                    );
-                    window.oAuthCallbackTwitter = function(){
-                        window.location.reload()
-                    }
+                    _self._twitterWindow('switch_account.php');
                 });   
             }
             if (_self.options.showUshahidi) {
@@ -1494,23 +1480,8 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     var signInNode = dom.byId('twSignInLink');
                     if(signInNode){
                         on(signInNode, 'click', function(){
-                            var pathRegex = new RegExp(/\/[^\/]+$/);
-                            var callback = encodeURIComponent(location.protocol + '//' + location.host + location.pathname.replace(pathRegex, '') + 'oauth-callback.html');
-                            var w = screen.width / 2;
-                            var h = screen.height / 1.5;
-                            var left = (screen.width / 2) - (w / 2);
-                            var top = (screen.height / 2) - (h / 2);
-                             window.open(
-                              _self.options.twitterUrl + 'sign_in.php?callback=' + callback, 
-                              "twoAuth",
-                              'scrollbars=yes, resizable=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left,
-                              true
-                            );
-                            window.oAuthCallbackTwitter = function(){
-                                window.location.reload()
-                            }
+                            _self._twitterWindow('sign_in.php');
                         });
-   
                     }
                 });
 
@@ -1866,6 +1837,24 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     }
                 });
             }
+        },
+        _twitterWindow: function(page){
+            var _self = this;
+            var pathRegex = new RegExp(/\/[^\/]+$/);
+            var callback = encodeURIComponent(location.protocol + '//' + location.host + location.pathname.replace(pathRegex, '') + 'oauth-callback.html');
+            var w = screen.width / 2;
+            var h = screen.height / 1.5;
+            var left = (screen.width / 2) - (w / 2);
+            var top = (screen.height / 2) - (h / 2);
+             window.open(
+              _self.options.twitterUrl + page +'?callback=' + callback, 
+              "twoAuth",
+              'scrollbars=yes, resizable=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left,
+              true
+            );
+            window.oAuthCallback = function(){
+                window.location.reload()
+            }  
         },
         // return correct button class
         getButtonClass: function (i, size) {
