@@ -18,7 +18,7 @@ var configOptions = {
    "showTwitterConfig":true,
    "twitterChecked":true,
    "twitterSearch":"weather",
-   "twitterUrl":"http://tmappsevents.esri.com/website/twitter-oauth-proxy-php/",
+   "twitterUrl":"http://tmappsevents.esri.com/stage/twitter-oauth-proxy-php/",
    "twitterCookie":"template_twitter_auth",
    "showPanoramio":false,
    "panoramioChecked":false,
