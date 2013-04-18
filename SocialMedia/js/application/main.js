@@ -304,8 +304,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             if (!_self.options.locateName) {
                 _self.options.locateName = "";
             }
-            _self.options.popupWidth = 290;
-            _self.options.popupHeight = 200;
             _self.options.previewSize = {
                 "width": 900,
                 "height": 750
@@ -574,6 +572,19 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             // set sharing links and embed code
             _self.setSharing();
             _self.hideAllMenus();
+        },
+        adjustPopupSize: function(map) {
+            var box = domGeom.getContentBox(map.container);
+            var width = 270, height = 300, // defaults
+            newWidth = Math.round(box.w * 0.60),             
+            newHeight = Math.round(box.h * 0.45);        
+            if (newWidth < width) {
+                width = newWidth;
+            }
+            if (newHeight < height) {
+                height = newHeight;
+            }
+            map.infoWindow.resize(width, height);
         },
         // Set initial extent for future use
         setStartExtent: function () {
@@ -1241,8 +1252,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     symbolUrl: _self.options.flickrSymbol.url,
                     symbolHeight: _self.options.flickrSymbol.height,
                     symbolWidth: _self.options.flickrSymbol.width,
-                    popupWidth: _self.options.popupWidth,
-                    popupHeight: _self.options.popupHeight,
                     dateFrom: _self.getFlickrDate('from'),
                     dateTo: _self.getFlickrDate('to'),
                     apiKey: _self.options.flickrKey
@@ -1359,9 +1368,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     timePattern: i18n.viewer.main.timePattern,
                     symbolUrl: _self.options.panoramioSymbol.url,
                     symbolHeight: _self.options.panoramioSymbol.height,
-                    symbolWidth: _self.options.panoramioSymbol.width,
-                    popupWidth: _self.options.popupWidth,
-                    popupHeight: _self.options.popupHeight
+                    symbolWidth: _self.options.panoramioSymbol.width
                 });
                 _self.options.layerInfos.push({
                     defaultSymbol: true,
@@ -1448,9 +1455,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     searchTerm: _self.options.twitterSearch,
                     symbolUrl: _self.options.twitterSymbol.url,
                     symbolHeight: _self.options.twitterSymbol.height,
-                    symbolWidth: _self.options.twitterSymbol.width,
-                    popupWidth: _self.options.popupWidth,
-                    popupHeight: _self.options.popupHeight
+                    symbolWidth: _self.options.twitterSymbol.width
                 });
                 _self.options.layerInfos.push({
                     defaultSymbol: true,
@@ -1578,8 +1583,6 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     symbolUrl: _self.options.youtubeSymbol.url,
                     symbolHeight: _self.options.youtubeSymbol.height,
                     symbolWidth: _self.options.youtubeSymbol.width,
-                    popupWidth: _self.options.popupWidth,
-                    popupHeight: _self.options.popupHeight,
                     range: _self.options.youtubeRange
                 });
                 _self.options.layerInfos.push({
@@ -1688,10 +1691,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     url: _self.options.ushahidiUrl,
                     symbolUrl: _self.options.ushahidiSymbol.url,
                     symbolHeight: _self.options.ushahidiSymbol.height,
-                    symbolWidth: _self.options.ushahidiSymbol.width,
-                    popup: _self.options.customPopup,
-                    popupWidth: _self.options.popupWidth,
-                    popupHeight: _self.options.popupHeight
+                    symbolWidth: _self.options.ushahidiSymbol.width
                 });
                 _self.options.layerInfos.push({
                     defaultSymbol: true,
@@ -1813,7 +1813,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 }
                 _self.options.customPopup.setFeatures(arr);
                 _self.options.customPopup.show(evt.mapPoint);
-                _self.options.customPopup.resize(_self.options.popupWidth, _self.options.popupHeight);
+                _self.adjustPopupSize(_self.map);
                 if (evt.graphic && evt.graphic.geometry) {
                     _self.map.centerAt(evt.graphic.geometry);
                 }

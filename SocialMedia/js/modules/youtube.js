@@ -4,13 +4,21 @@ define([
     "dojo/_base/array",
     "dojo/_base/lang",
     "dojo/_base/event",
+    "dojo/dom-geometry",
     "dojo/io-query",
-    "dojo/date/locale",
-    "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
-    "esri/geometry",
-    "esri/utils"
+    "esri/InfoTemplate",
+    "esri/layers/FeatureLayer",
+    "esri/tasks/QueryTask",
+    "esri/geometry/Extent",
+    "esri/geometry/mathUtils",
+    "esri/geometry/webMercatorUtils",
+    "esri/geometry/Point",
+    "esri/request",
+    "esri/graphic",
+    "esri/symbols/PictureMarkerSymbol",
+    "dojo/date/locale"
 ],
-function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
+function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, FeatureLayer, QueryTask, Extent, mathUtils, webMercatorUtils, Point, esriRequest, Graphic, PictureMarkerSymbol, locale) {
     var Widget = declare("modules.youtube", null, {
         constructor: function (options) {
             var _self = this;
@@ -28,8 +36,6 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                 symbolUrl: '',
                 symbolHeight: 22.5,
                 symbolWidth: 18.75,
-                popupHeight: 200,
-                popupWidth: 290,
                 key: '',
                 range: 'all_time'
             };
@@ -113,14 +119,14 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                     "geometryType": "esriGeometryPoint"
                 }
             };
-            this.infoTemplate = new esri.InfoTemplate();
+            this.infoTemplate = new InfoTemplate();
             this.infoTemplate.setTitle(function (graphic) {
                 return _self.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
                 return _self.getWindowContent(graphic, _self);
             });
-            this.featureLayer = new esri.layers.FeatureLayer(this.featureCollection, {
+            this.featureLayer = new FeatureLayer(this.featureCollection, {
                 id: this.options.id,
                 outFields: ["*"],
                 infoTemplate: this.infoTemplate,
@@ -129,12 +135,12 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
             this.options.map.addLayer(this.featureLayer);
             connect.connect(this.featureLayer, "onClick", lang.hitch(this, function (evt) {
                 event.stop(evt);
-                var query = new esri.tasks.Query();
+                var query = new QueryTask();
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
-                var deferred = this.featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
+                var deferred = this.featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW);
                 this.options.map.infoWindow.setFeatures([deferred]);
                 this.options.map.infoWindow.show(evt.mapPoint);
-                this.options.map.infoWindow.resize(this.options.popupWidth, this.options.popupHeight);
+                this.adjustPopupSize(this.options.map);
             }));
             this.stats = {
                 geoPoints: 0,
@@ -153,7 +159,7 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
         pointToExtent: function (map, point, toleranceInPixel) {
             var pixelWidth = map.extent.getWidth() / map.width;
             var toleraceInMapCoords = toleranceInPixel * pixelWidth;
-            return new esri.geometry.Extent(point.x - toleraceInMapCoords, point.y - toleraceInMapCoords, point.x + toleraceInMapCoords, point.y + toleraceInMapCoords, map.spatialReference);
+            return new Extent(point.x - toleraceInMapCoords, point.y - toleraceInMapCoords, point.x + toleraceInMapCoords, point.y + toleraceInMapCoords, map.spatialReference);
         },
         show: function () {
             this.featureLayer.setVisibility(true);
@@ -220,16 +226,26 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
         getPoints: function () {
             return this.dataPoints;
         },
-        getExtent: function () {
-            return esri.graphicsExtent(this.featureLayer.graphics);
+        adjustPopupSize: function(map) {
+            var box = domGeom.getContentBox(map.container);
+            var width = 270, height = 300, // defaults
+            newWidth = Math.round(box.w * 0.60),             
+            newHeight = Math.round(box.h * 0.45);        
+            if (newWidth < width) {
+                width = newWidth;
+            }
+            if (newHeight < height) {
+                height = newHeight;
+            }
+            map.infoWindow.resize(width, height);
         },
         getRadius: function () {
             var map = this.options.map;
             var extent = map.extent;
             this.maxRadius = 621;
-            var radius = Math.min(this.maxRadius, Math.ceil(esri.geometry.getLength(new esri.geometry.Point(extent.xmin, extent.ymin, map.spatialReference), new esri.geometry.Point(extent.xmax, extent.ymin, map.spatialReference)) * 3.281 / 5280 / 2));
+            var radius = Math.min(this.maxRadius, Math.ceil(mathUtils.getLength(Point(extent.xmin, extent.ymin, map.spatialReference), Point(extent.xmax, extent.ymin, map.spatialReference)) * 3.281 / 5280 / 2));
             radius = Math.round(radius, 0);
-            var geoPoint = esri.geometry.webMercatorToGeographic(map.extent.getCenter());
+            var geoPoint = webMercatorUtils.webMercatorToGeographic(map.extent.getCenter());
             return {
                 radius: radius,
                 center: geoPoint,
@@ -244,15 +260,10 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                 datePattern: "y-M-d-H:m:s"
             });
             var linkedText = _self.parseURL(graphic.attributes.media$group.media$description.$t);
-            var videoWidth = 250;
-            var videoHeight = 188;
-            if (graphic.attributes.media$group.yt$aspectRatio) {
-                videoHeight = 140;
-            }
             var html = '';
             html += '<div class="ytContent">';
-            html += '<div class="video" style="width:' + videoWidth + 'px;height:' + videoHeight + 'px;">';
-            html += '<iframe width="' + videoWidth + '" height="' + videoHeight + '" src="' + location.protocol + '//www.youtube.com/embed/' + graphic.attributes.media$group.yt$videoid.$t + '?wmode=opaque" frameborder="0" allowfullscreen></iframe>';
+            html += '<div class="video">';
+            html += '<iframe width="560" height="315" src="' + location.protocol + '//www.youtube.com/embed/' + graphic.attributes.media$group.yt$videoid.$t + '?wmode=opaque" frameborder="0" allowfullscreen></iframe>';
             html += '</div>';
             html += '<h3 class="title">' + graphic.attributes.title.$t + '</h3>';
             html += '<div class="username"><a tabindex="0" href="' + location.protocol + '//www.youtube.com/user/' + graphic.attributes.author[0].name.$t + '" target="_blank">' + graphic.attributes.author[0].name.$t + '</a></div>';
@@ -287,7 +298,7 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
         },
         sendRequest: function (url) {
             // get the results from YouTube for each page
-            var deferred = esri.request({
+            var deferred = esriRequest({
                 url: url,
                 timeout: 10000,
                 handleAs: "json",
@@ -402,7 +413,7 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                     if (result.georss$where.gml$Point) {
                         if (result.georss$where.gml$Point.gml$pos) {
                             var g = result.georss$where.gml$Point.gml$pos.$t.split(' ');
-                            geoPoint = new esri.geometry.Point(parseFloat(g[1]), parseFloat(g[0]));
+                            geoPoint = Point(parseFloat(g[1]), parseFloat(g[0]));
                         }
                     }
                 }
@@ -411,9 +422,9 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                         this.stats.noGeo++;
                     } else {
                         // convert the Point to WebMercator projection
-                        var a = new esri.geometry.geographicToWebMercator(geoPoint);
+                        var a = new webMercatorUtils.geographicToWebMercator(geoPoint);
                         // make the Point into a Graphic
-                        var graphic = new esri.Graphic(a);
+                        var graphic = new Graphic(a);
                         graphic.setAttributes(result);
                         b.push(graphic);
                         this.dataPoints.push({
@@ -421,7 +432,7 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                                 x: a.x,
                                 y: a.y
                             },
-                            symbol: esri.symbol.PictureMarkerSymbol(this.featureCollection.layerDefinition.drawingInfo.renderer.symbol),
+                            symbol: PictureMarkerSymbol(this.featureCollection.layerDefinition.drawingInfo.renderer.symbol),
                             attributes: result
                         });
                         this.stats.geoPoints++;

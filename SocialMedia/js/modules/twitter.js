@@ -3,16 +3,24 @@ define([
     "dojo/request/script",
     "dojo/_base/declare",
     "dojo/_base/connect",
+    "dojo/dom-geometry",
     "dojo/_base/array",
     "dojo/_base/lang",
     "dojo/_base/event",
     "dojo/io-query",
-    "dojo/date/locale",
-    "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
-    "esri/geometry",
-    "esri/utils"
+    "esri/InfoTemplate",
+    "esri/layers/FeatureLayer",
+    "esri/tasks/QueryTask",
+    "esri/geometry/Extent",
+    "esri/geometry/mathUtils",
+    "esri/geometry/webMercatorUtils",
+    "esri/geometry/Point",
+    "esri/request",
+    "esri/graphic",
+    "esri/symbols/PictureMarkerSymbol",
+    "dojo/date/locale"
 ],
-function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esri) {
+function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, InfoTemplate, FeatureLayer, QueryTask, Extent, mathUtils, webMercatorUtils, Point, esriRequest, Graphic, PictureMarkerSymbol, locale) {
     var Widget = declare("modules.twitter", null, {
         constructor: function (options) {
             var _self = this;
@@ -31,8 +39,6 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                 symbolUrl: '',
                 symbolHeight: 22.5,
                 symbolWidth: 18.75,
-                popupHeight: 200,
-                popupWidth: 290,
                 result_type: 'recent'
             };
             declare.safeMixin(this.options, options);
@@ -105,9 +111,9 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                     "geometryType": "esriGeometryPoint"
                 }
             };
-            this.infoTemplate = new esri.InfoTemplate();
+            this.infoTemplate = new InfoTemplate();
             this.infoTemplate.setTitle(function (graphic) {
-                return _self.config.title;
+                return _self.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
                 return _self.getWindowContent(graphic, _self);
@@ -115,7 +121,7 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
             script.get(location.protocol + '//platform.twitter.com/widgets.js', {}).then(function () {}, function (err) {
                 console.log(err.toString());
             });
-            this.featureLayer = new esri.layers.FeatureLayer(this.featureCollection, {
+            this.featureLayer = new FeatureLayer(this.featureCollection, {
                 id: this.options.id,
                 outFields: ["*"],
                 infoTemplate: this.infoTemplate,
@@ -124,12 +130,12 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
             this.options.map.addLayer(this.featureLayer);
             connect.connect(this.featureLayer, "onClick", lang.hitch(this, function (evt) {
                 event.stop(evt);
-                var query = new esri.tasks.Query();
+                var query = new QueryTask();
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
-                var deferred = this.featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
+                var deferred = this.featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW);
                 this.options.map.infoWindow.setFeatures([deferred]);
                 this.options.map.infoWindow.show(evt.mapPoint);
-                this.options.map.infoWindow.resize(this.options.popupWidth, this.options.popupHeight);
+                this.adjustPopupSize(this.options.map);
             }));
             this.stats = {
                 geoPoints: 0,
@@ -148,7 +154,7 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
         pointToExtent: function (map, point, toleranceInPixel) {
             var pixelWidth = map.extent.getWidth() / map.width;
             var toleraceInMapCoords = toleranceInPixel * pixelWidth;
-            return new esri.geometry.Extent(point.x - toleraceInMapCoords, point.y - toleraceInMapCoords, point.x + toleraceInMapCoords, point.y + toleraceInMapCoords, map.spatialReference);
+            return new Extent(point.x - toleraceInMapCoords, point.y - toleraceInMapCoords, point.x + toleraceInMapCoords, point.y + toleraceInMapCoords, map.spatialReference);
         },
         getStats: function () {
             var x = this.stats;
@@ -214,9 +220,6 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                 this.hide();
             }
         },
-        getExtent: function () {
-            return esri.graphicsExtent(this.featureLayer.graphics);
-        },
         // Format Date Object
         formatDate: function (dateObj) {
             var _self = this;
@@ -230,13 +233,26 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                 });
             }
         },
+        adjustPopupSize: function(map) {
+            var box = domGeom.getContentBox(map.container);
+            var width = 270, height = 300, // defaults
+            newWidth = Math.round(box.w * 0.60),             
+            newHeight = Math.round(box.h * 0.45);        
+            if (newWidth < width) {
+                width = newWidth;
+            }
+            if (newHeight < height) {
+                height = newHeight;
+            }
+            map.infoWindow.resize(width, height);
+        },
         getRadius: function () {
             var map = this.options.map;
             var extent = map.extent;
             this.maxRadius = 932;
-            var radius = Math.min(this.maxRadius, Math.ceil(esri.geometry.getLength(new esri.geometry.Point(extent.xmin, extent.ymin, map.spatialReference), new esri.geometry.Point(extent.xmax, extent.ymin, map.spatialReference)) * 3.281 / 5280 / 2));
+            var radius = Math.min(this.maxRadius, Math.ceil(mathUtils.getLength(Point(extent.xmin, extent.ymin, map.spatialReference), Point(extent.xmax, extent.ymin, map.spatialReference)) * 3.281 / 5280 / 2));
             radius = Math.round(radius, 0);
-            var geoPoint = esri.geometry.webMercatorToGeographic(extent.getCenter());
+            var geoPoint = webMercatorUtils.webMercatorToGeographic(extent.getCenter());
             return {
                 radius: radius,
                 center: geoPoint,
@@ -244,7 +260,11 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
             };
         },
         getWindowContent: function (graphic, _self) {
-            console.log(graphic);
+            var tmp = dojo.locale.split('-');
+            var loc = 'en';
+            if (tmp[0]) {
+                loc = tmp[0];
+            }
             var date = new Date(graphic.attributes.created_at);
             var linkedText = _self.parseURL(graphic.attributes.text);
             linkedText = _self.parseUsername(linkedText);
@@ -261,7 +281,7 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                 }
                 html += '<a tabindex="0" class="twImage" href="' + location.protocol + '//twitter.com/' + graphic.attributes.user.screen_name + '/status/' + graphic.attributes.id_str + '" target="_blank"><img class="shadow" src="' + imageURL + '" width="40" height="40"></a>';
             }
-            html += '<div class="followButton"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=' + graphic.attributes.from_user + '&lang=' + locale + '&show_count=false&show_screen_name=false" style="width:60px; height:20px;"></iframe></div>';
+            html += '<div class="followButton"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=' + graphic.attributes.from_user + '&lang=' + loc + '&show_count=false&show_screen_name=false" style="width:60px; height:20px;"></iframe></div>';
             html += '<h3 class="twUsername">' + graphic.attributes.user.name + '</h3>';
             html += '<div class="twUser"><a target="_blank" href="' + location.protocol + '//twitter.com/' + graphic.attributes.user.screen_name + '">&#64;' + graphic.attributes.user.screen_name + '</a></div>';
             html += '<div class="clear"></div>';
@@ -269,15 +289,10 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
             if (graphic.attributes.created_at) {
                 html += '<div class="twDate"><a target="_blank" href="' + location.protocol + '//twitter.com/' + graphic.attributes.user.screen_name + '/status/' + graphic.attributes.id_str + '">' + this.formatDate(date) + '</a></div>';
             }
-            var tmp = dojo.locale.split('-');
-            var locale = 'en';
-            if (tmp[0]) {
-                locale = tmp[0];
-            }
             html += '<div class="actions">';
-            html += '<a title="" class="reply" href="https://twitter.com/intent/tweet?in_reply_to=' + graphic.attributes.id_str + '&lang=' + locale + '"></a> ';
-            html += '<a title="" class="retweet" href="https://twitter.com/intent/retweet?tweet_id=' + graphic.attributes.id_str + '&lang=' + locale + '"></a> ';
-            html += '<a title="" class="favorite" href="https://twitter.com/intent/favorite?tweet_id=' + graphic.attributes.id_str + '&lang=' + locale + '"></a> ';
+            html += '<a title="" class="reply" href="https://twitter.com/intent/tweet?in_reply_to=' + graphic.attributes.id_str + '&lang=' + loc + '"></a> ';
+            html += '<a title="" class="retweet" href="https://twitter.com/intent/retweet?tweet_id=' + graphic.attributes.id_str + '&lang=' + loc + '"></a> ';
+            html += '<a title="" class="favorite" href="https://twitter.com/intent/favorite?tweet_id=' + graphic.attributes.id_str + '&lang=' + loc + '"></a> ';
             html += '</div>';
             html += '</div>';
             return html;
@@ -288,10 +303,10 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
             if (search.length === 0) {
                 search = "";
             }
-            var locale = false;
+            var loc = false;
             var localeTmp = dojo.locale.split('-');
             if (localeTmp[0]) {
-                locale = localeTmp[0];
+                loc = localeTmp[0];
             }
             this.query = {
                 q: search,
@@ -300,8 +315,8 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                 include_entities: false,
                 geocode: radius.center.y + "," + radius.center.x + "," + radius.radius + radius.units
             };
-            if (locale) {
-                this.query.locale = locale;
+            if (loc) {
+                this.query.locale = loc;
             }
             // start Twitter API call of several pages
             this.pageCount = 1;
@@ -311,7 +326,7 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
         sendRequest: function (url) {
             var _self = this;
             // get the results from twitter for each page
-            var deferred = esri.request({
+            var deferred = esriRequest({
                 url: url,
                 handleAs: "json",
                 timeout: 10000,
@@ -434,7 +449,7 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                 var geoPoint = null;
                 if (result.geo) {
                     var g = result.geo.coordinates;
-                    geoPoint = new esri.geometry.Point(parseFloat(g[1]), parseFloat(g[0]));
+                    geoPoint = Point(parseFloat(g[1]), parseFloat(g[0]));
                 } else {
                     var n = result.location;
                     if (n) {
@@ -443,23 +458,23 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                         if (n.indexOf("iPhone:") > -1) {
                             n = n.slice(7);
                             f = n.split(",");
-                            geoPoint = new esri.geometry.Point(parseFloat(f[1]), parseFloat(f[0]));
+                            geoPoint = Point(parseFloat(f[1]), parseFloat(f[0]));
                         } else if (n.indexOf("ÜT") > -1) {
                             n = n.slice(3);
                             e = n.split(",");
-                            geoPoint = new esri.geometry.Point(parseFloat(e[1]), parseFloat(e[0]));
+                            geoPoint = Point(parseFloat(e[1]), parseFloat(e[0]));
                         } else if (n.indexOf("T") === 1) {
                             n = n.slice(3);
                             e = n.split(",");
-                            geoPoint = new esri.geometry.Point(parseFloat(e[1]), parseFloat(e[0]));
+                            geoPoint = Point(parseFloat(e[1]), parseFloat(e[0]));
                         } else if (n.indexOf("Pre:") > -1) {
                             n = n.slice(4);
                             d = n.split(",");
-                            geoPoint = new esri.geometry.Point(parseFloat(d[1]), parseFloat(d[0]));
+                            geoPoint = Point(parseFloat(d[1]), parseFloat(d[0]));
                         } else if (n.split(",").length === 2) {
                             c = n.split(",");
                             if (c.length === 2 && parseFloat(c[1]) && parseFloat(c[0])) {
-                                geoPoint = new esri.geometry.Point(parseFloat(c[1]), parseFloat(c[0]));
+                                geoPoint = Point(parseFloat(c[1]), parseFloat(c[0]));
                             } else {
                                 // location cannot be interpreted by this geocoder
                                 this.stats.geoNames++;
@@ -483,9 +498,9 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                         this.stats.noGeo++;
                     } else {
                         // convert the Point to WebMercator projection
-                        var a = new esri.geometry.geographicToWebMercator(geoPoint);
+                        var a = new webMercatorUtils.geographicToWebMercator(geoPoint);
                         // make the Point into a Graphic
-                        var graphic = new esri.Graphic(a);
+                        var graphic = new Graphic(a);
                         graphic.setAttributes(result);
                         b.push(graphic);
                         this.dataPoints.push({
@@ -493,7 +508,7 @@ function (dojo, script, declare, connect, arr, lang, event, ioQuery, locale, esr
                                 x: a.x,
                                 y: a.y
                             },
-                            symbol: esri.symbol.PictureMarkerSymbol(this.featureCollection.layerDefinition.drawingInfo.renderer.symbol),
+                            symbol: PictureMarkerSymbol(this.featureCollection.layerDefinition.drawingInfo.renderer.symbol),
                             attributes: result
                         });
                         this.stats.geoPoints++;

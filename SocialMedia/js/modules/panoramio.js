@@ -4,13 +4,21 @@ define([
     "dojo/_base/array",
     "dojo/_base/lang",
     "dojo/_base/event",
+    "dojo/dom-geometry",
     "dojo/io-query",
-    "dojo/date/locale",
-    "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
-    "esri/geometry",
-    "esri/utils"
+    "esri/InfoTemplate",
+    "esri/layers/FeatureLayer",
+    "esri/tasks/QueryTask",
+    "esri/geometry/Extent",
+    "esri/geometry/mathUtils",
+    "esri/geometry/webMercatorUtils",
+    "esri/geometry/Point",
+    "esri/request",
+    "esri/graphic",
+    "esri/symbols/PictureMarkerSymbol",
+    "dojo/date/locale"
 ],
-function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
+function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, FeatureLayer, QueryTask, Extent, mathUtils, webMercatorUtils, Point, esriRequest, Graphic, PictureMarkerSymbol, locale) {
     var Widget = declare("modules.panoramio", null, {
         constructor: function (options) {
             var _self = this;
@@ -25,9 +33,7 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                 searchTerm: '',
                 symbolUrl: '',
                 symbolHeight: 22.5,
-                symbolWidth: 18.75,
-                popupHeight: 200,
-                popupWidth: 290
+                symbolWidth: 18.75
             };
             declare.safeMixin(this.options, options);
             if (this.options.map === null) {
@@ -135,14 +141,14 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                     "geometryType": "esriGeometryPoint"
                 }
             };
-            this.infoTemplate = new esri.InfoTemplate();
+            this.infoTemplate = new InfoTemplate();
             this.infoTemplate.setTitle(function (graphic) {
                 return _self.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
                 return _self.getWindowContent(graphic, _self);
             });
-            this.featureLayer = new esri.layers.FeatureLayer(this.featureCollection, {
+            this.featureLayer = new FeatureLayer(this.featureCollection, {
                 id: this.options.id,
                 outFields: ["*"],
                 infoTemplate: this.infoTemplate,
@@ -151,12 +157,12 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
             this.options.map.addLayer(this.featureLayer);
             connect.connect(this.featureLayer, "onClick", lang.hitch(this, function (evt) {
                 event.stop(evt);
-                var query = new esri.tasks.Query();
+                var query = new QueryTask();
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
-                var deferred = this.featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
+                var deferred = this.featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW);
                 this.options.map.infoWindow.setFeatures([deferred]);
                 this.options.map.infoWindow.show(evt.mapPoint);
-                this.options.map.infoWindow.resize(this.options.popupWidth, this.options.popupHeight);
+                this.adjustPopupSize(this.options.map);
             }));
             this.stats = {
                 geoPoints: 0,
@@ -175,7 +181,7 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
         pointToExtent: function (map, point, toleranceInPixel) {
             var pixelWidth = map.extent.getWidth() / map.width;
             var toleraceInMapCoords = toleranceInPixel * pixelWidth;
-            return new esri.geometry.Extent(point.x - toleraceInMapCoords, point.y - toleraceInMapCoords, point.x + toleraceInMapCoords, point.y + toleraceInMapCoords, map.spatialReference);
+            return new Extent(point.x - toleraceInMapCoords, point.y - toleraceInMapCoords, point.x + toleraceInMapCoords, point.y + toleraceInMapCoords, map.spatialReference);
         },
         clear: function () {
             // cancel any outstanding requests
@@ -243,22 +249,33 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                 });
             }
         },
-        getExtent: function () {
-            return esri.graphicsExtent(this.featureLayer.graphics);
+        adjustPopupSize: function(map) {
+            var box = domGeom.getContentBox(map.container);
+            var width = 270, height = 300, // defaults
+            newWidth = Math.round(box.w * 0.60),             
+            newHeight = Math.round(box.h * 0.45);        
+            if (newWidth < width) {
+                width = newWidth;
+            }
+            if (newHeight < height) {
+                height = newHeight;
+            }
+            map.infoWindow.resize(width, height);
         },
         getRadius: function () {
             var map = this.options.map;
             var extent = this.options.map.extent;
             var center = extent.getCenter();
             this.maxRadius = 600;
-            var radius = Math.min(this.maxRadius, Math.ceil(esri.geometry.getLength(new esri.geometry.Point(extent.xmin, extent.ymin, map.spatialReference), new esri.geometry.Point(extent.xmax, extent.ymin, map.spatialReference)) * 3.281 / 5280 / 2));
+            var radius = Math.min(this.maxRadius, Math.ceil(mathUtils.getLength(Point(extent.xmin, extent.ymin, map.spatialReference), Point(extent.xmax, extent.ymin, map.spatialReference)) * 3.281 / 5280 / 2));
             var dist = (radius) / 2;
             dist = dist * 10;
             dist = (dist * 160.934).toFixed(3);
             dist = parseFloat(dist);
-            var geoPoint = new esri.geometry.Point(center.x, center.y, map.spatialReference);
-            minPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x - dist, geoPoint.y - dist, map.spatialReference));
-            maxPoint = esri.geometry.webMercatorToGeographic(new esri.geometry.Point(geoPoint.x + dist, geoPoint.y + dist, map.spatialReference));
+            var minPoint, maxPoint;
+            var geoPoint = Point(center.x, center.y, map.spatialReference);
+            minPoint = webMercatorUtils.webMercatorToGeographic(Point(geoPoint.x - dist, geoPoint.y - dist, map.spatialReference));
+            maxPoint = webMercatorUtils.webMercatorToGeographic(Point(geoPoint.x + dist, geoPoint.y + dist, map.spatialReference));
             return {
                 minPoint: minPoint,
                 maxPoint: maxPoint
@@ -303,7 +320,7 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
         },
         sendRequest: function (url) {
             // get the results for each page
-            var deferred = esri.request({
+            var deferred = esriRequest({
                 url: url,
                 handleAs: "json",
                 timeout: 10000,
@@ -367,16 +384,16 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                 var geoPoint = null;
                 if (result.latitude) {
                     var g = [result.latitude, result.longitude];
-                    geoPoint = new esri.geometry.Point(parseFloat(g[1]), parseFloat(g[0]));
+                    geoPoint = Point(parseFloat(g[1]), parseFloat(g[0]));
                 }
                 if (geoPoint) {
                     if (isNaN(geoPoint.x) || isNaN(geoPoint.y)) {
                         this.stats.noGeo++;
                     } else {
                         // convert the Point to WebMercator projection
-                        var a = new esri.geometry.geographicToWebMercator(geoPoint);
+                        var a = new webMercatorUtils.geographicToWebMercator(geoPoint);
                         // make the Point into a Graphic
-                        var graphic = new esri.Graphic(a);
+                        var graphic = new Graphic(a);
                         graphic.setAttributes(result);
                         b.push(graphic);
                         this.dataPoints.push({
@@ -384,7 +401,7 @@ function (declare, connect, arr, lang, event, ioQuery, locale, esri) {
                                 x: a.x,
                                 y: a.y
                             },
-                            symbol: esri.symbol.PictureMarkerSymbol(this.featureCollection.layerDefinition.drawingInfo.renderer.symbol),
+                            symbol: PictureMarkerSymbol(this.featureCollection.layerDefinition.drawingInfo.renderer.symbol),
                             attributes: result
                         });
                         this.stats.geoPoints++;
