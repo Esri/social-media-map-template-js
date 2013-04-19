@@ -26,7 +26,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, locale, InfoTemp
                 filterUsers: [],
                 filterWords: [],
                 autopage: true,
-                maxpage: 6,
+                maxpage: 2,
                 limit: 100,
                 title: '',
                 id: 'flickr',

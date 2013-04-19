@@ -26,7 +26,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 filterUsers: [],
                 filterWords: [],
                 autopage: true,
-                maxpage: 6,
+                maxpage: 2,
                 limit: 50,
                 title: '',
                 id: 'youtube',

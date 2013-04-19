@@ -4,25 +4,23 @@ define([
     "dojo/query",
 	"dojo/dom-style",
 	"dojo/_base/connect",
-    "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
-    "esri/geometry",
-    "esri/layers/ArcGISDynamicMapServiceLayer",
-    "esri/utils",
-    "dojo/domReady!"
+	"esri/geometry/screenUtils",
+	"esri/geometry/Point",
+	"esri/layers/DynamicMapServiceLayer"
 ],
-function(declare, domConstruct, query, domStyle, connect, esri) {
-    var Widget = declare("modules.HeatmapLayer", [esri.layers.DynamicMapServiceLayer], {
+function(declare, domConstruct, query, domStyle, connect, screenUtils, Point, DynamicMapServiceLayer) {
+    var Widget = declare("modules.HeatmapLayer", [DynamicMapServiceLayer], {
         properties: {},
         heatMap: null,
         // constructor
-        constructor: function (properties) {
+        constructor: function (properties, domNode) {
             declare.safeMixin(this.properties, properties);
             // map var
             this._map = this.properties.map;
             // last data storage
             this.lastData = [];
             // map node
-            this.domNode = document.getElementById(this.properties.domNodeId);
+            this.domNode = document.getElementById(domNode);
             // config
             this.config = {
                 element: this.domNode,
@@ -49,7 +47,6 @@ function(declare, domConstruct, query, domStyle, connect, esri) {
             this.onLoad(this);
             // global maximum value
             this.globalMax = 0;
-			var _self = this;
             // connect on resize
 			connect.connect(this._map, "onResize", this, this.resizeHeatmap);
             // heatlayer div styling
@@ -87,7 +84,7 @@ function(declare, domConstruct, query, domStyle, connect, esri) {
         // converts parsed data into heatmap format
         convertHeatmapData: function (parsedData) {
             // variables
-            var xParsed, yParsed, heatPluginData, dataPoint, screenGeometry;
+            var xParsed, yParsed, heatPluginData, screenGeometry;
             // set heat plugin data object
             heatPluginData = {
                 max: parsedData.max,
@@ -103,7 +100,7 @@ function(declare, domConstruct, query, domStyle, connect, esri) {
                         for (yParsed in parsedData.data[xParsed]) {
                             if (parsedData.data[xParsed].hasOwnProperty(yParsed)) {
                                 // convert data point into screen geometry
-                                screenGeometry = esri.geometry.toScreenGeometry(this._map.extent, this._map.width, this._map.height, parsedData.data[xParsed][yParsed].dataPoint);
+                                screenGeometry = screenUtils.toScreenGeometry(this._map.extent, this._map.width, this._map.height, parsedData.data[xParsed][yParsed].dataPoint);
                                 // push to heatmap plugin data array
                                 heatPluginData.data.push({
                                     x: screenGeometry.x,
@@ -135,7 +132,7 @@ function(declare, domConstruct, query, domStyle, connect, esri) {
                 // for each data point
                 for (i = 0; i < features.length; i++) {
                     // create geometry point
-                    dataPoint = esri.geometry.Point(features[i].geometry.x, features[i].geometry.y, this._map.spatialReference);
+                    dataPoint = Point(features[i].geometry.x, features[i].geometry.y, this._map.spatialReference);
                     // check point
                     var validPoint = false;
                     // if not using local max, point is valid

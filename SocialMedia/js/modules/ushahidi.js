@@ -26,7 +26,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 autopage: true,
                 url: '',
                 category: '',
-                maxpage: 10,
+                maxpage: 2,
                 limit: 100,
                 title: '',
                 id: 'ushahidi',

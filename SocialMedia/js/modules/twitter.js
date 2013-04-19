@@ -29,7 +29,7 @@ function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, In
                 filterUsers: [],
                 filterWords: [],
                 autopage: true,
-                maxpage: 5,
+                maxpage: 2,
                 limit: 100,
                 title: '',
                 id: 'twitter',

@@ -24,7 +24,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             var _self = this;
             this.options = {
                 autopage: true,
-                maxpage: 6,
+                maxpage: 2,
                 limit: 100,
                 title: '',
                 id: 'panoramio',
