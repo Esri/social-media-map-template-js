@@ -1049,7 +1049,7 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                         if (parsedCookie.screen_name) {
                             html += '<li>';
                             html += '<label>' + i18n.viewer.social.screenName + '</label>';
-                            html += '<span"><a href="' + location.protocol + '//twitter.com/' + parsedCookie.screen_name + '">' + parsedCookie.screen_name + '</a><a class="oAuthSwitchAccount" id="oAuthSwitchAccountTwitter">' + i18n.viewer.social.switchAccount + '</a></span>';
+                            html += '<span"><a target="_blank" href="' + location.protocol + '//twitter.com/' + parsedCookie.screen_name + '">' + parsedCookie.screen_name + '</a><a class="oAuthSwitchAccount" id="oAuthSwitchAccountTwitter">' + i18n.viewer.social.switchAccount + '</a></span>';
                             html += '</li>';
                         }
                     }
