@@ -1043,16 +1043,30 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                     html += '<div class="cfgPanel" data-layer="' + _self.options.twitterID + '">';
                     html += '<div class="firstDesc"><strong>' + i18n.viewer.settings.searchAll + ' ' + _self.options.twitterTitle + ':</strong></div>';
                     html += '<ul class="formStyle">';
-                    var cookieValue = cookie(_self.options.twitterCookie);
+                    // todo
+                    /* var cookieValue = cookie(_self.options.twitterCookie);
                     if (cookieValue) {
                         var parsedCookie = JSON.parse(cookieValue);
                         if (parsedCookie.screen_name) {
-                            html += '<li>';
+                            html += '<li id="twitterStatusList">';
                             html += '<label>' + i18n.viewer.social.screenName + '</label>';
                             html += '<span"><a target="_blank" href="' + location.protocol + '//twitter.com/' + parsedCookie.screen_name + '">' + parsedCookie.screen_name + '</a><a class="oAuthSwitchAccount" id="oAuthSwitchAccountTwitter">' + i18n.viewer.social.switchAccount + '</a></span>';
                             html += '</li>';
                         }
                     }
+                    else if(_self._twitterLayer.authenticated){
+                        html += '<li id="twitterStatusList">';
+                        html += '<label>' + _self.options.twitterTitle + '</label>';
+                        html += '<span"><a id="oAuthSwitchAccountTwitter">' + i18n.viewer.social.switchAccount + '</a></span>';
+                        html += '</li>';
+                    }
+                    else{
+                    */
+                    html += '<li id="twitterStatusList">';
+                    html += '<label>' + _self.options.twitterTitle + '</label>';
+                    html += '<span"><a id="twSignInLink2">' +  i18n.viewer.social.signIn + '</a></span>'; 
+                    html += '</li>';
+                    //}
                     html += '<li>';
                     html += '<label for="' + _self.options.twitterID + '_input' + '">' + i18n.viewer.settings.usingThisKeyword + '</label>';
                     html += '<input data-id="' + _self.options.twitterID + '" id="' + _self.options.twitterID + '_input' + '" class="mapInput inputSingle" type="text" size="20" value="' + _self.options.twitterSearch + '" />';
@@ -1115,12 +1129,19 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
             if (node) {
                 node.innerHTML = html;
             }
-            var switchAccountNode = dom.byId('oAuthSwitchAccountTwitter');
-            if (switchAccountNode) {
-                on(switchAccountNode, 'click', function() {
-                    _self._twitterWindow('switch_account.php');
+            var signInNode2 = dom.byId('twSignInLink2');
+            if (signInNode2) {
+                on(signInNode2, 'click', function() {
+                    _self._twitterWindow(_self.options.twitterSigninUrl);
                 });
             }
+            // todo
+            /*var switchAccountNode = dom.byId('oAuthSwitchAccountTwitter');
+            if (switchAccountNode) {
+                on(switchAccountNode, 'click', function() {
+                    _self._twitterWindow(_self.options.twitterSigninUrl, true);
+                });
+            } */
             if (_self.options.showUshahidi) {
                 _self.ushahidiLayer.getCategories().then(function(categories) {
                     if (categories) {
@@ -1437,7 +1458,35 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                     var signInNode = dom.byId('twSignInLink');
                     if (signInNode) {
                         on(signInNode, 'click', function() {
-                            _self._twitterWindow('sign_in.php');
+                            _self._twitterWindow(_self.options.twitterSigninUrl);
+                        });
+                    }
+                    var html = '';
+                    html += '<label>' + _self.options.twitterTitle + '</label>';
+                    html += '<span"><a id="twSignInLink2">' +  i18n.viewer.social.signIn + '</a></span>';
+                    var node = dom.byId('twitterStatusList');
+                    if(node){
+                        node.innerHTML = html;
+                    }
+                    var signInNode2 = dom.byId('twSignInLink2');
+                    if (signInNode2) {
+                        on(signInNode2, 'click', function() {
+                            _self._twitterWindow(_self.options.twitterSigninUrl);
+                        });
+                    }
+                });
+                connect.connect(twitterLayer, 'unauthenticate', function() {
+                    var html = '';
+                    html += '<label>' + _self.options.twitterTitle + '</label>';
+                    html += '<span"><a id="oAuthSwitchAccountTwitter">' + i18n.viewer.social.switchAccount + '</a></span>';
+                    var node = dom.byId('twitterStatusList');
+                    if(node){
+                        node.innerHTML = html;
+                    }
+                    var switchAccountNode = dom.byId('oAuthSwitchAccountTwitter');
+                    if (switchAccountNode) {
+                        on(switchAccountNode, 'click', function() {
+                            _self._twitterWindow(_self.options.twitterSigninUrl, true);
                         });
                     }
                 });
@@ -1789,19 +1838,37 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                 });
             }
         },
-        _twitterWindow: function(page) {
+        _twitterWindow: function(page, forceLogin) {
             var _self = this;
             var pathRegex = new RegExp(/\/[^\/]+$/);
-            var callback = encodeURIComponent(location.protocol + '//' + location.host + location.pathname.replace(pathRegex, '') + 'oauth-callback.html');
+            var redirect_uri = encodeURIComponent(location.protocol + '//' + location.host + location.pathname.replace(pathRegex, '') + 'oauth-callback.html');
             var w = screen.width / 2;
             var h = screen.height / 1.5;
             var left = (screen.width / 2) - (w / 2);
             var top = (screen.height / 2) - (h / 2);
-            window.open(
-            _self.options.twitterUrl + page + '?callback=' + callback, "twoAuth", 'scrollbars=yes, resizable=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left, true);
-            window.oAuthCallback = function() {
-                window.location.reload();
-            };
+            if(page){
+                page += '?';
+                if(forceLogin){
+                    page += 'force_login=true';
+                }
+                if(forceLogin && redirect_uri){
+                    page += '&';
+                }
+                if(redirect_uri){
+                    page += 'redirect_uri=' + redirect_uri;
+                }
+                
+                console.log(page);
+                
+                window.open(
+                    page,
+                    "twoAuth", 'scrollbars=yes, resizable=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left,
+                    true
+                );
+                window.oAuthCallback = function() {
+                    window.location.reload();
+                };
+            }
         },
         // return correct button class
         getButtonClass: function(i, size) {
@@ -2807,11 +2874,19 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                     if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                         navigator.geolocation.getCurrentPosition(function(position) {
                             _self.geoLocateMap(position);
-                        }, function(error) {
-                            _self.geoLocateMapError(error);
+                        }, function(err) {           
+                            if (err.code === 1) {
+                                _self.geoLocateMapError('The user denied the request for location information.')
+                            } else if (err.code === 2) {
+                                _self.geoLocateMapError('Your location information is unavailable.')
+                            } else if (err.code === 3) {
+                                _self.geoLocateMapError('The request to get your location timed out.')
+                            } else {
+                                _self.geoLocateMapError('An unknown error occurred while requesting your location.')
+                            }
                         }, {
                             maximumAge: 3000,
-                            timeout: 5000,
+                            timeout: 1000,
                             enableHighAccuracy: true
                         });
                     }
