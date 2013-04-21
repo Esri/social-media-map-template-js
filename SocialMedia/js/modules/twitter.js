@@ -323,6 +323,7 @@ function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, In
             this.sendRequest(this.options.url + "?" + ioQuery.objectToQuery(this.query));
         },
         authenticate: function(){},
+        unauthenticate: function(){},
         sendRequest: function (url) {
             var _self = this;
             // get the results from twitter for each page
@@ -345,13 +346,16 @@ function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, In
                             }
                         }
                     }
-                    else if(data && data.signedout){
+                    else if(data && data.signedIn === false){
                         _self.authenticate();
                         _self.onUpdateEnd();
                         _self.authenticated = false;
                     }
                     else if (data.statuses && data.statuses.length > 0) {
-                        _self.authenticated = true;
+                        if(!_self.authenticated){
+                            _self.authenticated = true;
+                            _self.unauthenticate();
+                        }
                         this.mapResults(data);
                         // display results for multiple pages
                         if ((this.options.autopage) && (this.options.maxpage > this.pageCount) && (data.search_metadata.next_results) && (this.query)) {

@@ -36,11 +36,11 @@
 
 .panoramio img {
     display: inline-block;
-    min-width: 64px;
-    min-height: 64px;
-    max-width: 350px;
-    max-height: 350px;
-    padding: 4px;
+   min-width: 20%;
+    min-height: 20%;
+    max-width: 90%;
+    max-height: 100%;
+    padding: 5px 2%;
     -moz-box-shadow: 1px 1px 3px #CCCCCC;
     -webkit-box-shadow: 1px 1px 3px #CCCCCC;
     box-shadow: 1px 1px 3px #CCCCCC;
