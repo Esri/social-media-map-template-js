@@ -921,11 +921,9 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     vertical-align: top;
 }
 
-.oAuthSwitchAccount{
-    margin: 0 0 0 8px;
-    display: inline-block;
+.esriRtl .listMenu li .oAuthSignIn{
+    margin: 0 8px 0 0;
 }
-
 
 .listMenu li .cBox {
     display: inline-block;
