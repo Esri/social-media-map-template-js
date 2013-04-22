@@ -1464,7 +1464,7 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                     var html = '';
                     html += '<label>' + _self.options.twitterTitle + '</label>';
                     html += '<span"><a id="twSignInLink2">' +  i18n.viewer.social.signIn + '</a></span>';
-                    var node = dom.byId('twitterStatusList');
+                    node = dom.byId('twitterStatusList');
                     if(node){
                         node.innerHTML = html;
                     }
@@ -1839,7 +1839,6 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
             }
         },
         _twitterWindow: function(page, forceLogin) {
-            var _self = this;
             var pathRegex = new RegExp(/\/[^\/]+$/);
             var redirect_uri = encodeURIComponent(location.protocol + '//' + location.host + location.pathname.replace(pathRegex, '') + 'oauth-callback.html');
             var w = screen.width / 2;
@@ -1857,9 +1856,6 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                 if(redirect_uri){
                     page += 'redirect_uri=' + redirect_uri;
                 }
-                
-                console.log(page);
-                
                 window.open(
                     page,
                     "twoAuth", 'scrollbars=yes, resizable=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left,
@@ -2876,13 +2872,13 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                             _self.geoLocateMap(position);
                         }, function(err) {           
                             if (err.code === 1) {
-                                _self.geoLocateMapError('The user denied the request for location information.')
+                                _self.geoLocateMapError('The user denied the request for location information.');
                             } else if (err.code === 2) {
-                                _self.geoLocateMapError('Your location information is unavailable.')
+                                _self.geoLocateMapError('Your location information is unavailable.');
                             } else if (err.code === 3) {
-                                _self.geoLocateMapError('The request to get your location timed out.')
+                                _self.geoLocateMapError('The request to get your location timed out.');
                             } else {
-                                _self.geoLocateMapError('An unknown error occurred while requesting your location.')
+                                _self.geoLocateMapError('An unknown error occurred while requesting your location.');
                             }
                         }, {
                             maximumAge: 3000,

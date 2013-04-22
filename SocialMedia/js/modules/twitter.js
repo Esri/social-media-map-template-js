@@ -112,7 +112,7 @@ function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, In
                 }
             };
             this.infoTemplate = new InfoTemplate();
-            this.infoTemplate.setTitle(function (graphic) {
+            this.infoTemplate.setTitle(function () {
                 return _self.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
@@ -529,7 +529,7 @@ function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, In
             this.query = null;
         },
         onClear: function () {},
-        onError: function (info) {
+        onError: function () {
             this.onUpdateEnd();
         }
     });

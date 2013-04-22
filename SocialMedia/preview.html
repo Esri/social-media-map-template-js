@@ -44,12 +44,11 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <script type="text/javascript" src="config/config.js"></script>
     <script type="text/javascript" src="js/application/djConfig.js"></script>
     <script type="text/javascript" src="http://servicesbeta.esri.com/jsapi/arcgis/3.4"></script>
     <script type="text/javascript" src="js/plugins/respond.js"></script>
     <script type="text/javascript">
-    require(["application/preview"], function(application){
+    require(["application/preview", "appconfig/config"], function(application, configOptions){
         application(configOptions);
     });
     </script>

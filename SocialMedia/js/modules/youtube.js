@@ -120,7 +120,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 }
             };
             this.infoTemplate = new InfoTemplate();
-            this.infoTemplate.setTitle(function (graphic) {
+            this.infoTemplate.setTitle(function () {
                 return _self.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
@@ -449,7 +449,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
         onUpdateEnd: function () {
             this.query = null;
         },
-        onError: function (info) {
+        onError: function () {
             this.onUpdateEnd();
         }
     });

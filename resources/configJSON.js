@@ -157,7 +157,7 @@
             },
             {
                "type":"paragraph",
-               "value":"A value representing the country. Providing this value increases geocoding speed. View the list of <a target=\"_blank\" href=\"http:\/\/geocode.arcgis.com\/arcgis\/geocoding.html#countries\">country codes<\/a>."
+               "value":"A value representing the country. Providing this value increases geocoding speed. View the list of <a target=\"_blank\" href=\"http://geocode.arcgis.com/arcgis/geocoding.html#countries\">country codes</a>."
             }
          ]
       },
@@ -203,7 +203,7 @@
             },
             {
                "type":"paragraph",
-               "value":"<a href=\"http:\/\/support.twitter.com\/articles\/71577-how-to-use-advanced-twitter-search\" target=\"_blank\">Advanced search<\/a>."
+               "value":"<a href=\"http://support.twitter.com/articles/71577-how-to-use-advanced-twitter-search\" target=\"_blank\">Advanced search</a>."
             }
          ]
       },
@@ -359,7 +359,7 @@
       "flickrChecked":true,
       "flickrSearch":"weather",
       "flickrRange":"this_month",
-      "showYouTube":true,
+      "showYouTube":false,
       "showYouTubeConfig":true,
       "youtubeChecked":true,
       "youtubeSearch":"weather",

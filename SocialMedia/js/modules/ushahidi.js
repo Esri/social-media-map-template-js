@@ -69,7 +69,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 }
             };
             this.infoTemplate = new InfoTemplate();
-            this.infoTemplate.setTitle(function (graphic) {
+            this.infoTemplate.setTitle(function () {
                 return _self.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
@@ -278,7 +278,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             return content;
         },
         constructQuery: function () {
-            var radius = this.getRadius();
+            //var radius = this.getRadius();
             this.query = {
                 task: 'incidents',
                 //by: 'bounds',
@@ -349,7 +349,6 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             return 1; // found and removed
         },
         mapResults: function (j) {
-            var _self = this;
             var b = [];
             var k = j.incidents;
             arr.forEach(k, lang.hitch(this, function (result) {
@@ -392,7 +391,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             this.onUpdate();
         },
         onClear: function () {},
-        onError: function (info) {
+        onError: function () {
             this.onUpdateEnd();
         },
         onUpdate: function () {},

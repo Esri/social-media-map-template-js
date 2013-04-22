@@ -142,7 +142,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 }
             };
             this.infoTemplate = new InfoTemplate();
-            this.infoTemplate.setTitle(function (graphic) {
+            this.infoTemplate.setTitle(function () {
                 return _self.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
@@ -281,7 +281,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 maxPoint: maxPoint
             };
         },
-        getWindowContent: function (graphic, _self) {
+        getWindowContent: function (graphic) {
             var date = locale.parse(graphic.attributes.upload_date, {
                 selector: "date",
                 datePattern: "d MMMM y"
@@ -366,7 +366,6 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             return 1; // found and removed
         },
         mapResults: function (j) {
-            var _self = this;
             if (j.error) {
                 console.log("mapResults error: " + j.error);
                 this.onError(j.error);
@@ -414,7 +413,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             this.onUpdate();
         },
         onClear: function () {},
-        onError: function (info) {
+        onError: function () {
             this.onUpdateEnd();
         },
         onUpdate: function () {},
