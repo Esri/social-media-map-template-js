@@ -21,7 +21,6 @@ define([], function() {
         "twitterSearch": "weather",
         "twitterUrl": "http://utility.arcgis.com/tproxy/proxy/1.1/search/tweets.json",
         "twitterSigninUrl": "http://utility.arcgis.com/tproxy/signin",
-        "twitterCookie": "tp_at",
         "showPanoramio": false,
         "panoramioChecked": false,
         "showUshahidi": false,
