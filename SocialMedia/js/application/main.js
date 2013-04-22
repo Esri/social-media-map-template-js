@@ -1043,30 +1043,10 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                     html += '<div class="cfgPanel" data-layer="' + _self.options.twitterID + '">';
                     html += '<div class="firstDesc"><strong>' + i18n.viewer.settings.searchAll + ' ' + _self.options.twitterTitle + ':</strong></div>';
                     html += '<ul class="formStyle">';
-                    // todo
-                    /* var cookieValue = cookie(_self.options.twitterCookie);
-                    if (cookieValue) {
-                        var parsedCookie = JSON.parse(cookieValue);
-                        if (parsedCookie.screen_name) {
-                            html += '<li id="twitterStatusList">';
-                            html += '<label>' + i18n.viewer.social.screenName + '</label>';
-                            html += '<span"><a target="_blank" href="' + location.protocol + '//twitter.com/' + parsedCookie.screen_name + '">' + parsedCookie.screen_name + '</a><a class="oAuthSwitchAccount" id="oAuthSwitchAccountTwitter">' + i18n.viewer.social.switchAccount + '</a></span>';
-                            html += '</li>';
-                        }
-                    }
-                    else if(_self._twitterLayer.authenticated){
-                        html += '<li id="twitterStatusList">';
-                        html += '<label>' + _self.options.twitterTitle + '</label>';
-                        html += '<span"><a id="oAuthSwitchAccountTwitter">' + i18n.viewer.social.switchAccount + '</a></span>';
-                        html += '</li>';
-                    }
-                    else{
-                    */
                     html += '<li id="twitterStatusList">';
                     html += '<label>' + _self.options.twitterTitle + '</label>';
                     html += '<span"><a id="twSignInLink2">' +  i18n.viewer.social.signIn + '</a></span>'; 
                     html += '</li>';
-                    //}
                     html += '<li>';
                     html += '<label for="' + _self.options.twitterID + '_input' + '">' + i18n.viewer.settings.usingThisKeyword + '</label>';
                     html += '<input data-id="' + _self.options.twitterID + '" id="' + _self.options.twitterID + '_input' + '" class="mapInput inputSingle" type="text" size="20" value="' + _self.options.twitterSearch + '" />';
@@ -1135,13 +1115,6 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                     _self._twitterWindow(_self.options.twitterSigninUrl);
                 });
             }
-            // todo
-            /*var switchAccountNode = dom.byId('oAuthSwitchAccountTwitter');
-            if (switchAccountNode) {
-                on(switchAccountNode, 'click', function() {
-                    _self._twitterWindow(_self.options.twitterSigninUrl, true);
-                });
-            } */
             if (_self.options.showUshahidi) {
                 _self.ushahidiLayer.getCategories().then(function(categories) {
                     if (categories) {
