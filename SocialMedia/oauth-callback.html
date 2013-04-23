@@ -15,9 +15,7 @@
   </style>
   <script>
     function initialize() {
-        if(window.opener && window.opener.hasOwnProperty('oAuthCallback')){
-            window.opener.oAuthCallback();
-        }
+        window.opener.oAuthCallback();
         window.close();
     }
   </script>
