@@ -1813,7 +1813,7 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
         },
         _twitterWindow: function(page, forceLogin) {
             var pathRegex = new RegExp(/\/[^\/]+$/);
-            var redirect_uri = encodeURIComponent(location.protocol + '//' + location.host + location.pathname.replace(pathRegex, '') + 'oauth-callback.html');
+            var redirect_uri = encodeURIComponent(location.protocol + '//' + location.host + location.pathname.replace(pathRegex, '') + '/oauth-callback.html');
             var w = screen.width / 2;
             var h = screen.height / 1.5;
             var left = (screen.width / 2) - (w / 2);
