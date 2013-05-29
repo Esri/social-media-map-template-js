@@ -1786,7 +1786,6 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                 }
                 _self.options.customPopup.setFeatures(arr);
                 _self.options.customPopup.show(evt.mapPoint);
-                _self.adjustPopupSize(_self.map);
                 if (evt.graphic && evt.graphic.geometry) {
                     _self.map.centerAt(evt.graphic.geometry);
                 }
@@ -2370,6 +2369,7 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
         // resize map
         resizeMap: function() {
             var _self = this;
+            _self.adjustPopupSize(_self.map);
             if (_self.mapTimer) {
                 //clear any existing resize timer
                 clearTimeout(_self.mapTimer);
