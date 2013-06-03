@@ -2991,6 +2991,21 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
             // webmap
             _self.map = response.map;
             _self.itemInfo = response.itemInfo;
+            // add secured layers
+            if(_self.options.securedLayers && _self.options.securedLayers.length){
+                for(var i = 0; i < _self.options.securedLayers.length; i++){
+                    var layer = _self.options.securedLayers[i].layerObject;
+                    var title = _self.options.securedLayers[i].title;
+                    var index = _self.options.securedLayers[i].index;
+                    _self.map.addLayer(layer, index);
+                    _self.itemInfo.itemData.operationalLayers.splice(index, 0, {
+                        id: layer.id,
+                        opacity: layer.opacity,
+                        visibility: layer.visible,
+                        title: title
+                    });
+                }
+            }
             if (_self.options.appid) {
                 // get webapp object item info
                 _self.getItemData(true).then(function(resp) {

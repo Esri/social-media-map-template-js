@@ -1,4 +1,4 @@
-define([], function() {
+define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapServiceLayer) {
     var config = {
         "appid": "",
         "webmap": "4ff792a3962547caad2d924413c40985",
@@ -49,7 +49,18 @@ define([], function() {
         "showAboutDialog": true,
         "showAboutDialogOnLoad": false,
         "locateName": "",
-        "locatePoint": ""
+        "locatePoint": "",
+        "securedLayers": [
+            {
+                title: "Precipitation",
+                index: 0,
+                layerObject: ArcGISDynamicMapServiceLayer('http://tm2-elb-1378978824.us-east-1.elb.amazonaws.com/ArcGIS/rest/services/Secured/Precip/MapServer?token=Y8RuXnlQg1YQNlD2src5St2fvNAqAkdxdXD9bZ1ug_ZLo7V1aUJrTuGvT5FeWsVVrBFh59Jx1Nyp0-UlBRKDxQ..', {
+                    id: "precip",
+                    visible: true,
+                    opacity: 0.4
+                })
+            }
+        ]
     };
     return config;
 });
