@@ -48,8 +48,7 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "showGeolocation": true,
         "showAboutDialog": true,
         "showAboutDialogOnLoad": false,
-        "locateName": "",
-        "locatePoint": "",
+        /*
         "securedLayers": [
             {
                 title: "Precipitation",
@@ -60,7 +59,10 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
                     opacity: 0.4
                 })
             }
-        ]
+        ],
+        */
+        "locateName": "",
+        "locatePoint": ""
     };
     return config;
 });
