@@ -147,8 +147,8 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                 // disable panning
                 _self.map.disableMapNavigation();
                 // start extent
-                _self.setExtentValues(_self.map);
-                _self.map.setExtent(_self.options.startExtent);
+                _self.setStartExtent();
+                _self.setStartLevel();
                 connect.connect(_self.map, "onResize", function () {
                    setTimeout(function () {
                         if (_self.options.startExtent) {
