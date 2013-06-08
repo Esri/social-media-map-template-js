@@ -26,7 +26,7 @@ define({
             	"placeholder":"Find a place"
             },
 			"layers": {
-				"menuTitle":"Operational Layers"
+				"menuTitle":"Layers"
 			},
             "layer": {
             	"information":"Information",

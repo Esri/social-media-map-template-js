@@ -730,6 +730,13 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                         _self.smLayerChange(id);
                     }
                 });
+                on(input, "change, keyup", function() {
+                    var id = query(this).attr('data-id')[0];
+                    var status = dom.byId(id + '_load');
+                    if(status){
+                        domClass.remove(status, 'LoadingComplete');
+                    }
+                });
             }
             var submit = dom.byId(_self.options.socialLayers[i].options.id + '_submit');
             if (submit) {
@@ -888,11 +895,6 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
             _self.setSharing();
             // class
             query(obj).addClass('buttonSelected');
-        },
-        // zebra stripe css object
-        zebraStripe: function(obj) {
-            obj.removeClass("stripe");
-            obj.filter(":nth-child(even)").addClass("stripe");
         },
         // heatmap / clusters toggle
         insertSMToggle: function() {
@@ -1183,7 +1185,7 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
             // append list container
             var node = dom.byId('socialMenu');
             if (node) {
-                node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.social.menuTitle + '<div class="clear"></div></div><ul class="zebraStripes" id="socialList"></ul>';
+                node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.social.menuTitle + '<div class="clear"></div></div><ul  id="socialList"></ul>';
             }
             // if flickr
             if (_self.options.showFlickr) {
@@ -1791,8 +1793,6 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                 }
                 _self.overridePopupTitle();
             });
-            // zebra stripe layers
-            _self.zebraStripe(query('#socialList li.layer'));
             // settings menu generator
             var settingsCount = query('#socialList li.layer .cBconfig').length;
             if (settingsCount > -1) {
@@ -2191,14 +2191,13 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                     // ADD URL
                     node = dom.byId('layersMenu');
                     if (node) {
-                        node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.layers.menuTitle + '<div class="clear"></div></div><ul class="zebraStripes" id="layersList"></ul>';
+                        node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.layers.menuTitle + '<div class="clear"></div></div><ul id="layersList"></ul>';
                     }
                     // for each layer
                     for (var i = 0; i < _self.itemInfo.itemData.operationalLayers.length; i++) {
                         _self.addLayerToUI(_self.itemInfo.itemData.operationalLayers[i], i);
                         _self.addLayerTransparencySlider(_self.itemInfo.itemData.operationalLayers[i], i);
                     }
-                    _self.zebraStripe(query('#layersList li.layer'));
                 }
                 _self.options.scaleBar = new Scalebar({
                     map: _self.map,
@@ -2309,7 +2308,7 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                     // create list
                     node = dom.byId('placesMenu');
                     if (node) {
-                        node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.places.menuTitle + '<div class="clear"></div></div><ul class="zebraStripes" id="placesList"></ul>';
+                        node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.places.menuTitle + '<div class="clear"></div></div><ul id="placesList"></ul>';
                     }
                     // if share object
                     for (var i = 0; i < _self.itemInfo.itemData.bookmarks.length; i++) {
@@ -2317,7 +2316,6 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                     }
                     // set on clicks
                     _self.placesOnClick();
-                    _self.zebraStripe(query('#placesList li.layer'));
                 } else {
                     _self.options.showPlaces = false;
                 }

@@ -1154,6 +1154,28 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 #cfgMenu {
     text-align: center;
 }
+
+#cfgMenu .mapButton:focus{
+    background: #f5f5f5;
+    background: url(data:image/svg+xml;
+    base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y1ZjVmNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMWYxZjEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  #f5f5f5 0%, #f1f1f1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#f1f1f1));
+    background: -webkit-linear-gradient(top,  #f5f5f5 0%,#f1f1f1 100%);
+    background: -o-linear-gradient(top,  #f5f5f5 0%,#f1f1f1 100%);
+    background: -ms-linear-gradient(top,  #f5f5f5 0%,#f1f1f1 100%);
+    background: linear-gradient(to bottom,  #f5f5f5 0%,#f1f1f1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#f1f1f1',GradientType=0 );
+}
+
+#cfgMenu .buttonSelected, #cfgMenu .buttonSelected:hover, #cfgMenu .buttonSelected:focus {
+    background: #fff;
+    position: relative;
+    padding-bottom:6px;
+    z-index: 100;
+    border-bottom: 0;
+}
+
 /*-------------------------------------------------- */
 /* Settings Panel */
 /*-------------------------------------------------- */
