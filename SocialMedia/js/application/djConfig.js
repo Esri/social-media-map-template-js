@@ -1,29 +1,24 @@
-// host path regular expression
-var pathRegex = new RegExp(/\/[^\/]+$/);
-var locationPath = location.pathname.replace(pathRegex, '');
+var path_location = location.pathname.replace(/\/[^/]+$/, '');
+var path_location_tc = path_location + '/config';
+if (path_location.search(/\/apps\/|\/home\//) !== -1) {
+    path_location_tc = path_location.substr(0, path_location.lastIndexOf('/SocialMedia'));
+}
 // Dojo Config
 var dojoConfig = {
-    //locale: "ar",
     parseOnLoad: true,
+    //locale: 'ar',
     packages: [{
         name: "modules",
-        location: locationPath + '/js/modules/'
+        location: path_location + '/js/modules/'
     }, {
         name: "application",
-        location: locationPath + '/js/application/'
-    }, {
-        name: "config",
-        location: locationPath + '/config'
+        location: path_location + '/js/application/'
     },
-    /*{
-	 name: "templateConfig",
-	  location: locationPath.substr(0,locationPath.lastIndexOf('/SocialMedia')) 
-	},*/
     {
-        name: "templateConfig",
-        location: locationPath + '/config'
+        name: "config",
+        location: path_location + '/config'
     }, {
-        name: "appconfig",
-        location: locationPath + '/config'
+        name: "templateConfig",
+        location: path_location_tc
     }]
 };
