@@ -5,20 +5,24 @@ var locationPath = location.pathname.replace(pathRegex, '');
 var dojoConfig = {
     //locale: "ar",
     parseOnLoad: true,
-    packages: [
-    {
+    packages: [{
         name: "modules",
         location: locationPath + '/js/modules/'
-    },
-    {
+    }, {
         name: "application",
         location: locationPath + '/js/application/'
-    },
-    {
+    }, {
         name: "config",
         location: locationPath + '/config'
     },
+    /*{
+	 name: "templateConfig",
+	  location: locationPath.substr(0,locationPath.lastIndexOf('/SocialMedia')) 
+	},*/
     {
+        name: "templateConfig",
+        location: locationPath + '/config'
+    }, {
         name: "appconfig",
         location: locationPath + '/config'
     }]
