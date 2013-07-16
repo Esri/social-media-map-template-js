@@ -45,9 +45,9 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, locale, InfoTemp
                 throw 'Reference to esri.Map object required';
             }
             if (location.protocol === "https:") {
-                this.baseurl = "http://api.flickr.com/services/rest/";
-            } else {
                 this.baseurl = "https://secure.flickr.com/services/rest/";
+            } else {
+                this.baseurl = "http://api.flickr.com/services/rest/";
             }
             this.featureCollection = {
                 layerDefinition: {

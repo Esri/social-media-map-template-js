@@ -1114,7 +1114,7 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
             var signInNode2 = dom.byId('twSignInLink2');
             if (signInNode2) {
                 on(signInNode2, 'click', function() {
-                    _self._twitterWindow(_self.options.twitterSigninUrl);
+                    _self._twitterWindow(location.protocol + _self.options.twitterSigninUrl);
                 });
             }
             if (_self.options.showUshahidi) {
@@ -1394,7 +1394,7 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
             if (_self.options.showTwitter) {
                 var twitterLayer = new Twitter({
                     map: _self.map,
-                    url: _self.options.twitterUrl,
+                    url: location.protocol + _self.options.twitterUrl,
                     filterUsers: _self.options.filterTwitterUsers,
                     filterWords: _self.options.filterWords,
                     title: _self.options.twitterTitle,
@@ -1433,7 +1433,7 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                     var signInNode = dom.byId('twSignInLink');
                     if (signInNode) {
                         on(signInNode, 'click', function() {
-                            _self._twitterWindow(_self.options.twitterSigninUrl);
+                            _self._twitterWindow(location.protocol + _self.options.twitterSigninUrl);
                         });
                     }
                     var html = '';
@@ -1446,7 +1446,7 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                     var signInNode2 = dom.byId('twSignInLink2');
                     if (signInNode2) {
                         on(signInNode2, 'click', function() {
-                            _self._twitterWindow(_self.options.twitterSigninUrl);
+                            _self._twitterWindow(location.protocol + _self.options.twitterSigninUrl);
                         });
                     }
                 });
@@ -1461,7 +1461,7 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                     var switchAccountNode = dom.byId('oAuthSwitchAccountTwitter');
                     if (switchAccountNode) {
                         on(switchAccountNode, 'click', function() {
-                            _self._twitterWindow(_self.options.twitterSigninUrl, true);
+                            _self._twitterWindow(location.protocol + _self.options.twitterSigninUrl, true);
                         });
                     }
                 });
@@ -2499,7 +2499,7 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
                 var h = 360;
                 var left = (screen.width / 2) - (w / 2);
                 var top = (screen.height / 2) - (h / 2);
-                fullLink = 'http://www.facebook.com/sharer.php?u=' + encodeURIComponent(fbLink) + '&t=' + encodeURIComponent(_self.itemInfo.item.snippet);
+                fullLink = location.protocol + '//www.facebook.com/sharer.php?u=' + encodeURIComponent(fbLink) + '&t=' + encodeURIComponent(_self.itemInfo.item.snippet);
                 window.open(fullLink, 'share', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, true);
             }
         },
