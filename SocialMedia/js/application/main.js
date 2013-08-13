@@ -389,10 +389,6 @@ function(ready, declare, connect, Deferred, event, array, dom, query, domClass, 
             if (templateConfig.helperServices.geometry.url && location.protocol === "https:") {
                 templateConfig.helperServices.geometry.url = templateConfig.helperServices.geometry.url.replace('http:', 'https:');
             }
-            // https locator url
-            if (templateConfig.helperServices.geocode.url && location.protocol === "https:") {
-                templateConfig.helperServices.geocode.url = templateConfig.helperServices.geocode.url.replace('http:', 'https:');
-            }
             config.defaults.geometryService = new GeometryService(templateConfig.helperServices.geometry.url);
             config.defaults.io.proxyUrl = _self.options.proxyUrl;
             config.defaults.io.corsEnabledServers = [location.protocol + '//' + location.host];
