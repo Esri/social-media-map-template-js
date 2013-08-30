@@ -2,14 +2,16 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "MMM d, yyyy" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "Não foi possível criar o mapa",
                 "general": "Erro",
                 "bingError": "A implementação desta aplicação requer uma chave Bing Maps própria.",
                 "noLegend": "Sem legenda.",
-                "heatmap": "Mapas de HotSpots não são suportados neste browser.",
+                "heatmap": "Mapas de HotSpots não são suportados neste navegador.",
                 "noText": "Introduza uma localização para pesquisar.",
                 "noLocation": "Não foi possível encontrar a localização.",
                 "integersOnly": "Apenas pode inserir valores inteiros neste campo.",
@@ -30,17 +32,17 @@
             	"information": "Informações",
             	"transparency": "Transparência",
             	"searchSettings": "Configurações da Pesquisa",
-            	"filteredBy": "Filtrado por:"
+            	"filteredBy": "filtrado por:"
             },
             "general": {
             	"at": "em",
 				"of": "de",
-            	"homeExtent": "Carregar extensão por defeito do mapa",
+            	"homeExtent": "Carregar vista inicial",
 				"ok": "OK",
 				"close": "Fechar"
             },
 			"basemap": {
-				"menuTitle": "Selecione um mapa base",
+				"menuTitle": "Selecione um mapa base"
 			},
             "settings": {
             	"title": "Configurações",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "Locais marcados",
-            	"places": "Lugares",
+            	"places": "Marcadores",
             	"placesTitle": "Guardar Marcador para Lugar",
             	"myLocation": "A Minha Localização Atual",
             	"myLocationTitle": "Centrar o mapa na minha localização"
@@ -90,17 +92,17 @@
             	"social": "Social",
             	"socialTitle": "Media Social",
             	"link": "Ligação",
-            	"linkTitle": "Partilhar este mapa configurado",
+            	"linkTitle": "Partilhar esta aplicação web",
             	"about": "Sobre",
             	"aboutTitle": "Sobre este mapa",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "Exibir Como",
+            	"point": "Pontos",
             	"cluster": "Clusters",
             	"heatmap": "Densidade"
             },
             "shareMenu": {
 				"menuTitle": "Partilhar a Visualização Atual",
-				"shareHeader": "Partilhar uma ligação para o seu mapa",
+				"shareHeader": "Partilhar uma ligação para a aplicação web",
             	"facebook": "Facebook",
             	"facebookHeader": "Partilhar no Facebook",
             	"twitter": "Twitter",
@@ -146,15 +148,15 @@
 			},
 			"youtube": {
 				"title": "YouTube",
-				"description": "Vídeo do YouTube"
+				"description": "Vídeos do YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Fotos do Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Relatórios de incidentes do Ushahidi"
 			}
         }
     })

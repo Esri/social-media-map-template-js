@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mm", // added 2.5.2013
+                "datePattern": "d MMM yyyy" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "Det går inte att skapa kartan",
@@ -30,17 +32,17 @@
             	"information": "Information",
             	"transparency": "Transparens",
             	"searchSettings": "Sökinställningar",
-            	"filteredBy": "Filtrerat efter:"
+            	"filteredBy": "filtrerat efter:"
             },
             "general": {
             	"at": "kl.",
 				"of": "av",
-            	"homeExtent": "Läs in utbredning för standardkarta",
+            	"homeExtent": "Läs in startvy",
 				"ok": "OK",
 				"close": "Stäng"
             },
 			"basemap": {
-				"menuTitle": "Välj en baskarta",
+				"menuTitle": "Välj en baskarta"
 			},
             "settings": {
             	"title": "Inställningar",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "Bokmärkta platser",
-            	"places": "Platser",
+            	"places": "Bokmärken",
             	"placesTitle": "Bokmärk platser",
             	"myLocation": "Min aktuella plats",
             	"myLocationTitle": "Centrera kartan till min plats"
@@ -90,17 +92,17 @@
             	"social": "Socialt",
             	"socialTitle": "Sociala medier",
             	"link": "Länk",
-            	"linkTitle": "Dela den här konfigurerade kartan",
+            	"linkTitle": "Dela den här webbkartan",
             	"about": "Om",
             	"aboutTitle": "Om den här kartan",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "Visa som",
+            	"point": "Punkter",
             	"cluster": "Kluster",
             	"heatmap": "Densitet"
             },
             "shareMenu": {
 				"menuTitle": "Dela aktuell vy",
-				"shareHeader": "Dela en länk till din karta",
+				"shareHeader": "Dela en länk till webbkartan",
             	"facebook": "Facebook",
             	"facebookHeader": "Dela på Facebook",
             	"twitter": "Twitter",
@@ -146,15 +148,15 @@
 			},
 			"youtube": {
 				"title": "YouTube",
-				"description": "Video från YouTube"
+				"description": "Videor från YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Bilder från Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Incidentrapporter från Ushahidi"
 			}
         }
     })

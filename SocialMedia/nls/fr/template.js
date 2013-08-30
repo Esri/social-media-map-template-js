@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "MMM d, yyyy" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "Impossible de créer la carte",
@@ -30,17 +32,17 @@
             	"information": "Informations",
             	"transparency": "Transparence",
             	"searchSettings": "Paramètres de recherche",
-            	"filteredBy": "Filtrés par :"
+            	"filteredBy": "filtrés par :"
             },
             "general": {
             	"at": "sur",
 				"of": "de",
-            	"homeExtent": "Charger l'étendue par défaut de la carte",
+            	"homeExtent": "Charger l\'affichage d\'accueil",
 				"ok": "OK",
 				"close": "Fermer"
             },
 			"basemap": {
-				"menuTitle": "Sélectionner un fond de carte",
+				"menuTitle": "Sélectionner un fond de carte"
 			},
             "settings": {
             	"title": "Paramètres",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "Sites avec géosignet",
-            	"places": "Sites",
+            	"places": "Géosignets",
             	"placesTitle": "Ajouter un géosignet aux sites",
             	"myLocation": "Mon emplacement actuel",
             	"myLocationTitle": "Centrer la carte sur mon emplacement"
@@ -78,7 +80,7 @@
             },
             "about": {
             	"title": "A propos",
-            	"access": "Contraintes d’accès et d’utilisation"
+            	"access": "Contraintes d\’accès et d\’utilisation"
             },
             "buttons": {
             	"legend": "Légende",
@@ -90,17 +92,17 @@
             	"social": "Social",
             	"socialTitle": "Réseau social",
             	"link": "Lien",
-            	"linkTitle": "Partager cette carte configurée",
+            	"linkTitle": "Partager cette application Web",
             	"about": "A propos",
             	"aboutTitle": "A propos de cette carte",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "Afficher comme",
+            	"point": "Points",
             	"cluster": "Agrégats",
             	"heatmap": "Densité"
             },
             "shareMenu": {
 				"menuTitle": "Partager la vue actuelle",
-				"shareHeader": "Partager un lien vers votre carte",
+				"shareHeader": "Partager un lien vers votre application Web",
             	"facebook": "Facebook",
             	"facebookHeader": "Partager sur Facebook",
             	"twitter": "Twitter",
@@ -149,12 +151,12 @@
 				"description": "Vidéos de YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Photos de Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Rapports d\'incidents d\'Ushahidi"
 			}
         }
     })

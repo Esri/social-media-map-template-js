@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "ll.zz.aaaa" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "Imposibil de creat harta",
@@ -30,17 +32,17 @@
             	"information": "Informaţii",
             	"transparency": "Transparenţă",
             	"searchSettings": "Setări căutare",
-            	"filteredBy": "Filtrat după:"
+            	"filteredBy": "filtrat după:"
             },
             "general": {
             	"at": "la",
 				"of": "din",
-            	"homeExtent": "Încărcare extindere implicită a hărţii",
+            	"homeExtent": "Încărcare vizualizare pagina principală",
 				"ok": "OK",
 				"close": "Închidere"
             },
 			"basemap": {
-				"menuTitle": "Selectare hartă fundal",
+				"menuTitle": "Selectare hartă fundal"
 			},
             "settings": {
             	"title": "Setări",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "Locuri cu semne de carte",
-            	"places": "Locuri",
+            	"places": "Semne de carte",
             	"placesTitle": "Aplicare semne de carte pe locuri",
             	"myLocation": "Locaţia mea curentă",
             	"myLocationTitle": "Centrare hartă în locaţia mea"
@@ -90,17 +92,17 @@
             	"social": "Socializare",
             	"socialTitle": "Reţele de socializare",
             	"link": "Link",
-            	"linkTitle": "Partajare această hartă configurată",
+            	"linkTitle": "Partajare această aplicaţie web",
             	"about": "Despre",
             	"aboutTitle": "Despre această hartă",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "Afişare ca",
+            	"point": "Puncte",
             	"cluster": "Grupări",
             	"heatmap": "Densitate"
             },
             "shareMenu": {
 				"menuTitle": "Partajare vizualizare curentă",
-				"shareHeader": "Partajare un link către harta dvs.",
+				"shareHeader": "Partajare un link către aplicaţia dvs. web",
             	"facebook": "Facebook",
             	"facebookHeader": "Partajare pe Facebook",
             	"twitter": "Twitter",
@@ -146,15 +148,15 @@
 			},
 			"youtube": {
 				"title": "YouTube",
-				"description": "Videoclip de pe YouTube"
+				"description": "Videoclipuri de pe YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Fotografii de pe Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Rapoarte de incidente de la Ushahidi"
 			}
         }
     })

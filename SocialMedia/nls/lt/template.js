@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "imperinės sistemos"
+                "scaleBarUnits": "metric",
+                "timePattern": "hh:mm", // added 2.5.2013
+                "datePattern": "yyyy.MMM.dd" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "Žemėlapio sukurti nepavyko",
@@ -10,7 +12,7 @@
                 "bingError": "Diegiant šia aplikaciją reikalingas savas Bing Maps raktas.",
                 "noLegend": "Legendos nėra.",
                 "heatmap": "Intensyvumo žemėlapis šioje naršyklėje nepalaikomas.",
-                "noText": "Įveskite vietą kurios ieškote.",
+                "noText": "Įveskite ieškomą vietą.",
                 "noLocation": "Vietos surasti nepavyko.",
                 "integersOnly": "Šiame lauke galima įvesti tik sveikus skaičius.",
 				"nodesc": "Aprašo nėra."
@@ -40,7 +42,7 @@
 				"close": "Užverti"
             },
 			"basemap": {
-				"menuTitle": "Pasirinkite pagrindo žemėlapį",
+				"menuTitle": "Pasirinkite pagrindo žemėlapį"
 			},
             "settings": {
             	"title": "Nuostatos",
@@ -90,17 +92,17 @@
             	"social": "Visuomeninė",
             	"socialTitle": "Visuomeninė žiniasklaida",
             	"link": "Nuoroda",
-            	"linkTitle": "Bendrinti konfigūruotą žemėlapį",
+            	"linkTitle": "Bendrinti šią internetinę aplikaciją",
             	"about": "Apie",
             	"aboutTitle": "Apie šį žemėlapį",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "Rodyti kaip",
+            	"point": "tašk.",
             	"cluster": "Telkiniai",
             	"heatmap": "Tankis"
             },
             "shareMenu": {
 				"menuTitle": "Bendrinti esamą vaizdą",
-				"shareHeader": "Bendrinti nuorodą į žemėlapį",
+				"shareHeader": "Bendrinti nuorodą į internetinę aplikaciją",
             	"facebook": "Facebook",
             	"facebookHeader": "Dalintis Facebook",
             	"twitter": "Twitter",
@@ -149,12 +151,12 @@
 				"description": "Video iš YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Nuotraukos iš Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Pranešimai iš Ushahidi"
 			}
         }
     })

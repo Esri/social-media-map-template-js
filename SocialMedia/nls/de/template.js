@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "d. MMM yyyy" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "Karte kann nicht erstellt werden",
@@ -30,17 +32,17 @@
             	"information": "Informationen",
             	"transparency": "Transparenz",
             	"searchSettings": "Sucheinstellungen",
-            	"filteredBy": "Gefiltert nach:"
+            	"filteredBy": "gefiltert nach:"
             },
             "general": {
             	"at": "bei",
 				"of": "von",
-            	"homeExtent": "Standardkartenausdehnung laden",
+            	"homeExtent": "Startansicht laden",
 				"ok": "OK",
 				"close": "Schließen"
             },
 			"basemap": {
-				"menuTitle": "Grundkarte auswählen",
+				"menuTitle": "Grundkarte auswählen"
 			},
             "settings": {
             	"title": "Einstellungen",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "Orte in Lesezeichen",
-            	"places": "Orte",
+            	"places": "Lesezeichen",
             	"placesTitle": "Orte als Lesezeichen hinzufügen",
             	"myLocation": "Meine aktuelle Position",
             	"myLocationTitle": "Karte auf meine Position zentrieren"
@@ -77,7 +79,7 @@
             	"national": "National"
             },
             "about": {
-            	"title": "Info zu",
+            	"title": "Info",
             	"access": "Zugriffs- und Nutzungsbeschränkungen"
             },
             "buttons": {
@@ -87,20 +89,20 @@
             	"basemapTitle": "Grundkarte wechseln",
             	"layers": "Layer",
             	"layersTitle": "Layer erkunden",
-            	"social": "Sozial",
-            	"socialTitle": "Soziale Medien",
+            	"social": "Social",
+            	"socialTitle": "Social Media",
             	"link": "Link",
-            	"linkTitle": "Diese konfigurierte Karte freigeben",
-            	"about": "Info zu",
+            	"linkTitle": "Diese Web-App freigeben",
+            	"about": "Info",
             	"aboutTitle": "Info zu dieser Karte",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "Anzeigen als",
+            	"point": "Punkte",
             	"cluster": "Cluster",
             	"heatmap": "Dichte"
             },
             "shareMenu": {
 				"menuTitle": "Aktuelle Ansicht freigeben",
-				"shareHeader": "Einen Link zur Karte freigeben",
+				"shareHeader": "Einen Link zu Ihrer Web-App freigeben",
             	"facebook": "Facebook",
             	"facebookHeader": "Auf Facebook freigeben",
             	"twitter": "Twitter",
@@ -121,7 +123,7 @@
 				"separator": ","
 			},
 			"social": {
-				"menuTitle": "Layer für soziale Medien"
+				"menuTitle": "Layer für Social Media"
 			},
 			"preview": {
 				"minWidth": "Minimale Breite ist",
@@ -146,15 +148,15 @@
 			},
 			"youtube": {
 				"title": "YouTube",
-				"description": "Video aus YouTube"
+				"description": "Videos aus YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Fotos aus Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Ereignisberichte aus Ushahidi"
 			}
         }
     })

@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "d MMM yyyy" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "Kan kaart niet maken",
@@ -30,17 +32,17 @@
             	"information": "Informatie",
             	"transparency": "Transparant",
             	"searchSettings": "Zoekinstellingen",
-            	"filteredBy": "Gefilterd op:"
+            	"filteredBy": "gefilterd op:"
             },
             "general": {
             	"at": "op",
 				"of": "van",
-            	"homeExtent": "Standaardkaartextent laden",
+            	"homeExtent": "Thuisweergave laden",
 				"ok": "OK",
 				"close": "Sluiten"
             },
 			"basemap": {
-				"menuTitle": "Selecteer een basiskaart",
+				"menuTitle": "Selecteer een basiskaart"
 			},
             "settings": {
             	"title": "Instellingen",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "Plaatsen met bladwijzer",
-            	"places": "Plaatsen",
+            	"places": "Bladwijzers",
             	"placesTitle": "Bladwijzers toewijzen aan plaatsen",
             	"myLocation": "Mijn huidige locatie",
             	"myLocationTitle": "Kaart centreren op mijn locatie"
@@ -90,17 +92,17 @@
             	"social": "Sociaal",
             	"socialTitle": "Sociale media",
             	"link": "Koppeling",
-            	"linkTitle": "Deze geconfigureerde kaart delen",
+            	"linkTitle": "Deze webapp delen",
             	"about": "Over",
             	"aboutTitle": "Informatie over deze kaart",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "Weergeven als",
+            	"point": "Punten",
             	"cluster": "Clusters",
             	"heatmap": "Dichtheid"
             },
             "shareMenu": {
 				"menuTitle": "Huidige weergave delen",
-				"shareHeader": "Deel een koppeling naar uw kaart",
+				"shareHeader": "Een koppeling naar uw webapp delen",
             	"facebook": "Facebook",
             	"facebookHeader": "Delen op Facebook",
             	"twitter": "Twitter",
@@ -138,7 +140,7 @@
 			},
 			"flickr": {
 				"title": "Flickr",
-				"description": "Foto\'s van Flickr"
+				"description": "Foto's van Flickr"
 			},
 			"twitter": {
 				"title": "Twitter",
@@ -146,15 +148,15 @@
 			},
 			"youtube": {
 				"title": "YouTube",
-				"description": "Video van YouTube"
+				"description": "Video's van YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Foto's van Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Incidentrapporten van Ushahidi"
 			}
         }
     })

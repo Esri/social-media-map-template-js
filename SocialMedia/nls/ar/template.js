@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "MMM d, yyyy" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "يتعذر إنشاء الخريطة",
@@ -35,12 +37,12 @@
             "general": {
             	"at": "عند",
 				"of": "من",
-            	"homeExtent": "تحميل نطاق الخريطة الافتراضي",
+            	"homeExtent": "تحميل العرض الرئيسي",
 				"ok": "موافق",
 				"close": "إغلاق"
             },
 			"basemap": {
-				"menuTitle": "تحديد خريطة أساس",
+				"menuTitle": "تحديد خريطة أساس"
 			},
             "settings": {
             	"title": "الإعدادات",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "الأماكن التي تم وضع إشارة مرجعية إليها",
-            	"places": "الأماكن",
+            	"places": "إشارات مرجعية",
             	"placesTitle": "أماكن العلامة المرجعية",
             	"myLocation": "موقعي الحالي",
             	"myLocationTitle": "تمركز الخريطة على موقعي"
@@ -90,21 +92,21 @@
             	"social": "اجتماعي",
             	"socialTitle": "موقع التواصل الاجتماعي",
             	"link": "رابط",
-            	"linkTitle": "مشاركة الخريطة المهيأة الحالية",
+            	"linkTitle": "مشاركة تطبيق الويب",
             	"about": "نبذة عن",
             	"aboutTitle": "نبذة عن هذه الخريطة",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "عرض في شكل",
+            	"point": "نقاط",
             	"cluster": "تجمعات",
             	"heatmap": "كثافة"
             },
             "shareMenu": {
 				"menuTitle": "مشاركة العرض الحالي",
-				"shareHeader": "مشاركة رابط الخريطة الخاصة بك",
-            	"facebook": "فيس بوك",
-            	"facebookHeader": "مشاركة على الفيس بوك",
-            	"twitter": "تويتر",
-            	"twitterHeader": "مشاركة على تويتر",
+				"shareHeader": "مشاركة رابط في تطبيق الويب",
+            	"facebook": "Facebook",
+            	"facebookHeader": "مشاركة على Facebook",
+            	"twitter": "Twitter",
+            	"twitterHeader": "مشاركة على Twitter",
             	"instructionHeader": "نسخ/لصق HTML داخل صفحة الويب الخاصة بك.",
             	"preview": "المعاينة والتخصيص"
             },
@@ -145,16 +147,16 @@
 				"description": "تويت من تويتر"
 			},
 			"youtube": {
-				"title": "اليوتيوب",
-				"description": "مقطع فيديو من اليوتيوب"
+				"title": "YouTube",
+				"description": "مقاطع فيديو من YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "صور من Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "تقارير طارئة من Ushahidi"
 			}
         }
     })

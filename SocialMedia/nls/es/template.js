@@ -2,12 +2,14 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "imperiales"
+                "scaleBarUnits": "imperiales",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "MMM d, aaaa" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "No se puede crear el mapa",
                 "general": "Error",
-                "bingError": "Para implementar esta aplicación necesitas tu propia clave de Bing Maps.",
+                "bingError": "Para desplegar esta aplicación necesitas tu propia llave de mapas bing.",
                 "noLegend": "No hay ninguna leyenda.",
                 "heatmap": "Los mapas de calor no son compatibles con este navegador.",
                 "noText": "Especifica una ubicación de búsqueda.",
@@ -30,24 +32,24 @@
             	"information": "Información",
             	"transparency": "Transparencia",
             	"searchSettings": "Configuración de búsqueda",
-            	"filteredBy": "Filtrado por:"
+            	"filteredBy": "filtrado por:"
             },
             "general": {
             	"at": "en",
 				"of": "de",
-            	"homeExtent": "Cargar extensión de mapa predeterminada",
+            	"homeExtent": "Cargar vista de inicio",
 				"ok": "Aceptar",
 				"close": "Cerrar"
             },
 			"basemap": {
-				"menuTitle": "Seleccionar un mapa base",
+				"menuTitle": "Seleccionar un mapa base"
 			},
             "settings": {
             	"title": "Configuración",
-            	"searchAll": "Buscar en todos los",
+            	"searchAll": "Buscar en",
             	"usingThisKeyword": "Usando las palabras clave",
             	"search": "Buscar",
-            	"fromThePast": "Desde el pasado",
+            	"fromThePast": "Desde hace",
             	"today": "Día",
             	"this_week": "Semana",
             	"this_month": "Mes",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "Lugares con marcador",
-            	"places": "Lugares",
+            	"places": "Marcadores",
             	"placesTitle": "Agregar marcador a lugares",
             	"myLocation": "Mi ubicación actual",
             	"myLocationTitle": "Centrar mapa en mi ubicación"
@@ -90,17 +92,17 @@
             	"social": "Social",
             	"socialTitle": "Medios sociales",
             	"link": "Vínculo",
-            	"linkTitle": "Compartir este mapa configurado",
+            	"linkTitle": "Compartir esta aplicación web",
             	"about": "Acerca de",
             	"aboutTitle": "Acerca de este mapa",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "Mostrar como",
+            	"point": "Puntos",
             	"cluster": "Clústeres",
             	"heatmap": "Densidad"
             },
             "shareMenu": {
 				"menuTitle": "Compartir vista actual",
-				"shareHeader": "Compartir un vínculo al mapa",
+				"shareHeader": "Compartir un vínculo a la aplicación web",
             	"facebook": "Facebook",
             	"facebookHeader": "Compartir en Facebook",
             	"twitter": "Twitter",
@@ -146,15 +148,15 @@
 			},
 			"youtube": {
 				"title": "YouTube",
-				"description": "Vídeo de YouTube"
+				"description": "Vídeos de YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Fotos de Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Informes de incidentes de Ushahidi"
 			}
         }
     })

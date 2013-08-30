@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "yyyy'年'M'月'd'日'" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "マップを作成できません",
@@ -35,12 +37,12 @@
             "general": {
             	"at": "位置",
 				"of": "/",
-            	"homeExtent": "デフォルトのマップ範囲を読み込む",
+            	"homeExtent": "ホーム ビューを読み込む",
 				"ok": "OK",
 				"close": "閉じる"
             },
 			"basemap": {
-				"menuTitle": "ベースマップの選択",
+				"menuTitle": "ベースマップの選択"
 			},
             "settings": {
             	"title": "設定",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "ブックマークした場所",
-            	"places": "場所",
+            	"places": "ブックマーク",
             	"placesTitle": "場所のブックマーク",
             	"myLocation": "現在の場所",
             	"myLocationTitle": "マップの中央を現在の位置に設定"
@@ -90,17 +92,17 @@
             	"social": "ソーシャル",
             	"socialTitle": "ソーシャル メディア",
             	"link": "リンク",
-            	"linkTitle": "この構成済みマップを共有",
+            	"linkTitle": "この Web アプリケーションを共有",
             	"about": "情報",
             	"aboutTitle": "このマップについて",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "表示方法",
+            	"point": "ポイント",
             	"cluster": "クラスタ",
             	"heatmap": "密度"
             },
             "shareMenu": {
 				"menuTitle": "現在のビューの共有",
-				"shareHeader": "マップへのリンクを共有",
+				"shareHeader": "Web アプリケーションへのリンクを共有",
             	"facebook": "Facebook",
             	"facebookHeader": "Facebook で共有",
             	"twitter": "Twitter",
@@ -149,12 +151,12 @@
 				"description": "YouTube の動画"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Panoramio からの写真"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Ushahidi からのインシデント レポート"
 			}
         }
     })

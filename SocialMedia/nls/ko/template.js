@@ -2,12 +2,14 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "MMM d, yyyy" // added 2.5.2013
             },
 			"errors": {
-                "createMap": "맵을 만들 수 없습니다.",
+                "createMap": "맵을 생성할 수 없음",
                 "general": "오류",
-                "bingError": "이 애플리케이션을 보급하려면 자체 Bing 맵 키가 필요합니다.",
+                "bingError": "이 응용프로그램을 보급하려면 자체 Bing 맵 키가 필요합니다.",
                 "noLegend": "범례가 없습니다.",
                 "heatmap": "Heatmapping은 이 브라우저에서 지원되지 않습니다.",
                 "noText": "검색 위치를 입력하세요.",
@@ -35,12 +37,12 @@
             "general": {
             	"at": "위치",
 				"of": "/",
-            	"homeExtent": "기본 맵 범위 로드",
+            	"homeExtent": "홈 뷰 로드",
 				"ok": "확인",
 				"close": "닫기"
             },
 			"basemap": {
-				"menuTitle": "기본 맵 선택",
+				"menuTitle": "베이스맵 선택"
 			},
             "settings": {
             	"title": "설정",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "책갈피 위치",
-            	"places": "장소",
+            	"places": "책갈피",
             	"placesTitle": "책갈피 장소",
             	"myLocation": "내 현재 위치",
             	"myLocationTitle": "맵 중심을 내 위치로 설정"
@@ -83,24 +85,24 @@
             "buttons": {
             	"legend": "범례",
             	"legendTitle": "범례 표시",
-            	"basemap": "기본 맵",
-            	"basemapTitle": "기본 맵 보기",
+            	"basemap": "베이스맵",
+            	"basemapTitle": "베이스맵 전환",
             	"layers": "레이어",
             	"layersTitle": "레이어 탐색",
             	"social": "소셜",
             	"socialTitle": "소셜 미디어",
             	"link": "링크",
-            	"linkTitle": "이 구성된 맵 공유",
+            	"linkTitle": "이 웹 앱 공유",
             	"about": "정보",
             	"aboutTitle": "이 맵 정보",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "표시 형식",
+            	"point": "포인트",
             	"cluster": "클러스터",
             	"heatmap": "밀도"
             },
             "shareMenu": {
 				"menuTitle": "현재 뷰 공유",
-				"shareHeader": "맵 링크 공유",
+				"shareHeader": "웹 앱 링크 공유",
             	"facebook": "Facebook",
             	"facebookHeader": "Facebook에서 공유",
             	"twitter": "Twitter",
@@ -116,7 +118,7 @@
 				"viewsLabelPlural": "뷰",
 				"commentsLabel": "설명",
 				"commentsLabelPlural": "설명",
-				"modifiedLabel": "마지막 수정한 날짜",
+				"modifiedLabel": "마지막으로 수정한 날짜",
 				"by": "작성자",
 				"separator": ","
 			},
@@ -149,12 +151,12 @@
 				"description": "YouTube의 동영상"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Panoramio의 사진"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Ushahidi의 사건 보고서"
 			}
         }
     })

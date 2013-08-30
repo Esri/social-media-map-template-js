@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "t:mma", // added 2.5.2013
+                "datePattern": "d. MMM åååå" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "Kan ikke opprette kart",
@@ -30,17 +32,17 @@
             	"information": "Informasjon",
             	"transparency": "Gjennomsiktighet",
             	"searchSettings": "Søkeinnstillinger",
-            	"filteredBy": "Filtrert etter:"
+            	"filteredBy": "filtrert etter:"
             },
             "general": {
             	"at": "ved",
 				"of": "for",
-            	"homeExtent": "Last inn standard kartutstrekning",
+            	"homeExtent": "Last inn visning av hjemmesiden",
 				"ok": "OK",
 				"close": "Lukk"
             },
 			"basemap": {
-				"menuTitle": "Velg et bakgrunnskart",
+				"menuTitle": "Velg et bakgrunnskart"
 			},
             "settings": {
             	"title": "Innstillinger",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "Bokmerkede steder",
-            	"places": "Steder",
+            	"places": "Bokmerker",
             	"placesTitle": "Bokmerke steder",
             	"myLocation": "Min gjeldende plassering",
             	"myLocationTitle": "Sentrer kartet på min plassering"
@@ -90,17 +92,17 @@
             	"social": "Sosial",
             	"socialTitle": "Sosiale medier",
             	"link": "Kobling",
-            	"linkTitle": "Del dette konfigurerte kartet",
+            	"linkTitle": "Del denne webapplikasjonen",
             	"about": "Om",
             	"aboutTitle": "Om dette kartet",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "Vis som",
+            	"point": "Punkter",
             	"cluster": "Grupperinger",
             	"heatmap": "Tetthet"
             },
             "shareMenu": {
 				"menuTitle": "Del gjeldende visning",
-				"shareHeader": "Del en kobling til kartet ditt",
+				"shareHeader": "Del en kobling til webapplikasjonen",
             	"facebook": "Facebook",
             	"facebookHeader": "Del på Facebook",
             	"twitter": "Twitter",
@@ -146,15 +148,15 @@
 			},
 			"youtube": {
 				"title": "YouTube",
-				"description": "Video fra YouTube"
+				"description": "Videoer fra YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Bilder fra Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Hendelsesrapporter fra Ushahidi"
 			}
         }
     })

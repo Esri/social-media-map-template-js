@@ -67,7 +67,7 @@ define([
     "dojox/mobile/IconMenuItem",
     "dojox/mobile/Switch",
     "dojox/mobile/ListItem",
-    "dojox/mobile/Scrollable"
+    "dojox/mobile/scrollable"
 
 ],
         function (ready, declare, connect, Deferred, dojoMbl, mlist, all, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, date, number, win, on, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, templateConfig, cookie, JSON, config, arcgisUtils, utils, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, esri, Geocoder, FeatureLayer, PopupMobile, SimpleDialog, Extent, webMercatorUtils, BasemapGallery, Switch) {

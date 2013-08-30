@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "yyyy 年 MM 月 d 日" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "无法创建地图",
@@ -35,12 +37,12 @@
             "general": {
             	"at": "在",
 				"of": "/",
-            	"homeExtent": "加载默认地图范围",
+            	"homeExtent": "加载主视图",
 				"ok": "确定",
 				"close": "关闭"
             },
 			"basemap": {
-				"menuTitle": "选择底图",
+				"menuTitle": "选择底图"
 			},
             "settings": {
             	"title": "设置",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "书签标记地点",
-            	"places": "地点",
+            	"places": "书签",
             	"placesTitle": "书签地点",
             	"myLocation": "我的当前位置",
             	"myLocationTitle": "以我的位置为中心居中地图"
@@ -90,17 +92,17 @@
             	"social": "社交",
             	"socialTitle": "社交媒体",
             	"link": "链接",
-            	"linkTitle": "共享此配置地图",
+            	"linkTitle": "共享此 web 应用程序",
             	"about": "关于",
             	"aboutTitle": "关于本地图",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "显示为",
+            	"point": "点",
             	"cluster": "聚类",
             	"heatmap": "密度"
             },
             "shareMenu": {
 				"menuTitle": "共享当前视图",
-				"shareHeader": "共享地图链接",
+				"shareHeader": "共享 web 应用程序链接",
             	"facebook": "Facebook",
             	"facebookHeader": "在 Facebook 上共享",
             	"twitter": "Twitter",
@@ -110,12 +112,12 @@
             },
             "itemInfo": {
 				"createdLabel": "已创建",
-				"ratingsLabel": "次评级",
+				"ratingsLabel": "评级",
 				"ratingsLabelPlural": "次评级",
-				"viewsLabel": "次浏览",
+				"viewsLabel": "浏览",
 				"viewsLabelPlural": "次浏览",
 				"commentsLabel": "评论",
-				"commentsLabelPlural": "评论",
+				"commentsLabelPlural": "次评论",
 				"modifiedLabel": "上次修改时间",
 				"by": "修改者",
 				"separator": ","
@@ -149,12 +151,12 @@
 				"description": "YouTube 中的视频"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Panoramio 中的照片"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Ushahidi 中的事故报告"
 			}
         }
     })

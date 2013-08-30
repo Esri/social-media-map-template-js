@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "MMM d, yyyy" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "לא ניתן ליצור מפה",
@@ -35,12 +37,12 @@
             "general": {
             	"at": "ב",
 				"of": "מתוך",
-            	"homeExtent": "טען תיחום מפה ברירת מחדל",
+            	"homeExtent": "טען את תצוגת דף הבית",
 				"ok": "אישור",
 				"close": "סגור"
             },
 			"basemap": {
-				"menuTitle": "בחר מפת בסיס",
+				"menuTitle": "בחר מפת בסיס"
 			},
             "settings": {
             	"title": "הגדרות",
@@ -59,15 +61,15 @@
             	"latitude": "רוחב:",
             	"longitude": "אורך:",
             	"locationText": "לחץ על המפה כדי לקבוע את המקור שלה",
-            	"twSearch": "כיצד להשתמש בחיפוש טוויטר מתקדם"
+            	"twSearch": "כיצד להשתמש בחיפוש מתקדם בטוויטר"
             },
 			"autoComplete": {
 				"menuTitle": "תוצאות&hellip;"
 			},
             "places": {
-				"menuTitle": "מקומות מסומנים עם סימניות",
-            	"places": "מיקומים",
-            	"placesTitle": "מקומות סימניות",
+				"menuTitle": "מקומות עם סימניות מרחביות",
+            	"places": "סימניות",
+            	"placesTitle": "הוסף סימניה מרחבית",
             	"myLocation": "המיקום הנוכחי שלי",
             	"myLocationTitle": "מרכז מפה למיקום שלי"
             },
@@ -86,21 +88,21 @@
             	"basemap": "מפת בסיס",
             	"basemapTitle": "החלף מפת בסיס",
             	"layers": "שכבות",
-            	"layersTitle": "למד על שכבות",
+            	"layersTitle": "חפש שכבות",
             	"social": "חברתי",
             	"socialTitle": "מדיה חברתית",
             	"link": "קישור",
-            	"linkTitle": "שתף מפה מעוצבת זו.",
+            	"linkTitle": "שתף אפליקצית web זו.",
             	"about": "אודות",
             	"aboutTitle": "אודות מפה זו",
-				"displayAs":"Display As",      
-            	"point":"Points",
-            	"cluster": "צברים",
+            	"displayAs": "הצג כ:",
+            	"point": "נקודות",
+            	"cluster": "ריכוזים",
             	"heatmap": "צפיפות"
             },
             "shareMenu": {
 				"menuTitle": "שתף תצוגה נוכחית",
-				"shareHeader": "שתף קישור למפה שלך",
+				"shareHeader": "שתף קישור לאפליקצית ה- web שלך",
             	"facebook": "פייסבוק",
             	"facebookHeader": "שתף בפייסבוק",
             	"twitter": "טוויטר",
@@ -138,7 +140,7 @@
 			},
 			"flickr": {
 				"title": "Flickr",
-				"description": "תמונות מפליקר"
+				"description": "תמונות מ-Flickr"
 			},
 			"twitter": {
 				"title": "טוויטר",
@@ -146,15 +148,15 @@
 			},
 			"youtube": {
 				"title": "יוטיוב",
-				"description": "סרטון מתוך יוטיוב"
+				"description": "סרטונים מתוך יוטיוב"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "תמונות מתוך Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "דוחות ארועים מתוך Ushahidi"
 			}
         }
     })

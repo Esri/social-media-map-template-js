@@ -1,7 +1,7 @@
 var path_location = location.pathname.replace(/\/[^/]+$/, '');
 var path_location_tc = path_location + '/config';
 if (path_location.search(/\/apps\/|\/home\//) !== -1) {
-    path_location_tc = path_location.substr(0, path_location.lastIndexOf('/DeploymentPackage_PIM'));    
+    path_location_tc = path_location.substr(0, path_location.lastIndexOf('/SocialMedia'));    
 }
 // Dojo Config
 var dojoConfig = {

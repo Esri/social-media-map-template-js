@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "ч:ммa", // added 2.5.2013
+                "datePattern": "МММ д, гггг" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "Не удалось создать карту",
@@ -30,17 +32,17 @@
             	"information": "Информация",
             	"transparency": "Прозрачность",
             	"searchSettings": "Параметры поиска",
-            	"filteredBy": "Отфильтровано по:"
+            	"filteredBy": "oтфильтровано по:"
             },
             "general": {
             	"at": "в",
 				"of": "из",
-            	"homeExtent": "Загрузить экстент карты по умолчанию",
+            	"homeExtent": "Загрузить исходный вид",
 				"ok": "OK",
 				"close": "Закрыть"
             },
 			"basemap": {
-				"menuTitle": "Выберите базовую карту",
+				"menuTitle": "Выберите базовую карту"
 			},
             "settings": {
             	"title": "Настройки",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "Закладки",
-            	"places": "Места",
+            	"places": "Закладки",
             	"placesTitle": "Добавить места в закладки",
             	"myLocation": "Мое текущее местоположение",
             	"myLocationTitle": "Центрировать карту по моему местоположению"
@@ -90,17 +92,17 @@
             	"social": "Социальный",
             	"socialTitle": "Социальная сеть",
             	"link": "Ссылка",
-            	"linkTitle": "Общий доступ к этой настроенной карте",
+            	"linkTitle": "Общий доступ к этому веб-приложению",
             	"about": "О",
             	"aboutTitle": "Об этой карте",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "Отобразить как",
+            	"point": "Точки",
             	"cluster": "Кластеры",
             	"heatmap": "Плотность"
             },
             "shareMenu": {
 				"menuTitle": "Общий доступ к текущему виду",
-				"shareHeader": "Общий доступ к ссылке на карту",
+				"shareHeader": "Поделиться ссылкой на веб-приложение",
             	"facebook": "Facebook",
             	"facebookHeader": "Разместить в Facebook",
             	"twitter": "Twitter",
@@ -149,12 +151,12 @@
 				"description": "Видео с YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Фотографии с Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Сообщения об инцидентах с Ushahidi"
 			}
         }
     })

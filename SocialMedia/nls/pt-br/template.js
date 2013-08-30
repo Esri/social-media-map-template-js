@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "d\' de \'MMMM\' de \'yyyy" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "Não foi possível criar o mapa",
@@ -30,17 +32,17 @@
             	"information": "Informações",
             	"transparency": "Transparência",
             	"searchSettings": "Configurações da Pesquisa",
-            	"filteredBy": "Filtrado por:"
+            	"filteredBy": "filtrado por:"
             },
             "general": {
             	"at": "em",
 				"of": "de",
-            	"homeExtent": "Carregar extensão de mapa padrão",
+            	"homeExtent": "Carregar visualização inicial",
 				"ok": "OK",
 				"close": "Fechar"
             },
 			"basemap": {
-				"menuTitle": "Selecione um mapa base",
+				"menuTitle": "Selecione um mapa base"
 			},
             "settings": {
             	"title": "Configurações",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "Locais marcados",
-            	"places": "Lugares",
+            	"places": "Marcadores",
             	"placesTitle": "Lugares do Marcadores",
             	"myLocation": "Meu Local Atual",
             	"myLocationTitle": "Centralizar mapa no meu local"
@@ -90,17 +92,17 @@
             	"social": "Social",
             	"socialTitle": "Mídia Social",
             	"link": "Link",
-            	"linkTitle": "Compartilhar este mapa configurado",
+            	"linkTitle": "Compartilhar este aplicativo web",
             	"about": "Sobre",
             	"aboutTitle": "Sobre este mapa",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "Exibir Como",
+            	"point": "Pontos",
             	"cluster": "Agrupamentos",
             	"heatmap": "Densidade"
             },
             "shareMenu": {
 				"menuTitle": "Compartilhar Visualização Atual",
-				"shareHeader": "Compartilhar um link no mapa",
+				"shareHeader": "Compartilhar um link no aplicativo web",
             	"facebook": "Facebook",
             	"facebookHeader": "Compartilhar no Facebook",
             	"twitter": "Twitter",
@@ -149,12 +151,12 @@
 				"description": "Vídeo do YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Fotos do Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Relatórios incidentes do Ushahidi"
 			}
         }
     })

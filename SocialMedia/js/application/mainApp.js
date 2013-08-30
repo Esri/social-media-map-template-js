@@ -8,7 +8,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             _self.utils = new modules.utils({ options: _self.options });
             _self.setOptions();
             ready(function() {
-                _self.getItemData().then(function(response) {
+                _self.setAppIdSettings().then(function(response) {
                     if (response) {
                         // check for false value strings
                         var appSettings = _self.utils.setFalseValues(response.values);

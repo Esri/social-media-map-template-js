@@ -18,8 +18,8 @@
 <!-- End iOS -->
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.4/js/esri/css/esri.css" />
-<link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.4/js/dojo/dojox/mobile/themes/iPhone/iPhone.css" />
+<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.6/js/esri/css/esri.css" />
+<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.6/js/dojo/dojox/mobile/themes/iphone/iphone.css" />
 <link rel="stylesheet" type="text/css" href="css/dialog.css" />
 <link rel="stylesheet" type="text/css" href="css/slider.css" />
 <link rel="stylesheet" type="text/css" href="css/dijit.css" />
@@ -36,86 +36,6 @@
 <link rel="stylesheet" type="text/css" href="css/ie9.css">
 <![endif]-->
 <!-- End CSS -->
-	<!-- JavaScript -->
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-215788-43']);
-      _gaq.push(['_setDomainName', ".arcgis.com"]);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-    <script type="text/javascript" src="js/application/djConfig.js"></script>
-	<script type="text/javascript" src="//serverapi.arcgisonline.com/jsapi/arcgis/3.4"></script>
-    <script type="text/javascript" src="js/plugins/respond.js"></script>
-    <script type="text/javascript" src="js/plugins/heatmap.js"></script>
-    <script type="text/javascript">
-
-	    require(['dojo/ready', 'dojo/parser'], function (ready, parser) {
-	        var userAgent = window.navigator.userAgent;
-	        dojo.showInfoWindow = false;
-	        dojo.isTablet = false;
-	        dojo.isMobileDevice = false;
-	        dojo.isBrowser = false;
-	        dojo.isiOS = false;
-	        dojo.isReferrer = false;
-
-	        if (userAgent.indexOf("iPhone") >= 0 || userAgent.indexOf("iPad") >= 0) {
-	            dojo.isiOS = true;
-	        }
-	        if ((userAgent.indexOf("Android") >= 0 && userAgent.indexOf("Mobile") >= 0) || userAgent.indexOf("iPhone") >= 0) {
-	            fontSize = 15;
-	            dojo.isMobileDevice = true;
-	            dojo.byId('dynamicStyleSheet1').href = "css/mobile.css";
-	        }
-	        else if (userAgent.indexOf("iPad") >= 0 || userAgent.indexOf("Android") >= 0) {
-	            fontSize = 14;
-	            dojo.isTablet = true;
-	            dojo.byId('dynamicStyleSheet1').href = "css/tablet.css";
-	        }
-	        else {
-	            dojo.isBrowser = true;
-	            fontSize = 11;
-	            if (document.referrer && (!opener)) {
-	                if ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) < 800) {
-	                    dojo.isReferrer = true;
-	                }
-	            }
-	            if (dojo.isReferrer) {
-	                dojo.byId('dynamicStyleSheet1').href = "css/browser.css";
-	            } else {
-	                dojo.byId('dynamicStyleSheet1').href = "css/applicationMain.css";
-	            }
-	        }
-
-	        if ((dojo.isReferrer || dojo.isTablet) && (!dojo.isMobileDevice)) {
-	            dojo.byId('dynamicStyleSheet3').href = "css/mediaQueryEmbedded.css";
-	            dojo.byId('dynamicStyleSheet2').href = "css/application.css";
-	            require(["application/main", "config/config"], function (application, configOptions) {
-	                application(configOptions);
-	            });
-
-	        }
-	        else if (dojo.isMobileDevice) {
-	            dojo.byId('dynamicStyleSheet2').href = "css/application.css";
-	            require(["application/main", "config/config"], function (application, configOptions) {
-	                application(configOptions);
-	            });
-	        }
-	        else {	            
-	            dojo.byId('dynamicStyleSheet2').href = "css/mediaQueries.css";
-	            require(["application/mainApp", "config/config"], function (application, configOptions) {
-	                application(configOptions);
-	            });
-	        }
-	    });
-
-
-    </script>
-    <!-- End JavaScript -->
 </head>
 <body class="modernGrey">
 	<div id="mapcon" class="mapLoading">
@@ -180,5 +100,82 @@
 	</div>
 	<div id="layersView">
 	</div>
+	<!-- JavaScript -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-215788-43']);
+      _gaq.push(['_setDomainName', ".arcgis.com"]);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <script type="text/javascript" src="js/application/djConfig.js"></script>
+	<script type="text/javascript" src="//js.arcgis.com/3.6/"></script>
+    <script type="text/javascript" src="js/plugins/respond.js"></script>
+    <script type="text/javascript" src="js/plugins/heatmap.js"></script>
+    <script type="text/javascript">
+	    require(['dojo/ready', 'dojo/parser'], function (ready, parser) {
+	        var userAgent = window.navigator.userAgent;
+	        dojo.showInfoWindow = false;
+	        dojo.isTablet = false;
+	        dojo.isMobileDevice = false;
+	        dojo.isBrowser = false;
+	        dojo.isiOS = false;
+	        dojo.isReferrer = false;
+
+	        if (userAgent.indexOf("iPhone") >= 0 || userAgent.indexOf("iPad") >= 0) {
+	            dojo.isiOS = true;
+	        }
+	        if ((userAgent.indexOf("Android") >= 0 && userAgent.indexOf("Mobile") >= 0) || userAgent.indexOf("iPhone") >= 0) {
+	            fontSize = 15;
+	            dojo.isMobileDevice = true;
+	            dojo.byId('dynamicStyleSheet1').href = "css/mobile.css";
+	        }
+	        else if (userAgent.indexOf("iPad") >= 0 || userAgent.indexOf("Android") >= 0) {
+	            fontSize = 14;
+	            dojo.isTablet = true;
+	            dojo.byId('dynamicStyleSheet1').href = "css/tablet.css";
+	        }
+	        else {
+	            dojo.isBrowser = true;
+	            fontSize = 11;
+	            if (document.referrer && (!opener)) {
+	                if ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) < 800) {
+	                    dojo.isReferrer = true;
+	                }
+	            }
+	            if (dojo.isReferrer) {
+	                dojo.byId('dynamicStyleSheet1').href = "css/browser.css";
+	            } else {
+	                dojo.byId('dynamicStyleSheet1').href = "css/applicationMain.css";
+	            }
+	        }
+
+	        if ((dojo.isReferrer || dojo.isTablet) && (!dojo.isMobileDevice)) {
+	            dojo.byId('dynamicStyleSheet3').href = "css/mediaQueryEmbedded.css";
+	            dojo.byId('dynamicStyleSheet2').href = "css/application.css";
+	            require(["application/main", "config/config"], function (application, configOptions) {
+	                application(configOptions);
+	            });
+
+	        }
+	        else if (dojo.isMobileDevice) {
+	            dojo.byId('dynamicStyleSheet2').href = "css/application.css";
+	            require(["application/main", "config/config"], function (application, configOptions) {
+	                application(configOptions);
+	            });
+	        }
+	        else {
+	            dojo.byId('dynamicStyleSheet2').href = "css/mediaQueries.css";
+	            require(["application/mainApp", "config/config"], function (application, configOptions) {
+	                application(configOptions);
+	            });
+	        }
+	    });
+    </script>
+    <!-- End JavaScript -->
 </body>
 </html>

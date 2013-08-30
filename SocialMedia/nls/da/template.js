@@ -2,7 +2,9 @@
 ({
         "viewer": {
         	"main": {
-                "scaleBarUnits": "metric"
+                "scaleBarUnits": "metric",
+                "timePattern": "h:mma", // added 2.5.2013
+                "datePattern": "MMM d, åååå" // added 2.5.2013
             },
 			"errors": {
                 "createMap": "Kan ikke oprette kort",
@@ -30,17 +32,17 @@
             	"information": "Oplysninger",
             	"transparency": "Gennemsigtighed",
             	"searchSettings": "Søgeindstillinger",
-            	"filteredBy": "Filtreret efter:"
+            	"filteredBy": "filtreret efter:"
             },
             "general": {
             	"at": "ved",
 				"of": "af",
-            	"homeExtent": "Indlæs standardkortområde",
+            	"homeExtent": "Indlæs startbillede",
 				"ok": "OK",
 				"close": "Luk"
             },
 			"basemap": {
-				"menuTitle": "Vælg et baggrundskort",
+				"menuTitle": "Vælg et baggrundskort"
 			},
             "settings": {
             	"title": "Indstillinger",
@@ -66,7 +68,7 @@
 			},
             "places": {
 				"menuTitle": "Steder med bogmærker",
-            	"places": "Steder",
+            	"places": "Bogmærker",
             	"placesTitle": "Giv steder et bogmærke",
             	"myLocation": "Min nuværende position",
             	"myLocationTitle": "Centrér kort til min position"
@@ -78,7 +80,7 @@
             },
             "about": {
             	"title": "Om",
-            	"access": "Få adgang til og brug begrænsninger"
+            	"access": "Begrænsninger for adgang og brug"
             },
             "buttons": {
             	"legend": "Signaturforklaring",
@@ -90,17 +92,17 @@
             	"social": "Social",
             	"socialTitle": "Sociale medier",
             	"link": "Link",
-            	"linkTitle": "Del dette konfigurerede kort",
+            	"linkTitle": "Del denne web-app",
             	"about": "Om",
             	"aboutTitle": "Om dette kort",
-				"displayAs":"Display As",      
-            	"point":"Points",
+            	"displayAs": "Vis som",
+            	"point": "Punkter",
             	"cluster": "Klynger",
             	"heatmap": "Tæthed"
             },
             "shareMenu": {
 				"menuTitle": "Del nuværende visning",
-				"shareHeader": "Del et link til dit kort",
+				"shareHeader": "Del et link til din web-app",
             	"facebook": "Facebook",
             	"facebookHeader": "Del på Facebook",
             	"twitter": "Twitter",
@@ -149,12 +151,12 @@
 				"description": "Video fra YouTube"
 			},
 			"panoramio":{
-				"title":"Panoramio",                     
-				"description":"Photos from Panoramio"    
+				"title": "Panoramio",
+				"description": "Fotos fra Panoramio"
 			},
 			"ushahidi":{
-				"title":"Ushahidi",                     
-				"description":"Incident reports from Ushahidi"    
+				"title": "Ushahidi",
+				"description": "Hændelsesrapporter fra Ushahidi"
 			}
         }
     })
