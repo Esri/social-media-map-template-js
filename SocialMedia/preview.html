@@ -28,49 +28,6 @@
 <link rel="stylesheet" type="text/css" href="css/ie9.css">
 <![endif]-->
 <!-- End CSS -->
-    <!-- JavaScript -->
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-215788-43']);
-      _gaq.push(['_setDomainName', ".arcgis.com"]);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-    <script type="text/javascript" src="js/application/djConfig.js"></script>
-    <script type="text/javascript" src="//serverapi.arcgisonline.com/jsapi/arcgis/3.4"></script>
-    <script type="text/javascript" src="js/plugins/respond.js"></script>
-    <script type="text/javascript">
-
-        require(['dojo/ready', 'dojo/parser'], function (ready, parser) {
-            var userAgent = window.navigator.userAgent;
-            dojo.showInfoWindow = false;
-            dojo.isTablet = false;
-            dojo.isMobileDevice = false;
-            dojo.isBrowser = false;
-            dojo.isiOS = false;
-            if (userAgent.indexOf("iPhone") >= 0 || userAgent.indexOf("iPad") >= 0) {
-                dojo.isiOS = true;
-            }
-            if ((userAgent.indexOf("Android") >= 0 && userAgent.indexOf("Mobile") >= 0) || userAgent.indexOf("iPhone") >= 0) {
-                dojo.isMobileDevice = true;
-            }
-            else if (userAgent.indexOf("iPad") >= 0 || userAgent.indexOf("Android") >= 0) {
-                dojo.isTablet = true;
-            }
-            else {
-                dojo.isBrowser = true;
-            }
-            require(["application/preview", "config/config"], function (application, configOptions) {
-                application(configOptions);
-            });
-        });
-                   
-    </script>
-    <!-- End JavaScript -->
 </head>
 <body class="modernGrey">
     <div id="previewContainer">
@@ -78,4 +35,47 @@
     <div id="alertDialog">
     </div>
 </body>
+<!-- JavaScript -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-215788-43']);
+  _gaq.push(['_setDomainName', ".arcgis.com"]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<script type="text/javascript" src="js/application/djConfig.js"></script>
+<script type="text/javascript" src="//js.arcgis.com/3.6/"></script>
+<script type="text/javascript" src="js/plugins/respond.js"></script>
+<script type="text/javascript">
+
+    require(['dojo/ready', 'dojo/parser'], function (ready, parser) {
+        var userAgent = window.navigator.userAgent;
+        dojo.showInfoWindow = false;
+        dojo.isTablet = false;
+        dojo.isMobileDevice = false;
+        dojo.isBrowser = false;
+        dojo.isiOS = false;
+        if (userAgent.indexOf("iPhone") >= 0 || userAgent.indexOf("iPad") >= 0) {
+            dojo.isiOS = true;
+        }
+        if ((userAgent.indexOf("Android") >= 0 && userAgent.indexOf("Mobile") >= 0) || userAgent.indexOf("iPhone") >= 0) {
+            dojo.isMobileDevice = true;
+        }
+        else if (userAgent.indexOf("iPad") >= 0 || userAgent.indexOf("Android") >= 0) {
+            dojo.isTablet = true;
+        }
+        else {
+            dojo.isBrowser = true;
+        }
+        require(["application/preview", "config/config"], function (application, configOptions) {
+            application(configOptions);
+        });
+    });
+               
+</script>
+<!-- End JavaScript -->
 </html>
