@@ -1,0 +1,138 @@
+﻿
+@media screen and (max-width: 450px) {
+    .headerIcon {
+	height: 20px !important;
+	width: 20px !important;
+	}
+    #expandName, #collapseName {
+	height: 20px !important;
+	width: 20px !important;
+	margin-top: 17px !important;
+	}
+    .barButton, .barButton:visited {
+	padding: 5px 8px !important;
+	}
+    #topMenuRight .barButton {
+	margin-left: 2px !important;
+	}
+   .barButton:hover, .barButton:focus, .barSelected {
+	padding: 4px 7px !important;
+	}
+    #searchMenu {
+	width: 240px !important;
+	}
+    .slideMenu {
+	right: 0px !important;
+	}
+    #layersMenu {
+	width: 240px !important;
+	}
+    .mblTabBarButton {
+	width: 65px !important;
+	}
+    #operationalMenu .cBtitle {
+	width: 175px !important;
+	}
+    #basemapMenu, #legendMenu {
+	width: 240px !important;
+	}
+    #shareControls {
+	width: 240px !important;
+	}
+    #quickEmbedCode, #shareControls #inputShare	{
+	width: 200px !important;
+	max-width: 200px !important;
+	}
+    #placesMenu	{
+	width: 240px !important;
+	}
+    #geocoderSearchTool	{
+	margin: 5px 5px !important;
+	}
+    #layerTabBar {
+	width: 198px !important;
+	margin-left: 0px !important;
+	}
+    #settingsDialog {
+	width: 214px !important;
+	}
+    .titleInfo {
+	display: none !important;
+	}
+    .pageInfo {
+	visibility: collapse !important;
+	}
+	.alertDijit {
+	width: 240px !important;
+	}
+
+    .modernGrey .esriGeocoder input	{
+	width: 70% !important;
+	}
+    #reportItem {
+	background: url(../images/ui/flag.png) no-repeat center center;
+	width: 16px;
+	}
+   .esriPopup .actionList .action {
+	background: url(../images/ui/zoomTo.png) no-repeat center center;
+	width: 16px;
+	}
+    #inFlagComplete, .LoadingComplete, #reportLoading {
+	vertical-align: top !important;
+	}
+    #reportLoading {
+	background: url(../images/ui/reporting.gif) no-repeat center center;
+	width: 16px;
+	display: inline-block;
+	height: 16px;
+	}
+}
+
+@media screen and (max-height: 320px) {
+    #zoomSlider .dijitReset {
+	display: none !important;
+	}
+    #shareControls .shareContainer {
+	height: 150px !important;
+	overflow: auto !important;
+	}
+    #quickEmbedCode, #shareControls #inputShare {
+	width: 190px !important;
+	max-width: 190px !important;
+	}
+    .modernGrey .esriGeocoderContainer ul {
+	height: 120px !important;
+	overflow: auto !important;
+	}
+}
+
+@media screen and (max-width: 310px) {
+    #topMenuLeft {
+	display: none !important;
+	}
+    #quickEmbedCode, #shareControls #inputShare {
+	width: 190px !important;
+	max-width: 190px !important;
+	}
+
+}
+@media screen and (max-height: 240px) {
+    #shareControls .shareContainer	{
+	height: 100px !important;
+	overflow: auto !important;
+	}
+    #quickEmbedCode, #shareControls #inputShare {
+	width: 190px !important;
+	max-width: 190px !important;
+	}
+    .modernGrey .esriGeocoderContainer ul {
+	height: 90px !important;
+	overflow: auto !important;
+	}
+}
+@media screen and (min-width: 451px) and (max-height: 240px){
+    #quickEmbedCode, #shareControls #inputShare {
+	width: 200px !important;
+	max-width: 200px !important;
+	}
+}

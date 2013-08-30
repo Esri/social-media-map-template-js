@@ -39,12 +39,15 @@ function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, In
                 symbolUrl: '',
                 symbolHeight: 22.5,
                 symbolWidth: 18.75,
+                popupHeight: 200,
+                popupWidth: 290,
                 result_type: 'recent'
             };
             declare.safeMixin(this.options, options);
             if (this.options.map === null) {
                 throw 'Reference to esri.Map object required';
             }
+            this.baseurl = location.protocol + "//search.twitter.com/search.json";
             this.featureCollection = {
                 layerDefinition: {
                     "geometryType": "esriGeometryPoint",
@@ -128,13 +131,15 @@ function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, In
                 visible: true
             });
             this.options.map.addLayer(this.featureLayer);
+            var deferred;
             connect.connect(this.featureLayer, "onClick", lang.hitch(this, function (evt) {
                 event.stop(evt);
                 var query = new QueryTask();
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
-                var deferred = this.featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW);
+                deferred = this.featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW);
                 this.options.map.infoWindow.setFeatures([deferred]);
-                this.options.map.infoWindow.show(evt.mapPoint);
+                dojo.showInfoWindow = true;
+                setTimeout(function () { _self.options.map.infoWindow.show(evt.graphic.geometry); }, 500);
                 this.adjustPopupSize(this.options.map);
             }));
             this.stats = {
@@ -146,6 +151,10 @@ function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, In
             this.deferreds = [];
             this.geocoded_ids = {};
             this.loaded = true;
+            connect.connect(window, "onresize", lang.hitch(this, function (evt) {
+                event.stop(evt);
+                this.adjustPopupSize(this.options.map);
+            }));
         },
         update: function (options) {
             declare.safeMixin(this.options, options);

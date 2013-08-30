@@ -36,6 +36,8 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 symbolUrl: '',
                 symbolHeight: 22.5,
                 symbolWidth: 18.75,
+                popupHeight: 200,
+                popupWidth: 290,
                 key: '',
                 range: 'all_time'
             };
@@ -138,10 +140,34 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 var query = new QueryTask();
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
                 var deferred = this.featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW);
+                _self.options.map.infoWindow.hide();
                 this.options.map.infoWindow.setFeatures([deferred]);
-                this.options.map.infoWindow.show(evt.mapPoint);
                 this.adjustPopupSize(this.options.map);
+                dojo.showInfoWindow = true;
+                setTimeout(function () { _self.options.map.infoWindow.show(evt.graphic.geometry); }, 500);
+                if (dojo.isMobileDevice) {
+                    dojo.connect(dojo.query('.esriPopupMobile .titleButton.arrow')[0], "onclick", function () {
+                        dojo.byId('divCont').style.display = "none";
+                    });
+                    dojo.connect(dojo.query('.esriMobileNavigationBar .esriMobileNavigationItem.left')[1], "onclick", function () {
+                        if (dojo.query('.ytContent').length > 0) {
+                            var divytContent = dojo.query('.ytContent')[0];
+                            divytContent.id = "divytContent";
+                            dojo.empty(dojo.byId("divytContent"));
+                        }
+                        dojo.byId('divCont').style.display = "block";
+                    });
+                    dojo.connect(dojo.query('.esriMobileNavigationBar .esriMobileNavigationItem.right')[1], "onclick", function () {
+                        if (dojo.query('.ytContent').length > 0) {
+                            var divytContent = dojo.query('.ytContent')[0];
+                            divytContent.id = "divytContent";
+                            dojo.empty(dojo.byId("divytContent"));
+                        }
+                        dojo.byId('divCont').style.display = "block";
+                    });
+                }
             }));
+
             this.stats = {
                 geoPoints: 0,
                 geoNames: 0,
@@ -151,7 +177,12 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             this.deferreds = [];
             this.geocoded_ids = {};
             this.loaded = true;
+            connect.connect(window, "onresize", lang.hitch(this, function (evt) {
+                event.stop(evt);
+                this.adjustPopupSize(this.options.map);
+            }));
         },
+
         update: function (options) {
             declare.safeMixin(this.options, options);
             this.constructQuery(this.options.searchTerm);
@@ -229,8 +260,8 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
         adjustPopupSize: function(map) {
             var box = domGeom.getContentBox(map.container);
             var width = 270, height = 300, // defaults
-            newWidth = Math.round(box.w * 0.60),             
-            newHeight = Math.round(box.h * 0.45);        
+            newWidth = Math.round(box.w * 0.60),
+            newHeight = Math.round(box.h * 0.45);
             if (newWidth < width) {
                 width = newWidth;
             }
@@ -260,10 +291,15 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 datePattern: "y-M-d-H:m:s"
             });
             var linkedText = _self.parseURL(graphic.attributes.media$group.media$description.$t);
+            var videoWidth = 250;
+            var videoHeight = 188;
+            if (graphic.attributes.media$group.yt$aspectRatio) {
+                videoHeight = 140;
+            }
             var html = '';
             html += '<div class="ytContent">';
-            html += '<div class="video">';
-            html += '<iframe width="560" height="315" src="' + location.protocol + '//www.youtube.com/embed/' + graphic.attributes.media$group.yt$videoid.$t + '?wmode=opaque" frameborder="0" allowfullscreen></iframe>';
+            html += '<div class="video" style="width:' + videoWidth + 'px;height:' + videoHeight + 'px;">';
+            html += '<iframe width="' + videoWidth + '" height="' + videoHeight + '" src="' + location.protocol + '//www.youtube.com/embed/' + graphic.attributes.media$group.yt$videoid.$t + '?wmode=opaque" frameborder="0" allowfullscreen></iframe>';
             html += '</div>';
             html += '<h3 class="title">' + graphic.attributes.title.$t + '</h3>';
             html += '<div class="username"><a tabindex="0" href="' + location.protocol + '//www.youtube.com/user/' + graphic.attributes.author[0].name.$t + '" target="_blank">' + graphic.attributes.author[0].name.$t + '</a></div>';

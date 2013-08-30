@@ -7,11 +7,16 @@ define([
     "dojo/json",
     "dojo/topic",
     "dojo/i18n!./nls/template.js",
-    "application/main",
+    "application/mainApp",
     "dojox/layout/ResizeHandle",
+    "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
+    "esri/geometry",
+    "esri/utils",
+    "esri/map",
+    "esri/IdentityManager",
     "esri/arcgis/utils"
 ],
-function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHandle,arcgisUtils) {
+function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHandle, esri) {
     var Widget = declare('application.preview', appMain, {
         constructor: function () {},
         // resize map function
@@ -131,7 +136,7 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                 node.innerHTML = html;
             }
             // create map deferred with options
-            var mapDeferred = arcgisUtils.createMap(_self.options.webmap, 'map', {
+            var mapDeferred = esri.arcgis.utils.createMap(_self.options.webmap, 'map', {
                 mapOptions: {
                     slider: false,
                     wrapAround180: true,
@@ -147,8 +152,8 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                 // disable panning
                 _self.map.disableMapNavigation();
                 // start extent
-                _self.setStartExtent();
-                _self.setStartLevel();
+                _self.setExtentValues(_self.map);
+                _self.map.setExtent(_self.options.startExtent);
                 connect.connect(_self.map, "onResize", function () {
                    setTimeout(function () {
                         if (_self.options.startExtent) {
@@ -195,7 +200,7 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                 this.select();
             });
             // resizable
-            ResizeHandle({
+            var handle = new ResizeHandle({
                 targetId: "mapPreviewResize",
                 constrainMax: true,
                 dir: _self.options.dir,

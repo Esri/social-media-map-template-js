@@ -6,6 +6,14 @@ define({
                 "timePattern": "h:mma", // added 2.5.2013
                 "datePattern": "MMM d, yyyy" // added 2.5.2013
             },
+	    "applicationTitle": {
+	    "PIM": "Public Information Map"
+	    },
+	    "hashTagLabel": {
+		"hashTagFlickr": "#Tag used for Flickr",
+		"hashTagTwitter": "#Tag used for Twitter",
+		"hashTagYoutube": "#Tag used for YouTube"
+	    },
 			"errors": {
                 "createMap": "Unable to create map",
                 "general": "Error",
@@ -15,7 +23,15 @@ define({
                 "noText":"Please enter a search location.",
                 "noLocation":"Location could not be found.",
                 "integersOnly":"You may only enter integers in this field.",
-				"nodesc":"No description."
+		"nodesc": "No description.",
+		"notAvailable": "Not Available",
+		"outsideArea": "You are currently outside the supported area",
+		"geoLocationTimeOut": "Timeout exceeded. Unable to perform the operation",
+		"positionUnavailable": "Position unavailable",
+		"permissionDenied": "Permission denied to locate current location",
+		"unknownError": "Unknown error occured. Unable to locate current location",
+		"tinyURLError": "Unable to generate TinyURL",
+		"invalidSearch": "Invalid Search"
             },
 			"legend": {
 				"menuTitle":"Legend"
@@ -26,7 +42,7 @@ define({
             	"placeholder":"Find a place"
             },
 			"layers": {
-				"menuTitle":"Layers"
+				"menuTitle": "Operational Layers"
 			},
             "layer": {
             	"information":"Information",
@@ -40,6 +56,9 @@ define({
             	"homeExtent":"Load home view",
 				"ok":"OK",
 				"close":"Close"
+	     },
+		"locator": {
+		"menuTitle": "Search Address"
             },
 			"basemap": {
 				"menuTitle":"Select a basemap"
@@ -61,7 +80,10 @@ define({
             	"latitude":"Lat:",
             	"longitude":"Long:",
             	"locationText":"click on the map to set the origin",
-            	"twSearch":"How to Use Advanced Twitter Search"
+		"twSearch": "How to Use Advanced Twitter Search",
+		"screenName": "Screen Name",
+		"signIn": "Sign In",
+		"switchAccount": "Switch Account"
             },
 			"autoComplete": {
 				"menuTitle":"Results&hellip;"
@@ -102,7 +124,7 @@ define({
             },
             "shareMenu":{
 				"menuTitle":"Share Current View",
-				"shareHeader":"Share a link to your web app",
+				"shareHeader": "Share a link to your map",
             	"facebook":"Facebook",
             	"facebookHeader":"Share on Facebook",
             	"twitter":"Twitter",

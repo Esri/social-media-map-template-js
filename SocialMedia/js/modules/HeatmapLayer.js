@@ -48,7 +48,7 @@ function(declare, domConstruct, query, domStyle, connect, screenUtils, Point, Dy
             // global maximum value
             this.globalMax = 0;
             // connect on resize
-			connect.connect(this._map, "onResize", this, this.resizeHeatmap);
+            connect.connect(this._map, "onResize", this, this.resizeHeatmap);
             // heatlayer div styling
             this.domNode.style.position = 'relative';
             this.domNode.style.display = 'none';

@@ -4,8 +4,8 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
 <title></title>
-<meta name="Keywords" content="EsriSMT, Social Media Template, Social Media Map, Twitter Map, Flickr Map, YouTube Map, Social Heatmap">
-<meta name="Description" content="The Social Media Template has an innovative use of social media, which allows you to display up-to-date, keyword-targeted social media points on a map.">
+<meta name="Keywords" content="EsriSMT, Social Media Template, Social Media Map, Twitter Map, Flickr Map, YouTube Map, Social Heatmap" />
+<meta name="Description" content="The Social Media Template has an innovative use of social media, which allows you to display up-to-date, keyword-targeted social media points on a map." />
 <!-- Facebook -->
 <meta property="og:image" content="images/ui/facebook.png"/>
 <meta property="og:site_name" content="esri"/>
@@ -28,10 +28,6 @@
 <link rel="stylesheet" type="text/css" href="css/ie9.css">
 <![endif]-->
 <!-- End CSS -->
-</head>
-<body class="modernGrey">
-	<div id="previewContainer"></div>
-	<div id="alertDialog"></div>
     <!-- JavaScript -->
     <script type="text/javascript">
       var _gaq = _gaq || [];
@@ -45,13 +41,41 @@
       })();
     </script>
     <script type="text/javascript" src="js/application/djConfig.js"></script>
-    <script type="text/javascript" src="//js.arcgis.com/3.6/"></script>
+    <script type="text/javascript" src="//serverapi.arcgisonline.com/jsapi/arcgis/3.4"></script>
     <script type="text/javascript" src="js/plugins/respond.js"></script>
     <script type="text/javascript">
-    require(["application/preview", "config/config"], function(application, configOptions){
-        application(configOptions);
-    });
+
+        require(['dojo/ready', 'dojo/parser'], function (ready, parser) {
+            var userAgent = window.navigator.userAgent;
+            dojo.showInfoWindow = false;
+            dojo.isTablet = false;
+            dojo.isMobileDevice = false;
+            dojo.isBrowser = false;
+            dojo.isiOS = false;
+            if (userAgent.indexOf("iPhone") >= 0 || userAgent.indexOf("iPad") >= 0) {
+                dojo.isiOS = true;
+            }
+            if ((userAgent.indexOf("Android") >= 0 && userAgent.indexOf("Mobile") >= 0) || userAgent.indexOf("iPhone") >= 0) {
+                dojo.isMobileDevice = true;
+            }
+            else if (userAgent.indexOf("iPad") >= 0 || userAgent.indexOf("Android") >= 0) {
+                dojo.isTablet = true;
+            }
+            else {
+                dojo.isBrowser = true;
+            }
+            require(["application/preview", "config/config"], function (application, configOptions) {
+                application(configOptions);
+            });
+        });
+                   
     </script>
     <!-- End JavaScript -->
+</head>
+<body class="modernGrey">
+    <div id="previewContainer">
+    </div>
+    <div id="alertDialog">
+    </div>
 </body>
 </html>
