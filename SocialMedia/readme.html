@@ -53,7 +53,7 @@
 </p>
 <ol>
 	<li>Copy the contents of the zip file into your web server's root directory. In IIS, the default location for the web server's root folder is <code>c:\inetpub\wwwroot</code>.</li>
-	<li>If your application edits the features in a feature service, enables the elevation chart, contains secure services or web maps that aren't publicly shared or generates requests that exceed 2000 characters you may need to setup and use a proxy page. One example where you may exceed the URL length is by using complex polygons as an input to a task. Another example is by specifying a spatial reference using well-known text (wkt). View the <a href="http://help.arcgis.com/en/webapi/javascript/arcgis/jshelp/#ags_proxy">Using the proxy page</a>help topic for details on installing and configuring a proxy page. After setting up the proxy, set the proxyUrl option in index.html to point to your proxy.</li>
+	<li>If your application edits the features in a feature service, enables the elevation chart, contains secure services or web maps that aren't publicly shared or generates requests that exceed 2000 characters you may need to setup and use a proxy page. One example where you may exceed the URL length is by using complex polygons as an input to a task. Another example is by specifying a spatial reference using well-known text (wkt). View the <a href="http://help.arcgis.com/EN/webapi/javascript/arcgis/help/jshelp_start.htm#jshelp/ags_proxy.htm">Using the proxy page</a>help topic for details on installing and configuring a proxy page. After setting up the proxy, set the proxyUrl option in index.html to point to your proxy.</li>
 	<li>Test the page using the following URL: http://localhost/[template name]/index.html, where [template name] is the name of the folder where you extracted the zip contents.</li>
 </ol>
 <p>
@@ -67,6 +67,11 @@
 	<li>To modify the webmap, replace the string for webmap with your maps's id.
 	<pre>
 		"webmap":"<span class="selector">4a6f9fdc83ce44b6985115e4bd73cacd</span>"
+	</pre>
+	</li>
+	<li>If your group has a map which contains data from Bing Maps, enter your Bing Maps key.
+	<pre>
+		"bingMapsKey":"<span class="selector">Enter your Bing Maps Key here</span>",
 	</pre>
 	</li>
 	<li>Enter keys for social media.
@@ -102,8 +107,11 @@
 		<li><b>clusterImage:</b> Image for clustered social media.</li>
 		<li><b>clusterHoverImage:</b> Hover image for clustered social media.</li>
 		<li><b>pointGraphic:</b> When searching for a location, show this point image.</li>
+		<li><b>geometryserviceurl:</b> Service to use to geolocate geometries. Set to a custom URL if needed. The default value will be satisfactory for most web maps.</li>
 		<li><b>proxyUrl:</b> Leave this unchanged to use the proxy page packaged with the application. If using another proxy page, change the proxyURL value to point to the desired proxy page.</li>
 		<li><b>sharingurl:</b> Portal sharing URL.</li>
+		<li><b>portalUrl:</b> URL for portal.</li>
+		<li><b>bingMapsKey:</b> An alpha-numeric key is required to display base maps by Bing Maps. When the value is a valid key, Bing Maps’ base map options are automatically added to the Basemap menu. If needed, generate a key by creating a developer account at http://www.bingmapsportal.com/ and selecting "Create or view keys".</li>
 		<li><b>defaultMenu:</b> Menu to be shown on page load. Valid options are: 'places', 'basemap', 'layers', 'social', 'legend' or 'none'.</li>
 		<li><b>showSearchBox:</b> To add or remove the ‘Find a place’ search box to let users search for a place,
 set the value to true or false. If true, you must also provide a value for locatorURL.</li>
@@ -120,6 +128,7 @@ bookmarks can be saved at a time. Note – if more than 5 bookmarks are defined 
 		<li><b>showAboutDialogOnLoad:</b> Show about dialog on map load.</li>
 		<li><b>locateName:</b> Use this title in info window on locate point.</li>
 		<li><b>locatePoint:</b> Show this point on map load. Format as x,y eg: 1234.12,-1234.12.</li>
+		<li><b>sourceCountry:</b> Country code to use for search geolocator service. View the list of <a target="_blank" href="http://geocode.arcgis.com/arcgis/geocoding.html#countries">country codes</a>.</li>
 	</ul>
 	</li>
 	<li>Save the file then test your application and note that it now displays your group and if specified your custom properties.</li>
@@ -133,17 +142,19 @@ bookmarks can be saved at a time. Note – if more than 5 bookmarks are defined 
 </p>
 <ol>
 	<li>Open config.js in a text editor.</li>
-	<li>Locate the options for "sharingurl".
+	<li>Locate the options for "sharingurl" and "portalUrl".
 	<div>
 		<pre>
-			 "sharingurl":"http://www.arcgis.com/",
+			 "sharingurl":"http://www.arcgis.com/sharing/rest/content/items",
+			 "portalUrl":"http://www.arcgis.com/",
 		</pre>
 	</div>
 	</li>
 	<li>Change these settings to point to your portal's URL instead of using ArcGIS.com's URL.
 	<div>
 		<pre>
-			 "sharingurl":"<span class="selector">http://www.myorg.com/>/span>"
+			 "sharingurl":"<span class="selector">http://www.myorg.com/sharing/rest/content/items</span>",
+			 "portalUrl":"<span class="selector">http://www.myorg.com/</span>",
 		</pre>
 	</div>
 	</li>

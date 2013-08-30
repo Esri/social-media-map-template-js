@@ -1,0 +1,441 @@
+﻿html,body {
+    background:#eee;
+    height:100%;
+    width:100%;
+    font-style:normal;
+    overflow:hidden;
+    display:block!important;
+    font-size:15px!important;
+    font-family:Arial!important;
+    margin:0;
+    padding:0;
+}
+
+#mapcon {
+    width:100%;
+    height:100%;
+    overflow:hidden!important;
+    display:block!important;
+    visibility:visible!important;
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+}
+
+#map {
+    position:relative;
+    width:100%;
+    height:100%;
+    top:0!important;
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+}
+
+.esriControlsBR {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+}
+
+.modernGrey .esriGeocoder input {
+    font-size:15px!important;
+    height:30px;
+    padding:0!important;
+}
+
+.modernGrey .esriGeocoderIcon {
+    height:20px!important;
+    width:25px!important;
+    margin:5px 4px 5px 6px !important;
+}
+
+.modernGrey .esriGeocoderResults {
+    font-size:15px!important;
+    margin:0!important;
+}
+
+.mblView {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    background-color:#C5CCD3!important;
+    position:absolute!important;
+    z-index:15!important;
+}
+
+#imgGeoLocate {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    z-index:10;
+    height:30px;
+    width:30px;
+    border:1px solid gray;
+    border-radius:5px;
+    float:left;
+    display:none;
+}
+
+#imgRefresh {
+    margin-left:4px;
+}
+
+#divCont {
+    position:absolute;
+    top:6px;
+    left:5px;
+    z-index:10;
+    width:70px;
+}
+
+.homeImage {
+    width:30px;
+    height:30px;
+}
+
+#uList {
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    z-index:57;
+}
+
+#legendContent {
+     width:240px!important;
+}
+
+#uList .mblImageIcon {
+    width:30px!important;
+    height:30px!important;
+}
+
+.mblListItemIcon {
+    width:20px!important;
+    height:20px!important;
+}
+
+#layersView,#legendView,#aboutView,#shareView,#bookmarkView,.mobileViews {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    position:absolute!important;
+    width:100%!important;
+}
+
+#legendScroll,#shareViewScroll,.mobileScrollViews {
+    position:absolute!important;
+    top:50px!important;
+    bottom:5px;
+    height:auto!important;
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+}
+
+#legendScroll,#aboutViewScroll {
+    min-width:270px!important;
+}
+
+#operationalView,#socialView,#basemapView {
+    position:absolute!important;
+    top:100px!important;
+    bottom:5px;
+    height:auto!important;
+}
+
+.scrollView {
+    top:50px!important;
+    position:absolute!important;
+    bottom:5px!important;
+}
+
+.mblContentPane {
+    word-wrap:break-word!important;
+    padding:5px 10px!important;
+}
+
+.mblListItem {
+    height:40px!important;
+    line-height:39px!important;
+}
+
+.mblTabBarSegmentedControl .mblTabBarButton .mblImageIcon {
+    height:20px!important;
+    width:20px!important;
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+}
+
+.mblTabBarSegmentedControl .mblTabBarButton {
+    height:30px!important;
+    line-height:30px!important;
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+}
+
+#layerView .mblTabBarSegmentedControl {
+    background:none!important;
+    border:none!important;
+}
+
+.mblTabBarSegmentedControl .mblTabBarButtonIconArea {
+    top:5px!important;
+}
+
+#aboutViewScroll {
+    position:absolute!important;
+    top:50px!important;
+    bottom:5px;
+    overflow:auto!important;
+}
+
+.license {
+    margin-bottom:5px;
+}
+
+#basemapView,#shareViewScroll {
+    overflow:auto!important;
+}
+
+#basemapView .mblContentPane {
+    width:260px!important;
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+}
+
+.esriBasemapGalleryThumbnail {
+    width:75px!important;
+    height:50px!important;
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+}
+
+.esriLegendServiceLabel {
+    font-weight:400!important;
+}
+
+#searchBox {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    position:absolute;
+    top:0;
+    left:45px;
+    right:6px;
+    margin:6px 10px 6px 0;
+}
+
+.esriMobileNavigationBar,.esriPopupMobile,.titlePane {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    background-color:transparent!important;
+    background-image:none!important;
+    background:linear-gradient(tobottom,#4B4B4B0%,#020202100%)!important;
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4B4B4B',endColorstr='#020202',GradientType=0)!important;
+}
+
+.esriPopupMobile .pointer.bottom {
+    background:url(../images/ui/down-arrow.png) no-repeat!important;
+}
+
+.esriPopupMobile .pointer.top {
+    background:url(../images/ui/up-arrow.png) no-repeat!important;
+}
+
+.modernGrey .esriGeocoderContainer {
+    width:100%!important;
+}
+
+.mblIconMenuItem {
+    border:none!important;
+    padding:20px;
+}
+
+.esriMobileInfoView,.esriMobilePopupInfoView {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    z-index:70!important;
+}
+
+#shareViewScroll .mblContentPane {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    width:300px!important;
+}
+
+.mblSimpleDialogDecoration {
+    background:rgba(137,156,180,1)!important;
+}
+
+.spanLoadingText {
+    font-size:16px;
+    font-weight:700;
+    color:#fff;
+}
+
+.mapLoading {
+    background:url(../images/ui/Refresh-New.gif) no-repeat center center;
+}
+
+.LoadingComplete {
+    vertical-align:middle!important;
+    background:url(../images/ui/uiSprite.png?v=3.01) no-repeat -352px 0;
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    display:inline-block;
+    height:16px;
+    width:16px;
+    margin:0 5px 0 0;
+    padding:0;
+}
+
+.esriMobilePopupInfoView {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    overflow:auto!important;
+    padding-bottom:30%!important;
+    padding-left:0!important;
+    height:83%!important;
+}
+
+.esriMobileInfoView .esriMobileInfoViewItem {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    margin-left:5px;
+    margin-right:5px;
+}
+
+.imgBookmarks {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    margin-right:7px;
+    margin-top:5px;
+    float:right;
+    cursor:pointer;
+}
+
+.reply,.retweet,.favorite {
+    height:30px!important;
+    width:30px!important;
+}
+
+.retweet {
+    background:url(../images/ui/refresh30.png) no-repeat!important;
+}
+
+.favorite {
+    background:url(../images/ui/favorite30.png) no-repeat!important;
+}
+
+.reply {
+    background:url(../images/ui/reply30.png) no-repeat!important;
+}
+
+.reply:hover,.reply:focus,.twContent .reply:focus {
+    background:url(../images/ui/replySelected30.png) no-repeat!important;
+}
+
+.retweet:hover,.retweet:focus,.twContent .retweet:focus {
+    background:url(../images/ui/refreshSelected30.png) no-repeat!important;
+}
+
+.favorite:hover,.favorite:focus,.twContent .favorite:focus {
+    background:url(../images/ui/favoriteSelect30.png) no-repeat!important;
+}
+
+.modernGrey .esriGeocoder .esriGeocoderSearch {
+    background:url(../images/ui/SearchBlue.png)!important;
+}
+
+.modernGrey .esriGeocoderHasValue .esriGeocoderReset {
+    background:url(../images/ui/close.png) no-repeat!important;
+}
+
+.modernGrey .esriGeocoderLoading .esriGeocoderReset {
+    background:url(../images/ui/Refresh-New2.gif) no-repeat center center;
+}
+
+.esriMobileNavigationBar .esriMobileNavigationItem.right1,.esriMobileNavigationBar .esriMobileNavigationItem.right2 {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    width:25px!important;
+    height:25px!important;
+    padding-top:3px!important;
+}
+
+.esriPopupMobile .titlePane {
+    background:none repeat scroll 0 0 transparent!important;
+}
+
+.accessoryButton {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    color:#FFF;
+    background-image:none!important;
+    background:linear-gradient(tobottom,#4B4B4B0%,#020202100%)!important;
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4B4B4B',endColorstr='#020202',GradientType=0)!important;
+}
+
+#inFlag,#zoomTo {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    line-height:30px;
+    border-radius:4px;
+    margin-left:3px;
+    margin-right:3px;
+    display:inline-block;
+    height:30px!important;
+    padding:0 5px;
+}
+
+.twContent .followButton {
+    margin-top:5px;
+}
+
+.bold {
+    font-weight:700;
+}
+
+.esriPopupMobile .titlePane .spinner {
+    background:url(../images/ui/spinner.gif) no-repeat!important;
+}
+
+#divMessage {
+    position:absolute;
+    top:40px;
+    left:4px;
+    z-index:15;
+    color:#FFF;
+    background-color:#000;
+    border-radius:3px;
+    display:none;
+    padding:2px;
+}
+
+#twSignInLink2,#oAuthSwitchAccountTwitter {
+    color:#007ac2;
+    text-decoration:underline;
+    margin-left:10px;
+    cursor:pointer;
+}
+
+.esriBasemapGalleryLabelContainer {
+    height:50px!important;
+}
+
+.mblHeadingDivTitle {
+    position:relative!important;
+}
+
+.scrollContentPane {
+    position:absolute!important;
+    top:50px!important;
+    bottom:5px;
+    height:auto!important;
+    overflow:auto!important;
+}
+
+#map_graphics_layer,#RoundRectList .mblListItemRightIcon {
+    display:none!important;
+}
+
+.esriPopupMobile .titleButton.arrow,.esriPopupMobile .titleButton.close {
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    height:30px!important;
+    width:30px!important;
+}
