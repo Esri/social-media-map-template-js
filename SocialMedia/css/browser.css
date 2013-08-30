@@ -1,0 +1,611 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    background: #eee;
+    height: 100%;
+    width: 100%;
+    font-style: normal;
+    overflow: hidden;
+    display: block !important;
+    font-size: 12px !important;
+    font-family: Arial !important;
+}
+
+#mapcon {
+    width: 100%;
+    height: 100%;
+    overflow: hidden !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
+.slideMenu .slideScroll {
+    margin-top: 6px;
+    max-height: 275px;
+    _height: 275px;
+    overflow: auto;
+}
+
+#map {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: 56px !important;
+}
+
+#zoomSlider {
+    top: 60px !important;
+}
+
+/*-------------------------------------------------- */
+/* APPLICATION HEADER */
+/*-------------------------------------------------- */
+
+#topMenuCon {
+    position: relative;
+    height: 55px;
+    width: 100%;
+}
+
+.headerIcon {
+    width: 30px;
+    height: 30px;
+}
+
+#mapTitle {
+    display: block;
+    float: left;
+    font-size: 16px;
+    line-height: 55px;
+    margin: 0 0 0 10px;
+    padding: 0;
+    font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    vertical-align: middle;
+    color: #333333;
+    max-width: 220px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+#searchBox {
+    display: none !important;
+    margin: 15px 0 6px 10px;
+}
+
+#searchMenu {
+    width: 275px;
+}
+
+.slideMenu {
+    position: absolute;
+    top: 56px;
+    right: 10px;
+    z-index: 56;
+    background: #ffffff;
+    font-size: 12px;
+     border: 1px solid #E5E5E5;
+    -webkit-box-shadow: 0px 0px 2px 0px #999999;
+    box-shadow: 0px 0px 2px 0px #999999;
+    -moz-border-radius-bottomright: 2px;
+    -moz-border-radius-bottomleft: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -webkit-border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.barButton .barButton:visited {
+    height: auto !important;
+}
+
+#shareControls {
+    top: 56px !important;
+}
+/*-------------------------------------------------- */
+/* GEOCODER */
+/*-------------------------------------------------- */
+.modernGrey .esriGeocoderResults
+{
+    position: relative !important;
+    margin: 0 !important;
+}
+
+.modernGrey .esriGeocoderContainer {
+    width: 100% !important;
+}
+
+.modernGrey .esriGeocoder .esriGeocoderReset {
+    margin: 3px 6px 3px 0px !important;
+}
+
+#geocoderSearchTool {
+    margin: 5px 10px !important;
+}
+
+.esriPopupMaximized {
+    top: 30px !important;
+}
+
+.slideMenu .menuClose {
+    height: auto !important;
+}
+
+#layerTabBar {
+    height: 30px;
+    padding: 0px;
+    margin-bottom: 6px;
+    margin-left: 6px;
+}
+
+.mblTabBar {
+    text-shadow: none !important;
+}
+
+.mblTabBarTabBar {
+    border-radius: 4px !important;
+    border: 2px solid rgb(162, 147, 147) !important;
+    background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%) !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f4f4), color-stop(100%,#e9e9e9)) !important;
+    background: -webkit-linear-gradient(top,  #f4f4f4 0%,#e9e9e9 100%) !important;
+    background: -o-linear-gradient(top,  #f4f4f4 0%,#e9e9e9 100%) !important;
+    background: -ms-linear-gradient(top,  #f4f4f4 0%,#e9e9e9 100%) !important;
+    background: linear-gradient(to bottom,  #f4f4f4 0%,#e9e9e9 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#e9e9e9',GradientType=0 ) !important;
+}
+
+.mblTabBarButtonSelected {
+    height: 100%;
+    background-color: Gray !important;
+    background-image: none !important;
+}
+
+.mblTabBarButton {
+    width: 89px !important;
+    height: 30px !important;
+    line-height: 25px !important;
+    border-right: 1px solid grey !important;
+}
+
+.mblTabBarTabBar .mblTabBarButtonSelected {
+    border-radius: 0px !important;
+}
+
+.mblTabBarTabBar .mblTabBarButtonLabel {
+    font-family: Arial !important;
+    font-size: 11px !important;
+    color: Black !important;
+}
+
+#layersMenu {
+    width: 330px !important;
+}
+
+#operationalMenu, #socialMenu, #basemapDiv {
+    max-height: 250px;
+    max-width: 330px;
+    height: 100%;
+    overflow: auto;
+}
+
+.closeMenuIcon {
+    width: 16px;
+    height: 16px;
+    display: block;
+    float: right;
+    overflow: hidden;
+    cursor: pointer;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -80px 0px !important;
+    margin-top: 7px;
+}
+
+.menuClass {
+    display: none;
+}
+
+.esriBasemapGalleryThumbnail {
+    height: 67px;
+    width: 102px;
+}
+
+.esriBasemapGallery {
+    text-align: center !important;
+}
+
+.clusterButton .iconBlock {
+    background: url("../images/ui/cluster.png") no-repeat !important;
+}
+
+.mapButton img, .cBicon img {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.listMenu li .cBox {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat 0 0px;
+    cursor: pointer;
+    margin: 0 8px 0 0;
+}
+
+.listMenu li.checked .cBox {
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -16px 0px;
+}
+
+.listMenu li.cLoading .cBox {
+    background: url(../images/ui/ajax-loader.gif?v=3.01) no-repeat center center;
+}
+
+.listMenu .cBicon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 8px 0 0;
+}
+
+.listMenu ul li {
+    line-height: 16px;
+    vertical-align: middle;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.listMenu ul li.layer {
+    height: 16px;
+    padding: 6px 10px;
+}
+
+.pointButton .iconBlock {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    vertical-align: top;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -64px 0px;
+}
+
+.listMenu .cBinfo {
+    display: block;
+    height: 16px;
+    width: 16px;
+    vertical-align: top;
+    cursor: pointer;
+    float: right;
+    margin-left: 5px;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -304px 0px;
+}
+
+.listMenu .active .cover {
+    height: 28px;
+    margin-top: -5px;
+    margin-left: -10px;
+    position: relative;
+    float: left;
+}
+
+#operationalMenu .menuClose, #socialMenu .menuClose {
+    margin: 5px 0px 0px 0px !important;
+    padding: 0px 10px 5px 10px !important;
+}
+
+.listMenu .cBconfig {
+    display: block;
+    height: 16px;
+    width: 16px;
+    vertical-align: top;
+    cursor: pointer;
+    margin-left: 5px;
+    float: right;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -336px 0px;
+}
+
+.listMenu .cover {
+    display: none;
+}
+
+.listMenu .active .cBinfo {
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -288px 0px;
+}
+
+.infoHidden .ihClose {
+    display: inline-block;
+    position: absolute;
+    z-index: 2;
+    top: 5px;
+    right: 5px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    overflow: hidden;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -80px 0px;
+}
+
+.infoHidden {
+    display: none;
+    position: absolute;
+    margin: -27px -1px 0 0;
+    right: 100%;
+    width: 288px;
+    padding: 26px 10px 10px 10px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -moz-border-radius-topright: 0;
+    -webkit-border-top-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+#homeExtent {
+    display: block;
+    cursor: pointer;
+    height: 26px;
+    width: 26px;
+    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -115px 0;
+}
+
+#geoLocate {
+    display: block;
+    cursor: pointer;
+    height: 23px;
+    width: 26px;
+    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -89px 0;
+}
+
+#homeExtent.noGeo {
+    background: url(../images/ui/zoomBar.png?v=3.01) no-repeat -141px 0;
+}
+
+.clusterButton .iconBlock {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    vertical-align: top;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -160px 0px;
+}
+
+.heatButton .iconBlock {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    vertical-align: top;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -176px 0px;
+}
+
+.mapButton {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    height: 16px;
+    line-height: 16px;
+    margin: 0;
+    padding: 5px 13px;
+    color: #333333;
+    background: #f5f5f5;
+    background: -moz-linear-gradient(top,  #f5f5f5 0%, #f1f1f1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#f1f1f1));
+    background: -webkit-linear-gradient(top,  #f5f5f5 0%,#f1f1f1 100%);
+    background: -o-linear-gradient(top,  #f5f5f5 0%,#f1f1f1 100%);
+    background: -ms-linear-gradient(top,  #f5f5f5 0%,#f1f1f1 100%);
+    background: linear-gradient(to bottom,  #f5f5f5 0%,#f1f1f1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#f1f1f1',GradientType=0 );
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: normal;
+    white-space: nowrap;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.mapButton:hover, .buttonSelected, .buttonSelected:hover, .buttonSelected:focus {
+    background: #dedede;
+    background: url(data:image/svg+xml;     base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2RlZGVkZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkY2RjZGMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  #dedede 0%, #dcdcdc 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dedede), color-stop(100%,#dcdcdc));
+    background: -webkit-linear-gradient(top,  #dedede 0%,#dcdcdc 100%);
+    background: -o-linear-gradient(top,  #dedede 0%,#dcdcdc 100%);
+    background: -ms-linear-gradient(top,  #dedede 0%,#dcdcdc 100%);
+    background: linear-gradient(to bottom,  #dedede 0%,#dcdcdc 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dedede', endColorstr='#dcdcdc',GradientType=0 );
+}
+
+.listMenu .displayAsText {
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: bold;
+    height: 16px;
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+
+#map .modernGrey .titleButton {
+    top: 6px;
+    background-image: url(../images/ui/popup.png?v=3.01);
+}
+
+#map .modernGrey .pointer, #map .modernGrey .outerPointer {
+    background-image: url(../images/ui/popup.png?v=3.01);
+}
+
+#map .modernGrey .titleButton, #map .modernGrey .pointer, #map .modernGrey .esriViewPopup .gallery .mediaHandle, #map .modernGrey .esriViewPopup .gallery .mediaIcon {
+    background-image: url(../images/ui/popup.png?v=3.01);
+}
+
+#map .modernGrey .titlePane .iconImg {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+#fbImage .icon {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -128px -16px;
+    margin-right: 4px;
+    vertical-align: bottom;
+}
+
+#twImage .icon {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -144px -16px;
+    margin-right: 4px;
+    vertical-align: bottom;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+#map .modernGrey .titlePane {
+    line-height: 28px;
+}
+
+.esriPopupMaximized {
+    top: 5px !important;
+    bottom: 5px !important;
+}
+
+.mapLoading {
+    background: url(../images/ui/ajax-loader.gif?v=3.01) no-repeat center center;
+}
+
+.LoadingComplete {
+    vertical-align: middle !important;
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -352px 0px;
+}
+
+.Status {
+    height: 16px;
+    width: 16px;
+}
+
+.modernGrey .esriGeocoder input {
+    width: 195px !important;
+}
+
+#expandName {
+    position: absolute;
+    display: none;
+    width: 30px;
+    height: 30px;
+    margin-top: 11px;
+    margin-left: 56px;
+}
+
+#collapseName {
+    display: none;
+    width: 30px;
+    height: 30px;
+    margin-top: 11px;
+}
+
+.tinyUrlBtn {
+    height: 20px;
+    width: 100px;
+    cursor: pointer;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 4px;
+    background: #f0f0f0;
+    background: url(data:image/svg+xml; base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YwZjBmMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZWZlZmUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #f0f0f0 0%, #fefefe 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f0f0f0), color-stop(100%,#fefefe));
+    background: -webkit-linear-gradient(top, #f0f0f0 0%,#fefefe 100%);
+    background: -o-linear-gradient(top, #f0f0f0 0%,#fefefe 100%);
+    background: -ms-linear-gradient(top, #f0f0f0 0%,#fefefe 100%);
+    background: linear-gradient(to bottom, #f0f0f0 0%,#fefefe 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#fefefe',GradientType=0 );
+    border: 1px solid #ccc;
+}
+
+#shareControls input {
+    display: none;
+}
+
+a:active, a:hover, a:focus {
+    outline: 0px none;
+    text-decoration: none !important;
+}
+
+#map .modernGrey .actionsPane .actionList .LoadingComplete {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+    margin-right: 5px;
+}
+
+.dijitSliderBarContainerV {
+    height: 90px !important;
+}
+
+.aboutInfo {
+    background: url(../images/ui/uiSprite.png?v=3.01) no-repeat -304px 0px;
+}
+
+.barButton barIcon, .inlineIcon {
+    display: inline-block;
+    vertical-align: text-bottom;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    margin-right: 4px;
+}
+
+.scrollCont {
+    max-height: 310px;
+    overflow: auto;
+}
+
+.scrollBookmark {
+    overflow: auto;
+    max-height: 310px;
+}
+
+.listMenu ul {
+    margin: 0px 0px 6px 0px !important;
+}
+
+#operationalMenu .cBtitle {
+    width: 200px;
+}
+
+#socialMenu .cBtitle {
+    width: auto !important;
+}
+.switchAcc, .existUser {
+    color: #007ac2;
+    text-decoration: underline;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.formStyle .sliderTxt {
+    font-size: 12px;
+}
+
+#settingsDialog .smallTxt {
+    font-size: 12px;
+}

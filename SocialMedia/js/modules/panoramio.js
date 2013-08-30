@@ -33,7 +33,9 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 searchTerm: '',
                 symbolUrl: '',
                 symbolHeight: 22.5,
-                symbolWidth: 18.75
+                symbolWidth: 18.75,
+                popupHeight: 200,
+                popupWidth: 290
             };
             declare.safeMixin(this.options, options);
             if (this.options.map === null) {
@@ -161,7 +163,8 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
                 var deferred = this.featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW);
                 this.options.map.infoWindow.setFeatures([deferred]);
-                this.options.map.infoWindow.show(evt.mapPoint);
+                dojo.showInfoWindow = true;
+                setTimeout(function () { _self.options.map.infoWindow.show(evt.graphic.geometry); }, 500);
                 this.adjustPopupSize(this.options.map);
             }));
             this.stats = {
@@ -173,6 +176,10 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             this.deferreds = [];
             this.geocoded_ids = {};
             this.loaded = true;
+            connect.connect(window, "onresize", lang.hitch(this, function (evt) {
+                event.stop(evt);
+                this.adjustPopupSize(this.options.map);
+            }));
         },
         update: function (options) {
             declare.safeMixin(this.options, options);
@@ -366,6 +373,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             return 1; // found and removed
         },
         mapResults: function (j) {
+            var _self = this;
             if (j.error) {
                 console.log("mapResults error: " + j.error);
                 this.onError(j.error);

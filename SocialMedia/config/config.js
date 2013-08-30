@@ -1,7 +1,7 @@
 define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapServiceLayer) {
     var config = {
-        "appid": "",
-        "webmap": "4ff792a3962547caad2d924413c40985",
+        "appid": "7fa16e1ccb6846fb9a3a8ae556bedf88",
+        "webmap": "",
         "socialDisplay": "point",
         "showFlickr": true,
         "showFlickrConfig": true,
@@ -9,7 +9,7 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "flickrSearch": "weather",
         "flickrRange": "this_month",
         "flickrKey": "404ebea7d5bc27aa5251d1207620e99b",
-        "showYouTube": false,
+        "showYouTube": true,
         "showYouTubeConfig": true,
         "youtubeChecked": true,
         "youtubeSearch": "weather",
@@ -27,7 +27,7 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "ushahidiChecked": true,
         "showUshahidiConfig": true,
         "ushahidiCategory": 0,
-        "ushahidiUrl": "",
+        "ushahidiUrl": "https://bnestorm.crowdmap.com/api",
         "useArcGISOnlineBasemaps": true,
         "basemapGroupTitle": "Community Basemaps",
         "basemapGroupOwner": "esri",
@@ -48,6 +48,7 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "showGeolocation": true,
         "showAboutDialog": true,
         "showAboutDialogOnLoad": false,
+	"updateSocialLayersOnPan": false,
         /*
         "securedLayers": [
             {
@@ -62,7 +63,14 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         ],
         */
         "locateName": "",
-        "locatePoint": ""
+        "locatePoint": "",
+	"bannedUsersService": "http://services.arcgis.com/QJfoC7c7Z2icolha/ArcGIS/rest/services/fai/FeatureServer/2",
+	"bannedWordsService": "http://tm2-elb-1378978824.us-east-1.elb.amazonaws.com/ArcGIS/rest/services/SharedTools/Filter/MapServer/1",
+	"flagMailServer": "http://tmappsevents.esri.com/Website/pim_fai/fai.php",
+	"sourceCountry": "USA",
+	"TinyURLResponseAttribute": "data.url",
+	"TinyURLServiceURL": "http://api.bit.ly/v3/shorten?login=esri&apiKey=R_65fd9891cd882e2a96b99d4bda1be00e&uri=${0}&format=json",
+	"ExtentRange": 15
     };
     return config;
 });

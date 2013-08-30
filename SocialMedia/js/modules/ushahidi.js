@@ -35,7 +35,9 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 searchTerm: '',
                 symbolUrl: '',
                 symbolHeight: 22.5,
-                symbolWidth: 18.75
+                symbolWidth: 18.75,
+                popupHeight: 200,
+                popupWidth: 290
             };
             declare.safeMixin(this.options, options);
             if (this.options.map === null) {
@@ -69,7 +71,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 }
             };
             this.infoTemplate = new InfoTemplate();
-            this.infoTemplate.setTitle(function () {
+            this.infoTemplate.setTitle(function (graphic) {
                 return _self.options.title;
             });
             this.infoTemplate.setContent(function (graphic) {
@@ -88,8 +90,9 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
                 var deferred = this.featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW);
                 this.options.map.infoWindow.setFeatures([deferred]);
-                this.options.map.infoWindow.show(evt.mapPoint);
+                dojo.showInfoWindow = true;
                 this.adjustPopupSize(this.options.map);
+                setTimeout(function () { _self.options.map.infoWindow.show(evt.graphic.geometry); }, 500);
             }));
             this.stats = {
                 geoPoints: 0,
@@ -100,6 +103,10 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             this.deferreds = [];
             this.geocoded_ids = {};
             this.loaded = true;
+            connect.connect(window, "onresize", lang.hitch(this, function (evt) {
+                event.stop(evt);
+                this.adjustPopupSize(this.options.map);
+            }));
         },
         getCategories: function(){
             var _self = this;
@@ -107,9 +114,9 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 url: _self.options.url,
                 handleAs: "json",
                 content: {
-					task: 'categories',
-					resp: 'jsonp'
-				},
+                    task: 'categories',
+                    resp: 'jsonp'
+                },
                 timeout: 10000,
                 callbackParamName: "callback",
                 preventCache: true,
@@ -124,7 +131,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 })
             });
             return deferred;
-		},
+        },
         update: function (options) {
             declare.safeMixin(this.options, options);
             this.constructQuery(this.options.searchTerm);
@@ -200,11 +207,14 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 });
             }
         },
+        getExtent: function () {
+            return esri.graphicsExtent(this.featureLayer.graphics);
+        },
         adjustPopupSize: function(map) {
             var box = domGeom.getContentBox(map.container);
             var width = 270, height = 300, // defaults
-            newWidth = Math.round(box.w * 0.60),             
-            newHeight = Math.round(box.h * 0.45);        
+            newWidth = Math.round(box.w * 0.60),
+            newHeight = Math.round(box.h * 0.45);
             if (newWidth < width) {
                 width = newWidth;
             }
@@ -301,7 +311,8 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             this.pageCount = 1;
             this.sendRequest(this.options.url + "?" + ioQuery.objectToQuery(this.query));
         },
-        sendRequest: function (url) {var deferred = esriRequest({
+        sendRequest: function (url) {
+            var deferred = esriRequest({
                 url: url,
                 handleAs: "json",
                 timeout: 10000,
@@ -349,6 +360,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             return 1; // found and removed
         },
         mapResults: function (j) {
+            var _self = this;
             var b = [];
             var k = j.incidents;
             arr.forEach(k, lang.hitch(this, function (result) {

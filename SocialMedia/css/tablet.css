@@ -1,0 +1,817 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    background: #eee;
+    height: 100%;
+    width: 100%;
+    font-style: normal;
+    overflow: hidden;
+    display: block !important;
+    font-size: 14px !important;
+    font-family: Arial !important;
+}
+
+#mapcon {
+    width: 100%;
+    height: 100%;
+    overflow: hidden !important;
+    display: block !important;
+    font-size: 14px !important;
+    visibility: visible !important;
+}
+
+#map {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: 56px !important;
+}
+
+.mapLoading {
+    background: url(../images/ui/loader.gif) no-repeat center center;
+}
+
+#zoomSlider {
+    top: 60px !important;
+}
+
+.imgContainer {
+    display: none !important;
+}
+
+#topMenuCon {
+    position: relative;
+    height: 55px;
+    width: 100%;
+}
+.headerIcon {
+    width: 30px;
+    height: 30px;
+}
+
+#mapTitle {
+    display: block;
+    float: left;
+    font-size: 18px !important;
+    line-height: 55px;
+    margin: 0 0 0 10px;
+    padding: 0;
+    font-weight: normal;
+    font-family: Arial;
+    vertical-align: middle;
+    color: #333333;
+    max-width: 220px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+#searchBox {
+    display: none !important;
+    margin: 14px 0 6px 10px;
+}
+
+#searchMenu {
+    width: 300px !important;
+}
+
+.slideMenu {
+    position: absolute;
+    top: 56px;
+    right: 10px;
+    z-index: 56;
+    background: #ffffff;
+    font-size: 14px !important;
+    border: 1px solid #E5E5E5;
+    -webkit-box-shadow: 0px 0px 2px 0px #999999;
+    box-shadow: 0px 0px 2px 0px #999999;
+    -moz-border-radius-bottomright: 2px;
+    -moz-border-radius-bottomleft: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -webkit-border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.barButton, .barButton:visited {
+    height: auto !important;
+}
+
+#shareControls {
+    top: 56px !important;
+}
+
+.esriPopupMaximized {
+    top: 5px !important;
+    bottom: 5px !important;
+}
+
+.slideMenu .menuClose {
+    height: auto !important;
+}
+
+#layerTabBar {
+    height: 30px;
+    padding: 0px;
+    margin-bottom: 6px;
+    margin-left: 6px;
+}
+
+.mblTabBar {
+    text-shadow: none !important;
+}
+
+.mblTabBarTabBar {
+    border-radius: 4px !important;
+    border: 2px solid rgb(162, 147, 147) !important;
+    background: -moz-linear-gradient(top,  #f4f4f4 0%, #e9e9e9 100%) !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f4f4), color-stop(100%,#e9e9e9)) !important;
+    background: -webkit-linear-gradient(top,  #f4f4f4 0%,#e9e9e9 100%) !important;
+    background: -o-linear-gradient(top,  #f4f4f4 0%,#e9e9e9 100%) !important;
+    background: -ms-linear-gradient(top,  #f4f4f4 0%,#e9e9e9 100%) !important;
+    background: linear-gradient(to bottom,  #f4f4f4 0%,#e9e9e9 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#e9e9e9',GradientType=0 ) !important;
+}
+
+.mblTabBarButtonSelected, .mblTabBarTabBar .mblTabBarButtonSelected {
+    height: 100%;
+    background-color: Gray !important;
+    background-image: none !important;
+}
+
+.mblTabBarButton {
+    width: 92px !important;
+    height: 30px !important;
+    line-height: 25px !important;
+    border-right: 1px solid grey !important;
+}
+
+.mblTabBarTabBar .mblTabBarButtonLabel {
+    font-family: Arial !important;
+    font-size: 14px !important;
+    color: Black !important;
+    font-weight: normal !important;
+}
+
+#layersMenu, #socialMenu {
+    width: 330px !important;
+}
+
+.closeMenuIcon {
+    display: block;
+    float: right;
+    overflow: hidden;
+    cursor: pointer;
+    background: url(../images/ui/closeBtn.png) no-repeat !important;
+    height: 20px !important;
+    width: 20px !important;
+    margin-top: 5px;
+}
+
+.menuClass {
+    display: none;
+}
+
+.modernGrey .esriGeocoderResults {
+    position: relative !important;
+    font-size: 14px !important;
+    font-family: arial !important;
+    margin: 0 !important;
+}
+
+.modernGrey .esriGeocoderContainer {
+    width: 100% !important;
+}
+
+#geocoderSearchTool {
+    margin: 5px 10px !important;
+}
+
+.modernGrey .esriGeocoder .esriGeocoderSearch {
+    cursor: pointer;
+    margin-left: 6px;
+    background: url(../images/ui/search.png) no-repeat !important;
+}
+
+.modernGrey .esriGeocoderIcon {
+    float: left;
+    outline: 0;
+    width: 30px;
+    height: 30px;
+    display: block;
+    overflow: hidden;
+    margin: 1px 3px !important;
+}
+
+.modernGrey .esriGeocoder input {
+    vertical-align: middle;
+    font-size: 14px !important;
+    padding: 0px !important;
+    margin-top: 5px !important;
+    line-height: 25px;
+    width: 190px !important;
+}
+
+.modernGrey .esriGeocoder .esriGeocoderReset {
+    margin: 0px !important;
+}
+
+.modernGrey .esriGeocoderHasValue .esriGeocoderReset {
+    cursor: pointer;
+    display: block;
+    background: url(../images/ui/close1.png) no-repeat !important;
+}
+
+.modernGrey .esriGeocoderLoading .esriGeocoderReset {
+    background: url(../images/ui/Refresh-New.gif) no-repeat center center !important;
+}
+
+.mblTabBarTabBar .mblTabBarButtonSelected {
+    border-radius: 0px !important;
+}
+
+.esriBasemapGalleryThumbnail {
+    height: 50px !important;
+    width: 75px !important;
+}
+
+#shareControls .Pad, #shareControls, #quickEmbedCode, #shareControls h3, .slideMenu .menuClose, .mapInput, .modernGrey .dijitDialogPaneContent, .mapButton {
+    font-size: 14px !important;
+    font-family: arial !important;
+}
+
+.esriBasemapGallery {
+    text-align: center !important;
+}
+
+.modernGrey .dijitDialog .dijitDialogCloseIcon, .modernGrey .dijitDialog .dijitDialogCloseIconHover {
+    background: url(../images/ui/closeBtn.png) no-repeat !important;
+    height: 20px !important;
+    width: 20px !important;
+}
+
+.slideMenu .menuClose .closeButton {
+    height: 20px !important;
+    width: 20px !important;
+    display: block;
+    float: right;
+    overflow: hidden;
+    cursor: pointer;
+    background: url(../images/ui/closeBtn.png) no-repeat !important;
+}
+
+.slideMenu .menuClose {
+    margin: 0 8px !important;
+}
+
+#map .modernGrey .contentPane, #map .modernGrey .actionsPane, .esriPopup .titlePane, .mapSubmit, .modernGrey .dijitDialogTitleBar {
+    font-size: 14px !important;
+}
+
+.LoadingComplete {
+    vertical-align: middle !important;
+    background: url(../images/ui/valid.png) no-repeat !important;
+}
+
+.Status {
+    height: 20px;
+    width: 20px;
+}
+
+.dijitDialogCloseIcon {
+    top: 2px !important;
+    right: 2px !important;
+}
+
+.mapButton img, .cBicon img {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.listMenu li .cBox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(../images/ui/uncheck.png) no-repeat 0 0px;
+    cursor: pointer;
+    margin: 0 8px 0 0;
+    vertical-align: top;
+}
+.listMenu li.checked .cBox {
+    background: url(../images/ui/check.png) no-repeat 0 0px;
+}
+
+.listMenu li.cLoading .cBox {
+    background: url(../images/ui/loader.gif) no-repeat 0 0px;
+}
+
+.listMenu .cBicon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 8px 0 0;
+}
+
+.listMenu ul li.layer {
+    height: 20px;
+    padding: 6px 10px; /* position: relative;*/
+}
+
+.listMenu ul li {
+    line-height: 20px;
+    vertical-align: middle;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.pointButton .iconBlock {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: top;
+    background: url(../images/ui/points.png) no-repeat;
+}
+
+.listMenu .cBinfo {
+    display: block;
+    height: 20px;
+    width: 20px;
+    vertical-align: top;
+    cursor: pointer;
+    float: right;
+    margin-left: 5px;
+    background: url(../images/ui/info.png) no-repeat;
+}
+
+.listMenu .active .cover {
+    float: left;
+    height: 31px;
+    margin-left: -10px;
+    margin-top: -5px;
+    position: relative;
+}
+
+.listMenu .cBconfig {
+    display: block;
+    height: 20px;
+    width: 20px;
+    vertical-align: top;
+    cursor: pointer;
+    margin-left: 5px;
+    float: right;
+    background: url(../images/ui/settingsBtn.png) no-repeat;
+}
+
+.listMenu .active .cBinfo {
+    background: url(../images/ui/info.png) no-repeat;
+}
+
+.infoHidden .ihClose {
+    display: inline-block;
+    position: absolute;
+    z-index: 2;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    overflow: hidden;
+    background: url(../images/ui/closeBtn.png);
+}
+
+#homeExtent {
+    display: block;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background: url(../images/ui/homeButton.png);
+}
+
+#geoLocate {
+    display: block;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background: url(../images/ui/locateButton.png);
+}
+
+#homeExtent.noGeo {
+    background: url(../images/ui/homeAlone.png) no-repeat center center !important;
+}
+
+.clusterButton .iconBlock {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: top;
+}
+.heatButton .iconBlock {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: top;
+    background: url(../images/ui/densityBtn.png) no-repeat;
+}
+.mapButton {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    height: 20px;
+    line-height: 20px;
+    margin: 0;
+    padding: 5px 13px;
+    color: #333333;
+    background: #f5f5f5;
+    background: url(data:image/svg+xml;     base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y1ZjVmNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMWYxZjEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  #f5f5f5 0%, #f1f1f1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#f1f1f1));
+    background: -webkit-linear-gradient(top,  #f5f5f5 0%,#f1f1f1 100%);
+    background: -o-linear-gradient(top,  #f5f5f5 0%,#f1f1f1 100%);
+    background: -ms-linear-gradient(top,  #f5f5f5 0%,#f1f1f1 100%);
+    background: linear-gradient(to bottom,  #f5f5f5 0%,#f1f1f1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#f1f1f1',GradientType=0 );
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: normal;
+    white-space: nowrap;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.mapButton:hover, .buttonSelected, .buttonSelected:hover, .buttonSelected:focus {
+    background: #dedede;
+    background: url(data:image/svg+xml;     base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2RlZGVkZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkY2RjZGMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  #dedede 0%, #dcdcdc 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dedede), color-stop(100%,#dcdcdc));
+    background: -webkit-linear-gradient(top,  #dedede 0%,#dcdcdc 100%);
+    background: -o-linear-gradient(top,  #dedede 0%,#dcdcdc 100%);
+    background: -ms-linear-gradient(top,  #dedede 0%,#dcdcdc 100%);
+    background: linear-gradient(to bottom,  #dedede 0%,#dcdcdc 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dedede', endColorstr='#dcdcdc',GradientType=0 );
+}
+
+.listMenu .displayAsText {
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: bold;
+    height: 16px;
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+
+.modernGrey .dijitDialogTitle .configIcon {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px 0 0;
+    background: url(../images/ui/settingsBtn.png) no-repeat;
+}
+
+.esriPopup .titleButton.maximize {
+    right: 30px !important;
+    background-image: url(../images/ui/expand.png) !important;
+    background-position: center center !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.esriPopup .titleButton.next {
+    right: 55px !important;
+    background-image: url(../images/ui/right-arrow.png) !important;
+    background-position: center center !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.esriPopup .titleButton.close {
+    right: 5px !important;
+    top: 6px;
+    background-image: url(../images/ui/closeBtn.png) !important;
+    background-position: center center !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+#map .modernGrey .titleButton.restore {
+    background-position: center center !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.esriPopup .titleButton.prev {
+    right: 75px !important;
+    background-image: url(../images/ui/left-arrow.png) !important;
+    background-position: center center !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.esriPopup .titleButton {
+    position: absolute;
+    top: 4px !important;
+    cursor: pointer;
+}
+
+#map .modernGrey .titlePane .iconImg {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle !important;
+    margin-right: 5px;
+    display: inline-block;
+    margin-top: 0px !important;
+}
+
+#fbImage .icon {
+    display: inline-block;
+    height: 20px !important;
+    width: 20px;
+    background: url(../images/ui/facebookBtn.png) no-repeat;
+    margin-right: 4px;
+    vertical-align: bottom;
+}
+
+#twImage .icon {
+    display: inline-block;
+    height: 20px !important;
+    width: 20px !important;
+    background: url(../images/ui/twitterBtn.png) no-repeat;
+    margin-right: 4px;
+    vertical-align: bottom;
+}
+
+.twContent .reply {
+    display: inline-block;
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 4px;
+    vertical-align: text-bottom;
+    background: url(../images/ui/backBtn.png) no-repeat !important;
+}
+
+.twContent .retweet {
+    display: inline-block;
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 4px;
+    vertical-align: text-bottom;
+    background: url(../images/ui/refreshBtn.png) no-repeat !important;
+}
+
+.twContent .favorite {
+    display: inline-block;
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 4px;
+    vertical-align: text-bottom;
+    background: url(../images/ui/favoriteBtn.png) no-repeat !important;
+}
+
+.esriPopup .titleButton.restore {
+    right: 30px !important;
+    background: url(../images/ui/minimizeBtn.png) no-repeat !important;
+    background-position: center center !important;
+    width: 11px;
+    height: 11px;
+    top: 5px;
+}
+
+.reply:hover, .reply:focus, .twContent .reply:focus {
+    background: url(../images/ui/replySelect20.png) no-repeat !important;
+}
+
+.retweet:hover, .retweet:focus, .twContent .retweet:focus {
+    background: url(../images/ui/refreshSelect20.png) no-repeat !important;
+}
+
+.favorite:hover, .favorite:focus, .twContent .favorite:focus {
+    background: url(../images/ui/favoriteSelect20.png) no-repeat !important;
+}
+
+.bold {
+    font-weight: bold;
+}
+#map .modernGrey .titlePane {
+    height: 28px;
+    line-height: 26px !important;
+}
+
+a:hover, a:active, a:focus {
+    color: #333333;
+    text-decoration: none;
+}
+
+.esriPopup .pointer.top {
+    background-position: 0 -580px !important;
+    background-image: url("../images/ui/popup.png?v=3.01");
+}
+
+.esriPopup .pointer.topLeft {
+    background-image: url("../images/ui/popup.png?v=3.01");
+    background-position: 0 -470px !important;
+}
+
+.esriPopup .pointer.topRight {
+    background-image: url("../images/ui/popup.png?v=3.01");
+    background-position: 0 -652px !important;
+}
+
+.modernGrey .dijitDialogTitle #collapseIcon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px 0 0;
+    cursor: pointer;
+    background: url(../images/ui/collapseIcon.png) no-repeat;
+}
+
+.modernGrey .dijitDialogTitle #collapseIcon.iconDown {
+    background: url(../images/ui/right-arrow.png);
+}
+
+.modernGrey .dijitDialogTitleBar, .modernGrey .dijitDialogTitle #settingsTitle {
+    height: 20px !important;
+}
+
+.dijitDialogCloseIcon {
+    top: 4px !important;
+    right: 3px !important;
+}
+.twInfo {
+    display: inline-block;
+    height: 20px !important;
+    width: 20px !important;
+    vertical-align: text-bottom;
+    cursor: pointer;
+    margin-left: 5px;
+    background: url(../images/ui/info.png) no-repeat !important;
+}
+
+#expandName, #collapseName {
+    display: none;
+}
+
+.tinyUrlBtn {
+    height: 20px;
+    width: 100px;
+    cursor: pointer;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 4px;
+    background: #f0f0f0;
+    background: url(data:image/svg+xml; base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YwZjBmMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZWZlZmUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #f0f0f0 0%, #fefefe 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f0f0f0), color-stop(100%,#fefefe));
+    background: -webkit-linear-gradient(top, #f0f0f0 0%,#fefefe 100%);
+    background: -o-linear-gradient(top, #f0f0f0 0%,#fefefe 100%);
+    background: -ms-linear-gradient(top, #f0f0f0 0%,#fefefe 100%);
+    background: linear-gradient(to bottom, #f0f0f0 0%,#fefefe 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#fefefe',GradientType=0 );
+    border: 1px solid #ccc;
+}
+
+#shareControls input {
+    display: none;
+    -webkit-touch-callout: inherit !important;
+    user-select: none;
+    -webkit-user-select: text 1important;
+    -webkit-touch-callout: default !important;
+}
+
+#map .modernGrey .actionsPane .actionList .LoadingComplete {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+    margin-right: 5px;
+}
+
+.modernGrey .dijitSliderDecrementIconV {
+    cursor: pointer;
+    background: url(../images/ui/zoomout.png) no-repeat !important;
+    height: 30px;
+    width: 30px;
+}
+
+.modernGrey .dijitSliderIncrementIconV {
+    height: 30px;
+    width: 30px;
+    background: url(../images/ui/zoomin.png) no-repeat !important;
+}
+
+.modernGrey .dijitSliderBarContainerV {
+    width: 30px;
+    height: 85px !important;
+}
+
+.modernGrey .dijitSliderImageHandleV {
+    border: 0;
+    width: 30px !important;
+    height: 15px !important;
+    background: url(../images/ui/thumb.png) no-repeat !important;
+    cursor: move;
+    cursor: ns-resize;
+}
+
+.dijitSliderIncrementIconV {
+    margin-top: 5px !important;
+}
+
+.aboutInfo {
+    background: url(../images/ui/info.png) no-repeat;
+}
+
+.barButton .barIcon, .inlineIcon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    margin-right: 4px;
+}
+
+.dijitReset {
+    margin: 8px 0px 8px 0px !important;
+}
+
+.modernGrey .dijitSliderDecrementIconV, .modernGrey .dijitSliderIncrementIconV {
+    margin: 2px 0 !important;
+    background-position: center center !important;
+}
+
+.modernGrey .dijitSliderImageHandleV {
+    bottom: -5px !important;
+    top: -7px !important;
+}
+
+.slideMenu .slideScroll {
+    margin-top: 6px;
+    max-height: 275px;
+    _height: 275px;
+    overflow: auto;
+}
+.scrollCont {
+    overflow: auto;
+    max-height: 250px;
+}
+.infoHidden {
+    display: none;
+    position: absolute !important;
+    margin: -27px -1px 0 0 !important;
+    z-index: 4;
+    right: 100%;
+    width: 288px;
+    padding: 26px 10px 10px 10px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -moz-border-radius-topright: 0;
+    -webkit-border-top-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+#operationalMenu .cBtitle {
+    width: 200px;
+}
+
+#socialMenu .cBtitle {
+    width: auto !important;
+}
+#operationalMenu, #socialMenu {
+    height: auto;
+}
+#basemapDiv {
+    overflow: auto;
+    max-height: 280px !important;
+}
+.switchAcc, .existUser {
+    color: #007ac2;
+    text-decoration: underline;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.formStyle .sliderTxt {
+    font-size: 14px;
+}
+
+#settingsDialog .smallTxt {
+    font-size: 14px;
+}
+.locationButton .iconBlock {
+    vertical-align: middle !important;
+}

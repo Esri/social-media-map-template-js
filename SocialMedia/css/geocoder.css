@@ -17,8 +17,11 @@
     opacity:1;
 }
 
-#locateBox{
-    position: relative;
+#searchBox{
+    position: absolute;
+    top: 0px;
+    left: 300px;
+    z-index: 60;
 }
 
 .modernGrey .esriGeocoderContainer * {
@@ -178,7 +181,7 @@
     display: none;
     z-index: 99;
     width: 100%;
-    position: absolute;
+    position: relative;
     left: 0;
     top: 100%;
     margin: -1px 0 0;
