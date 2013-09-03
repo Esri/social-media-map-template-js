@@ -2,7 +2,6 @@ define([
     "dojo/_base/kernel",
     "dojo/request/script",
     "dojo/_base/declare",
-    "dojo/_base/connect",
     "dojo/dom-geometry",
     "dojo/_base/array",
     "dojo/_base/lang",
@@ -18,9 +17,10 @@ define([
     "esri/request",
     "esri/graphic",
     "esri/symbols/PictureMarkerSymbol",
-    "dojo/date/locale"
+    "dojo/date/locale",
+    "dojo/on"
 ],
-function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, InfoTemplate, FeatureLayer, QueryTask, Extent, mathUtils, webMercatorUtils, Point, esriRequest, Graphic, PictureMarkerSymbol, locale) {
+function (dojo, script, declare, domGeom, arr, lang, event, ioQuery, InfoTemplate, FeatureLayer, QueryTask, Extent, mathUtils, webMercatorUtils, Point, esriRequest, Graphic, PictureMarkerSymbol, locale, on) {
     var Widget = declare("modules.twitter", null, {
         constructor: function (options) {
             var _self = this;
@@ -131,7 +131,7 @@ function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, In
             });
             this.options.map.addLayer(this.featureLayer);
             var deferred;
-            connect.connect(this.featureLayer, "onClick", lang.hitch(this, function (evt) {
+            on(this.featureLayer, "click", lang.hitch(this, function (evt) {
                 event.stop(evt);
                 var query = new QueryTask();
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
@@ -150,7 +150,7 @@ function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, In
             this.deferreds = [];
             this.geocoded_ids = {};
             this.loaded = true;
-            connect.connect(window, "onresize", lang.hitch(this, function (evt) {
+            on(window, "resize", lang.hitch(this, function (evt) {
                 event.stop(evt);
                 this.adjustPopupSize(this.options.map);
             }));

@@ -200,7 +200,7 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                 this.select();
             });
             // resizable
-            var handle = new ResizeHandle({
+            ResizeHandle({
                 targetId: "mapPreviewResize",
                 constrainMax: true,
                 dir: _self.options.dir,

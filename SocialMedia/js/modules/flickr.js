@@ -1,6 +1,5 @@
 define([
     "dojo/_base/declare",
-    "dojo/_base/connect",
     "dojo/_base/array",
     "dojo/_base/lang",
     "dojo/_base/event",
@@ -16,9 +15,10 @@ define([
     "esri/geometry/Point",
     "esri/request",
     "esri/graphic",
-    "esri/symbols/PictureMarkerSymbol"
+    "esri/symbols/PictureMarkerSymbol",
+    "dojo/on"
 ],
-function (declare, connect, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, FeatureLayer, QueryTask, Extent, mathUtils, webMercatorUtils, Point, esriRequest, Graphic, PictureMarkerSymbol) {
+function (declare, arr, lang, event, domGeom, ioQuery, locale, InfoTemplate, FeatureLayer, QueryTask, Extent, mathUtils, webMercatorUtils, Point, esriRequest, Graphic, PictureMarkerSymbol, on) {
     var Widget = declare("modules.flickr", null, {
         constructor: function (options) {
             var _self = this;
@@ -122,7 +122,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, locale, InfoTemp
                 visible: true
             });
             this.options.map.addLayer(this.featureLayer);
-            connect.connect(this.featureLayer, "onClick", lang.hitch(this, function (evt) {
+            on(this.featureLayer, "click", lang.hitch(this, function (evt) {
                 event.stop(evt);
                 var query = new QueryTask();
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
@@ -140,7 +140,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, locale, InfoTemp
             this.deferreds = [];
             this.geocoded_ids = {};
             this.loaded = true;
-            connect.connect(window, "onresize", lang.hitch(this, function (evt) {
+            on(window, "resize", lang.hitch(this, function (evt) {
                 event.stop(evt);
                 this.adjustPopupSize(this.options.map);
             }));

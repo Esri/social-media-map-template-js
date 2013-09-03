@@ -1,6 +1,7 @@
 define([
 	"dojo/_base/array",
 	"dojo/_base/connect",
+	"dojo/_base/lang",
 	"dojo/_base/declare",
 	"dojo/_base/event",
 	"dojo/_base/window",
@@ -12,10 +13,10 @@ define([
 	"dijit/_WidgetBase",
     "dojox/mobile/Switch",
 	"./sniff"
-], function (array, connect, declare, event, win, domClass, domConstruct, domStyle, touch, Contained, WidgetBase, Switch, has) {
+], function (array, connect, lang, declare, event, win, domClass, domConstruct, domStyle, touch, Contained, WidgetBase, Switch, has) {
     var Widget = declare("modules.Switch", [WidgetBase, Contained, Switch], {
         buildRendering: function () {
-            dojo.mixin(this, Switch);
+            lang.mixin(this, Switch);
             this.inherited(arguments);
         },
         //override ontouchstart
@@ -38,12 +39,12 @@ define([
         },
 
         //override ontouch end
-        onTouchEnd: function (/*Event*/e) {
+        onTouchEnd: function () {
             // summary:
             //		Internal function to handle touchEnd events.
             array.forEach(this._conn, connect.disconnect);
             this._conn = null;
-            if (this.innerStartX == this.inner.offsetLeft) {
+            if (this.innerStartX === this.inner.offsetLeft) {
                 if (has('touch')) {
                     var ev = win.doc.createEvent("MouseEvents");
                     ev.initEvent("click", true, true);
@@ -53,7 +54,7 @@ define([
             }
             var newState = (this.inner.offsetLeft < -(this._width / 2)) ? "off" : "on";
             this._changeState(newState, true);
-            if (newState != this.value) {
+            if (newState !== this.value) {
                 this.value = this.input.value = newState;
                 this.onStateChanged(newState);
             }

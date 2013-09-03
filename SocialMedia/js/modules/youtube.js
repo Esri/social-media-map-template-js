@@ -1,6 +1,6 @@
 define([
+    "dojo/_base/kernel",
     "dojo/_base/declare",
-    "dojo/_base/connect",
     "dojo/_base/array",
     "dojo/_base/lang",
     "dojo/_base/event",
@@ -16,9 +16,13 @@ define([
     "esri/request",
     "esri/graphic",
     "esri/symbols/PictureMarkerSymbol",
-    "dojo/date/locale"
+    "dojo/date/locale",
+    "dojo/on",
+    "dojo/query",
+    "dojo/dom",
+    "dojo/dom-construct"
 ],
-function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, FeatureLayer, QueryTask, Extent, mathUtils, webMercatorUtils, Point, esriRequest, Graphic, PictureMarkerSymbol, locale) {
+function (dojo, declare, arr, lang, event, domGeom, ioQuery, InfoTemplate, FeatureLayer, QueryTask, Extent, mathUtils, webMercatorUtils, Point, esriRequest, Graphic, PictureMarkerSymbol, locale, on, query, dom, domConstruct) {
     var Widget = declare("modules.youtube", null, {
         constructor: function (options) {
             var _self = this;
@@ -135,7 +139,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 visible: true
             });
             this.options.map.addLayer(this.featureLayer);
-            connect.connect(this.featureLayer, "onClick", lang.hitch(this, function (evt) {
+            on(this.featureLayer, "click", lang.hitch(this, function (evt) {
                 event.stop(evt);
                 var query = new QueryTask();
                 query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
@@ -146,24 +150,24 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
                 dojo.showInfoWindow = true;
                 setTimeout(function () { _self.options.map.infoWindow.show(evt.graphic.geometry); }, 500);
                 if (dojo.isMobileDevice) {
-                    dojo.connect(dojo.query('.esriPopupMobile .titleButton.arrow')[0], "onclick", function () {
-                        dojo.byId('divCont').style.display = "none";
+                    on(query('.esriPopupMobile .titleButton.arrow')[0], "click", function () {
+                        dom.byId('divCont').style.display = "none";
                     });
-                    dojo.connect(dojo.query('.esriMobileNavigationBar .esriMobileNavigationItem.left')[1], "onclick", function () {
-                        if (dojo.query('.ytContent').length > 0) {
-                            var divytContent = dojo.query('.ytContent')[0];
+                    on(query('.esriMobileNavigationBar .esriMobileNavigationItem.left')[1], "click", function () {
+                        if (query('.ytContent').length > 0) {
+                            var divytContent = query('.ytContent')[0];
                             divytContent.id = "divytContent";
-                            dojo.empty(dojo.byId("divytContent"));
+                            domConstruct.empty(dom.byId("divytContent"));
                         }
-                        dojo.byId('divCont').style.display = "block";
+                        dom.byId('divCont').style.display = "block";
                     });
-                    dojo.connect(dojo.query('.esriMobileNavigationBar .esriMobileNavigationItem.right')[1], "onclick", function () {
-                        if (dojo.query('.ytContent').length > 0) {
-                            var divytContent = dojo.query('.ytContent')[0];
+                    on(query('.esriMobileNavigationBar .esriMobileNavigationItem.right')[1], "click", function () {
+                        if (query('.ytContent').length > 0) {
+                            var divytContent = query('.ytContent')[0];
                             divytContent.id = "divytContent";
-                            dojo.empty(dojo.byId("divytContent"));
+                            domConstruct.empty(dom.byId("divytContent"));
                         }
-                        dojo.byId('divCont').style.display = "block";
+                        dom.byId('divCont').style.display = "block";
                     });
                 }
             }));
@@ -177,7 +181,7 @@ function (declare, connect, arr, lang, event, domGeom, ioQuery, InfoTemplate, Fe
             this.deferreds = [];
             this.geocoded_ids = {};
             this.loaded = true;
-            connect.connect(window, "onresize", lang.hitch(this, function (evt) {
+            on(window, "resize", lang.hitch(this, function (evt) {
                 event.stop(evt);
                 this.adjustPopupSize(this.options.map);
             }));

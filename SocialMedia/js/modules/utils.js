@@ -1,4 +1,5 @@
 ﻿define([
+    "dojo/_base/kernel",
     "dojo/_base/declare",
     "dojo/_base/connect",
     "dojo/_base/array",
@@ -27,9 +28,10 @@
     "esri/tasks/query",
     "esri/urlUtils",
     "esri/geometry",
-    "esri/utils"
+    "esri/utils",
+    "dojo/has"
   ],
-  function (declare, connect, arr, lang, event, dom, query, i18n, coreFx, domClass, date, on, ioQuery, locale, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, Extent, Point, SpatialReference, QueryTask, Query, urlUtils) {
+  function (dojo, declare, connect, arr, lang, event, dom, query, i18n, coreFx, domClass, date, on, ioQuery, locale, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, Extent, Point, SpatialReference, QueryTask, Query, urlUtils, has) {
       var Widget = declare("modules.utils", null, {
           constructor: function (options) {
               declare.safeMixin(this, options);
@@ -146,7 +148,7 @@
                   _self.options.bannedWordsQuery.returnGeometry = false;
                   _self.options.bannedWordsQuery.outFields = ["word"];
                   _self.options.bannedWordsTask.execute(_self.options.bannedWordsQuery, function (fset) {
-                      for (i = 0; i < fset.features.length; i++) {
+                      for (var i = 0; i < fset.features.length; i++) {
                           _self.options.filterWords.push(fset.features[i].attributes.word);
                       }
                   });
@@ -268,8 +270,6 @@
                       node: menuObj,
                       duration: 200
                   }).play();
-
-                  var selectedMenus = query('#mapcon .menuSelected').removeClass('menuSelected');
                   var buttons = query('#mapcon .barButton');
                   for (var i = 0; i < buttons.length; i++) {
                       buttons[i].blur();
@@ -564,7 +564,6 @@
 
           // Folder Layer CheckBoxes
           toggleChecked: function (obj) {
-              var _self = this;
               var list = query(obj).parent('li');
               if (domClass.contains(list[0], "checked")) {
                   list.removeClass('cLoading');

@@ -23,8 +23,8 @@ define([
     }
 
     if (has("webkit")) {
-        has.add('touch', (typeof win.doc.documentElement.ontouchstart != "undefined" &&
-			navigator.appVersion.indexOf("Mobile") != -1) || !!has('android'), undefined, true);
+        has.add('touch', (typeof win.doc.documentElement.ontouchstart !== "undefined" &&
+			navigator.appVersion.indexOf("Mobile") !== -1) || !!has('android'), undefined, true);
     }
 
     /*=====
