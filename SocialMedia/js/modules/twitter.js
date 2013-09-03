@@ -47,7 +47,6 @@ function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, In
             if (this.options.map === null) {
                 throw 'Reference to esri.Map object required';
             }
-            this.baseurl = location.protocol + "//search.twitter.com/search.json";
             this.featureCollection = {
                 layerDefinition: {
                     "geometryType": "esriGeometryPoint",
@@ -295,8 +294,9 @@ function (dojo, script, declare, connect, domGeom, arr, lang, event, ioQuery, In
             html += '<div class="twUser"><a target="_blank" href="' + location.protocol + '//twitter.com/' + graphic.attributes.user.screen_name + '">&#64;' + graphic.attributes.user.screen_name + '</a></div>';
             html += '<div class="clear"></div>';
             html += '<div class="tweet">' + linkedText + '</div>';
+            var d = this.formatDate(date) || ''; 
             if (graphic.attributes.created_at) {
-                html += '<div class="twDate"><a target="_blank" href="' + location.protocol + '//twitter.com/' + graphic.attributes.user.screen_name + '/status/' + graphic.attributes.id_str + '">' + this.formatDate(date) + '</a></div>';
+                html += '<div class="twDate"><a target="_blank" href="' + location.protocol + '//twitter.com/' + graphic.attributes.user.screen_name + '/status/' + graphic.attributes.id_str + '">' + d + '</a></div>';
             }
             html += '<div class="actions">';
             html += '<a title="" class="reply" href="https://twitter.com/intent/tweet?in_reply_to=' + graphic.attributes.id_str + '&lang=' + loc + '"></a> ';

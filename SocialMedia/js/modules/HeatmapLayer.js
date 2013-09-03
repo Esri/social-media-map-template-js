@@ -1,26 +1,35 @@
 define([
     "dojo/_base/declare",
+    "dijit/_WidgetBase",
     "dojo/dom-construct",
+    "dojo/dom",
     "dojo/query",
-	"dojo/dom-style",
-	"dojo/_base/connect",
-	"esri/geometry/screenUtils",
-	"esri/geometry/Point",
-	"esri/layers/DynamicMapServiceLayer"
-],
-function(declare, domConstruct, query, domStyle, connect, screenUtils, Point, DynamicMapServiceLayer) {
-    var Widget = declare("modules.HeatmapLayer", [DynamicMapServiceLayer], {
-        properties: {},
-        heatMap: null,
+    "dojo/dom-style",
+    "dojo/on",
+    "esri/layers/DynamicMapServiceLayer",
+    "esri/geometry/screenUtils",
+    "esri/geometry/Point"
+], function(
+    declare,
+    _WidgetBase,
+    domConstruct,
+    dom,
+    query,
+    domStyle,
+    on, 
+    DynamicMapServiceLayer,
+    screenUtils,
+    Point
+) {
+    return declare("modules.HeatmapLayer", [_WidgetBase, DynamicMapServiceLayer], {
         // constructor
-        constructor: function (properties, domNode) {
-            declare.safeMixin(this.properties, properties);
+        constructor: function(properties, srcNode) {
             // map var
-            this._map = this.properties.map;
+            this._map = properties.map;
             // last data storage
-            this.lastData = [];
+            this.set("data", []);
             // map node
-            this.domNode = document.getElementById(domNode);
+            this.domNode = dom.byId(srcNode);
             // config
             this.config = {
                 element: this.domNode,
@@ -42,18 +51,34 @@ function(declare, domConstruct, query, domStyle, connect, screenUtils, Point, Dy
             declare.safeMixin(this.config, properties.config);
             // create heatmap
             this.heatMap = heatmapFactory.create(this.config);
-            // loaded
-            this.loaded = true;
-            this.onLoad(this);
             // global maximum value
-            this.globalMax = 0;
+            this.set("globalMax", 0);
+            var _self = this;
             // connect on resize
-            connect.connect(this._map, "onResize", this, this.resizeHeatmap);
+            this._listeners = [];
+            var mapResize = on(this._map, "resize", function(extent, width, height) {
+                _self.resizeHeatmap(extent, width, height);
+            });
+            this._listeners.push(mapResize);
             // heatlayer div styling
-            this.domNode.style.position = 'relative';
-            this.domNode.style.display = 'none';
+            domStyle.set(this.domNode, {
+                position: "absolute",
+                display: "none" 
+            });
+            // loaded
+            this.set("loaded",true);
+            this.onLoad(this);
         },
-        resizeHeatmap: function (extent, width, height) {
+        // connections/subscriptions will be cleaned up during the destroy() lifecycle phase
+        destroy: function() {
+            if (this._listeners.length) {
+                for (var i = 0; i < this._listeners.length; i++) {
+                    this._listeners[i].remove();
+                }
+            }
+            this.inherited(arguments);
+        },
+        resizeHeatmap: function(extent, width, height) {
             // set heatmap data size
             this.heatMap.set("width", width);
             this.heatMap.set("height", height);
@@ -77,12 +102,12 @@ function(declare, domConstruct, query, domStyle, connect, screenUtils, Point, Dy
             this.refresh();
         },
         // stores heatmap converted data into the plugin which renders it
-        storeHeatmapData: function (heatPluginData) {
+        storeHeatmapData: function(heatPluginData) {
             // set heatmap data
             this.heatMap.store.setDataSet(heatPluginData);
         },
         // converts parsed data into heatmap format
-        convertHeatmapData: function (parsedData) {
+        convertHeatmapData: function(parsedData) {
             // variables
             var xParsed, yParsed, heatPluginData, screenGeometry;
             // set heat plugin data object
@@ -116,7 +141,7 @@ function(declare, domConstruct, query, domStyle, connect, screenUtils, Point, Dy
             this.storeHeatmapData(heatPluginData);
         },
         // runs through data and calulates weights and max
-        parseHeatmapData: function (features) {
+        parseHeatmapData: function(features) {
             // variables
             var i, parsedData, dataPoint, attributes;
             // if data points exist
@@ -127,7 +152,7 @@ function(declare, domConstruct, query, domStyle, connect, screenUtils, Point, Dy
                     data: []
                 };
                 if (!this.config.useLocalMaximum) {
-                    parsedData.max = this.globalMax;
+                    parsedData.max = this.get("globalMax");
                 }
                 // for each data point
                 for (i = 0; i < features.length; i++) {
@@ -140,7 +165,7 @@ function(declare, domConstruct, query, domStyle, connect, screenUtils, Point, Dy
                         validPoint = true;
                     }
                     // using local max, make sure point is within extent
-                    else if(this._map.extent.contains(dataPoint)){
+                    else if (this._map.extent.contains(dataPoint)) {
                         validPoint = true;
                     }
                     if (validPoint) {
@@ -173,10 +198,9 @@ function(declare, domConstruct, query, domStyle, connect, screenUtils, Point, Dy
                             // set max to this count
                             parsedData.max = parsedData.data[dataPoint.x][dataPoint.y].count;
                             if (!this.config.useLocalMaximum) {
-                                this.globalMax = parsedData.data[dataPoint.x][dataPoint.y].count;
+                                this.set("globalMax", parsedData.data[dataPoint.x][dataPoint.y].count);
                             }
                         }
-
                     }
                 }
                 // convert parsed data into heatmap plugin formatted data
@@ -184,31 +208,32 @@ function(declare, domConstruct, query, domStyle, connect, screenUtils, Point, Dy
             }
         },
         // set data function call
-        setData: function (features) {
+        setData: function(features) {
             // set width/height
             this.resizeHeatmap(null, this._map.width, this._map.height);
             // store points
-            this.lastData = features;
+            this.set("data", features);
             // create data and then store it
             this.parseHeatmapData(features);
             // redraws the heatmap
             this.refresh();
         },
         // add one feature to the heatmap
-        addDataPoint: function (feature) {
+        addDataPoint: function(feature) {
             if (feature) {
                 // push to data
-                this.lastData.push(feature);
+                var data = this.get("data");
+                data.push(feature);
                 // set data
-                this.setData(this.lastData);
+                this.setData(data);
             }
         },
         // return data set of features
-        exportDataSet: function () {
-            return this.lastData;
+        exportDataSet: function() {
+            return this.get("data");
         },
         // clear data function
-        clearData: function () {
+        clearData: function() {
             // empty heat map
             this.heatMap.clear();
             // empty array
@@ -217,14 +242,13 @@ function(declare, domConstruct, query, domStyle, connect, screenUtils, Point, Dy
             this.setData(empty);
         },
         // get image
-        getImageUrl: function (extent, width, height, callback) {
+        getImageUrl: function(extent, width, height, callback) {
             // create heatmap data using last data
-            this.parseHeatmapData(this.lastData);
+            this.parseHeatmapData(this.get("data"));
             // image data
             var imageUrl = this.heatMap.get("canvas").toDataURL("image/png");
             // callback
             callback(imageUrl);
         }
     });
-    return Widget;
 });
