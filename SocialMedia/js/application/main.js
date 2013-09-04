@@ -2707,22 +2707,27 @@ define([
                 shareLink: function (fullLink) {
                     var _self = this;
                     var tinyResponse;
-                    var url = dojo.string.substitute(_self.options.TinyURLServiceURL, [fullLink]);
-                    dojo.io.script.get({
-                        url: url,
-                        callbackParamName: "callback",
-                        load: function (data) {
-                            tinyResponse = data;
-                            _self.tinyUrl = data;
-                            var attr = _self.options.TinyURLResponseAttribute.split(".");
-                            for (var x = 0; x < attr.length; x++) {
-                                _self.tinyUrl = _self.tinyUrl[attr[x]];
+                    if(_self.options.TinyURLServiceURL && _self.options.TinyURLResponseAttribute){
+                        var url = dojo.string.substitute(_self.options.TinyURLServiceURL, [fullLink]);
+                        dojo.io.script.get({
+                            url: url,
+                            callbackParamName: "callback",
+                            load: function (data) {
+                                tinyResponse = data;
+                                _self.tinyUrl = data;
+                                var attr = _self.options.TinyURLResponseAttribute.split(".");
+                                for (var x = 0; x < attr.length; x++) {
+                                    _self.tinyUrl = _self.tinyUrl[attr[x]];
+                                }
+                            },
+                            error: function (error) {
+                                alert(error);
                             }
-                        },
-                        error: function (error) {
-                            alert(error);
-                        }
-                    });
+                        });   
+                    }
+                    else{
+                        _self.tinyUrl = fullLink;
+                    }
                 },
                 //mail link
                 setMailLink: function (mLink) {
@@ -3573,7 +3578,8 @@ define([
                                 }, 10);
                             }
                             var areaRange = result.extent.xmax - result.extent.xmin;
-                            if (areaRange > _self.options.ExtentRange) {
+                            var extentRange = _self.options.ExtentRange || 15;
+                            if (areaRange > extentRange) {
 
                                 var spotlight = connect.connect(_self.options.map, 'onExtentChange', function () {
                                     var extent;

@@ -534,16 +534,20 @@
 
           validateConfig: function () {
               var _self = this;
-              //need to set the sharing url here so that when we query the applciation and organization the correct
-              //location is searched.
-              if (location.host.indexOf("arcgis.com") === -1) {
-                  //default (Not Hosted no org specified)
-                  arcgisUtils.arcgisUrl = location.protocol + "//www.arcgis.com/sharing/rest/content/items";
-              } else {
-                  // org app
+                var appLocation = location.pathname.indexOf("/apps/");
+                if (appLocation === -1) {
+                    appLocation = location.pathname.indexOf("/home/");
+                }
+                //app is hosted and no sharing url is defined so let's figure it out. 
+                if (appLocation !== -1) {
+                    // org app
                   arcgisUtils.arcgisUrl = location.protocol + '//' + location.host + "/sharing/rest/content/items";
                   _self.options.proxyUrl = location.protocol + '//' + location.host + "/sharing/proxy";
-              }
+                }
+                else{
+                    //default (Not Hosted no org specified)
+                    arcgisUtils.arcgisUrl = location.protocol + "//www.arcgis.com/sharing/rest/content/items";
+                }
               //if the sharing url is set overwrite value
               if (_self.options.sharingurl) {
                   arcgisUtils.arcgisUrl = _self.options.sharingurl + 'sharing/rest/content/items';
