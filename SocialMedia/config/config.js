@@ -49,6 +49,8 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "showAboutDialog": true,
         "showAboutDialogOnLoad": false,
         "updateSocialLayersOnPan": false,
+        "locateName": "",
+        "locatePoint": ""
 /*
         "securedLayers": [
             {
