@@ -28,10 +28,9 @@
     "esri/tasks/query",
     "esri/urlUtils",
     "esri/geometry",
-    "esri/utils",
-    "dojo/has"
+    "esri/utils"
   ],
-  function (dojo, declare, connect, arr, lang, event, dom, query, i18n, coreFx, domClass, date, on, ioQuery, locale, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, Extent, Point, SpatialReference, QueryTask, Query, urlUtils, has) {
+  function (dojo, declare, connect, arr, lang, event, dom, query, i18n, coreFx, domClass, date, on, ioQuery, locale, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, Extent, Point, SpatialReference, QueryTask, Query, urlUtils) {
       var Widget = declare("modules.utils", null, {
           constructor: function (options) {
               declare.safeMixin(this, options);
@@ -274,6 +273,7 @@
                   for (var i = 0; i < buttons.length; i++) {
                       buttons[i].blur();
                   }
+                  query(menuObj).removeClass('menuSelected');
               }
           },
 

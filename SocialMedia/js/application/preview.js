@@ -9,14 +9,9 @@ define([
     "dojo/i18n!./nls/template.js",
     "application/mainApp",
     "dojox/layout/ResizeHandle",
-    "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
-    "esri/geometry",
-    "esri/utils",
-    "esri/map",
-    "esri/IdentityManager",
     "esri/arcgis/utils"
 ],
-function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHandle, esri) {
+function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHandle, arcgisUtils) {
     var Widget = declare('application.preview', appMain, {
         constructor: function () {},
         // resize map function
@@ -136,7 +131,7 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                 node.innerHTML = html;
             }
             // create map deferred with options
-            var mapDeferred = esri.arcgis.utils.createMap(_self.options.webmap, 'map', {
+            var mapDeferred = arcgisUtils.createMap(_self.options.webmap, 'map', {
                 mapOptions: {
                     slider: false,
                     wrapAround180: true,
@@ -147,14 +142,14 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
             // on successful response
             mapDeferred.addCallback(function (response) {
                 _self.map = response.map;
+                _self.options.map = response.map;
                 // init basemap gallery hidden
                 _self.createBMGallery(_self.map);
                 // disable panning
                 _self.map.disableMapNavigation();
-                // start extent
-                _self.setExtentValues(_self.map);
-                _self.map.setExtent(_self.options.startExtent);
-                connect.connect(_self.map, "onResize", function () {
+                _self.utils.setStartExtent();
+                _self.utils.setStartLevel();
+                on(_self.map, "resize", function () {
                    setTimeout(function () {
                         if (_self.options.startExtent) {
                             _self.map.setExtent(_self.options.startExtent);
@@ -188,11 +183,11 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                 }
             });
             // listener for custom map size key up - height
-            connect.connect(dom.byId('inputHeight'), "onchange", function () {
+            on(dom.byId('inputHeight'), "change", function () {
                 _self.mapSize('custom');
             });
             // listener for custom map size key up - width
-            connect.connect(dom.byId('inputWidth'), "onchange", function () {
+            on(dom.byId('inputWidth'), "change", function () {
                 _self.mapSize('custom');
             });
             // input select all

@@ -62,12 +62,6 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
             }
         ],
         */
-        "locateName": "",
-        "locatePoint": "",
-        "bannedUsersService": "http://services.arcgis.com/QJfoC7c7Z2icolha/ArcGIS/rest/services/fai/FeatureServer/2",
-        "bannedWordsService": "http://tm2-elb-1378978824.us-east-1.elb.amazonaws.com/ArcGIS/rest/services/SharedTools/Filter/MapServer/1",
-        "flagMailServer": "http://tmappsevents.esri.com/Website/pim_fai/fai.php",
-        "sourceCountry": "USA",
         "TinyURLResponseAttribute": "data.url",
         "TinyURLServiceURL": "http://api.bit.ly/v3/shorten?login=esri&apiKey=R_65fd9891cd882e2a96b99d4bda1be00e&uri=${0}&format=json",
         "ExtentRange": 15

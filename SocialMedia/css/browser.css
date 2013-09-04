@@ -43,7 +43,7 @@
 
 #topMenuCon {
     position: relative;
-    height: 55px;
+    height: 55px !important;
     width: 100%;
 }
 
