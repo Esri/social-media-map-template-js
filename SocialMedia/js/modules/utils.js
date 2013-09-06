@@ -541,8 +541,9 @@
                 //app is hosted and no sharing url is defined so let's figure it out. 
                 if (appLocation !== -1) {
                     // org app
-                  arcgisUtils.arcgisUrl = location.protocol + '//' + location.host + "/sharing/rest/content/items";
-                  _self.options.proxyUrl = location.protocol + '//' + location.host + "/sharing/proxy";
+                    var instance = location.pathname.substr(0, appLocation); //get the portal instance name
+                    arcgisUtils.arcgisUrl = location.protocol + '//' + location.host + instance + "/sharing/rest/content/items";
+                    _self.options.proxyUrl = location.protocol + '//' + location.host + instance + "/sharing/proxy";
                 }
                 else{
                     //default (Not Hosted no org specified)
