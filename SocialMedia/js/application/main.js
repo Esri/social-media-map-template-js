@@ -3049,7 +3049,17 @@ define([
                         });
                         dojo.connect(dijit.byId("sw" + i), "onStateChanged", function (newState) {
                             var index = (this.id).replace("sw", "");
-                            _self.toggleMapLayer(_self.options.itemInfo.itemData.operationalLayers[index].id);
+                            var obj = _self.options.itemInfo.itemData.operationalLayers[index];
+                            if(obj.featureCollection && obj.featureCollection.layers){
+                                var layers = obj.featureCollection.layers;
+                                for(var i = 0; i < layers.length; i++){
+                                    var id = layers[i].id;
+                                    _self.toggleMapLayer(id);
+                                }
+                            }
+                            else{
+                                _self.toggleMapLayer(_self.options.itemInfo.itemData.operationalLayers[index].id);   
+                            }
                             _self.setSharing();
                         });
 
