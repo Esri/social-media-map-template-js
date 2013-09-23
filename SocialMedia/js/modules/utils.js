@@ -220,20 +220,17 @@
                       return false;
               }
           },
-
-          configureAppTitle: function () {
-
-              var _self = this;
-              document.title = i18n.viewer.applicationTitle.PIM;
-              var node = dom.byId('mapTitle');
-              if (node) {
-                  node.innerHTML = i18n.viewer.applicationTitle.PIM;
-                  query(node).attr('title', i18n.viewer.applicationTitle.PIM);
-              }
-              query('meta[name="Description"]').attr('content', _self.options.itemInfo.item.snippet);
-              query('meta[property="og:image"]').attr('content', arcgisUtils.arcgisUrl + '/' + _self.options.itemInfo.item.id + '/info/' + _self.options.itemInfo.item.thumbnail);
-          },
-
+          configureAppTitle: function() {
+            var _self = this;
+            document.title = _self.options.itemInfo.item.title;
+            var node = dom.byId('mapTitle');
+            if (node) {
+                node.innerHTML = _self.options.itemInfo.item.title;
+                query(node).attr('title', _self.options.itemInfo.item.title);
+            }
+            query('meta[name="Description"]').attr('content', _self.options.itemInfo.item.snippet);
+            query('meta[property="og:image"]').attr('content', arcgisUtils.arcgisUrl + '/' + _self.options.itemInfo.item.id + '/info/' + _self.options.itemInfo.item.thumbnail);
+        },
           transparencyChange: function (value, layerID) {
               var _self = this;
               var newValue = (value / 100);
