@@ -27,7 +27,7 @@ body {
 }
 
 #embedArea {
-    width: auto;
+    width: 100%;
     margin: 0;
     padding: 0;
     border: 0;
@@ -125,4 +125,14 @@ body {
     min-width: inherit !important;
     top: 0;
     left: 0;
+}
+.pixels {
+    float: left;
+    background-color: #3296D1;
+    color: #fff;
+    padding: 4px 10px 4px 10px;
+}
+
+#inputWidth {
+    float: left;
 }

@@ -141,9 +141,9 @@ function (dojo, declare, arr, lang, event, domGeom, ioQuery, InfoTemplate, Featu
             this.options.map.addLayer(this.featureLayer);
             on(this.featureLayer, "click", lang.hitch(this, function (evt) {
                 event.stop(evt);
-                var query = new QueryTask();
-                query.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
-                var deferred = this.featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW);
+                var queryTask = new QueryTask();
+                queryTask.geometry = this.pointToExtent(this.options.map, evt.mapPoint, this.options.symbolWidth);
+                var deferred = this.featureLayer.selectFeatures(queryTask, FeatureLayer.SELECTION_NEW);
                 _self.options.map.infoWindow.hide();
                 this.options.map.infoWindow.setFeatures([deferred]);
                 this.adjustPopupSize(this.options.map);

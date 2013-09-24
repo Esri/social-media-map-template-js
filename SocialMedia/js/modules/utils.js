@@ -10,10 +10,12 @@
     "dojo/i18n!./nls/template.js",
     "dojo/fx",
     "dojo/dom-class",
+    "dojo/dom-construct",
     "dojo/date",
     "dojo/on",
     "dojo/io-query",
     "dojo/date/locale",
+    "dojo/html",
     "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
     "config/commonConfig",
     "dojo/cookie",
@@ -21,18 +23,27 @@
     "esri/config",
     "esri/arcgis/utils",
     "esri/tasks/GeometryService",
+    "dijit/TitlePane",
+    "dojo/dom-attr",
+    "dojox/widget/TitleGroup",
+    "dijit/TooltipDialog",
     "esri/geometry/Extent",
     "esri/geometry/Point",
     "esri/SpatialReference",
+    "dojo/dom-geometry",
+    "dojo/dom-style",
     "esri/tasks/QueryTask",
     "esri/tasks/query",
     "esri/urlUtils",
     "esri/geometry",
-    "esri/utils"
+    "esri/utils",
+    "dojo/has"
   ],
-  function (dojo, declare, connect, arr, lang, event, dom, query, i18n, coreFx, domClass, date, on, ioQuery, locale, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, Extent, Point, SpatialReference, QueryTask, Query, urlUtils) {
+  function (dojo, declare, connect, array, lang, event, dom, query, i18n, coreFx, domClass, domConstruct, date, on, ioQuery, locale, html, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, TitlePane, domAttr, TitleGroup, TooltipDialog, Extent, Point, SpatialReference, domGeom, domStyle, QueryTask, Query, urlUtils, has) {
       var Widget = declare("modules.utils", null, {
           constructor: function (options) {
+              this.mapNotesLayer = [];
+              this.mapNotesList = [];
               declare.safeMixin(this, options);
           },
           removeReportInAppButton: function () {
@@ -164,7 +175,7 @@
           // Set false url param strings to false
           setFalseValues: function (obj) {
 
-              // for each key      
+              // for each key
               for (var key in obj) {
                   // if not a prototype
                   if (obj.hasOwnProperty(key)) {
@@ -220,17 +231,20 @@
                       return false;
               }
           },
-          configureAppTitle: function() {
-            var _self = this;
-            document.title = _self.options.itemInfo.item.title;
-            var node = dom.byId('mapTitle');
-            if (node) {
-                node.innerHTML = _self.options.itemInfo.item.title;
-                query(node).attr('title', _self.options.itemInfo.item.title);
-            }
-            query('meta[name="Description"]').attr('content', _self.options.itemInfo.item.snippet);
-            query('meta[property="og:image"]').attr('content', arcgisUtils.arcgisUrl + '/' + _self.options.itemInfo.item.id + '/info/' + _self.options.itemInfo.item.thumbnail);
-        },
+
+          configureAppTitle: function () {
+
+              var _self = this;
+              document.title = i18n.viewer.applicationTitle.PIM;
+              var node = dom.byId('mapTitle');
+              if (node) {
+                  node.innerHTML = i18n.viewer.applicationTitle.PIM;
+                  query(node).attr('title', i18n.viewer.applicationTitle.PIM);
+              }
+              query('meta[name="Description"]').attr('content', _self.options.itemInfo.item.snippet);
+              query('meta[property="og:image"]').attr('content', arcgisUtils.arcgisUrl + '/' + _self.options.itemInfo.item.id + '/info/' + _self.options.itemInfo.item.thumbnail);
+          },
+
           transparencyChange: function (value, layerID) {
               var _self = this;
               var newValue = (value / 100);
@@ -531,21 +545,21 @@
 
           validateConfig: function () {
               var _self = this;
-                var appLocation = location.pathname.indexOf("/apps/");
-                if (appLocation === -1) {
-                    appLocation = location.pathname.indexOf("/home/");
-                }
-                //app is hosted and no sharing url is defined so let's figure it out. 
-                if (appLocation !== -1) {
-                    // org app
-                    var instance = location.pathname.substr(0, appLocation); //get the portal instance name
-                    arcgisUtils.arcgisUrl = location.protocol + '//' + location.host + instance + "/sharing/rest/content/items";
-                    _self.options.proxyUrl = location.protocol + '//' + location.host + instance + "/sharing/proxy";
-                }
-                else{
-                    //default (Not Hosted no org specified)
-                    arcgisUtils.arcgisUrl = location.protocol + "//www.arcgis.com/sharing/rest/content/items";
-                }
+              var appLocation = location.pathname.indexOf("/apps/");
+              if (appLocation === -1) {
+                  appLocation = location.pathname.indexOf("/home/");
+              }
+              //app is hosted and no sharing url is defined so let's figure it out.
+              if (appLocation !== -1) {
+                  // org app
+                  var instance = location.pathname.substr(0, appLocation); //get the portal instance name
+                  arcgisUtils.arcgisUrl = location.protocol + '//' + location.host + instance + "/sharing/rest/content/items";
+                  _self.options.proxyUrl = location.protocol + '//' + location.host + instance + "/sharing/proxy";
+              }
+              else {
+                  //default (Not Hosted no org specified)
+                  arcgisUtils.arcgisUrl = location.protocol + "//www.arcgis.com/sharing/rest/content/items";
+              }
               //if the sharing url is set overwrite value
               if (_self.options.sharingurl) {
                   arcgisUtils.arcgisUrl = _self.options.sharingurl + 'sharing/rest/content/items';
@@ -600,8 +614,198 @@
                       window.location.reload();
                   };
               }
-          }
+          },
+          configureMapNotes: function (mapNoteLayers) {
+              var _self = this;
+              _self.mapNotesLayer = mapNoteLayers;
+              array.forEach(_self.options.itemInfo.itemData.operationalLayers, function (layer, index) {
+                  layer.layerObject.onClick = function () {
+                      _self.showInfoWindow = true;
+                      _self.closeMapTip();
+                  }
+              });
+              var tabContainer = domConstruct.create("div", { class: "tabContainer" }, "mapNotesContainer", "first");
+              var headerTitle = domConstruct.create("div", { class: "MapNoteTitle" }, tabContainer, "first");
+              var mapNoteListContainer = domConstruct.create("div", { class: "mapNoteListContainer" }, "mapNotesContainer", "last");
 
+              if (_self.mapNotesLayer.length > 0) {
+                  html.set(headerTitle, i18n.viewer.buttons.mapnote);
+                  domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.mapnoteTitle);
+                  var titleGroup = new TitleGroup({ title: i18n.viewer.buttons.mapnote });
+                  mapNoteListContainer.appendChild(titleGroup.domNode);
+                  array.forEach(_self.mapNotesLayer, function (mapNote, i) {
+                      array.forEach(mapNote.featureCollection.layers, function (mapNoteLayer, j) {
+                          var mapNoteFeature = mapNoteLayer.layerObject;
+                          array.forEach(mapNoteLayer.featureSet.features, function (item, k) {
+                              var titlePane = new TitlePane({ title: item.attributes.TITLE, content: item.attributes.DESCRIPTION, open: false });
+                              titlePane.id = item.attributes.TITLE + item.attributes.OBJECTID;
+                              if (titlePane.content == undefined) {
+                                  titlePane.setContent("Description not available.");
+                              }
+                              _self.mapNotesList.push(titlePane);
+                              titleGroup.domNode.appendChild(titlePane.domNode);
+                              domClass.add(titlePane.titleNode, "titleNode");
+                              domClass.add(titlePane.hideNode, "contentNode");
+                              domClass.add(titlePane.domNode, "bottomBorder");
+                              domClass.add(titlePane.containerNode, "descriptionNode");
+                              titlePane.titleBarNode.onclick = function () {
+                                  if (titlePane.open) {
+                                      domStyle.set(titlePane.titleNode, "color", '#7F00FF');
+                                      if (mapNoteLayer.featureSet.geometryType == "esriGeometryPolygon") {
+                                          _self.options.map.centerAndZoom(mapNoteLayer.layerObject.graphics[k].geometry.getExtent().getCenter(), 7);
+                                      }
+                                      else if (mapNoteLayer.featureSet.geometryType == "esriGeometryPolyline") {
+                                          var anchorPointIndex = Math.floor(mapNoteLayer.layerObject.graphics[k].geometry.paths[0].length / 2);
+                                          var point = new Point(mapNoteLayer.layerObject.graphics[k].geometry.paths[0][anchorPointIndex], _self.options.map.spatialReference);
+                                          _self.options.map.centerAndZoom(point, 7);
+                                      }
+                                      else {
+                                          x = 15;
+                                          _self.options.map.centerAndZoom(item.geometry, 8);
+                                      }
+                                      _self.showMapnoteDescription(mapNoteLayer, k);
+                                  } else {
+                                      _self.closeMapTip();
+                                      domStyle.set(titlePane.titleNode, "color", '#000');
+                                  }
+                              }
+                          });
+
+                          mapNoteFeature.onClick = function (evt) {
+                              _self.showInfoWindow = false;
+                              on(_self.options.map.infoWindow, "show", function () {
+                                  if (!_self.showInfoWindow) {
+                                      _self.options.map.infoWindow.hide();
+                                  }
+                              });
+
+                              _self.options.map.centerAt(evt.mapPoint);
+                              setTimeout(function () {
+                                  _self.showMapTip(evt);
+                              }, 100);
+                              _self.changeMapNoteTitle(evt);
+                              _self.showMapnotePanel();
+                          }
+                      });
+                  });
+              }
+              else if (_self.options.itemInfo.itemData.bookmarks) {
+                  html.set(headerTitle, i18n.viewer.buttons.bookmarks);
+                  domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.bookmarksTitle);
+                  array.forEach(_self.options.itemInfo.itemData.bookmarks, function (content, index) {
+                      var bookmark = domConstruct.create("div", { class: "bookmarkList bottomBorder", innerHTML: content.name }, mapNoteListContainer, "last");
+
+                      var newExtent = new Extent(content.extent);
+                      on(bookmark, 'click', function (evt) {
+                          _self.options.map.setExtent(newExtent);
+                      });
+                  });
+              }
+              else {
+
+              }
+          },
+
+          showMapnoteDescription: function (mapNoteLayer, k) {
+              var _self = this;
+              var x = 0;
+              if (_self.options.map.infoWindow.isShowing) {
+                  _self.options.map.infoWindow.hide();
+              }
+              array.forEach(_self.mapNotesList, function (list) {
+                  domStyle.set(list.titleNode, "color", '#000000');
+              });
+
+              _self.closeMapTip();
+              var dialog = new TooltipDialog({
+                  id: "toolTipDialog",
+                  class: "claro",
+                  content: '<div style="display: inline-block;"><span style="color: #fff;">' + mapNoteLayer.layerObject.graphics[k].attributes.TITLE + '</span><div class="toolTipCloseButton"></span></div>',
+                  style: "position: absolute;"
+              });
+              dijit.place.at(dialog.domNode, { x: _self.options.map.width / 2, y: _self.options.map.height / 2 + 60 }, ["BL", "BR"], { x: x, y: 0 });
+
+              on(query('.toolTipCloseButton')[0], "click", function () {
+                  _self.closeMapTip();
+                  _self.hideMapnoteDescription();
+              });
+          },
+          hideMapnoteDescription: function () {
+              var _self = this;
+              array.forEach(_self.mapNotesList, function (list) {
+                  if (list.open) {
+                      list.set('open', false);
+                      domStyle.set(list.titleNode, "color", '#000');
+                  }
+              });
+          },
+
+          changeMapNoteTitle: function (mapNote) {
+              var _self = this;
+              _self.hideMapnoteDescription();
+              array.forEach(_self.mapNotesList, function (list) {
+                  var graphicID = mapNote.graphic.attributes.TITLE + mapNote.graphic.attributes.OBJECTID;
+                  if (list.id == graphicID) {
+                      list.set('open', true);
+                      domStyle.set(list.titleNode, "color", '#7F00FF');
+                      query('.mapNoteListContainer')[0].scrollTop = list.domNode.offsetTop - 37;
+                  }
+              });
+          },
+
+          showMapTip: function (event) {
+              var _self = this;
+              var dialog = new TooltipDialog({
+                  id: "toolTipDialog",
+                  class: "claro",
+                  content: '<div style="display: inline-block;"><span style="color: #fff;">' + event.graphic.attributes.TITLE + '</span><div class="toolTipCloseButton"></span></div>',
+                  style: "position: absolute;"
+              });
+
+              var screenPoint = _self.options.map.toScreen(_self.options.map.extent.getCenter());
+              dijit.place.at(dialog.domNode, { x: screenPoint.x + 5, y: screenPoint.y + 45 }, ["BL", "BR"], { x: 0, y: -15 });
+              on(query('.toolTipCloseButton')[0], "click", function () {
+                  _self.closeMapTip();
+                  _self.hideMapnoteDescription();
+              });
+          },
+
+          closeMapTip: function () {
+              if (dijit.byId('toolTipDialog')) {
+                  dijit.byId('toolTipDialog').destroy();
+              }
+          },
+
+          toggleLeftPanel: function () {
+              var _self = this;
+              if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
+                  _self.hideMapnotePanel();
+              } else {
+                  _self.showMapnotePanel();
+              }
+          },
+
+          showMapnotePanel: function () {
+              if (domClass.contains("mapNotesContainer", "hideMapNotesContainer")) {
+                  domClass.replace("mapNotesContainer", "showMapNotesContainer", "hideMapNotesContainer");
+                  domClass.replace("zoomSlider", "shiftRight", "shiftLeft");
+                  domClass.replace(query('.esriScalebar')[0], "scalebarShiftRight", "scalebarShiftLeft");
+
+              } else {
+                  domClass.add("mapNotesContainer", ["showMapNotesContainer", "transition"]);
+                  domClass.add("zoomSlider", ["shiftRight", "transition"]);
+                  domClass.add(query('.esriScalebar')[0], ["scalebarShiftRight", "transition"]);
+              }
+              dom.byId("mapNotesButton").style.backgroundImage = 'url("./images/ui/mapNoteSelected.png")';
+          },
+
+          hideMapnotePanel: function () {
+              domClass.replace("mapNotesContainer", "hideMapNotesContainer", "showMapNotesContainer");
+              domClass.replace("zoomSlider", "shiftLeft", "shiftRight");
+              dom.byId("mapNotesButton").style.backgroundImage = 'url("./images/ui/mapNotes.png")';
+              domClass.replace(query('.esriScalebar')[0], "scalebarShiftLeft", "scalebarShiftRight");
+              domClass.add(query('.esriScalebar')[0], ["scalebarShiftLeft", "transition"]);
+          }
       });
       return Widget;
   });

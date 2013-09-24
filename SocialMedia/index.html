@@ -1,180 +1,188 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
-<title></title>
-<meta name="Keywords" content="EsriSMT, Social Media Template, Social Media Map, Twitter Map, Flickr Map, YouTube Map, Social Heatmap">
-<meta name="Description" content="The Social Media Template has an innovative use of social media, which allows you to display up-to-date, keyword-targeted social media points on a map.">
-<!-- Facebook -->
-<meta property="og:image" content="images/ui/facebook.png"/>
-<meta property="og:site_name" content="esri"/>
-<!-- End Facebook -->
-<!-- iOS -->
-<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<link rel="apple-touch-icon" href="images/ui/apple-touch-icon.png" />
-<!-- End iOS -->
-<!-- CSS -->
-<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.7/js/esri/css/esri.css" />
-<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.7/js/dojo/dojox/mobile/themes/iphone/iphone.css" />
-<link rel="stylesheet" type="text/css" href="css/dialog.css" />
-<link rel="stylesheet" type="text/css" href="css/slider.css" />
-<link rel="stylesheet" type="text/css" href="css/dijit.css" />
-<link rel="stylesheet" type="text/css" href="css/geocoder.css" />
-<link rel="stylesheet" type="text/css" href="css/social/twitter.css" />
-<link rel="stylesheet" type="text/css" href="css/social/youtube.css" />
-<link rel="stylesheet" type="text/css" href="css/social/flickr.css" />
-<link rel="stylesheet" type="text/css" href="css/social/panoramio.css" />
-<link rel="stylesheet" type="text/css" href="css/social/ushahidi.css" />
-<link rel="Stylesheet" id="dynamicStyleSheet1" />
-<link rel="Stylesheet" id="dynamicStyleSheet2" />
-<link rel="Stylesheet" id="dynamicStyleSheet3" />
-<!--[if gte IE 9]>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title></title>
+    <meta name="Keywords" content="EsriSMT, Social Media Template, Social Media Map, Twitter Map, Flickr Map, YouTube Map, Social Heatmap">
+    <meta name="Description" content="The Social Media Template has an innovative use of social media, which allows you to display up-to-date, keyword-targeted social media points on a map.">
+    <!-- Facebook -->
+    <meta property="og:image" content="images/ui/facebook.png" />
+    <meta property="og:site_name" content="esri" />
+    <!-- End Facebook -->
+    <!-- iOS -->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="apple-touch-icon" href="images/ui/apple-touch-icon.png" />
+    <!-- End iOS -->
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="//jsdev.arcgis.com/3.7/js/esri/css/esri.css" />
+    <link rel="stylesheet" type="text/css" href="//jsdev.arcgis.com/3.7/js/dojo/dojox/mobile/themes/iphone/iphone.css" />
+    <link rel="stylesheet" type="text/css" href="css/dialog.css" />
+    <link rel="stylesheet" type="text/css" href="css/slider.css" />
+    <link rel="stylesheet" type="text/css" href="css/dijit.css" />
+    <link rel="stylesheet" type="text/css" href="css/geocoder.css" />
+    <link rel="stylesheet" type="text/css" href="css/social/twitter.css" />
+    <link rel="stylesheet" type="text/css" href="css/social/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="css/social/flickr.css" />
+    <link rel="stylesheet" type="text/css" href="css/social/panoramio.css" />
+    <link rel="stylesheet" type="text/css" href="css/social/ushahidi.css" />
+    <link rel="stylesheet" type="text/css" href="//jsdev.arcgis.com/3.7/js/dojo/dijit/themes/claro/claro.css" />
+    <link rel="Stylesheet" id="dynamicStyleSheet1" />
+    <link rel="Stylesheet" id="dynamicStyleSheet2" />
+    <link rel="Stylesheet" id="dynamicStyleSheet3" />
+    <!--[if gte IE 9]>
 <link rel="stylesheet" type="text/css" href="css/ie9.css">
 <![endif]-->
-<!-- End CSS -->
+    <!-- End CSS -->
 </head>
 <body class="modernGrey">
-	<div id="mapcon" class="mapLoading">
-		<div id="map" dir="ltr">
-			<div id="divCont">
-				<div id="imgGeoLocate">
-				</div>
-				<div id="imgRefreshContainer">
-				</div>
-			</div>
-		</div>
-		<div id="zoomSlider">
-		</div>
-		<div id="heatLayer">
-		</div>
-		<div id="topMenuBar">
-			<div id="topMenuCon">
-				<div id="topMenuLeft">
-					<h1 id="mapTitle">
-					</h1>
-					<img alt="expandBtn" src="images/ui/expandTitle.png" id="expandName" style="display: none;" />
-					<div class="buttonCon">
-						<div id="locateBox">
-							<div id="geocoderSearch">
-							</div>
-						</div>
-						<div class="buttonCon">
-							<div id="placesCon">
-							</div>
-							<div id="shareMap">
-							</div>
-							<div class="clear">
-							</div>
-						</div>
-						<div class="clear">
-						</div>
-					</div>
-				</div>
-				<div id="topMenuRight">
-					<div id="aboutMapCon">
-					</div>
-					<div id="menuList">
-					</div>
-					<img alt="collapseBn" src="images/ui/collapseTitle.png" id="collapseName" style="display: none;" />
-					<div class="clear">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="searchBox">
-		</div>
-		<div id="settingsDialog">
-		</div>
-		<div id="alertDialog">
-		</div>
-		<div id="aboutDialog">
-		</div>
-		<ul id="uList">
-		</ul>
-	</div>
-	<div id="bookmarkView">
-	</div>
-	<div id="layersView">
-	</div>
-	<!-- JavaScript -->
+    <div id="mapcon" class="mapLoading">
+        <div id="map" dir="ltr">
+            <div id="divCont">
+                <div id="imgGeoLocate">
+                </div>
+                <div id="imgRefreshContainer">
+                </div>
+            </div>
+            <div id="mblMapnoteBtn">
+            </div>
+            <div id="mapNotesContainer">
+            </div>
+        </div>
+        <div id="zoomSlider">
+        </div>
+        <div id="heatLayer">
+        </div>
+        <div id="topMenuBar">
+            <div id="topMenuCon">
+                <div id="topMenuLeft">
+                 <div id="mapNotesButton">
+                 </div>
+                    <h1 id="mapTitle">
+                    </h1>
+                    <img alt="expandBtn" src="images/ui/expandTitle.png" id="expandName" style="display: none;" />
+                    <div class="buttonCon">
+                        <div id="locateBox">
+                            <div id="geocoderSearch">
+                            </div>
+                        </div>
+                        <div class="buttonCon">
+                            <div id="placesCon">
+                            </div>
+                            <div id="shareMap">
+                            </div>
+                            <div class="clear">
+                            </div>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+                <div id="topMenuRight">
+                    <div id="aboutMapCon">
+                    </div>
+                    <div id="menuList">
+                    </div>
+                    <img alt="collapseBn" src="images/ui/collapseTitle.png" id="collapseName" style="display: none;" />
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="searchBox">
+        </div>
+        <div id="settingsDialog">
+        </div>
+        <div id="alertDialog">
+        </div>
+        <div id="aboutDialog">
+        </div>
+        <ul id="uList">
+        </ul>
+    </div>
+    <div id="bookmarkView">
+    </div>
+    <div id="layersView">
+    </div>
+    <!-- JavaScript -->
     <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-215788-43']);
-      _gaq.push(['_setDomainName', ".arcgis.com"]);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-215788-43']);
+        _gaq.push(['_setDomainName', ".arcgis.com"]);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
     </script>
     <script type="text/javascript" src="js/application/djConfig.js"></script>
-	<script type="text/javascript" src="//js.arcgis.com/3.7/"></script>
+	<!--<script type="text/javascript" src="//jsdev.arcgis.com/3.7/"></script>-->
+    <script type="text/javascript" src="//js.arcgis.com/3.6/"></script>
     <script type="text/javascript" src="js/plugins/respond.js"></script>
     <script type="text/javascript" src="js/plugins/heatmap.js"></script>
     <script type="text/javascript">
-	    require(["dojo/_base/kernel", 'dojo/ready', 'dojo/parser', "dojo/dom"], function (dojo, ready, parser, dom) {
-	        var userAgent = window.navigator.userAgent;
-	        dojo.showInfoWindow = false;
-	        dojo.isTablet = false;
-	        dojo.isMobileDevice = false;
-	        dojo.isBrowser = false;
-	        dojo.isiOS = false;
-	        dojo.isReferrer = false;
+        require(["dojo/_base/kernel", 'dojo/ready', 'dojo/parser', "dojo/dom"], function (dojo, ready, parser, dom) {
+            var userAgent = window.navigator.userAgent;
+            dojo.showInfoWindow = false;
+            dojo.isTablet = false;
+            dojo.isMobileDevice = false;
+            dojo.isBrowser = false;
+            dojo.isiOS = false;
+            dojo.isReferrer = false;
+            if (userAgent.indexOf("iPhone") >= 0 || userAgent.indexOf("iPad") >= 0) {
+                dojo.isiOS = true;
+            }
+            if ((userAgent.indexOf("Android") >= 0 && userAgent.indexOf("Mobile") >= 0) || userAgent.indexOf("iPhone") >= 0) {
+                fontSize = 15;
+                dojo.isMobileDevice = true;
+                dom.byId('dynamicStyleSheet1').href = "css/mobile.css";
+            }
+            else if (userAgent.indexOf("iPad") >= 0 || userAgent.indexOf("Android") >= 0) {
+                fontSize = 14;
+                dojo.isTablet = true;
+                dom.byId('dynamicStyleSheet1').href = "css/tablet.css";
+            }
+            else {
+                dojo.isBrowser = true;
+                fontSize = 11;
+                if (document.referrer && (!opener)) {
+                    if ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) < 800) {
+                        dojo.isReferrer = true;
+                    }
+                }
 
-	        if (userAgent.indexOf("iPhone") >= 0 || userAgent.indexOf("iPad") >= 0) {
-	            dojo.isiOS = true;
-	        }
-	        if ((userAgent.indexOf("Android") >= 0 && userAgent.indexOf("Mobile") >= 0) || userAgent.indexOf("iPhone") >= 0) {
-	            fontSize = 15;
-	            dojo.isMobileDevice = true;
-	            dom.byId('dynamicStyleSheet1').href = "css/mobile.css";
-	        }
-	        else if (userAgent.indexOf("iPad") >= 0 || userAgent.indexOf("Android") >= 0) {
-	            fontSize = 14;
-	            dojo.isTablet = true;
-	            dom.byId('dynamicStyleSheet1').href = "css/tablet.css";
-	        }
-	        else {
-	            dojo.isBrowser = true;
-	            fontSize = 11;
-	            if (document.referrer && (!opener)) {
-	                if ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) < 800) {
-	                    dojo.isReferrer = true;
-	                }
-	            }
-	            if (dojo.isReferrer) {
-	                dom.byId('dynamicStyleSheet1').href = "css/browser.css";
-	            } else {
-	                dom.byId('dynamicStyleSheet1').href = "css/applicationMain.css";
-	            }
-	        }
+                if (dojo.isReferrer) {
+                    dom.byId('dynamicStyleSheet1').href = "css/browser.css";
+                } else {
+                    dom.byId('dynamicStyleSheet1').href = "css/applicationMain.css";
+                }
+            }
 
-	        if ((dojo.isReferrer || dojo.isTablet) && (!dojo.isMobileDevice)) {
-	            dom.byId('dynamicStyleSheet3').href = "css/mediaQueryEmbedded.css";
-	            dom.byId('dynamicStyleSheet2').href = "css/application.css";
-	            require(["application/main", "config/config"], function (application, configOptions) {
-	                application(configOptions);
-	            });
+            if ((dojo.isReferrer || dojo.isTablet) && (!dojo.isMobileDevice)) {
+                dom.byId('dynamicStyleSheet3').href = "css/mediaQueryEmbedded.css";
+                dom.byId('dynamicStyleSheet2').href = "css/application.css";
+                require(["application/main", "config/config"], function (application, configOptions) {
+                    application(configOptions);
+                });
 
-	        }
-	        else if (dojo.isMobileDevice) {
-	            dom.byId('dynamicStyleSheet2').href = "css/application.css";
-	            require(["application/main", "config/config"], function (application, configOptions) {
-	                application(configOptions);
-	            });
-	        }
-	        else {
-	            dom.byId('dynamicStyleSheet2').href = "css/mediaQueries.css";
-	            require(["application/mainApp", "config/config"], function (application, configOptions) {
-	                application(configOptions);
-	            });
-	        }
-	    });
+            }
+            else if (dojo.isMobileDevice) {
+                dom.byId('dynamicStyleSheet2').href = "css/application.css";
+                require(["application/main", "config/config"], function (application, configOptions) {
+                    application(configOptions);
+                });
+            }
+            else {
+                dom.byId('dynamicStyleSheet2').href = "css/mediaQueries.css";
+                require(["application/mainApp", "config/config"], function (application, configOptions) {
+                    application(configOptions);
+                });
+            }
+        });
     </script>
     <!-- End JavaScript -->
 </body>

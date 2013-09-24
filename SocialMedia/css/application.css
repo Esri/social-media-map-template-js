@@ -984,7 +984,6 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 #zoomSlider {
     position: absolute;
     top: 37px;
-    left: 0;
     margin: 10px;
     padding: 0;
     z-index: 36;

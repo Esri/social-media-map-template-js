@@ -1,18 +1,18 @@
 define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapServiceLayer) {
     var config = {
-        "appid": "",
-        "webmap": "4ff792a3962547caad2d924413c40985",
+        "appid": "98d5a675de7f4ca7a08c223e9adfaede",
+        "webmap": "b676e934fef74541a4f288c50d866f88",
         "socialDisplay": "point",
         "showFlickr": true,
         "showFlickrConfig": true,
-        "flickrChecked": true,
-        "flickrSearch": "weather",
+        "flickrChecked": false,
+        "flickrSearch": "football",
         "flickrRange": "this_month",
         "flickrKey": "404ebea7d5bc27aa5251d1207620e99b",
-        "showYouTube": false,
+        "showYouTube": true,
         "showYouTubeConfig": true,
         "youtubeChecked": true,
-        "youtubeSearch": "weather",
+        "youtubeSearch": "football",
         "youtubeRange": "this_month",
         "youtubeKey": "AI39si5AmNrzX3VKNKo4Kcet9BVemrvyjl4B13ezBbNLsvKOlw9Vh3eL_57dZ2vC6M9PwV9i3bHm6emtZLr_BhQ8qtnTbvwzCw",
         "showTwitter": true,
@@ -44,13 +44,13 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "showLayersMenu": true,
         "showLegendMenu": true,
         "showDisplaySwitch": true,
-        "showPlaces": true,
+        "showPlaces": false,
         "showGeolocation": true,
         "showAboutDialog": true,
-        "showAboutDialogOnLoad": false,
+        "showAboutDialogOnLoad": true,
         "updateSocialLayersOnPan": false,
-        "locateName": "",
-        "locatePoint": ""
+        "showMapNote": true,
+        "zoomLevel": 7,
 /*
         "securedLayers": [
             {
@@ -64,6 +64,15 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
             }
         ],
         */
+        "locateName": "",
+        "locatePoint": "",
+        "bannedUsersService": "http://services.arcgis.com/QJfoC7c7Z2icolha/ArcGIS/rest/services/fai/FeatureServer/2",
+        "bannedWordsService": "http://tm2-elb-1378978824.us-east-1.elb.amazonaws.com/ArcGIS/rest/services/SharedTools/Filter/MapServer/1",
+        "flagMailServer": "http://tmappsevents.esri.com/Website/pim_fai/fai.php",
+        "sourceCountry": "USA",
+        "TinyURLResponseAttribute": "data.url",
+        "TinyURLServiceURL": "http://api.bit.ly/v3/shorten?login=esri&apiKey=R_65fd9891cd882e2a96b99d4bda1be00e&uri=${0}&format=json",
+        "ExtentRange": 15
     };
     return config;
 });

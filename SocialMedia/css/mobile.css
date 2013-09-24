@@ -220,12 +220,12 @@
 }
 
 .esriMobileNavigationBar,.esriPopupMobile,.titlePane {
-    -webkit-touch-callout:none;
-    -webkit-user-select:none;
-}
-
-.esriPopupMobile{
-    background: #000;
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    background-color:#4A4A4A!important;
+    background-image:none!important;
+    background:linear-gradient(tobottom,#4B4B4B0%,#020202100%)!important;
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4B4B4B',endColorstr='#020202',GradientType=0)!important;
 }
 
 .esriPopupMobile .pointer.bottom {
@@ -358,7 +358,7 @@
 }
 
 .esriPopupMobile .titlePane {
-    background:none repeat scroll 0 0 transparent!important;
+    background:none repeat scroll 0 0 #4A4A4A!important;
 }
 
 .accessoryButton {
@@ -441,3 +441,117 @@
     height:30px!important;
     width:30px!important;
 }
+/*Enhancements parts */
+
+.transition {
+    transition-property:left;
+    transition-duration:1s;
+    transition-timing-function:ease;
+    transition-delay:0s;
+    /* Safari */
+    -webkit-transition-property:left;
+    -webkit-transition-duration:1s;
+    -webkit-transition-timing-function:ease;
+    -webkit-transition-delay:0s;
+}
+
+#mblMapnoteBtn {
+    background: url(../images/ui/mblMapnote.png);
+    height: 28px;
+    width: 28px;
+    display: none;
+    margin-left: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 50px;
+    z-index: 100;
+}
+
+.slideBtnLeft {
+    left: 0%;
+}
+
+#mapNotesContainer {
+    position: absolute;
+    top: 60px;
+    left: -94%;
+    height: 200px;
+
+    z-index: 100;
+    background-color: #F8F8F8;
+    border-right: 1px solid #999999;
+    box-shadow: 0px 0px 10px 0px gray inset;
+}
+.mapNoteListContainer {
+   width: 100%;
+   height: 88%;
+   overflow-y: auto;
+   overflow-x: hidden;
+}
+.showMapNotesContainer {
+    left: 0px !important;
+}
+
+.hideMapNotesContainer {
+    left: -94% !important;
+}
+
+.tabContainer {
+    min-height: 7%;
+    width: 100%;
+    background-color: #007AC2;
+}
+
+.MapNoteTitle {
+   height: 100%;
+   width: 100%;
+   color: white;
+   font-size: 16px;
+   font-weight: bold;
+   line-height: 35px;
+   text-align: center;
+}
+.titleNode, .contentNode {
+    padding-left: 10px;
+    line-height: 32px !important;
+    font-size: 14px;
+}
+
+.contentNode {
+    background-color:purple;
+    color:white;
+}
+
+.bottomBorder {
+    border-bottom: 1px solid #ccc;
+}
+.descriptionNode
+{
+    line-height: 32px;
+}
+@media all and (orientation:portrait) {
+#mapNotesContainer
+    {
+        height: 75%;
+        width: 90%;
+    }
+
+    .slideBtnRight {
+        left: 90%;
+    }
+}
+
+@media all and (orientation:landscape) {
+    #mapNotesContainer
+    {
+        height: 65%;
+        width: 94%;
+    }
+    .slideBtnRight {
+        left: 94%;
+    }
+    .mapNoteListContainer {
+        height: 80%;
+    }
+ }
