@@ -183,7 +183,7 @@ function (dojo, script, declare, domGeom, arr, lang, event, ioQuery, InfoTemplat
         parseHashtag: function (text) {
             return text.replace(/[#]+[A-Za-z0-9-_]+/g, function (t) {
                 var tag = t.replace("#", "%23");
-                return '<a target="_blank" href="' + location.protocol + '//search.twitter.com/search?q=' + tag + '">' + t + '</a>';
+                return '<a target="_blank" href="https://twitter.com/search?q=' + tag + '">' + t + '</a>';
             });
         },
         getPoints: function () {
