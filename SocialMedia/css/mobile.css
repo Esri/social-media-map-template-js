@@ -229,11 +229,11 @@
 }
 
 .esriPopupMobile .pointer.bottom {
-    background:url(../images/ui/down-arrow.png) no-repeat!important;
+    background:url(../images/ui/down-arrow-gray.png) no-repeat!important;
 }
 
 .esriPopupMobile .pointer.top {
-    background:url(../images/ui/up-arrow.png) no-repeat!important;
+    background:url(../images/ui/up-arrow-gray.png) no-repeat!important;
 }
 
 .modernGrey .esriGeocoderContainer {
@@ -442,7 +442,6 @@
     width:30px!important;
 }
 /*Enhancements parts */
-
 .transition {
     transition-property:left;
     transition-duration:1s;
@@ -454,7 +453,6 @@
     -webkit-transition-timing-function:ease;
     -webkit-transition-delay:0s;
 }
-
 #mblMapnoteBtn {
     background: url(../images/ui/mblMapnote.png);
     height: 28px;
@@ -467,17 +465,33 @@
     top: 50px;
     z-index: 100;
 }
-
+#mblZoomBtnContainer
+{
+    position: absolute;
+    margin-left: 5px;
+    z-index: 100;
+    display: none;
+}
+#zoomInBtn {
+    background: url(../images/ui/zoomin.png);
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+}
+#zoomOutBtn {
+    background: url(../images/ui/zoomout.png);
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+}
 .slideBtnLeft {
     left: 0%;
 }
-
 #mapNotesContainer {
     position: absolute;
     top: 60px;
     left: -94%;
     height: 200px;
-
     z-index: 100;
     background-color: #F8F8F8;
     border-right: 1px solid #999999;
@@ -492,17 +506,14 @@
 .showMapNotesContainer {
     left: 0px !important;
 }
-
 .hideMapNotesContainer {
     left: -94% !important;
 }
-
 .tabContainer {
     min-height: 7%;
     width: 100%;
     background-color: #007AC2;
 }
-
 .MapNoteTitle {
    height: 100%;
    width: 100%;
@@ -517,12 +528,10 @@
     line-height: 32px !important;
     font-size: 14px;
 }
-
 .contentNode {
     background-color:purple;
     color:white;
 }
-
 .bottomBorder {
     border-bottom: 1px solid #ccc;
 }
@@ -530,28 +539,38 @@
 {
     line-height: 32px;
 }
+.bookmarkList
+{
+    padding-left: 10px;
+    line-height: 26px;
+    font-size: 14px;
+    color:#2D2D2D;
+    cursor: pointer;
+}
 @media all and (orientation:portrait) {
-#mapNotesContainer
-    {
-        height: 75%;
-        width: 90%;
+    #mapNotesContainer {
+	height: 75%;
+	width: 90%;
     }
-
     .slideBtnRight {
-        left: 90%;
+	left: 90%;
+    }
+    #mblZoomBtnContainer  {
+	bottom: 85px;
     }
 }
-
 @media all and (orientation:landscape) {
-    #mapNotesContainer
-    {
-        height: 65%;
-        width: 94%;
+    #mapNotesContainer {
+	height: 65%;
+	width: 94%;
     }
     .slideBtnRight {
-        left: 94%;
+	left: 94%;
     }
     .mapNoteListContainer {
-        height: 80%;
+	height: 80%;
+    }
+    #mblZoomBtnContainer  {
+	bottom: 70px;
     }
  }

@@ -622,7 +622,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 }
 
 #layersMenu, #socialMenu {
-    width: 275px;
+    width: auto;
 }
 
 #basemapMenu, #legendMenu {

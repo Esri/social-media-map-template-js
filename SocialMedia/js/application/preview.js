@@ -68,40 +68,40 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                     query('#embedCustom').addClass('selected');
                     break;
                 default:
-                    debugger;
+
                     if (_self.isPercent) {
                         _self.options.embedWidth = query('#inputWidth').attr('value')[0] / 100 * domGeom.getMarginBox(dom.byId('mapResizeContainer')).w;
                         _self.options.embedHeight = query('#inputHeight').attr('value')[0] / 100 * domGeom.getMarginBox(dom.byId('mapResizeContainer')).h;
                     } else {
-                        _self.options.embedWidth = query('#inputWidth').attr('value')[0];
-                        _self.options.embedHeight = query('#inputHeight').attr('value')[0];
-                        if (isNaN(_self.options.embedWidth)) {
-                            _self.alertDialog(i18n.viewer.errors.integersOnly);
-                            _self.options.embedWidth = _self.options.embedSizes.medium.width;
-                            query('#inputWidth').attr('value', _self.options.embedWidth);
-                        }
-                        if (isNaN(_self.options.embedHeight)) {
-                            _self.alertDialog(i18n.viewer.errors.integersOnly);
-                            _self.options.embedHeight = _self.options.embedSizes.medium.height;
-                            query('#inputHeight').attr('value', _self.options.embedHeight);
-                        }
-                        if (_self.options.embedSizes.minimum.width && _self.options.embedWidth < _self.options.embedSizes.minimum.width) {
-                            _self.options.embedWidth = _self.options.embedSizes.minimum.width;
-                            _self.alertDialog(i18n.viewer.preview.minWidth + ' ' + _self.options.embedWidth);
-                            query('#inputWidth').attr('value', _self.options.embedWidth);
-                        } else if (_self.options.embedSizes.minimum.height && _self.options.embedHeight < _self.options.embedSizes.minimum.height) {
-                            _self.options.embedHeight = _self.options.embedSizes.minimum.height;
-                            _self.alertDialog(i18n.viewer.preview.minHeight + ' ' + _self.options.embedHeight);
-                            query('#inputHeight').attr('value', _self.options.embedHeight);
-                        } else if (_self.options.embedSizes.maximum.width && _self.options.embedWidth > _self.options.embedSizes.maximum.width) {
-                            _self.options.embedWidth = _self.options.embedSizes.maximum.width;
-                            _self.alertDialog(i18n.viewer.preview.maxWidth + ' ' + _self.options.embedWidth);
-                            query('#inputWidth').attr('value', _self.options.embedWidth);
-                        } else if (_self.options.embedSizes.maximum.height && _self.options.embedHeight > _self.options.embedSizes.maximum.height) {
-                            _self.options.embedHeight = _self.options.embedSizes.maximum.height;
-                            _self.alertDialog(i18n.viewer.preview.maxHeight + ' ' + _self.options.embedHeight);
-                            query('#inputHeight').attr('value', _self.options.embedHeight);
-                        }
+                    _self.options.embedWidth = query('#inputWidth').attr('value')[0];
+                    _self.options.embedHeight = query('#inputHeight').attr('value')[0];
+                    if (isNaN(_self.options.embedWidth)) {
+                        _self.alertDialog(i18n.viewer.errors.integersOnly);
+                        _self.options.embedWidth = _self.options.embedSizes.medium.width;
+                        query('#inputWidth').attr('value', _self.options.embedWidth);
+                    }
+                    if (isNaN(_self.options.embedHeight)) {
+                        _self.alertDialog(i18n.viewer.errors.integersOnly);
+                        _self.options.embedHeight = _self.options.embedSizes.medium.height;
+                        query('#inputHeight').attr('value', _self.options.embedHeight);
+                    }
+                    if (_self.options.embedSizes.minimum.width && _self.options.embedWidth < _self.options.embedSizes.minimum.width) {
+                        _self.options.embedWidth = _self.options.embedSizes.minimum.width;
+                        _self.alertDialog(i18n.viewer.preview.minWidth + ' ' + _self.options.embedWidth);
+                        query('#inputWidth').attr('value', _self.options.embedWidth);
+                    } else if (_self.options.embedSizes.minimum.height && _self.options.embedHeight < _self.options.embedSizes.minimum.height) {
+                        _self.options.embedHeight = _self.options.embedSizes.minimum.height;
+                        _self.alertDialog(i18n.viewer.preview.minHeight + ' ' + _self.options.embedHeight);
+                        query('#inputHeight').attr('value', _self.options.embedHeight);
+                    } else if (_self.options.embedSizes.maximum.width && _self.options.embedWidth > _self.options.embedSizes.maximum.width) {
+                        _self.options.embedWidth = _self.options.embedSizes.maximum.width;
+                        _self.alertDialog(i18n.viewer.preview.maxWidth + ' ' + _self.options.embedWidth);
+                        query('#inputWidth').attr('value', _self.options.embedWidth);
+                    } else if (_self.options.embedSizes.maximum.height && _self.options.embedHeight > _self.options.embedSizes.maximum.height) {
+                        _self.options.embedHeight = _self.options.embedSizes.maximum.height;
+                        _self.alertDialog(i18n.viewer.preview.maxHeight + ' ' + _self.options.embedHeight);
+                        query('#inputHeight').attr('value', _self.options.embedHeight);
+                    }
                     }
                     query('#embedCustom').addClass('selected');
             }
@@ -111,7 +111,6 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
             });
             _self.resizeMapPreview();
             _self.setSharing(true);
-
         },
         // configure embed
         init: function () {
@@ -165,12 +164,12 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                 _self.utils.setStartExtent();
                 _self.utils.setStartLevel();
                 on(_self.map, "resize", function () {
-                    setTimeout(function () {
+                   setTimeout(function () {
                         if (_self.options.startExtent) {
                             _self.map.setExtent(_self.options.startExtent);
                         }
                     }, 500);
-                });
+                });             
             });
             // on error response
             mapDeferred.addErrback(function (error) {
