@@ -1915,7 +1915,7 @@ define([
 	            }
 	        },
 
-	        //Map Notes
+	        //List will be created for every mapnote showing title
 	        configureMapNotes: function () {
 	            var _self = this;
 	            var tabContainer = domConstruct.create("div", { class: "tabContainer" }, "mapNotesContainer", "first");
@@ -1958,11 +1958,9 @@ define([
 	                                            domStyle.set(list.titleNode, "color", '#000000');
 	                                        }
 	                                    });
-
-
 	                                });
 	                                mapNoteFeature.onClick = function (evt) {
-	                                    _self.utils.changeMapNoteTitle(evt);
+	                                    _self.utils.updateMapnoteTitle(evt);
 	                                };
 	                            });
 	                        });
@@ -1972,12 +1970,13 @@ define([
 	                    domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.bookmarksTitle);
 	                    array.forEach(_self.options.itemInfo.itemData.bookmarks, function (content, index) {
 	                        var bookmark = domConstruct.create("div", { class: "bookmarkList bottomBorder", innerHTML: content.name }, mapNoteListContainer, "last");
-
 	                        var newExtent = new Extent(content.extent);
 	                        on(bookmark, 'click', function (evt) {
 	                            _self.options.map.setExtent(newExtent);
 	                        });
 	                    });
+	                } else {
+	                    domConstruct.destroy("mblMapnoteBtn");
 	                }
                     }
                 },
@@ -4122,17 +4121,16 @@ define([
                     if (dojo.isMobileDevice) {
                         _self.hideAddressBar();
                         _self.setViewHeight();
+                    //If map note is set true in config, show map note button
 	                if (_self.options.showMapNote) {
+	                    if (dom.byId("mblMapnoteBtn")) {
 	                    dom.byId("mblMapnoteBtn").style.display = "block";
-	                }
 	                on(dom.byId("mblMapnoteBtn"), "click", function () {
 	                    if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
 	                        domClass.replace("mapNotesContainer", "hideMapNotesContainer", "showMapNotesContainer");
 	                        domClass.replace("mblMapnoteBtn", "slideBtnLeft", "slideBtnRight");
 	                        domClass.replace("mblZoomBtnContainer", "slideBtnLeft", "slideBtnRight");
-
 	                    } else {
-
 	                        if (domClass.contains("mapNotesContainer", "hideMapNotesContainer")) {
 	                            domClass.replace("mapNotesContainer", "showMapNotesContainer", "hideMapNotesContainer");
 	                            domClass.replace("mblMapnoteBtn", "slideBtnRight", "slideBtnLeft");
@@ -4145,16 +4143,18 @@ define([
 	                        }
 	                    }
 	                });
+	                    }
+	                }
 	                dom.byId("mblZoomBtnContainer").style.display = "block";
 
                     } else if (dojo.isBrowser) {
                         _self.resizeTopMenuBar();
+	                //If map note is set true in config
 	                if (_self.options.showMapNote) {
+	                    if (dom.byId("mapNotesButton")) {
 	                    domStyle.set("mapNotesButton", "display", "block");
 	                    domClass.add("mapNotesButton", "barButton");
 	                    domConstruct.create("div", { class: "headerIcon", id: "mapNoteHeaderIcon" }, "mapNotesButton", "first");
-	                }
-
 	                on(dom.byId("mapNotesButton"), "click", function () {
 	                    if (domClass.contains("mapNotesButton", "mapnoteSelected")) {
 	                        domClass.remove("mapNotesButton", "mapnoteSelected");
@@ -4163,6 +4163,8 @@ define([
 	                    }
 	                    _self.utils.toggleLeftPanel();
 	                });
+	                    }
+	                }
                     }
                 },
                 mapIsLoaded: function () {
@@ -4200,6 +4202,7 @@ define([
                     _self.updateSocialLayers();
                     _self.configureSearchBox();
 	            if (dojo.isBrowser) {
+	                // set up map note panel
 	                _self.utils.configureMapNotes(_self.mapNotesLayer);
 	            } else {
 	                _self.configureMapNotes();
@@ -4232,7 +4235,7 @@ define([
                             }
                         });
                     }, 4000);
-	            on(_self.options.map, "PanStart,ZoomStart", function () { _self.utils.closeMapTip(); });
+	            on(_self.options.map, "PanStart,ZoomStart", function () { _self.utils.hideMapnoteTooltip(); });
                     if (dojo.isMobileDevice) {
                         dojo.byId("zoomSlider").style.display = "none";
                         query('#topMenuBar').style('display', 'none');

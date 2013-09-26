@@ -2576,6 +2576,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
             _self.resizeMap();
             _self.updateSocialLayers();
             _self.configureSearchBox();
+            // set up map note panel
 	    _self.utils.configureMapNotes(_self.mapNotesLayer);
 
             setTimeout(function() {
@@ -2591,7 +2592,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     _self.resetSocialRefreshTimer();
                 });
             }, 4000);
-	    on(_self.options.map, "PanStart,ZoomStart", function() { _self.utils.closeMapTip(); });
+	    on(_self.options.map, "PanStart,ZoomStart", function() { _self.utils.hideMapnoteTooltip(); });
             // map loaded.
             _self.onMapLoad();
         },

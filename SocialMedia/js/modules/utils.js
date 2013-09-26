@@ -612,19 +612,20 @@
                   };
               }
           },
+          //List will be created for every mapnote showing title
           configureMapNotes: function (mapNoteLayers) {
               var _self = this;
               _self.mapNotesLayer = mapNoteLayers;
               array.forEach(_self.options.itemInfo.itemData.operationalLayers, function (layer, index) {
                   layer.layerObject.onClick = function () {
                       _self.showInfoWindow = true;
-                      _self.closeMapTip();
+                      _self.hideMapnoteTooltip();
           }
               });
-              var tabContainer = domConstruct.create("div", { class: "tabContainer" }, "mapNotesContainer", "first");
-              var headerTitle = domConstruct.create("div", { class: "MapNoteTitle" }, tabContainer, "first");
+              domConstruct.create("div", { class: "tabContainer", id: "tabContainer" }, "mapNotesContainer", "first");
+              var headerTitle = domConstruct.create("div", { class: "MapNoteTitle" }, "tabContainer", "first");
               var mapNoteListContainer = domConstruct.create("div", { class: "mapNoteListContainer" }, "mapNotesContainer", "last");
-
+              //If mapnotes are present
               if (_self.mapNotesLayer.length > 0) {
                   html.set(headerTitle, i18n.viewer.buttons.mapnote);
                   domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.mapnoteTitle);
@@ -633,6 +634,7 @@
                   array.forEach(_self.mapNotesLayer, function (mapNote, i) {
                       array.forEach(mapNote.featureCollection.layers, function (mapNoteLayer, j) {
                           var mapNoteFeature = mapNoteLayer.layerObject;
+                          // Setting title and description for each mapnote
                           array.forEach(mapNoteLayer.featureSet.features, function (item, k) {
                               var titlePane = new TitlePane({ title: item.attributes.TITLE, content: item.attributes.DESCRIPTION, open: false });
                               titlePane.id = item.attributes.TITLE + item.attributes.OBJECTID;
@@ -646,23 +648,27 @@
                               domClass.add(titlePane.domNode, "bottomBorder");
                               domClass.add(titlePane.containerNode, "descriptionNode");
                               titlePane.titleBarNode.onclick = function () {
+                                  array.forEach(_self.mapNotesList, function (list) {
+                                      domStyle.set(list.titleNode, "color", '#000');
+                                  });
                                   if (titlePane.open) {
                                       domStyle.set(titlePane.titleNode, "color", '#7F00FF');
-                                      if (mapNoteLayer.featureSet.geometryType == "esriGeometryPolygon") {
-                                          _self.options.map.centerAndZoom(mapNoteLayer.layerObject.graphics[k].geometry.getExtent().getCenter(), 7);
-                                      }
-                                      else if (mapNoteLayer.featureSet.geometryType == "esriGeometryPolyline") {
+                                      var geometryType = mapNoteLayer.featureSet.geometryType;
+                                      switch (geometryType) {
+                                          case "esriGeometryPolygon":
+                                              _self.options.map.centerAndZoom(mapNoteLayer.layerObject.graphics[k].geometry.getExtent().getCenter(), _self.options.zoomLevel);
+                                              break;
+                                          case "esriGeometryPolyline":
                                           var anchorPointIndex = Math.floor(mapNoteLayer.layerObject.graphics[k].geometry.paths[0].length / 2);
                                           var point = new Point(mapNoteLayer.layerObject.graphics[k].geometry.paths[0][anchorPointIndex], _self.options.map.spatialReference);
-                                          _self.options.map.centerAndZoom(point, 7);
-                                      }
-                                      else {
-                                          x = 15;
+                                              _self.options.map.centerAndZoom(point, _self.options.zoomLevel);
+                                              break;
+                                          default:
                                           _self.options.map.centerAndZoom(item.geometry, 10);
                                       }
                                       _self.showMapnoteDescription(mapNoteLayer, k);
                                   } else {
-                                      _self.closeMapTip();
+                                      _self.hideMapnoteTooltip();
                                       domStyle.set(titlePane.titleNode, "color", '#000');
                                   }
                               }
@@ -674,16 +680,29 @@
                                       _self.options.map.infoWindow.hide();
                                   }
                               });
-                              _self.options.map.centerAt(evt.graphic.geometry);
+                              var geometryType = mapNoteLayer.featureSet.geometryType;
+                              switch (geometryType) {
+                                  case "esriGeometryPolygon":
+                                      _self.options.map.centerAt(evt.graphic.geometry.getExtent().getCenter());
+                                      break;
+                                  case "esriGeometryPolyline":
+                                      var anchorPointIndex = Math.floor(evt.graphic.geometry.paths[0].length / 2);
+                                      var point = new esri.geometry.Point(evt.graphic.geometry.paths[0][anchorPointIndex][0], evt.graphic.geometry.paths[0][anchorPointIndex][1], _self.options.map.spatialReference);
+                                      _self.options.map.centerAt(point);
+                                      break;
+                                  default:
+                  
+                              }
                               setTimeout(function () {
-                                  _self.showMapTip(evt);
+                                  _self.showMapnoteTooltip(evt);
                               }, 100);
-                              _self.changeMapNoteTitle(evt);
+                              _self.updateMapnoteTitle(evt);
                               _self.showMapnotePanel();
                           }
                       });
                   });
               }
+              //If mapnotes are unavailable bookmarks panel will be created
               else if (_self.options.itemInfo.itemData.bookmarks) {
                   html.set(headerTitle, i18n.viewer.buttons.bookmarks);
                   domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.bookmarksTitle);
@@ -695,72 +714,82 @@
                       });
                   });
               }
+              //If both, mapnotes and bookmarks are unavailable, destroy button
               else {
+                  domConstruct.destroy("mapNotesButton");
               }
           },
+          //Open description panel in the man note list
           showMapnoteDescription: function (mapNoteLayer, k) {
               var _self = this;
-              var x = 0;
+              var anchorPoint = _self.options.map.toScreen(_self.options.map.extent.getCenter());
               if (_self.options.map.infoWindow.isShowing) {
                   _self.options.map.infoWindow.hide();
               }
-              array.forEach(_self.mapNotesList, function (list) {
-                  domStyle.set(list.titleNode, "color", '#000000');
-              });
-              _self.closeMapTip();
+              _self.hideMapnoteTooltip();
               var dialog = new TooltipDialog({
                   id: "toolTipDialog",
                   class: "claro",
                   content: '<div style="display: inline-block;"><span style="color: #fff;">' + mapNoteLayer.layerObject.graphics[k].attributes.TITLE + '</span><div class="toolTipCloseButton"></span></div>',
                   style: "position: absolute;"
               });
-              dijit.place.at(dialog.domNode, { x: _self.options.map.width / 2, y: _self.options.map.height / 2 + 20 }, ["TL", "BL", "TR", "BR"]);
+
+              dijit.place.at(dialog.domNode, { x: anchorPoint.x, y: anchorPoint.y }, ["TL", "BL", "TR", "BR"], { x: 15, y: 35 });
               on(query('.toolTipCloseButton')[0], "click", function () {
-                  _self.closeMapTip();
+                  _self.hideMapnoteTooltip();
                   _self.hideMapnoteDescription();
               });
           },
+          //Close description panel in the man note list
           hideMapnoteDescription: function () {
               var _self = this;
-              array.forEach(_self.mapNotesList, function (list) {
+              array.some(_self.mapNotesList, function (list) {
                   if (list.open) {
                       list.set('open', false);
                       domStyle.set(list.titleNode, "color", '#000');
+                      return true;
                   }
               });
           },
-          changeMapNoteTitle: function (mapNote) {
+          // Update (highlight) title in the map note list
+          updateMapnoteTitle: function (mapNote) {
               var _self = this;
               _self.hideMapnoteDescription();
-              array.forEach(_self.mapNotesList, function (list) {
+              _self.hideMapnoteTooltip();
+              array.some(_self.mapNotesList, function (list) {
                   var graphicID = mapNote.graphic.attributes.TITLE + mapNote.graphic.attributes.OBJECTID;
                   if (list.id == graphicID) {
                       list.set('open', true);
                       domStyle.set(list.titleNode, "color", '#7F00FF');
                       query('.mapNoteListContainer')[0].scrollTop = list.domNode.offsetTop - 37;
+                      return true;
                   }
               });
           },
-          showMapTip: function (event) {
+          //Show map note tooltip on map
+          showMapnoteTooltip: function (event) {
               var _self = this;
+              var anchorPoint = _self.options.map.toScreen(_self.options.map.extent.getCenter());
               var dialog = new TooltipDialog({
                   id: "toolTipDialog",
                   class: "claro",
                   content: '<div style="display: inline-block;"><span style="color: #fff;">' + event.graphic.attributes.TITLE + '</span><div class="toolTipCloseButton"></span></div>',
                   style: "position: absolute;"
               });
-              var screenPoint = _self.options.map.toScreen(_self.options.map.extent.getCenter());
-              dijit.place.at(dialog.domNode, { x: screenPoint.x + 5, y: screenPoint.y +30 }, ["TL", "BL", "TR", "BR"]);
+
+              dijit.place.at(dialog.domNode, { x: anchorPoint.x, y: anchorPoint.y }, ["TL", "BL", "TR", "BR"], { x: 15, y: 35 });
               on(query('.toolTipCloseButton')[0], "click", function () {
-                  _self.closeMapTip();
+                  _self.hideMapnoteTooltip();
                   _self.hideMapnoteDescription();
               });
           },
-          closeMapTip: function () {
+          //Hide map note tooltip
+          hideMapnoteTooltip: function () {
               if (dijit.byId('toolTipDialog')) {
                   dijit.byId('toolTipDialog').destroy();
               }
           },
+          //Show/hide left panel
           toggleLeftPanel: function () {
               var _self = this;
               if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
@@ -769,6 +798,7 @@
                   _self.showMapnotePanel();
               }
           },
+          //Show map note panel and slide zoom slider and scalebar to the right
           showMapnotePanel: function () {
               if (domClass.contains("mapNotesContainer", "hideMapNotesContainer")) {
                   domClass.replace("mapNotesContainer", "showMapNotesContainer", "hideMapNotesContainer");
@@ -780,6 +810,7 @@
                   domClass.add(query('.esriScalebar')[0], ["scalebarShiftRight", "transition"]);
               }
           },
+          //Hide map note panel and slide zoom slider and scalebar to the left
           hideMapnotePanel: function () {
               domClass.replace("mapNotesContainer", "hideMapNotesContainer", "showMapNotesContainer");
               domClass.replace("zoomSlider", "shiftLeft", "shiftRight");
