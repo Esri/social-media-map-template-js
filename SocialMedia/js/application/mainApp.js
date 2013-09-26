@@ -2496,9 +2496,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     var title = _self.options.securedLayers[i].title;
                     var index = _self.options.securedLayers[i].index;
                     if(layer){
-                        on(layer, 'update-end', function(){
-                            _self.map.addLayer(layer, index);    
-                        });
+                        _self.options.map.addLayer(layer, index); 
                         _self.options.itemInfo.itemData.operationalLayers.splice(index, 0, {
                             id: layer.id,
                             opacity: layer.opacity,
