@@ -2495,13 +2495,17 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     var layer = _self.options.securedLayers[i].layerObject;
                     var title = _self.options.securedLayers[i].title;
                     var index = _self.options.securedLayers[i].index;
-                    _self.map.addLayer(layer, index);
-                    _self.itemInfo.itemData.operationalLayers.splice(index, 0, {
-                        id: layer.id,
-                        opacity: layer.opacity,
-                        visibility: layer.visible,
-                        title: title
-                    });
+                    if(layer){
+                        on(layer, 'update-end', function(){
+                            _self.map.addLayer(layer, index);    
+                        });
+                        _self.options.itemInfo.itemData.operationalLayers.splice(index, 0, {
+                            id: layer.id,
+                            opacity: layer.opacity,
+                            visibility: layer.visible,
+                            title: title
+                        });
+                    }
                 }
             }
             if (_self.options.appid) {
