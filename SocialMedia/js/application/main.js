@@ -1919,12 +1919,12 @@ define([
 	        configureMapNotes: function () {
 	            var _self = this;
 	            var tabContainer = domConstruct.create("div", { class: "tabContainer" }, "mapNotesContainer", "first");
-	            var headerTitle = domConstruct.create("div", { class: "MapNoteTitle" }, tabContainer, "first");
+	            var headerTitle = domConstruct.create("div", { class: "mapNoteTitle" }, tabContainer, "first");
 	            var mapNoteListContainer = domConstruct.create("div", { class: "mapNoteListContainer" }, "mapNotesContainer", "last");
 	            if (dojo.isMobileDevice) {
 	                if (_self.mapNotesLayer.length > 0) {
 	                    html.set(headerTitle, i18n.viewer.buttons.mapnote);
-	                    domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.mapnoteTitle);
+	                    domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.mapNoteTitle);
 	                    var titleGroup = new TitleGroup({ title: "Map Notes" });
 	                    mapNoteListContainer.appendChild(titleGroup.domNode);
 	                    array.forEach(_self.mapNotesLayer, function (mapNote, i) {
@@ -1954,13 +1954,14 @@ define([
 	                                                    _self.options.map.centerAndZoom(item.geometry, _self.options.zoomLevel);
 	                                                }
 	                                            }, 500);
-	                                        } else {
+	                                        }
+	                                        else {
 	                                            domStyle.set(list.titleNode, "color", '#000000');
 	                                        }
 	                                    });
 	                                });
 	                                mapNoteFeature.onClick = function (evt) {
-	                                    _self.utils.updateMapnoteTitle(evt);
+	                                    _self.utils.updateMapNoteTitle(evt);
 	                                };
 	                            });
 	                        });
@@ -4006,7 +4007,6 @@ define([
                         dojo.showInfoWindow = false;
                     });
                     connect.connect(_self.options.map.infoWindow, "onShow", function () {
-
 	                if (!_self.utils.showInfoWindow) {
 	                    return;
 	                }
@@ -4016,7 +4016,6 @@ define([
 	                        _self.utils.hideMapnotePanel();
 	                    }
 	                });
-
                         _self.options.map.centerAt(_self.options.map.infoWindow._location);
                         setTimeout(function () {
                             _self.resizePopup();
@@ -4121,48 +4120,46 @@ define([
                     if (dojo.isMobileDevice) {
                         _self.hideAddressBar();
                         _self.setViewHeight();
-                    //If map note is set true in config, show map note button
+	                //If map note is set true in config, show map note button
 	                if (_self.options.showMapNote) {
 	                    if (dom.byId("mblMapnoteBtn")) {
-	                    dom.byId("mblMapnoteBtn").style.display = "block";
-	                on(dom.byId("mblMapnoteBtn"), "click", function () {
-	                    if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
-	                        domClass.replace("mapNotesContainer", "hideMapNotesContainer", "showMapNotesContainer");
-	                        domClass.replace("mblMapnoteBtn", "slideBtnLeft", "slideBtnRight");
-	                        domClass.replace("mblZoomBtnContainer", "slideBtnLeft", "slideBtnRight");
-	                    } else {
-	                        if (domClass.contains("mapNotesContainer", "hideMapNotesContainer")) {
-	                            domClass.replace("mapNotesContainer", "showMapNotesContainer", "hideMapNotesContainer");
-	                            domClass.replace("mblMapnoteBtn", "slideBtnRight", "slideBtnLeft");
-	                            domClass.replace("mblZoomBtnContainer", "slideBtnRight", "slideBtnLeft");
-	                        } else {
-	                            domClass.add("mapNotesContainer", ["showMapNotesContainer", "transition"]);
-	                            domClass.add("mblMapnoteBtn", ["slideBtnRight", "transition"]);
-	                            domClass.add("mblZoomBtnContainer", ["slideBtnRight", "transition"]);
-
-	                        }
-	                    }
-	                });
+	                        dom.byId("mblMapnoteBtn").style.display = "block";
+	                        on(dom.byId("mblMapnoteBtn"), "click", function () {
+	                            if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
+	                                domClass.replace("mapNotesContainer", "hideMapNotesContainer", "showMapNotesContainer");
+	                                domClass.replace("mblMapnoteBtn", "slideBtnLeft", "slideBtnRight");
+	                                domClass.replace("mblZoomBtnContainer", "slideBtnLeft", "slideBtnRight");
+	                            } else {
+	                                if (domClass.contains("mapNotesContainer", "hideMapNotesContainer")) {
+	                                    domClass.replace("mapNotesContainer", "showMapNotesContainer", "hideMapNotesContainer");
+	                                    domClass.replace("mblMapnoteBtn", "slideBtnRight", "slideBtnLeft");
+	                                    domClass.replace("mblZoomBtnContainer", "slideBtnRight", "slideBtnLeft");
+	                                } else {
+	                                    domClass.add("mapNotesContainer", ["showMapNotesContainer", "transition"]);
+	                                    domClass.add("mblMapnoteBtn", ["slideBtnRight", "transition"]);
+	                                    domClass.add("mblZoomBtnContainer", ["slideBtnRight", "transition"]);
+	                                }
+	                            }
+	                        });
 	                    }
 	                }
 	                dom.byId("mblZoomBtnContainer").style.display = "block";
-
-                    } else if (dojo.isBrowser) {
+	            } else if (dojo.isBrowser || dojo.isTablet) {
                         _self.resizeTopMenuBar();
 	                //If map note is set true in config
 	                if (_self.options.showMapNote) {
 	                    if (dom.byId("mapNotesButton")) {
-	                    domStyle.set("mapNotesButton", "display", "block");
-	                    domClass.add("mapNotesButton", "barButton");
-	                    domConstruct.create("div", { class: "headerIcon", id: "mapNoteHeaderIcon" }, "mapNotesButton", "first");
-	                on(dom.byId("mapNotesButton"), "click", function () {
-	                    if (domClass.contains("mapNotesButton", "mapnoteSelected")) {
-	                        domClass.remove("mapNotesButton", "mapnoteSelected");
-	                    } else {
-	                        domClass.add("mapNotesButton", "mapnoteSelected");
-	                    }
-	                    _self.utils.toggleLeftPanel();
-	                });
+	                        domStyle.set("mapNotesButton", "display", "block");
+	                        domClass.add("mapNotesButton", "barButton");
+	                        domConstruct.create("div", { class: "headerIcon", id: "mapNoteHeaderIcon" }, "mapNotesButton", "first");
+	                        on(dom.byId("mapNotesButton"), "click", function () {
+	                            if (domClass.contains("mapNotesButton", "mapnoteSelected")) {
+	                                domClass.remove("mapNotesButton", "mapnoteSelected");
+	                            } else {
+	                                domClass.add("mapNotesButton", "mapnoteSelected");
+	                            }
+	                            _self.utils.toggleLeftPanel();
+	                        });
 	                    }
 	                }
                     }
@@ -4201,7 +4198,7 @@ define([
                     _self.resizeMap();
                     _self.updateSocialLayers();
                     _self.configureSearchBox();
-	            if (dojo.isBrowser) {
+	            if (dojo.isBrowser || dojo.isTablet) {
 	                // set up map note panel
 	                _self.utils.configureMapNotes(_self.mapNotesLayer);
 	            } else {
@@ -4416,23 +4413,6 @@ define([
                         domClass.add(_self.options.customPopup.domNode, "modernGrey");
                     }
                 },
-	        changeSelection: function () {
-	            var _self = this;
-	            if (_self.options.customPopup.getSelectedFeature()) {
-	                var mapnoteAttribute = _self.options.customPopup.getSelectedFeature().attributes;
-	                var mapnoteID = mapnoteAttribute.TITLE + mapnoteAttribute.OBJECTID;
-	                array.forEach(_self.utils.mapNotesList, function (list) {
-	                    if (list.id == mapnoteID) {
-	                        list.set('open', true);
-	                        domStyle.set(list.titleNode, "color", '#7F00FF');
-	                    } else {
-	                        list.set('open', false);
-	                        domStyle.set(list.titleNode, "color", '#000');
-	                    }
-	                });
-	            }
-	        },
-
                 // Create the map object for the template
                 createWebMap: function () {
 

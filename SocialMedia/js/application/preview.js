@@ -68,7 +68,6 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                     query('#embedCustom').addClass('selected');
                     break;
                 default:
-
                     if (_self.isPercent) {
                         _self.options.embedWidth = query('#inputWidth').attr('value')[0] / 100 * domGeom.getMarginBox(dom.byId('mapResizeContainer')).w;
                         _self.options.embedHeight = query('#inputHeight').attr('value')[0] / 100 * domGeom.getMarginBox(dom.byId('mapResizeContainer')).h;
@@ -105,10 +104,17 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                     }
                     query('#embedCustom').addClass('selected');
             }
+            if (_self.isPercent) {
+                query('#map').style({
+                    'width': _self.options.embedWidth + 'px',
+                    'height': _self.options.embedHeight + 'px'
+                });
+            } else {
             query('#map, #mapPreviewResize').style({
                 'width': _self.options.embedWidth + 'px',
                 'height': _self.options.embedHeight + 'px'
             });
+            }
             _self.resizeMapPreview();
             _self.setSharing(true);
         },
@@ -178,22 +184,26 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
             // Embed Radio Buttons
             on(dom.byId("embedSmall"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
+                    _self.isPercent = false;
                     _self.mapSize('small');
                 }
             });
             on(dom.byId("embedMedium"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
+                    _self.isPercent = false;
                     _self.mapSize('medium');
                 }
             });
             on(dom.byId("embedLarge"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
+                    _self.isPercent = false;
                     _self.mapSize('large');
                 }
             });
             on(dom.byId("embedCustom"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                     _self.mapSize('custom');
+                    _self.isPercent = true;
                 }
             });
             // listener for custom map size key up - height
@@ -218,7 +228,7 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
             });
             // resizable
             ResizeHandle({
-                targetId: "mapPreviewResize",
+                targetId: "map",
                 constrainMax: true,
                 dir: _self.options.dir,
                 textDir: _self.options.dir,
@@ -226,7 +236,7 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                 minHeight: _self.options.embedSizes.minimum.height,
                 maxHeight: _self.options.embedSizes.maximum.height,
                 maxWidth: _self.options.embedSizes.maximum.width
-            }).placeAt("mapPreviewResize");
+            }).placeAt("map");
             topic.subscribe("/dojo/resize/stop", function (inst) {
                 setTimeout(function () {
                     query('#map').style('opacity', "1");

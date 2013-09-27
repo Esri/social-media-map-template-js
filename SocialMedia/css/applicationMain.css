@@ -1556,7 +1556,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     background-color: #007AC2;
 }
 
-.MapNoteTitle {
+.mapNoteTitle {
    height: 100%;
    width: 100%;
    color: white;

@@ -175,7 +175,7 @@
           // Set false url param strings to false
           setFalseValues: function (obj) {
 
-              // for each key      
+              // for each key
               for (var key in obj) {
                   // if not a prototype
                   if (obj.hasOwnProperty(key)) {
@@ -546,7 +546,7 @@
                 if (appLocation === -1) {
                     appLocation = location.pathname.indexOf("/home/");
                 }
-                //app is hosted and no sharing url is defined so let's figure it out. 
+                //app is hosted and no sharing url is defined so let's figure it out.
                 if (appLocation !== -1) {
                     // org app
                     var instance = location.pathname.substr(0, appLocation); //get the portal instance name
@@ -619,16 +619,15 @@
               array.forEach(_self.options.itemInfo.itemData.operationalLayers, function (layer, index) {
                   layer.layerObject.onClick = function () {
                       _self.showInfoWindow = true;
-                      _self.hideMapnoteTooltip();
           }
               });
               domConstruct.create("div", { class: "tabContainer", id: "tabContainer" }, "mapNotesContainer", "first");
-              var headerTitle = domConstruct.create("div", { class: "MapNoteTitle" }, "tabContainer", "first");
+              var headerTitle = domConstruct.create("div", { class: "mapNoteTitle" }, "tabContainer", "first");
               var mapNoteListContainer = domConstruct.create("div", { class: "mapNoteListContainer" }, "mapNotesContainer", "last");
               //If mapnotes are present
               if (_self.mapNotesLayer.length > 0) {
                   html.set(headerTitle, i18n.viewer.buttons.mapnote);
-                  domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.mapnoteTitle);
+                  domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.mapNoteTitle);
                   var titleGroup = new TitleGroup({ title: i18n.viewer.buttons.mapnote });
                   mapNoteListContainer.appendChild(titleGroup.domNode);
                   array.forEach(_self.mapNotesLayer, function (mapNote, i) {
@@ -659,12 +658,12 @@
                                               _self.options.map.centerAndZoom(mapNoteLayer.layerObject.graphics[k].geometry.getExtent().getCenter(), _self.options.zoomLevel);
                                               break;
                                           case "esriGeometryPolyline":
-                                          var anchorPointIndex = Math.floor(mapNoteLayer.layerObject.graphics[k].geometry.paths[0].length / 2);
-                                          var point = new Point(mapNoteLayer.layerObject.graphics[k].geometry.paths[0][anchorPointIndex], _self.options.map.spatialReference);
+                                              var anchorPointIndex = Math.floor(mapNoteLayer.layerObject.graphics[k].geometry.paths[0].length / 2);
+                                              var point = new Point(mapNoteLayer.layerObject.graphics[k].geometry.paths[0][anchorPointIndex], _self.options.map.spatialReference);
                                               _self.options.map.centerAndZoom(point, _self.options.zoomLevel);
                                               break;
                                           default:
-                                          _self.options.map.centerAndZoom(item.geometry, 10);
+                                              _self.options.map.centerAndZoom(item.geometry, _self.options.zoomLevel);
                                       }
                                       _self.showMapnoteDescription(mapNoteLayer, k);
                                   } else {
@@ -687,16 +686,16 @@
                                       break;
                                   case "esriGeometryPolyline":
                                       var anchorPointIndex = Math.floor(evt.graphic.geometry.paths[0].length / 2);
-                                      var point = new esri.geometry.Point(evt.graphic.geometry.paths[0][anchorPointIndex][0], evt.graphic.geometry.paths[0][anchorPointIndex][1], _self.options.map.spatialReference);
+                                      var point = new Point(evt.graphic.geometry.paths[0][anchorPointIndex][0], evt.graphic.geometry.paths[0][anchorPointIndex][1], _self.options.map.spatialReference);
                                       _self.options.map.centerAt(point);
                                       break;
                                   default:
-                  
+                                      _self.options.map.centerAt(evt.graphic.geometry);
                               }
                               setTimeout(function () {
                                   _self.showMapnoteTooltip(evt);
                               }, 100);
-                              _self.updateMapnoteTitle(evt);
+                              _self.updateMapNoteTitle(evt);
                               _self.showMapnotePanel();
                           }
                       });
@@ -734,7 +733,7 @@
                   style: "position: absolute;"
               });
 
-              dijit.place.at(dialog.domNode, { x: anchorPoint.x, y: anchorPoint.y }, ["TL", "BL", "TR", "BR"], { x: 15, y: 35 });
+              dijit.place.at(dialog.domNode, { x: anchorPoint.x, y: anchorPoint.y }, ["TL", "BL", "TR", "BR"], { x: 15, y: 20 });
               on(query('.toolTipCloseButton')[0], "click", function () {
                   _self.hideMapnoteTooltip();
                   _self.hideMapnoteDescription();
@@ -752,7 +751,7 @@
               });
           },
           // Update (highlight) title in the map note list
-          updateMapnoteTitle: function (mapNote) {
+          updateMapNoteTitle: function (mapNote) {
               var _self = this;
               _self.hideMapnoteDescription();
               _self.hideMapnoteTooltip();
@@ -776,8 +775,7 @@
                   content: '<div style="display: inline-block;"><span style="color: #fff;">' + event.graphic.attributes.TITLE + '</span><div class="toolTipCloseButton"></span></div>',
                   style: "position: absolute;"
               });
-
-              dijit.place.at(dialog.domNode, { x: anchorPoint.x, y: anchorPoint.y }, ["TL", "BL", "TR", "BR"], { x: 15, y: 35 });
+              dijit.place.at(dialog.domNode, { x: anchorPoint.x, y: anchorPoint.y }, ["TL", "BL", "TR", "BR"], { x: 15, y: 20 });
               on(query('.toolTipCloseButton')[0], "click", function () {
                   _self.hideMapnoteTooltip();
                   _self.hideMapnoteDescription();

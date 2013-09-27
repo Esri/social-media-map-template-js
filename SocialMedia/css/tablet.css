@@ -815,3 +815,14 @@ a:hover, a:active, a:focus {
 .locationButton .iconBlock {
     vertical-align: middle !important;
 }
+/* Enhancements parts CSS */
+.mapNoteTitle {
+    font-size: 14px !important;
+    font-family: Arial !important;
+}
+.tabContainer {
+    min-height: 5%;
+}
+.titleNode, .contentNode {
+    font-size: 14px;
+}

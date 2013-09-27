@@ -1,7 +1,7 @@
 define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapServiceLayer) {
     var config = {
         "appid": "",
-	"webmap": "ea2bf030ae06449482d13e8008aa5dfe",
+        "webmap": "4ff792a3962547caad2d924413c40985",
         "socialDisplay": "point",
         "showFlickr": true,
         "showFlickrConfig": true,

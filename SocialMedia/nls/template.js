@@ -110,7 +110,7 @@ define({
                 "basemap": "Basemap",
                 "basemapTitle": "Switch Basemap",
 		"mapnote": "Map Notes",
-		"mapnoteTitle": "Show Mapnote",
+		"mapNoteTitle": "Show Mapnote",
 		"bookmarksTitle": "Show Bookmarks",
                 "layers": "Layers",
                 "layersTitle": "Explore Layers",
