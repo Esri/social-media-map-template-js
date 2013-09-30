@@ -335,7 +335,7 @@ define([
                 setSharing: function () {
                     var _self = this;
                     // parameters to share
-                    var urlParams = ['webmap', 'basemap', 'extent', 'locateName', 'layers', 'youtubeSearch', 'youtubeRange', 'youtubeChecked', 'twitterSearch', 'twitterChecked', 'flickrSearch', 'flickrRange', 'flickrChecked', 'panoramioChecked', 'ushahidiChecked', 'socialDisplay', 'locatePoint'];
+                    var urlParams = ['webmap', 'basemap', 'extent', 'locateName', 'layers', 'youtubeSearch', 'youtubeRange', 'youtubeChecked', 'twitterSearch', 'twitterChecked', 'flickrSearch', 'flickrRange', 'flickrChecked', 'panoramioChecked', 'ushahidiChecked', 'socialDisplay', 'locatePoint', 'showMapNote'];
                     if (urlParams) {
                         _self.options.shareParams = '';
                         // for each parameter
@@ -1918,36 +1918,36 @@ define([
 	        //List will be created for every mapnote showing title
 	        configureMapNotes: function () {
 	            var _self = this;
-	            var tabContainer = domConstruct.create("div", { class: "tabContainer" }, "mapNotesContainer", "first");
-	            var headerTitle = domConstruct.create("div", { class: "mapNoteTitle" }, tabContainer, "first");
-	            var mapNoteListContainer = domConstruct.create("div", { class: "mapNoteListContainer" }, "mapNotesContainer", "last");
+	            var _tabContainer = domConstruct.create("div", { class: "tabContainer" }, "mapNotesContainer", "first");
+	            var _headerTitle = domConstruct.create("div", { class: "mapNoteTitle" }, _tabContainer, "first");
+	            var _mapNoteListContainer = domConstruct.create("div", { class: "mapNoteListContainer" }, "mapNotesContainer", "last");
 	            if (dojo.isMobileDevice) {
 	                if (_self.mapNotesLayer.length > 0) {
-	                    html.set(headerTitle, i18n.viewer.buttons.mapnote);
+	                    html.set(_headerTitle, i18n.viewer.buttons.mapnote);
 	                    domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.mapNoteTitle);
-	                    var titleGroup = new TitleGroup({ title: "Map Notes" });
-	                    mapNoteListContainer.appendChild(titleGroup.domNode);
+	                    var _titleGroup = new TitleGroup({ title: "Map Notes" });
+	                    _mapNoteListContainer.appendChild(_titleGroup.domNode);
 	                    array.forEach(_self.mapNotesLayer, function (mapNote, i) {
 	                        array.forEach(mapNote.featureCollection.layers, function (mapNoteLayer, j) {
-	                            var mapNoteFeature = mapNoteLayer.layerObject;
+	                            var _mapNoteFeature = mapNoteLayer.layerObject;
 	                            array.forEach(mapNoteLayer.featureSet.features, function (item, k) {
-	                                var titlePane = new TitlePane({ title: item.attributes.TITLE, content: item.attributes.DESCRIPTION, open: false });
-	                                titlePane.id = item.attributes.TITLE + item.attributes.OBJECTID;
-	                                if (titlePane.content == undefined) {
-	                                    titlePane.setContent("Description not available.");
+	                                var _titlePane = new TitlePane({ title: item.attributes.TITLE, content: item.attributes.DESCRIPTION, open: false });
+	                                _titlePane.id = item.attributes.TITLE + item.attributes.OBJECTID;
+	                                if (_titlePane.content == undefined) {
+	                                    _titlePane.setContent(i18n.viewer.settings.descriptionUnavailable);
 	                                }
-	                                _self.utils.mapNotesList.push(titlePane);
-	                                titleGroup.domNode.appendChild(titlePane.domNode);
-	                                domClass.add(titlePane.titleNode, "titleNode");
-	                                domClass.add(titlePane.hideNode, "contentNode");
-	                                domClass.add(titlePane.domNode, "bottomBorder");
-	                                domClass.add(titlePane.containerNode, "descriptionNode");
-	                                on(titlePane.titleBarNode, "click", function () {
+	                                _self.utils.mapNotesList.push(_titlePane);
+	                                _titleGroup.domNode.appendChild(_titlePane.domNode);
+	                                domClass.add(_titlePane.titleNode, "titleNode");
+	                                domClass.add(_titlePane.hideNode, "contentNode");
+	                                domClass.add(_titlePane.domNode, "bottomBorder");
+	                                domClass.add(_titlePane.containerNode, "descriptionNode");
+	                                on(_titlePane.titleBarNode, "click", function () {
 	                                    array.forEach(_self.utils.mapNotesList, function (list) {
 	                                        if (list.open) {
 	                                            domStyle.set(list.titleNode, "color", '#7F00FF');
 	                                            setTimeout(function () {
-	                                                if (mapNoteLayer.featureSet.geometryType == "esriGeometryPolygon" || mapNoteLayer.featureSet.geometryType == "esriGeometryPolyline") {
+	                                                if (mapNoteLayer.featureSet.geometryType === "esriGeometryPolygon" || mapNoteLayer.featureSet.geometryType === "esriGeometryPolyline") {
 	                                                    _self.options.map.centerAndZoom(mapNoteLayer.layerObject.graphics[k].geometry.getExtent().getCenter(), _self.options.zoomLevel);
 	                                                }
 	                                                else {
@@ -1960,20 +1960,20 @@ define([
 	                                        }
 	                                    });
 	                                });
-	                                mapNoteFeature.onClick = function (evt) {
+	                                _mapNoteFeature.onClick = function (evt) {
 	                                    _self.utils.updateMapNoteTitle(evt);
 	                                };
 	                            });
 	                        });
 	                    });
 	                } else if (_self.options.itemInfo.itemData.bookmarks) {
-	                    html.set(headerTitle, i18n.viewer.buttons.bookmarks);
+	                    html.set(_headerTitle, i18n.viewer.buttons.bookmarks);
 	                    domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.bookmarksTitle);
 	                    array.forEach(_self.options.itemInfo.itemData.bookmarks, function (content, index) {
-	                        var bookmark = domConstruct.create("div", { class: "bookmarkList bottomBorder", innerHTML: content.name }, mapNoteListContainer, "last");
-	                        var newExtent = new Extent(content.extent);
-	                        on(bookmark, 'click', function (evt) {
-	                            _self.options.map.setExtent(newExtent);
+	                        var _bookmark = domConstruct.create("div", { class: "bookmarkList bottomBorder", innerHTML: content.name }, _mapNoteListContainer, "last");
+	                        var _newExtent = new Extent(content.extent);
+	                        on(_bookmark, 'click', function (evt) {
+	                            _self.options.map.setExtent(_newExtent);
 	                        });
 	                    });
 	                } else {
@@ -3966,11 +3966,10 @@ define([
                     _self.options.itemInfo = response.itemInfo;
 
 	            //Seperate map notes with operational layers.
-	            array.forEach(_self.options.itemInfo.itemData.operationalLayers, function (lyr, index) {
-	                if (index < _self.options.itemInfo.itemData.operationalLayers.length) {
+	            array.some(_self.options.itemInfo.itemData.operationalLayers, function (lyr, index) {
 	                    if (!lyr.url) {
 	                        _self.mapNotesLayer = _self.options.itemInfo.itemData.operationalLayers.splice(index);
-	                    }
+	                    return true;
 	                }
 	            });
                     _self.utils.setStartExtent();
@@ -4413,6 +4412,23 @@ define([
                         domClass.add(_self.options.customPopup.domNode, "modernGrey");
                     }
                 },
+	        changeSelection: function () {
+	            var _self = this;
+	            if (_self.options.customPopup.getSelectedFeature()) {
+	                var mapnoteAttribute = _self.options.customPopup.getSelectedFeature().attributes;
+	                var mapnoteID = mapnoteAttribute.TITLE + mapnoteAttribute.OBJECTID;
+	                array.forEach(_self.utils.mapNotesList, function (list) {
+	                    if (list.id == mapnoteID) {
+	                        list.set('open', true);
+	                        domStyle.set(list.titleNode, "color", '#7F00FF');
+	                    } else {
+	                        list.set('open', false);
+	                        domStyle.set(list.titleNode, "color", '#000');
+	                    }
+	                });
+	            }
+	        },
+
                 // Create the map object for the template
                 createWebMap: function () {
 

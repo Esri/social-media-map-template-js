@@ -83,7 +83,8 @@ define({
                 "twSearch": "How to Use Advanced Twitter Search",
                 "screenName": "Screen Name", // added 8.26.2013
                 "signIn": "Sign In", // added 8.26.2013
-                "switchAccount": "Switch Account" // added 8.26.2013
+                "switchAccount": "Switch Account", // added 8.26.2013
+                "descriptionUnavailable": "Description not available"
             },
             "autoComplete": {
                 "menuTitle": "Results&hellip;"

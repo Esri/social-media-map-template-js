@@ -622,36 +622,36 @@
           }
               });
               domConstruct.create("div", { class: "tabContainer", id: "tabContainer" }, "mapNotesContainer", "first");
-              var headerTitle = domConstruct.create("div", { class: "mapNoteTitle" }, "tabContainer", "first");
-              var mapNoteListContainer = domConstruct.create("div", { class: "mapNoteListContainer" }, "mapNotesContainer", "last");
+              var _headerTitle = domConstruct.create("div", { class: "mapNoteTitle" }, "tabContainer", "first");
+              var _mapNoteListContainer = domConstruct.create("div", { class: "mapNoteListContainer" }, "mapNotesContainer", "last");
               //If mapnotes are present
               if (_self.mapNotesLayer.length > 0) {
-                  html.set(headerTitle, i18n.viewer.buttons.mapnote);
+                  html.set(_headerTitle, i18n.viewer.buttons.mapnote);
                   domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.mapNoteTitle);
                   var titleGroup = new TitleGroup({ title: i18n.viewer.buttons.mapnote });
-                  mapNoteListContainer.appendChild(titleGroup.domNode);
+                  _mapNoteListContainer.appendChild(titleGroup.domNode);
                   array.forEach(_self.mapNotesLayer, function (mapNote, i) {
                       array.forEach(mapNote.featureCollection.layers, function (mapNoteLayer, j) {
-                          var mapNoteFeature = mapNoteLayer.layerObject;
+                          var _mapNoteFeature = mapNoteLayer.layerObject;
                           // Setting title and description for each mapnote
                           array.forEach(mapNoteLayer.featureSet.features, function (item, k) {
-                              var titlePane = new TitlePane({ title: item.attributes.TITLE, content: item.attributes.DESCRIPTION, open: false });
-                              titlePane.id = item.attributes.TITLE + item.attributes.OBJECTID;
-                              if (titlePane.content == undefined) {
-                                  titlePane.setContent("Description not available.");
+                              var _titlePane = new titlePane({ title: item.attributes.TITLE, content: item.attributes.DESCRIPTION, open: false });
+                              _titlePane.id = item.attributes.TITLE + item.attributes.OBJECTID;
+                              if (_titlePane.content == undefined) {
+                                  _titlePane.setContent(i18n.viewer.settings.descriptionUnavailable);
                               }
-                              _self.mapNotesList.push(titlePane);
-                              titleGroup.domNode.appendChild(titlePane.domNode);
-                              domClass.add(titlePane.titleNode, "titleNode");
-                              domClass.add(titlePane.hideNode, "contentNode");
-                              domClass.add(titlePane.domNode, "bottomBorder");
-                              domClass.add(titlePane.containerNode, "descriptionNode");
-                              titlePane.titleBarNode.onclick = function () {
+                              _self.mapNotesList.push(_titlePane);
+                              titleGroup.domNode.appendChild(_titlePane.domNode);
+                              domClass.add(_titlePane.titleNode, "titleNode");
+                              domClass.add(_titlePane.hideNode, "contentNode");
+                              domClass.add(_titlePane.domNode, "bottomBorder");
+                              domClass.add(_titlePane.containerNode, "descriptionNode");
+                              _titlePane.titleBarNode.onclick = function () {
                                   array.forEach(_self.mapNotesList, function (list) {
                                       domStyle.set(list.titleNode, "color", '#000');
                                   });
-                                  if (titlePane.open) {
-                                      domStyle.set(titlePane.titleNode, "color", '#7F00FF');
+                                  if (_titlePane.open) {
+                                      domStyle.set(_titlePane.titleNode, "color", '#7F00FF');
                                       var geometryType = mapNoteLayer.featureSet.geometryType;
                                       switch (geometryType) {
                                           case "esriGeometryPolygon":
@@ -668,19 +668,19 @@
                                       _self.showMapnoteDescription(mapNoteLayer, k);
                                   } else {
                                       _self.hideMapnoteTooltip();
-                                      domStyle.set(titlePane.titleNode, "color", '#000');
+                                      domStyle.set(_titlePane.titleNode, "color", '#000');
                                   }
                               }
                           });
-                          mapNoteFeature.onClick = function (evt) {
+                          _mapNoteFeature.onClick = function (evt) {
                               _self.showInfoWindow = false;
                               on(_self.options.map.infoWindow, "show", function () {
                                   if (!_self.showInfoWindow) {
                                       _self.options.map.infoWindow.hide();
                                   }
                               });
-                              var geometryType = mapNoteLayer.featureSet.geometryType;
-                              switch (geometryType) {
+                              var _geometryType = mapNoteLayer.featureSet.geometryType;
+                              switch (_geometryType) {
                                   case "esriGeometryPolygon":
                                       _self.options.map.centerAt(evt.graphic.geometry.getExtent().getCenter());
                                       break;
@@ -694,7 +694,7 @@
                               }
                               setTimeout(function () {
                                   _self.showMapnoteTooltip(evt);
-                              }, 100);
+                              }, 0);
                               _self.updateMapNoteTitle(evt);
                               _self.showMapnotePanel();
                           }
@@ -703,13 +703,13 @@
               }
               //If mapnotes are unavailable bookmarks panel will be created
               else if (_self.options.itemInfo.itemData.bookmarks) {
-                  html.set(headerTitle, i18n.viewer.buttons.bookmarks);
+                  html.set(_headerTitle, i18n.viewer.buttons.bookmarks);
                   domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.bookmarksTitle);
                   array.forEach(_self.options.itemInfo.itemData.bookmarks, function (content, index) {
-                      var bookmark = domConstruct.create("div", { class: "bookmarkList bottomBorder", innerHTML: content.name }, mapNoteListContainer, "last");
-                      var newExtent = new Extent(content.extent);
-                      on(bookmark, 'click', function (evt) {
-                          _self.options.map.setExtent(newExtent);
+                      var _bookmark = domConstruct.create("div", { class: "bookmarkList bottomBorder", innerHTML: content.name }, _mapNoteListContainer, "last");
+                      var _newExtent = new Extent(content.extent);
+                      on(_bookmark, 'click', function (evt) {
+                          _self.options.map.setExtent(_newExtent);
                       });
                   });
               }
@@ -732,8 +732,7 @@
                   content: '<div style="display: inline-block;"><span style="color: #fff;">' + mapNoteLayer.layerObject.graphics[k].attributes.TITLE + '</span><div class="toolTipCloseButton"></span></div>',
                   style: "position: absolute;"
               });
-
-              dijit.place.at(dialog.domNode, { x: anchorPoint.x, y: anchorPoint.y }, ["TL", "BL", "TR", "BR"], { x: 15, y: 20 });
+              dijit.place.at(dialog.domNode, { x: anchorPoint.x, y: anchorPoint.y }, ["TL", "BL", "TR", "BR"], { x: 15, y: domGeom.getMarginBox(dom.byId('topMenuBar')).h - 15 });
               on(query('.toolTipCloseButton')[0], "click", function () {
                   _self.hideMapnoteTooltip();
                   _self.hideMapnoteDescription();
@@ -775,7 +774,7 @@
                   content: '<div style="display: inline-block;"><span style="color: #fff;">' + event.graphic.attributes.TITLE + '</span><div class="toolTipCloseButton"></span></div>',
                   style: "position: absolute;"
               });
-              dijit.place.at(dialog.domNode, { x: anchorPoint.x, y: anchorPoint.y }, ["TL", "BL", "TR", "BR"], { x: 15, y: 20 });
+              dijit.place.at(dialog.domNode, { x: anchorPoint.x, y: anchorPoint.y }, ["TL", "BL", "TR", "BR"], { x: 15, y: domGeom.getMarginBox(dom.byId('topMenuBar')).h - 15 });
               on(query('.toolTipCloseButton')[0], "click", function () {
                   _self.hideMapnoteTooltip();
                   _self.hideMapnoteDescription();
