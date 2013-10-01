@@ -1962,6 +1962,7 @@ define([
 	                                });
 	                                _mapNoteFeature.onClick = function (evt) {
 	                                    _self.utils.updateMapNoteTitle(evt);
+	                                    _self.orientationChanged();
 	                                };
 	                            });
 	                        });
@@ -4292,7 +4293,7 @@ define([
                         }
                         if (_self.options.showGeolocation && (!_self.options.updateSocialLayersOnPan)) {
                             if (dojo.byId("searchBox")) {
-                                dojo.byId("searchBox").style.left = "78px";
+	                        dojo.byId("searchBox").style.left = "66px";
                             }
                         }
                         else if ((!_self.options.showGeolocation) && _self.options.updateSocialLayersOnPan) {

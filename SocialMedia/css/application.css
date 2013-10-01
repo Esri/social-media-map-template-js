@@ -1288,16 +1288,6 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     float: left;
     line-height: 55px;
 }
-#mapNotesContainer {
-    position: absolute;
-    left: -275px;
-    z-index: 100;
-    height: 100%;
-    width: 275px;
-    background-color: #F8F8F8;
-    border-right: 1px solid #999999;
-    box-shadow: 0px 0px 10px 0px gray inset;
-}
 .transition {
     transition-property:left;
     transition-duration:1s;
@@ -1312,9 +1302,6 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 .showMapNotesContainer {
      left: 0px !important;
 }
-.hideMapNotesContainer {
-    left: -275px !important;
-}
 .tabContainer {
     min-height: 6%;
     width: 100%;
@@ -1328,11 +1315,6 @@ a.mapSubmit:hover, a.mapSubmit:focus {
    font-weight: bold;
    line-height: 35px;
    text-align: center;
-}
-.mapNoteListContainer {
-   width: 100%;
-   height: 93%;
-   overflow: auto;
 }
 .titleNode, .contentNode {
     padding-left: 10px;

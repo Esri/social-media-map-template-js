@@ -366,6 +366,7 @@
     -webkit-user-select:none!important;
     color:#FFF;
     background-image:none!important;
+    background-color: #3A3A3A;
     background:linear-gradient(tobottom,#4B4B4B0%,#020202100%)!important;
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4B4B4B',endColorstr='#020202',GradientType=0)!important;
 }
@@ -417,10 +418,6 @@
 
 .esriBasemapGalleryLabelContainer {
     height:50px!important;
-}
-
-.mblHeadingDivTitle {
-    position:relative!important;
 }
 
 .scrollContentPane {
@@ -553,10 +550,10 @@
 	width: 90%;
     }
     .slideBtnRight {
-	left: 90%;
+	left: 89%;
     }
     #mblZoomBtnContainer  {
-	bottom: 85px;
+	bottom: 80px;
     }
 }
 @media all and (orientation:landscape) {
@@ -572,5 +569,37 @@
     }
     #mblZoomBtnContainer  {
 	bottom: 70px;
+    }
+ }
+  /*iPhone5 Portrait*/
+ @media all and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait) {
+    #mapNotesContainer {
+	height: 75%;
+	width: 89%;
+    }
+    .slideBtnRight {
+	left: 89%;
+    }
+    #mblZoomBtnContainer {
+	bottom: 80px;
+    }
+     geocoderSearchTool_input {
+         width: 70%;
+     }
+ }
+ /*iPhone5 Landscape*/
+ @media all and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : landscape) {
+    #mapNotesContainer {
+	height: 65%;
+	width: 93%;
+    }
+    .slideBtnRight {
+	left: 93%;
+    }
+    .mapNoteListContainer {
+	height: 80%;
+    }
+    #mblZoomBtnContainer {
+	bottom: 60px;
     }
  }

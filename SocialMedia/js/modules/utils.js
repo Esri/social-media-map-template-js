@@ -635,7 +635,7 @@
                           var _mapNoteFeature = mapNoteLayer.layerObject;
                           // Setting title and description for each mapnote
                           array.forEach(mapNoteLayer.featureSet.features, function (item, k) {
-                              var _titlePane = new titlePane({ title: item.attributes.TITLE, content: item.attributes.DESCRIPTION, open: false });
+                              var _titlePane = new TitlePane({ title: item.attributes.TITLE, content: item.attributes.DESCRIPTION, open: false });
                               _titlePane.id = item.attributes.TITLE + item.attributes.OBJECTID;
                               if (_titlePane.content == undefined) {
                                   _titlePane.setContent(i18n.viewer.settings.descriptionUnavailable);

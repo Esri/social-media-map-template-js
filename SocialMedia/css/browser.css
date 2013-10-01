@@ -611,6 +611,24 @@ a:active, a:hover, a:focus {
 }
 
 /* Enhancements parts CSS */
+#mapNotesContainer {
+    position: absolute;
+    left: -275px;
+    z-index: 100;
+    height: 100%;
+    width: 275px;
+    background-color: #F8F8F8;
+    border-right: 1px solid #999999;
+    box-shadow: 0px 0px 10px 0px gray inset;
+}
+.mapNoteListContainer {
+   width: 100%;
+   height: 93%;
+   overflow: auto;
+}
 .titleNode, .contentNode {
     font-size: 14px;
+}
+.hideMapNotesContainer {
+    left: -275px !important;
 }
