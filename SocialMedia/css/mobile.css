@@ -544,10 +544,11 @@
     color:#2D2D2D;
     cursor: pointer;
 }
+
 @media all and (orientation:portrait) {
     #mapNotesContainer {
 	height: 75%;
-	width: 90%;
+	width: 88%;
     }
     .slideBtnRight {
 	left: 89%;
@@ -578,14 +579,14 @@
 	width: 89%;
     }
     .slideBtnRight {
-	left: 89%;
+	left: 88%;
     }
     #mblZoomBtnContainer {
 	bottom: 80px;
     }
-     geocoderSearchTool_input {
+    #geocoderSearchTool_input {
          width: 70%;
-     }
+    }
  }
  /*iPhone5 Landscape*/
  @media all and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : landscape) {

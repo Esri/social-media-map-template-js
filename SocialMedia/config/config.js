@@ -23,11 +23,11 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "twitterSigninUrl": location.protocol + "//utility.arcgis.com/tproxy/signin",
         "showPanoramio": false,
         "panoramioChecked": false,
-        "showUshahidi": false,
-        "ushahidiChecked": true,
+        "showUshahidi": true,
+        "ushahidiChecked": false,
         "showUshahidiConfig": true,
         "ushahidiCategory": 0,
-        "ushahidiUrl": "",
+        "ushahidiUrl": "https://bnestorm.crowdmap.com/api",
         "useArcGISOnlineBasemaps": true,
         "basemapGroupTitle": "Community Basemaps",
         "basemapGroupOwner": "esri",
@@ -46,11 +46,11 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "showDisplaySwitch": true,
 	"showPlaces": false,
         "showGeolocation": true,
-	"showAboutDialog": false,
+	"showAboutDialog": true,
 	"showAboutDialogOnLoad": true,
         "updateSocialLayersOnPan": false,
 	"showMapNote": true,
-	"zoomLevel": 10,
+	"zoomLevel": 7,
 /*
         "securedLayers": [
             {

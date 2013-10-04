@@ -1394,3 +1394,9 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     -webkit-border-radius: 2px;
     border-radius: 2px;
 }
+.listCollapse {
+    color: #000 !important;
+}
+.listExpand {
+    color: #7F00FF !important;
+}

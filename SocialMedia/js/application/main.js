@@ -87,7 +87,6 @@ define([
                     this.options = {};
 	            this.mapNotesLayer = [];
                     declare.safeMixin(_self.options, options);
-
                     _self.utils = new modules.utils({ options: _self.options });
                     _self.setOptions();
                     ready(function () {
@@ -1945,7 +1944,7 @@ define([
 	                                on(_titlePane.titleBarNode, "click", function () {
 	                                    array.forEach(_self.utils.mapNotesList, function (list) {
 	                                        if (list.open) {
-	                                            domStyle.set(list.titleNode, "color", '#7F00FF');
+	                                            domClass.add(list.titleNode, "listExpand");
 	                                            setTimeout(function () {
 	                                                if (mapNoteLayer.featureSet.geometryType === "esriGeometryPolygon" || mapNoteLayer.featureSet.geometryType === "esriGeometryPolyline") {
 	                                                    _self.options.map.centerAndZoom(mapNoteLayer.layerObject.graphics[k].geometry.getExtent().getCenter(), _self.options.zoomLevel);
@@ -1956,12 +1955,12 @@ define([
 	                                            }, 500);
 	                                        }
 	                                        else {
-	                                            domStyle.set(list.titleNode, "color", '#000000');
+	                                            domClass.add(list.titleNode, "listCollapse");
 	                                        }
 	                                    });
 	                                });
 	                                _mapNoteFeature.onClick = function (evt) {
-	                                    _self.utils.updateMapNoteTitle(evt);
+	                                    _self.options.map.infoWindow.isShowing = true;
 	                                    _self.orientationChanged();
 	                                };
 	                            });
@@ -2086,6 +2085,9 @@ define([
                                 }
                             }
                             _self.hideLoading(query('#layersList li[data-layer="' + changeMapVal + '"]'));
+	                    if (_self.options.customPopup.isShowing) {
+	                        _self.options.customPopup.hide();
+	                    }
                         }
                     });
                     // ToolTips
@@ -2505,7 +2507,11 @@ define([
 	                    if (node) {
 	                        node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.legend.menuTitle + '<div class="clear"></div></div><div class="legendMenuCon"><div class="slideScroll"><div id="legendContent"></div></div></div>';
 	                    }
+	                    if (dojo.isMobileDevice) {
+	                        var legendContentNode = dom.byId('legendContentPane');
+	                    } else {
 	                    var legendContentNode = dom.byId('legendContent');
+	                    }
 	                    if (legendContentNode) {
 	                        legendContentNode.innerHTML = i18n.viewer.errors.noLegend;
 	                    }
@@ -2623,7 +2629,7 @@ define([
                 // configure places
                 configurePlaces: function () {
                     var _self = this;
-                    // if places   
+                    // if places
 
                     if (_self.options.showPlaces) {
                         if (dojo.isMobileDevice) {
@@ -2811,7 +2817,7 @@ define([
                             error: function (error) {
                                 alert(error);
                             }
-                        });   
+                        });
                     }
                     else{
                         _self.tinyUrl = fullLink;
@@ -3146,7 +3152,7 @@ define([
                                 }
                             }
                             else{
-                                _self.toggleMapLayer(_self.options.itemInfo.itemData.operationalLayers[index].id);   
+                                _self.toggleMapLayer(_self.options.itemInfo.itemData.operationalLayers[index].id);
                             }
                             _self.setSharing();
                         });
@@ -3670,7 +3676,6 @@ define([
                                 }
                             }
                         });
-
                         connect.connect(_self._geocoder, 'onSelect', function (result) {
                             if (dojo.byId('imgBookmarks')) {
                                 setTimeout(function () {
@@ -4011,11 +4016,13 @@ define([
 	                    return;
 	                }
 	                _self.utils.hideMapnoteDescription();
+	                if (dojo.isBrowser) {
 	                on(query('.titleButton.maximize')[0], 'click', function () {
 	                    if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
 	                        _self.utils.hideMapnotePanel();
 	                    }
 	                });
+	                }
                         _self.options.map.centerAt(_self.options.map.infoWindow._location);
                         setTimeout(function () {
                             _self.resizePopup();
@@ -4125,21 +4132,7 @@ define([
 	                    if (dom.byId("mblMapnoteBtn")) {
 	                        dom.byId("mblMapnoteBtn").style.display = "block";
 	                        on(dom.byId("mblMapnoteBtn"), "click", function () {
-	                            if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
-	                                domClass.replace("mapNotesContainer", "hideMapNotesContainer", "showMapNotesContainer");
-	                                domClass.replace("mblMapnoteBtn", "slideBtnLeft", "slideBtnRight");
-	                                domClass.replace("mblZoomBtnContainer", "slideBtnLeft", "slideBtnRight");
-	                            } else {
-	                                if (domClass.contains("mapNotesContainer", "hideMapNotesContainer")) {
-	                                    domClass.replace("mapNotesContainer", "showMapNotesContainer", "hideMapNotesContainer");
-	                                    domClass.replace("mblMapnoteBtn", "slideBtnRight", "slideBtnLeft");
-	                                    domClass.replace("mblZoomBtnContainer", "slideBtnRight", "slideBtnLeft");
-	                                } else {
-	                                    domClass.add("mapNotesContainer", ["showMapNotesContainer", "transition"]);
-	                                    domClass.add("mblMapnoteBtn", ["slideBtnRight", "transition"]);
-	                                    domClass.add("mblZoomBtnContainer", ["slideBtnRight", "transition"]);
-	                                }
-	                            }
+	                            _self.toggleMapnoteButton();
 	                        });
 	                    }
 	                }
@@ -4164,6 +4157,33 @@ define([
 	                }
                     }
                 },
+	        toggleMapnoteButton: function () {
+	            var _self = this;
+	            if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
+	                _self.hideMapnoteContainer();
+	            } else {
+	                if (domClass.contains("mapNotesContainer", "hideMapNotesContainer")) {
+	                    _self.showMapnoteContainer();
+	                } else {
+	                    domClass.add("mapNotesContainer", ["showMapNotesContainer", "transition"]);
+	                    domClass.add("mblMapnoteBtn", ["slideBtnRight", "transition"]);
+	                    domClass.add("mblZoomBtnContainer", ["slideBtnRight", "transition"]);
+	                }
+	            }
+	        },
+
+	        hideMapnoteContainer: function () {
+	            domClass.replace("mapNotesContainer", "hideMapNotesContainer", "showMapNotesContainer");
+	            domClass.replace("mblMapnoteBtn", "slideBtnLeft", "slideBtnRight");
+	            domClass.replace("mblZoomBtnContainer", "slideBtnLeft", "slideBtnRight");
+	        },
+
+	        showMapnoteContainer: function () {
+	            domClass.replace("mapNotesContainer", "showMapNotesContainer", "hideMapNotesContainer");
+	            domClass.replace("mblMapnoteBtn", "slideBtnRight", "slideBtnLeft");
+	            domClass.replace("mblZoomBtnContainer", "slideBtnRight", "slideBtnLeft");
+	        },
+
                 mapIsLoaded: function () {
                     var _self = this;
                     //configure map animation to be faster
@@ -4369,7 +4389,7 @@ define([
                 // Info window popup creation
                 configurePopup: function () {
                     var _self = this;
-                    // popup dijit configuration     
+                    // popup dijit configuration
                     _self.options.customPopup = (dojo.isMobileDevice) ? new PopupMobile(null, dojo.create("div")) : new esri.dijit.Popup({
                         offsetX: 3,
                         fillSymbol: false,
@@ -4421,10 +4441,10 @@ define([
 	                array.forEach(_self.utils.mapNotesList, function (list) {
 	                    if (list.id == mapnoteID) {
 	                        list.set('open', true);
-	                        domStyle.set(list.titleNode, "color", '#7F00FF');
+	                        domClass.add(list.titleNode, "listExpand");
 	                    } else {
 	                        list.set('open', false);
-	                        domStyle.set(list.titleNode, "color", '#000');
+	                        domClass.add(list.titleNode, "listCollapse");
 	                    }
 	                });
 	            }
@@ -4435,7 +4455,8 @@ define([
 
                     var _self = this;
                     var infoPopup;
-                    popup = new PopupMobile(null, dojo.create("div"));
+	            // popup = new PopupMobile(null, dojo.create("div"));
+
                     _self.configurePopup();
                     // create map deferred with options
                     var mapDeferred = arcgisUtils.createMap(_self.options.webmap, 'map', {
@@ -4452,7 +4473,7 @@ define([
                     // on successful response
                     mapDeferred.addCallback(function (response) {
                         _self.webmapReturned(response);
-                        dojo.place(popup.domNode, _self.options.map.root);
+	                dojo.place(_self.options.customPopup.domNode, response.map.root);
                     });
                     // on error response
                     mapDeferred.addErrback(function (error) {
