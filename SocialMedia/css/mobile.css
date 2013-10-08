@@ -217,6 +217,7 @@
     left:45px;
     right:6px;
     margin:6px 10px 6px 0;
+    display: none;
 }
 
 .esriMobileNavigationBar,.esriPopupMobile,.titlePane {

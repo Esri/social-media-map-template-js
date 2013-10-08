@@ -153,7 +153,7 @@ function (dojo, declare, arr, lang, event, domGeom, ioQuery, InfoTemplate, Featu
                     on(query('.esriPopupMobile .titleButton.arrow')[0], "click", function () {
                         dom.byId('divCont').style.display = "none";
                     });
-                    on(query('.esriMobileNavigationBar .esriMobileNavigationItem.left')[1], "click", function () {
+                    on(query('.esriMobileNavigationBar .esriMobileNavigationItem.left')[0], "click", function () {
                         if (query('.ytContent').length > 0) {
                             var divytContent = query('.ytContent')[0];
                             divytContent.id = "divytContent";
@@ -161,7 +161,7 @@ function (dojo, declare, arr, lang, event, domGeom, ioQuery, InfoTemplate, Featu
                         }
                         dom.byId('divCont').style.display = "block";
                     });
-                    on(query('.esriMobileNavigationBar .esriMobileNavigationItem.right')[1], "click", function () {
+                    on(query('.esriMobileNavigationBar .esriMobileNavigationItem.right')[0], "click", function () {
                         if (query('.ytContent').length > 0) {
                             var divytContent = query('.ytContent')[0];
                             divytContent.id = "divytContent";

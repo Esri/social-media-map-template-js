@@ -19,6 +19,7 @@ define([
     "dojo/number",
     "dojo/window",
     "dojo/on",
+    "dojo/aspect",
     "dojo/fx",
     "dojo/i18n!./nls/template.js",
     "modules/HeatmapLayer",
@@ -35,6 +36,7 @@ define([
     "esri/config",
     "esri/arcgis/utils",
     "modules/utils",
+    "modules/mapnote",
     "dijit/Dialog",
     "dijit/form/HorizontalSlider",
     "dijit/form/VerticalSlider",
@@ -51,6 +53,7 @@ define([
     "esri/geometry/webMercatorUtils",
     "esri/dijit/BasemapGallery",
     "modules/Switch",
+    "esri/InfoWindowBase",
     "esri/geometry",
     "esri/utils",
     "esri/map",
@@ -74,7 +77,7 @@ define([
     "dojox/mobile/scrollable",
     "dojox/mobile/Accordion"
 ],
-	function (ready, declare, connect, Deferred, dojoMbl, mlist, all, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, domAttr, date, number, win, on, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, templateConfig, cookie, JSON, html, config, arcgisUtils, utils, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, esri, Geocoder, FeatureLayer, TitlePane, TitleGroup, PopupMobile, SimpleDialog, Extent, webMercatorUtils, BasemapGallery, Switch, Accordion) {
+	function (ready, declare, connect, Deferred, dojoMbl, mlist, all, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, domAttr, date, number, win, on, aspect, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, templateConfig, cookie, JSON, html, config, arcgisUtils, utils, mapnote, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, esri, Geocoder, FeatureLayer, TitlePane, TitleGroup, PopupMobile, SimpleDialog, Extent, webMercatorUtils, BasemapGallery, Switch, Accordion) {
             var Widget = declare("application.main", null, {
                 popup: null,
                 tinyUrl: null,
@@ -82,12 +85,14 @@ define([
                 zoomToAttributes: null,
                 gTitle: null,
                 popUpFeatures: null,
+	        mobilePoint: null,
                 constructor: function (options) {
                     var _self = this;
                     this.options = {};
 	            this.mapNotesLayer = [];
                     declare.safeMixin(_self.options, options);
                     _self.utils = new modules.utils({ options: _self.options });
+	            _self.mapnote = new modules.mapnote({ options: _self.options });
                     _self.setOptions();
                     ready(function () {
                         _self.setAppIdSettings().then(function () {
@@ -125,7 +130,6 @@ define([
                 },
 
                 addReportInAppButton: function () {
-
                     var _self = this;
                     if (_self.options.bannedUsersService) {
                         _self.utils.removeReportInAppButton();
@@ -138,8 +142,8 @@ define([
                             domConstruct.place(html, query('.esriMobileInfoViewItem')[query('.esriMobileInfoViewItem').length - 1], 'last');
                             dojo.connect(dojo.byId('zoomTo'), "onclick", this, function () {
                                 _self.options.map.infoWindow.hide();
-                                query('.esriMobileNavigationBar')[1].style.display = "none";
-                                query('.esriMobileInfoView, .esriMobilePopupInfoView')[1].style.display = "none";
+	                        query('.esriMobileNavigationBar')[0].style.display = "none";
+	                        query('.esriMobileInfoView, .esriMobilePopupInfoView')[0].style.display = "none";
                                 var level = _self.options.map.getLevel();
                                 _self.options.map.centerAndZoom(_self.zoomToAttributes, level + 1);
                                 _self.options.map.infoWindow.setFeatures(_self.popUpFeatures);
@@ -206,11 +210,15 @@ define([
                                 _self.setViewHeight();
                             }
                             if (_self.options.map.infoWindow.isShowing) {
+	                        if (dojo.isMobileDevice) {
+	                            _self.options.map.centerAt(_self.options.map.graphics.graphics[0]._extent.getCenter());
+	                        } else {
                                 _self.options.map.centerAt(_self.options.map.infoWindow._location);
                             }
                             _self.options.map.reposition();
                             _self.options.map.resize();
                             dijit.byId('mapcon').resize();
+	                    }
 
                         }), timeout);
                     }
@@ -1173,7 +1181,7 @@ define([
                             label: _self.options.flickrTitle
                         });
                         connect.connect(flickrLayer.featureLayer, 'onClick', function (evt) {
-	                    _self.utils.showInfoWindow = true;
+	                    _self.mapnote.showInfoWindow = true;
                             _self.zoomToAttributes = evt.graphic.geometry;
                             _self.overridePopupTitle();
                             _self.overridePopupHeader();
@@ -1313,7 +1321,7 @@ define([
                             label: _self.options.panoramioTitle
                         });
                         connect.connect(panoramioLayer.featureLayer, 'onClick', function (evt) {
-	                    _self.utils.showInfoWindow = true;
+	                    _self.mapnote.showInfoWindow = true;
                             _self.zoomToAttributes = evt.graphic.geometry;
                             _self.overridePopupTitle();
                             _self.overridePopupHeader();
@@ -1472,7 +1480,7 @@ define([
                             _self.updateDataPoints();
                         });
                         connect.connect(twitterLayer.featureLayer, 'onClick', function (evt) {
-	                    _self.utils.showInfoWindow = true;
+	                    _self.mapnote.showInfoWindow = true;
                             _self.zoomToAttributes = evt.graphic.geometry;
                             _self.overridePopupTitle();
                             _self.overridePopupHeader();
@@ -1603,7 +1611,7 @@ define([
                             _self.updateDataPoints();
                         });
                         connect.connect(youtubeLayer.featureLayer, 'onClick', function (evt) {
-	                    _self.utils.showInfoWindow = true;
+	                    _self.mapnote.showInfoWindow = true;
                             _self.zoomToAttributes = evt.graphic.geometry;
                             _self.overridePopupTitle();
                             _self.overridePopupHeader();
@@ -1762,7 +1770,7 @@ define([
                             }
                         });
                         connect.connect(ushahidiLayer.featureLayer, 'onClick', function (evt) {
-	                    _self.utils.showInfoWindow = true;
+	                    _self.mapnote.showInfoWindow = true;
                             _self.zoomToAttributes = evt.graphic.geometry;
                             _self.overridePopupTitle();
                             _self.overridePopupHeader();
@@ -1852,7 +1860,7 @@ define([
                     }
                     // onclick connect
                     connect.connect(_self.clusterLayer.featureLayer, "onClick", function (evt) {
-	                _self.utils.showInfoWindow = true;
+	                _self.mapnote.showInfoWindow = true;
                         if (evt) {
                             evt.stopPropagation();
                         }
@@ -1951,6 +1959,8 @@ define([
 	                                                }
 	                                                else {
 	                                                    _self.options.map.centerAndZoom(item.geometry, _self.options.zoomLevel);
+	                                                    _self.options.map.infoWindow.setFeatures(item.attributes);
+	                                                    _self.options.map.infoWindow.show(_self.options.map.toScreen(item.geometry).x, _self.options.map.toScreen(item.geometry).y);
 	                                                }
 	                                            }, 500);
 	                                        }
@@ -1960,6 +1970,7 @@ define([
 	                                    });
 	                                });
 	                                _mapNoteFeature.onClick = function (evt) {
+	                                    _self.mobilePoint = evt;
 	                                    _self.options.map.infoWindow.isShowing = true;
 	                                    _self.orientationChanged();
 	                                };
@@ -4012,14 +4023,14 @@ define([
                         dojo.showInfoWindow = false;
                     });
                     connect.connect(_self.options.map.infoWindow, "onShow", function () {
-	                if (!_self.utils.showInfoWindow) {
+	                if (!_self.mapnote.showInfoWindow) {
 	                    return;
 	                }
-	                _self.utils.hideMapnoteDescription();
+	                _self.mapnote.hideMapnoteDescription();
 	                if (dojo.isBrowser) {
 	                on(query('.titleButton.maximize')[0], 'click', function () {
 	                    if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
-	                        _self.utils.hideMapnotePanel();
+	                            _self.mapnote.hideMapnotePanel();
 	                    }
 	                });
 	                }
@@ -4151,7 +4162,7 @@ define([
 	                            } else {
 	                                domClass.add("mapNotesButton", "mapnoteSelected");
 	                            }
-	                            _self.utils.toggleLeftPanel();
+	                            _self.mapnote.toggleLeftPanel();
 	                        });
 	                    }
 	                }
@@ -4220,7 +4231,7 @@ define([
                     _self.configureSearchBox();
 	            if (dojo.isBrowser || dojo.isTablet) {
 	                // set up map note panel
-	                _self.utils.configureMapNotes(_self.mapNotesLayer);
+	            _self.mapnote.configureMapNotes(_self.mapNotesLayer);
 	            } else {
 	                _self.configureMapNotes();
 	                on(dom.byId("zoomInBtn"), "click", function () {
@@ -4252,7 +4263,7 @@ define([
                             }
                         });
                     }, 4000);
-	            on(_self.options.map, "PanStart,ZoomStart", function () { _self.utils.hideMapnoteTooltip(); });
+	            on(_self.options.map, "PanStart,ZoomStart", function () { _self.mapnote.hideMapnoteTooltip(); });
                     if (dojo.isMobileDevice) {
                         dojo.byId("zoomSlider").style.display = "none";
                         query('#topMenuBar').style('display', 'none');
@@ -4415,9 +4426,14 @@ define([
                             _self.overridePopupHeader();
                             dojo.byId('divCont').style.display = "block";
 	                });
-	                connect.connect(_self.options.customPopup, "onShow", function () {
+	                connect.connect(_self.options.customPopup, "onShow", function (evt) {
 	                    _self.changeSelection();
                         });
+	                aspect.before(_self.options.customPopup, "_setPosition", function (evt) {
+	                    evt.spatialReference = _self.options.map.spatialReference;
+	                    evt.x = _self.options.map.toScreen(_self.options.map.graphics.graphics[0]._extent.getCenter()).x;
+	                    evt.y = _self.options.map.toScreen(_self.options.map.graphics.graphics[0]._extent.getCenter()).y;
+	                });
                         // connects for popup
                     } else {
                         connect.connect(_self.options.customPopup, "maximize", function () {
@@ -4452,10 +4468,7 @@ define([
 
                 // Create the map object for the template
                 createWebMap: function () {
-
                     var _self = this;
-                    var infoPopup;
-	            // popup = new PopupMobile(null, dojo.create("div"));
 
                     _self.configurePopup();
                     // create map deferred with options

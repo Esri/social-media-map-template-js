@@ -627,7 +627,7 @@ a:active, a:hover, a:focus {
    overflow: auto;
 }
 .titleNode, .contentNode {
-    font-size: 14px;
+    font-size: 12px;
 }
 .hideMapNotesContainer {
     left: -275px !important;

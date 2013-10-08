@@ -1,5 +1,5 @@
-﻿define(["dojo/ready", "dojo/_base/declare", "dojo/_base/connect", "dojo/_base/Deferred", "dojo/_base/event", "dojo/_base/lang", "dojo/_base/array", "dojo/dom", "dojo/query", "dojo/dom-class", "dojo/dom-construct", "dojo/dom-geometry", "dojo/dom-style", "dojo/dom-attr", "dojo/date", "dojo/number", "dojo/window", "dojo/on", "dojo/fx", "dojo/i18n!./nls/template.js", "modules/HeatmapLayer", "modules/ClusterLayer", "modules/flickr", "modules/panoramio", "modules/twitter", "modules/ushahidi", "modules/youtube", "modules/utils", "dijit/Dialog", "dijit/form/HorizontalSlider", "dijit/form/VerticalSlider", "dojo/NodeList-traverse", "dojo/NodeList-manipulate", "config/commonConfig", "dojo/cookie", "dojo/json", "esri/config", "esri/arcgis/utils", "esri/urlUtils", "esri/request", "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/GeometryService", "esri/dijit/BasemapGallery", "esri/geometry/Extent", "esri/geometry/Point", "esri/SpatialReference", "esri/symbols/PictureMarkerSymbol", "esri/dijit/Legend", "esri/dijit/Scalebar", "esri/geometry/webMercatorUtils", "esri/graphic", "esri/layers/GraphicsLayer", "esri/dijit/Geocoder", "esri/geometry/screenUtils", "esri/dijit/Popup", "esri/layers/FeatureLayer", "dijit/TitlePane", "dojox/widget/TitleGroup", "dijit/Tooltip"],
-function (ready, declare, connect, Deferred, event, lang, array, dom, query, domClass, domConstruct, domGeom, domStyle, domAttr, date, number, win, on, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, utils, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, templateConfig, cookie, JSON, config, arcgisUtils, urlUtils, esriRequest, Query, QueryTask, GeometryService, BasemapGallery, Extent, Point, SpatialReference, PictureMarkerSymbol, Legend, Scalebar, webMercatorUtils, Graphic, GraphicsLayer, Geocoder, screenUtils, Popup, FeatureLayer, TitlePane, TitleGroup, Tooltip) {
+﻿define(["dojo/ready", "dojo/_base/declare", "dojo/_base/connect", "dojo/_base/Deferred", "dojo/_base/event", "dojo/_base/lang", "dojo/_base/array", "dojo/dom", "dojo/query", "dojo/dom-class", "dojo/dom-construct", "dojo/dom-geometry", "dojo/dom-style", "dojo/dom-attr", "dojo/date", "dojo/number", "dojo/window", "dojo/on", "dojo/fx", "dojo/i18n!./nls/template.js", "modules/HeatmapLayer", "modules/ClusterLayer", "modules/flickr", "modules/panoramio", "modules/twitter", "modules/ushahidi", "modules/youtube", "modules/utils", "modules/mapnote", "dijit/Dialog", "dijit/form/HorizontalSlider", "dijit/form/VerticalSlider", "dojo/NodeList-traverse", "dojo/NodeList-manipulate", "config/commonConfig", "dojo/cookie", "dojo/json", "esri/config", "esri/arcgis/utils", "esri/urlUtils", "esri/request", "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/GeometryService", "esri/dijit/BasemapGallery", "esri/geometry/Extent", "esri/geometry/Point", "esri/SpatialReference", "esri/symbols/PictureMarkerSymbol", "esri/dijit/Legend", "esri/dijit/Scalebar", "esri/geometry/webMercatorUtils", "esri/graphic", "esri/layers/GraphicsLayer", "esri/dijit/Geocoder", "esri/geometry/screenUtils", "esri/dijit/Popup", "esri/layers/FeatureLayer", "dijit/TitlePane", "dojox/widget/TitleGroup", "dijit/Tooltip"],
+function (ready, declare, connect, Deferred, event, lang, array, dom, query, domClass, domConstruct, domGeom, domStyle, domAttr, date, number, win, on, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, utils, mapnote, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, templateConfig, cookie, JSON, config, arcgisUtils, urlUtils, esriRequest, Query, QueryTask, GeometryService, BasemapGallery, Extent, Point, SpatialReference, PictureMarkerSymbol, Legend, Scalebar, webMercatorUtils, Graphic, GraphicsLayer, Geocoder, screenUtils, Popup, FeatureLayer, TitlePane, TitleGroup, Tooltip) {
     var Widget = declare("application.mainApp", null, {
         constructor: function (options) {
             var _self = this;
@@ -8,6 +8,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
             var showInfoWindow = false;
             declare.safeMixin(_self.options, options);
             _self.utils = new modules.utils({ options: _self.options });
+            _self.mapnote = new modules.mapnote({ options: _self.options });
             _self.setOptions();
             ready(function () {
                 _self.setAppIdSettings().then(function (response) {
@@ -818,7 +819,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     label: _self.options.flickrTitle
                 });
                 connect.connect(flickrLayer.featureLayer, 'onClick', function (evt) {
-                    _self.utils.showInfoWindow = true;
+                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -934,7 +935,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     label: _self.options.panoramioTitle
                 });
                 connect.connect(panoramioLayer.featureLayer, 'onClick', function (evt) {
-                    _self.utils.showInfoWindow = true;
+                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -1075,7 +1076,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     _self.updateDataPoints();
                 });
                 connect.connect(twitterLayer.featureLayer, 'onClick', function (evt) {
-                    _self.utils.showInfoWindow = true;
+                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -1187,7 +1188,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     _self.updateDataPoints();
                 });
                 connect.connect(youtubeLayer.featureLayer, 'onClick', function (evt) {
-                    _self.utils.showInfoWindow = true;
+                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -1297,7 +1298,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     _self.updateDataPoints();
                 });
                 connect.connect(ushahidiLayer.featureLayer, 'onClick', function (evt) {
-                    _self.utils.showInfoWindow = true;
+                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -1391,7 +1392,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
             }
             // onclick connect
             connect.connect(_self.clusterLayer.featureLayer, "onClick", function (evt) {
-                _self.utils.showInfoWindow = true;
+                _self.mapnote.showInfoWindow = true;
                 event.stop(evt);
                 var arr = [];
                 var query = new Query();
@@ -1908,7 +1909,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                 } else {
                     _self.options.locateLayer = new GraphicsLayer();
                     connect.connect(_self.options.locateLayer, "onClick", function (evt) {
-                        _self.utils.showInfoWindow = true;
+                        _self.mapnote.showInfoWindow = true;
                         _self.clearPopupValues();
                         event.stop(evt);
                         var content = "<strong>" + evt.graphic.attributes.address + "</strong>";
@@ -2536,7 +2537,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
         onMapLoad: function () {
             var _self = this;
             on(dom.byId("mapNotesButton"), "click", function () {
-                _self.utils.toggleLeftPanel();
+                _self.mapnote.toggleLeftPanel();
                 if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
                     dom.byId("mapNotesButton").style.backgroundImage = 'url("./images/ui/mapNoteSelected.png")';
                 } else {
@@ -2577,7 +2578,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
             _self.updateSocialLayers();
             _self.configureSearchBox();
             // set up map note panel
-            _self.utils.configureMapNotes(_self.mapNotesLayer);
+            _self.mapnote.configureMapNotes(_self.mapNotesLayer);
 
             setTimeout(function () {
                 connect.connect(_self.options.map, "onExtentChange", function (extent) {
@@ -2592,7 +2593,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     _self.resetSocialRefreshTimer();
                 });
             }, 4000);
-            on(_self.options.map, "PanStart,ZoomStart", function () { _self.utils.hideMapnoteTooltip(); });
+            on(_self.options.map, "PanStart,ZoomStart", function () { _self.mapnote.hideMapnoteTooltip(); });
             // map loaded.
             _self.onMapLoad();
         },
