@@ -18,8 +18,8 @@
 <!-- End iOS -->
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.7/js/esri/css/esri.css" />
-<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.7/js/dojo/dojox/mobile/themes/iphone/iphone.css" />
+    <link rel="stylesheet" type="text/css" href="//jsdev.arcgis.com/3.7/js/esri/css/esri.css" />
+    <link rel="stylesheet" type="text/css" href="//jsdev.arcgis.com/3.7/js/dojo/dojox/mobile/themes/iphone/iphone.css" />
 <link rel="stylesheet" type="text/css" href="css/dialog.css" />
 <link rel="stylesheet" type="text/css" href="css/slider.css" />
 <link rel="stylesheet" type="text/css" href="css/dijit.css" />
@@ -29,6 +29,7 @@
 <link rel="stylesheet" type="text/css" href="css/social/flickr.css" />
 <link rel="stylesheet" type="text/css" href="css/social/panoramio.css" />
 <link rel="stylesheet" type="text/css" href="css/social/ushahidi.css" />
+    <link rel="stylesheet" type="text/css" href="//jsdev.arcgis.com/3.7/js/dojo/dijit/themes/claro/claro.css" />
 <link rel="Stylesheet" id="dynamicStyleSheet1" />
 <link rel="Stylesheet" id="dynamicStyleSheet2" />
 <link rel="Stylesheet" id="dynamicStyleSheet3" />
@@ -46,6 +47,16 @@
 				<div id="imgRefreshContainer">
 				</div>
 			</div>
+            <div id="mblMapnoteBtn">
+            </div>
+            <div id="mapNotesContainer">
+            </div>
+            <div id="mblZoomBtnContainer">
+                <div id="zoomInBtn">
+                </div>
+                <div id="zoomOutBtn">
+                </div>
+            </div>
 		</div>
 		<div id="zoomSlider">
 		</div>
@@ -54,6 +65,7 @@
 		<div id="topMenuBar">
 			<div id="topMenuCon">
 				<div id="topMenuLeft">
+                 <span id="mapNotesButton"></span>
 					<h1 id="mapTitle">
 					</h1>
 					<img alt="expandBtn" src="images/ui/expandTitle.png" id="expandName" style="display: none;" />
@@ -113,7 +125,7 @@
       })();
     </script>
     <script type="text/javascript" src="js/application/djConfig.js"></script>
-	<script type="text/javascript" src="//js.arcgis.com/3.7/"></script>
+    <script type="text/javascript" src="http://js.arcgis.com/3.7/"></script>
     <script type="text/javascript" src="js/plugins/respond.js"></script>
     <script type="text/javascript" src="js/plugins/heatmap.js"></script>
     <script type="text/javascript">
@@ -147,20 +159,19 @@
 	                    dojo.isReferrer = true;
 	                }
 	            }
+	            dojo.isReferrer = true;
 	            if (dojo.isReferrer) {
 	                dom.byId('dynamicStyleSheet1').href = "css/browser.css";
 	            } else {
 	                dom.byId('dynamicStyleSheet1').href = "css/applicationMain.css";
 	            }
 	        }
-
 	        if ((dojo.isReferrer || dojo.isTablet) && (!dojo.isMobileDevice)) {
 	            dom.byId('dynamicStyleSheet3').href = "css/mediaQueryEmbedded.css";
 	            dom.byId('dynamicStyleSheet2').href = "css/application.css";
 	            require(["application/main", "config/config"], function (application, configOptions) {
 	                application(configOptions);
 	            });
-
 	        }
 	        else if (dojo.isMobileDevice) {
 	            dom.byId('dynamicStyleSheet2').href = "css/application.css";

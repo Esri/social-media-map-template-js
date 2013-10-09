@@ -83,7 +83,8 @@ define({
                 "twSearch": "How to Use Advanced Twitter Search",
                 "screenName": "Screen Name", // added 8.26.2013
                 "signIn": "Sign In", // added 8.26.2013
-                "switchAccount": "Switch Account" // added 8.26.2013
+                "switchAccount": "Switch Account", // added 8.26.2013
+                "descriptionUnavailable": "Description not available"
             },
             "autoComplete": {
                 "menuTitle": "Results&hellip;"
@@ -109,6 +110,9 @@ define({
                 "legendTitle": "Show Legend",
                 "basemap": "Basemap",
                 "basemapTitle": "Switch Basemap",
+		"mapnote": "Map Notes",
+		"mapNoteTitle": "Show Mapnote",
+		"bookmarksTitle": "Show Bookmarks",
                 "layers": "Layers",
                 "layersTitle": "Explore Layers",
                 "social": "Social",
