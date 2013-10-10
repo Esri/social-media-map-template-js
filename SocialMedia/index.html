@@ -153,14 +153,12 @@
 	                dom.byId('dynamicStyleSheet1').href = "css/applicationMain.css";
 	            }
 	        }
-
 	        if ((dojo.isReferrer || dojo.isTablet) && (!dojo.isMobileDevice)) {
 	            dom.byId('dynamicStyleSheet3').href = "css/mediaQueryEmbedded.css";
 	            dom.byId('dynamicStyleSheet2').href = "css/application.css";
 	            require(["application/main", "config/config"], function (application, configOptions) {
 	                application(configOptions);
 	            });
-
 	        }
 	        else if (dojo.isMobileDevice) {
 	            dom.byId('dynamicStyleSheet2').href = "css/application.css";
