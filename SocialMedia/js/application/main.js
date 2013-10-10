@@ -18,6 +18,7 @@ define([
     "dojo/number",
     "dojo/window",
     "dojo/on",
+    "dojo/aspect",
     "dojo/fx",
     "dojo/i18n!./nls/template.js",
     "modules/HeatmapLayer",
@@ -70,7 +71,7 @@ define([
     "dojox/mobile/scrollable"
 
 ],
-        function (ready, declare, connect, Deferred, dojoMbl, mlist, all, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, date, number, win, on, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, templateConfig, cookie, JSON, config, arcgisUtils, utils, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, esri, Geocoder, FeatureLayer, PopupMobile, SimpleDialog, Extent, webMercatorUtils, BasemapGallery, Switch) {
+        function (ready, declare, connect, Deferred, dojoMbl, mlist, all, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, date, number, win, on, aspect, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, templateConfig, cookie, JSON, config, arcgisUtils, utils, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, esri, Geocoder, FeatureLayer, PopupMobile, SimpleDialog, Extent, webMercatorUtils, BasemapGallery, Switch) {
             var Widget = declare("application.main", null, {
                 popup: null,
                 tinyUrl: null,
@@ -201,13 +202,17 @@ define([
                                 _self.hideAddressBar();
                                 _self.setViewHeight();
                             }
-                            if (_self.options.map.infoWindow.isShowing) {
-                                _self.options.map.centerAt(_self.options.map.infoWindow._location);
-                            }
-                            _self.options.map.reposition();
-                            _self.options.map.resize();
-                            dijit.byId('mapcon').resize();
 
+                            if (_self.options.map.infoWindow.isShowing) {
+                                if (dojo.isMobileDevice) {
+                                    _self.options.map.centerAt(_self.options.map.graphics.graphics[0]._extent.getCenter());
+                                } else {
+                                    _self.options.map.centerAt(_self.options.map.infoWindow._location);
+                                }
+                                _self.options.map.reposition();
+                                _self.options.map.resize();
+                                dijit.byId('mapcon').resize();
+                            }
                         }), timeout);
                     }
                 },
@@ -2707,7 +2712,7 @@ define([
                 shareLink: function (fullLink) {
                     var _self = this;
                     var tinyResponse;
-                    if(_self.options.TinyURLServiceURL && _self.options.TinyURLResponseAttribute){
+                    if (_self.options.TinyURLServiceURL && _self.options.TinyURLResponseAttribute) {
                         var url = dojo.string.substitute(_self.options.TinyURLServiceURL, [fullLink]);
                         dojo.io.script.get({
                             url: url,
@@ -2723,9 +2728,9 @@ define([
                             error: function (error) {
                                 alert(error);
                             }
-                        });   
+                        });
                     }
-                    else{
+                    else {
                         _self.tinyUrl = fullLink;
                     }
                 },
@@ -3050,15 +3055,15 @@ define([
                         dojo.connect(dijit.byId("sw" + i), "onStateChanged", function (newState) {
                             var index = (this.id).replace("sw", "");
                             var obj = _self.options.itemInfo.itemData.operationalLayers[index];
-                            if(obj.featureCollection && obj.featureCollection.layers){
+                            if (obj.featureCollection && obj.featureCollection.layers) {
                                 var layers = obj.featureCollection.layers;
-                                for(var i = 0; i < layers.length; i++){
+                                for (var i = 0; i < layers.length; i++) {
                                     var id = layers[i].id;
                                     _self.toggleMapLayer(id);
                                 }
                             }
-                            else{
-                                _self.toggleMapLayer(_self.options.itemInfo.itemData.operationalLayers[index].id);   
+                            else {
+                                _self.toggleMapLayer(_self.options.itemInfo.itemData.operationalLayers[index].id);
                             }
                             _self.setSharing();
                         });
@@ -3910,7 +3915,7 @@ define([
                         dojo.showInfoWindow = false;
                     });
                     connect.connect(_self.options.map.infoWindow, "onShow", function () {
-                        _self.options.map.centerAt(_self.options.map.infoWindow._location);
+                        // _self.options.map.centerAt(_self.options.map.infoWindow._location);
                         setTimeout(function () {
                             _self.resizePopup();
                             var mapPoint = _self.options.map.infoWindow._location;
@@ -4233,6 +4238,22 @@ define([
                         connect.connect(_self.options.customPopup, "onHide", function () {
                             _self.overridePopupHeader();
                             dojo.byId('divCont').style.display = "block";
+                        });
+                        aspect.before(_self.options.customPopup, "_setPosition", function (evt) {
+                            if (_self.options.customPopup.features) {
+                                evt.spatialReference = _self.options.map.spatialReference;
+                                evt.x = _self.options.map.toScreen(_self.options.customPopup.features[0]._extent.getCenter()).x;
+                                evt.y = _self.options.map.toScreen(_self.options.customPopup.features[0]._extent.getCenter()).y;
+                            }
+                            _self.zoomToAttributes = _self.options.map.toMap(evt);
+                        });
+                        aspect.after(_self.options.customPopup, "show", function (evt) {
+                            var _mobilePopup = this;
+                            if (!_self.options.customPopup.features) {
+                                setTimeout(function () {
+                                    _mobilePopup.hide();
+                                }, 700);
+                            }
                         });
                         // connects for popup
                     } else {
