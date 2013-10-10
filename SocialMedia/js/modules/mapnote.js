@@ -43,7 +43,7 @@
               if (_self.mapNotesLayer.length > 0) {
                   html.set(_headerTitle, i18n.viewer.buttons.mapnote);
                   domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.mapNoteTitle);
-                  var titleGroup = new TitleGroup({ title: i18n.viewer.buttons.mapnote });
+                  var titleGroup = new TitleGroup({ });
                   _mapNoteListContainer.appendChild(titleGroup.domNode);
                   array.forEach(_self.mapNotesLayer, function (mapNote, i) {
                       array.forEach(mapNote.featureCollection.layers, function (mapNoteLayer, j) {
@@ -163,7 +163,7 @@
               array.some(_self.mapNotesList, function (list) {
                   if (list.open) {
                       list.set('open', false);
-                      domClass.replace(list.titleNode, "listCollapse", "listExpand");
+                      _self.swapCSS(list.titleNode);
                       return true;
                   }
               });
@@ -234,6 +234,9 @@
                   domClass.replace(query('.esriScalebar')[0], "scalebarShiftLeft", "scalebarShiftRight");
                   domClass.add(query('.esriScalebar')[0], ["scalebarShiftLeft", "transition"]);
               }
+          },
+          swapCSS: function (node) {
+              domClass.replace(node, "listCollapse", "listExpand");
           }
       });
   });

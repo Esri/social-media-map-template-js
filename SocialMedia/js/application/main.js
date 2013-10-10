@@ -84,7 +84,6 @@ define([
                 legendFilter: {},
                 zoomToAttributes: null,
                 gTitle: null,
-                popUpFeatures: null,
 	        mobilePoint: null,
                 constructor: function (options) {
                     var _self = this;
@@ -146,7 +145,6 @@ define([
 	                        query('.esriMobileInfoView, .esriMobilePopupInfoView')[0].style.display = "none";
                                 var level = _self.options.map.getLevel();
                                 _self.options.map.centerAndZoom(_self.zoomToAttributes, level + 1);
-                                _self.options.map.infoWindow.setFeatures(_self.popUpFeatures);
                                 setTimeout(function () {
                                     dojo.showInfoWindow = true;
                                     _self.options.map.infoWindow.show(_self.zoomToAttributes);
@@ -1932,7 +1930,7 @@ define([
 	                if (_self.mapNotesLayer.length > 0) {
 	                    html.set(_headerTitle, i18n.viewer.buttons.mapnote);
 	                    domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.mapNoteTitle);
-	                    var _titleGroup = new TitleGroup({ title: "Map Notes" });
+	                    var _titleGroup = new TitleGroup({});
 	                    _mapNoteListContainer.appendChild(_titleGroup.domNode);
 	                    array.forEach(_self.mapNotesLayer, function (mapNote, i) {
 	                        array.forEach(mapNote.featureCollection.layers, function (mapNoteLayer, j) {
@@ -1943,14 +1941,14 @@ define([
 	                                if (_titlePane.content == undefined) {
 	                                    _titlePane.setContent(i18n.viewer.settings.descriptionUnavailable);
 	                                }
-	                                _self.utils.mapNotesList.push(_titlePane);
+	                                _self.mapnote.mapNotesList.push(_titlePane);
 	                                _titleGroup.domNode.appendChild(_titlePane.domNode);
 	                                domClass.add(_titlePane.titleNode, "titleNode");
 	                                domClass.add(_titlePane.hideNode, "contentNode");
 	                                domClass.add(_titlePane.domNode, "bottomBorder");
 	                                domClass.add(_titlePane.containerNode, "descriptionNode");
 	                                on(_titlePane.titleBarNode, "click", function () {
-	                                    array.forEach(_self.utils.mapNotesList, function (list) {
+	                                    array.forEach(_self.mapnote.mapNotesList, function (list, index) {
 	                                        if (list.open) {
 	                                            domClass.add(list.titleNode, "listExpand");
 	                                            setTimeout(function () {
@@ -1959,34 +1957,30 @@ define([
 	                                                }
 	                                                else {
 	                                                    _self.options.map.centerAndZoom(item.geometry, _self.options.zoomLevel);
-	                                                    _self.options.map.infoWindow.setFeatures(item.attributes);
-	                                                    _self.options.map.infoWindow.show(_self.options.map.toScreen(item.geometry).x, _self.options.map.toScreen(item.geometry).y);
 	                                                }
+	                                                var arr = [];
+	                                                arr.push(mapNoteLayer.layerObject.graphics[k]);
+	                                                _self.options.customPopup.setFeatures(arr);
+	                                                _self.options.customPopup.show(item.geometry);
 	                                            }, 500);
 	                                        }
 	                                        else {
-	                                            domClass.add(list.titleNode, "listCollapse");
+	                                            if (domClass.contains(list.titleNode, "listExpand")) {
+	                                                _self.mapnote.swapCSS(list.titleNode);
+	                                            }
 	                                        }
 	                                    });
 	                                });
 	                                _mapNoteFeature.onClick = function (evt) {
-	                                    _self.mobilePoint = evt;
-	                                    _self.options.map.infoWindow.isShowing = true;
-	                                    _self.orientationChanged();
-	                                };
+	                                    _self.changeSelection();
+	                                }
 	                            });
 	                        });
 	                    });
 	                } else if (_self.options.itemInfo.itemData.bookmarks) {
 	                    html.set(_headerTitle, i18n.viewer.buttons.bookmarks);
 	                    domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.bookmarksTitle);
-	                    array.forEach(_self.options.itemInfo.itemData.bookmarks, function (content, index) {
-	                        var _bookmark = domConstruct.create("div", { class: "bookmarkList bottomBorder", innerHTML: content.name }, _mapNoteListContainer, "last");
-	                        var _newExtent = new Extent(content.extent);
-	                        on(_bookmark, 'click', function (evt) {
-	                            _self.options.map.setExtent(_newExtent);
-	                        });
-	                    });
+	                    _self.mapnote._createBookmarkList(_self.options.itemInfo.itemData.bookmarks, _mapNoteListContainer)           
 	                } else {
 	                    domConstruct.destroy("mblMapnoteBtn");
 	                }
@@ -2096,9 +2090,6 @@ define([
                                 }
                             }
                             _self.hideLoading(query('#layersList li[data-layer="' + changeMapVal + '"]'));
-	                    if (_self.options.customPopup.isShowing) {
-	                        _self.options.customPopup.hide();
-	                    }
                         }
                     });
                     // ToolTips
@@ -2170,6 +2161,9 @@ define([
                             if (layer.visible === true) {
                                 layer.hide();
                                 _self.removeFromActiveLayers(layerid);
+	                        if (_self.options.map.infoWindow.isShowing) {
+	                            _self.options.map.infoWindow.hide();
+	                        }
                             }
                             //otherwise show and add to layers
                             else {
@@ -3105,8 +3099,11 @@ define([
                         }, dojo.body());
 
                         var layer1v = new dojox.mobile.View(null, "layerView" + i);
+	                if (_self.options.itemInfo.itemData.operationalLayers[i].title.length > 25) {
+	                    var _layerTitle = _self.options.itemInfo.itemData.operationalLayers[i].title.slice(0, 22).concat("...");
+	                }
                         var headingLayer = new dojox.mobile.Heading({
-                            label: _self.options.itemInfo.itemData.operationalLayers[i].title,
+	                    label: _layerTitle,
                             back: "Back",
                             moveTo: "layersView"
                         });
@@ -4426,13 +4423,19 @@ define([
                             _self.overridePopupHeader();
                             dojo.byId('divCont').style.display = "block";
 	                });
-	                connect.connect(_self.options.customPopup, "onShow", function (evt) {
+	                connect.connect(_self.options.customPopup, "onShow", function () {
 	                    _self.changeSelection();
+	                    if (!_self.options.customPopup.features) {
+	                        _self.options.customPopup.hide();
+	                    }
                         });
 	                aspect.before(_self.options.customPopup, "_setPosition", function (evt) {
-	                    evt.spatialReference = _self.options.map.spatialReference;
-	                    evt.x = _self.options.map.toScreen(_self.options.map.graphics.graphics[0]._extent.getCenter()).x;
-	                    evt.y = _self.options.map.toScreen(_self.options.map.graphics.graphics[0]._extent.getCenter()).y;
+	                    if (_self.options.customPopup.features) {
+	                        evt.setSpatialReference(_self.options.map.spatialReference);
+	                        evt.x = _self.options.map.toScreen(_self.options.customPopup.features[0]._extent.getCenter()).x;
+	                        evt.y = _self.options.map.toScreen(_self.options.customPopup.features[0]._extent.getCenter()).y;
+	                    }
+	                    _self.zoomToAttributes = _self.options.map.toMap(evt);
 	                });
                         // connects for popup
                     } else {
@@ -4454,13 +4457,13 @@ define([
 	            if (_self.options.customPopup.getSelectedFeature()) {
 	                var mapnoteAttribute = _self.options.customPopup.getSelectedFeature().attributes;
 	                var mapnoteID = mapnoteAttribute.TITLE + mapnoteAttribute.OBJECTID;
-	                array.forEach(_self.utils.mapNotesList, function (list) {
+	                array.forEach(_self.mapnote.mapNotesList, function (list) {
 	                    if (list.id == mapnoteID) {
 	                        list.set('open', true);
 	                        domClass.add(list.titleNode, "listExpand");
 	                    } else {
 	                        list.set('open', false);
-	                        domClass.add(list.titleNode, "listCollapse");
+	                        _self.mapnote.swapCSS(list.titleNode);
 	                    }
 	                });
 	            }

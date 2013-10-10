@@ -56,10 +56,27 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                     break;
                 case 'resize':
                     if (_self.isPercent) {
-                        _self.percentageWidth = Math.floor(width / domGeom.getMarginBox(dom.byId('mapResizeContainer')).w * 100);
-                        _self.percentageHeight = Math.floor(height / domGeom.getMarginBox(dom.byId('mapResizeContainer')).h * 100);
+                        _self.percentageWidth = Math.floor(width / domGeom.getMarginBox('mapResizeContainer').w * 100);
+                        _self.percentageHeight = Math.floor(height / domGeom.getMarginBox('mapResizeContainer').h * 100);
+                        if (_self.percentageWidth <= 100 && _self.percentageHeight <= 100) {
                         query('#inputWidth').attr('value', _self.percentageWidth);
                         query('#inputHeight').attr('value', _self.percentageHeight);
+                        }
+                        else if (_self.percentageWidth <= 100 && _self.percentageHeight > 100) {
+                            query('#inputWidth').attr('value', _self.percentageWidth);
+                            query('#inputHeight').attr('value', 100);
+                            _self.alertDialog("Maximum height is 100%");
+                        }
+                        else if (_self.percentageWidth > 100 && _self.percentageHeight <= 100) {
+                            query('#inputWidth').attr('value', 100);
+                            query('#inputHeight').attr('value', _self.percentageHeight);
+                            _self.alertDialog("Maximum width is 100%");
+                        }
+                        else {
+                            query('#inputWidth').attr('value', 100);
+                            query('#inputHeight').attr('value', 100);
+                            _self.alertDialog("Maximum width and height are 100%");
+                        }
                         query('#embedCustom').addClass('selected');
                     } else {
                     _self.options.embedWidth = width;
@@ -78,8 +95,8 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                     break;
                 default:
                     if (_self.isPercent) {
-                        _self.options.embedWidth = query('#inputWidth').attr('value')[0] / 100 * domGeom.getMarginBox(dom.byId('mapResizeContainer')).w;
-                        _self.options.embedHeight = query('#inputHeight').attr('value')[0] / 100 * domGeom.getMarginBox(dom.byId('mapResizeContainer')).h;
+                        _self.options.embedWidth = query('#inputWidth').attr('value')[0] / 100 * domGeom.getMarginBox('mapResizeContainer').w;
+                        _self.options.embedHeight = query('#inputHeight').attr('value')[0] / 100 * domGeom.getMarginBox('mapResizeContainer').h;
                     } else {
                     _self.options.embedWidth = query('#inputWidth').attr('value')[0];
                     _self.options.embedHeight = query('#inputHeight').attr('value')[0];
@@ -115,8 +132,8 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
             }
             if (_self.isPercent) {
                 if (mSize == "resize") {
-                    _self.options.embedWidth = Math.floor(query('#inputWidth').attr('value')[0] / 100 * domGeom.getMarginBox(dom.byId('mapResizeContainer')).w);
-                    _self.options.embedHeight = Math.floor(query('#inputHeight').attr('value')[0] / 100 * domGeom.getMarginBox(dom.byId('mapResizeContainer')).h);
+                    _self.options.embedWidth = Math.floor(query('#inputWidth').attr('value')[0] / 100 * domGeom.getMarginBox('mapResizeContainer').w);
+                    _self.options.embedHeight = Math.floor(query('#inputHeight').attr('value')[0] / 100 * domGeom.getMarginBox('mapResizeContainer').h);
                 }
                 query('#map').style({
                     'width': _self.options.embedWidth + 'px',
@@ -216,7 +233,7 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
             on(dom.byId("embedCustom"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                     _self.mapSize('custom');
-                    _self.isPercent = true;
+                    // _self.isPercent = true;
                 }
             });
             // listener for custom map size key up - height

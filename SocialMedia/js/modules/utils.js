@@ -43,8 +43,6 @@
   function (dojo, declare, connect, array, lang, event, dom, query, i18n, coreFx, domClass, domConstruct, date, on, aspect, ioQuery, locale, html, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, TitlePane, domAttr, TitleGroup, TooltipDialog, Extent, Point, SpatialReference, domGeom, domStyle, QueryTask, Query, urlUtils, has) {
       var Widget = declare("modules.utils", null, {
           constructor: function (options) {
-              this.mapNotesLayer = [];
-              this.mapNotesList = [];
               declare.safeMixin(this, options);
           },
           removeReportInAppButton: function () {
