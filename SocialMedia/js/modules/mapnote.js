@@ -43,7 +43,7 @@
               if (_self.mapNotesLayer.length > 0) {
                   html.set(_headerTitle, i18n.viewer.buttons.mapnote);
                   domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.mapNoteTitle);
-                  var titleGroup = new TitleGroup({ });
+                  var titleGroup = new TitleGroup({});
                   _mapNoteListContainer.appendChild(titleGroup.domNode);
                   array.forEach(_self.mapNotesLayer, function (mapNote, i) {
                       array.forEach(mapNote.featureCollection.layers, function (mapNoteLayer, j) {
@@ -194,13 +194,13 @@
                   style: "position: absolute;"
               });
               dijit.place.at(dialog.domNode, { x: anchorPoint.x, y: anchorPoint.y }, ["TL", "BL", "TR", "BR"], { x: 15, y: domGeom.getMarginBox(dom.byId('topMenuBar')).h - 15 });
-              on(query('.toolTipCloseButton')[0], "click", function () {                  
+              on(query('.toolTipCloseButton')[0], "click", function () {
                   _self.hideMapnoteTooltip();
                   _self.hideMapnoteDescription();
               });
           },
           //Hide map note tooltip
-          hideMapnoteTooltip: function () {              
+          hideMapnoteTooltip: function () {
               if (dijit.byId('toolTipDialog')) {
                   dijit.byId('toolTipDialog').destroy();
               }

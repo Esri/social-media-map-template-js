@@ -23,7 +23,7 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "twitterSigninUrl": location.protocol + "//utility.arcgis.com/tproxy/signin",
         "showPanoramio": false,
         "panoramioChecked": false,
-        "showUshahidi": true,
+        "showUshahidi": false,
         "ushahidiChecked": false,
         "showUshahidiConfig": true,
         "ushahidiCategory": 0,

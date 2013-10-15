@@ -632,3 +632,7 @@ a:active, a:hover, a:focus {
 .hideMapNotesContainer {
     left: -275px !important;
 }
+input::-ms-clear {
+    height: 0;
+    width: 0;
+}
