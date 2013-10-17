@@ -1987,7 +1987,7 @@ define([
 	                } else if (_self.options.itemInfo.itemData.bookmarks) {
 	                    html.set(_headerTitle, i18n.viewer.buttons.bookmarks);
 	                    domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.bookmarksTitle);
-	                    _self.mapnote._createBookmarkList(_self.options.itemInfo.itemData.bookmarks, _mapNoteListContainer)           
+	                    _self.mapnote._createBookmarkList(_self.options.itemInfo.itemData.bookmarks, _mapNoteListContainer);           
 	                } else {
 	                    domConstruct.destroy("mblMapnoteBtn");
 	                }
