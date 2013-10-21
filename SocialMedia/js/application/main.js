@@ -88,6 +88,7 @@ define([
                     ready(function () {
                         _self.setAppIdSettings().then(function () {
                             _self.init();
+                            document.dojoClick = false;
                         });
                     });
                     var supportsOrientationChange = "onorientationchange" in window,
@@ -3910,7 +3911,6 @@ define([
                         dojo.showInfoWindow = false;
                     });
                     connect.connect(_self.options.map.infoWindow, "onShow", function () {
-                        _self.options.map.centerAt(_self.options.map.infoWindow._location);
                         setTimeout(function () {
                             _self.resizePopup();
                             var mapPoint = _self.options.map.infoWindow._location;
@@ -3987,6 +3987,7 @@ define([
                                     _self.options.map.infoWindow._followMap();
                                 }
                             }
+                            _self.options.map.centerAt(_self.options.map.infoWindow._location);
                         }, 500);
                     });
                 },
@@ -4251,7 +4252,6 @@ define([
                 },
                 // Create the map object for the template
                 createWebMap: function () {
-
                     var _self = this;
                     var infoPopup;
                     popup = new PopupMobile(null, dojo.create("div"));
@@ -4271,7 +4271,7 @@ define([
                     // on successful response
                     mapDeferred.addCallback(function (response) {
                         _self.webmapReturned(response);
-                        dojo.place(popup.domNode, _self.options.map.root);
+                        dojo.place(popup.domNode, response.map.root);
                     });
                     // on error response
                     mapDeferred.addErrback(function (error) {
