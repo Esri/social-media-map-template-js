@@ -221,20 +221,12 @@
 }
 
 .esriMobileNavigationBar,.esriPopupMobile,.titlePane {
-
-    -webkit-touch-callout:none;
-    -webkit-user-select:none;
-
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
     background-color:#4A4A4A!important;
     background-image:none!important;
     background:linear-gradient(tobottom,#4B4B4B0%,#020202100%)!important;
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4B4B4B',endColorstr='#020202',GradientType=0)!important;
-
-}
-
-.esriPopupMobile{
-    background: #000;
-
 }
 
 .esriPopupMobile .pointer.bottom {
@@ -446,7 +438,6 @@
     -webkit-user-select:none!important;
     height:30px!important;
     width:30px!important;
-
 }
 /*Enhancements parts */
 .transition {
@@ -614,5 +605,3 @@
 	bottom: 60px;
     }
  }
-
-

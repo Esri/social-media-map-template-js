@@ -19,6 +19,7 @@ define([
     "dojo/number",
     "dojo/window",
     "dojo/on",
+    "dojo/aspect",
     "dojo/fx",
     "dojo/i18n!./nls/template.js",
     "modules/HeatmapLayer",
@@ -76,9 +77,10 @@ define([
     "dojox/mobile/scrollable",
     "dojox/mobile/Accordion"
 ],
-
-        function (ready, declare, connect, Deferred, dojoMbl, mlist, all, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, date, number, win, on, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, templateConfig, cookie, JSON, config, arcgisUtils, utils, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, esri, Geocoder, FeatureLayer, PopupMobile, SimpleDialog, Extent, webMercatorUtils, BasemapGallery, Switch) {
-
+	function (ready, declare, connect, Deferred, dojoMbl, mlist, all, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, domAttr,
+              date, number, win, on, aspect, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, templateConfig,
+              cookie, JSON, html, config, arcgisUtils, utils, mapnote, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, esri, Geocoder,
+              FeatureLayer, TitlePane, TitleGroup, PopupMobile, SimpleDialog, Extent, webMercatorUtils, BasemapGallery, Switch, Accordion) {
             var Widget = declare("application.main", null, {
                 popup: null,
                 tinyUrl: null,
@@ -96,8 +98,8 @@ define([
                     _self.setOptions();
                     ready(function () {
                         _self.setAppIdSettings().then(function () {
-                            _self.init();
-                            document.dojoClick = false;
+				_self.init();
+				document.dojoClick = false;
                         });
                     });
                     var supportsOrientationChange = "onorientationchange" in window,
@@ -210,21 +212,15 @@ define([
                                 _self.setViewHeight();
                             }
                             if (_self.options.map.infoWindow.isShowing) {
-<<<<<<< HEAD
 	                        if (dojo.isMobileDevice) {
 	                            _self.options.map.centerAt(_self.options.map.graphics.graphics[0]._extent.getCenter());
 	                        } else {
-=======
->>>>>>> upstream/master
                                 _self.options.map.centerAt(_self.options.map.infoWindow._location);
                             }
                             _self.options.map.reposition();
                             _self.options.map.resize();
                             dijit.byId('mapcon').resize();
-<<<<<<< HEAD
 	                    }
-=======
->>>>>>> upstream/master
 
                         }), timeout);
                     }
@@ -1992,7 +1988,7 @@ define([
 	                } else if (_self.options.itemInfo.itemData.bookmarks) {
 	                    html.set(_headerTitle, i18n.viewer.buttons.bookmarks);
 	                    domAttr.set(dom.byId("mapNotesButton"), "title", i18n.viewer.buttons.bookmarksTitle);
-	                    _self.mapnote._createBookmarkList(_self.options.itemInfo.itemData.bookmarks, _mapNoteListContainer);           
+	                    _self.mapnote._createBookmarkList(_self.options.itemInfo.itemData.bookmarks, _mapNoteListContainer)
 	                } else {
 	                    domConstruct.destroy("mblMapnoteBtn");
 	                }
@@ -2834,7 +2830,7 @@ define([
                             error: function (error) {
                                 alert(error);
                             }
-                        });   
+                        });
                     }
                     else{
                         _self.tinyUrl = fullLink;
@@ -3172,11 +3168,7 @@ define([
                                 }
                             }
                             else{
-<<<<<<< HEAD
                                 _self.toggleMapLayer(_self.options.itemInfo.itemData.operationalLayers[index].id);
-=======
-                                _self.toggleMapLayer(_self.options.itemInfo.itemData.operationalLayers[index].id);   
->>>>>>> upstream/master
                             }
                             _self.setSharing();
                         });
@@ -3701,8 +3693,10 @@ define([
 	                    }
 	                });
 	                connect.connect(dojo.byId("geocoderSearchTool_input"), 'onclick', function (result) {
+	                    if (dojo.isMobileDevice) {
 	                    if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
 	                        _self.hideMapnoteContainer();
+	                        }
                             }
                         });
                         connect.connect(_self._geocoder, 'onSelect', function (result) {
@@ -4041,7 +4035,6 @@ define([
                         dojo.showInfoWindow = false;
                     });
                     connect.connect(_self.options.map.infoWindow, "onShow", function () {
-<<<<<<< HEAD
 	                if (!_self.mapnote.showInfoWindow) {
 	                    return;
 	                }
@@ -4053,9 +4046,6 @@ define([
 	                    }
 	                });
 	                }
-                        _self.options.map.centerAt(_self.options.map.infoWindow._location);
-=======
->>>>>>> upstream/master
                         setTimeout(function () {
                             _self.resizePopup();
                             var mapPoint = _self.options.map.infoWindow._location;
@@ -4132,7 +4122,7 @@ define([
                                     _self.options.map.infoWindow._followMap();
                                 }
                             }
-                            _self.options.map.centerAt(_self.options.map.infoWindow._location);
+	                    _self.options.map.centerAt(_self.options.map.infoWindow._location);
                         }, 500);
                     });
                 },
@@ -4454,12 +4444,9 @@ define([
 	                        _self.options.customPopup.hide();
 	                    }
                         });
-<<<<<<< HEAD
 	                aspect.before(_self.options.customPopup, "_setPosition", function (evt) {
 	                    _self.zoomToAttributes = _self.options.map.toMap(evt);
 	                });
-=======
->>>>>>> upstream/master
                         // connects for popup
                     } else {
                         connect.connect(_self.options.customPopup, "maximize", function () {
@@ -4512,11 +4499,7 @@ define([
                     // on successful response
                     mapDeferred.addCallback(function (response) {
                         _self.webmapReturned(response);
-<<<<<<< HEAD
 	                dojo.place(_self.options.customPopup.domNode, response.map.root);
-=======
-                        dojo.place(popup.domNode, response.map.root);
->>>>>>> upstream/master
                     });
                     // on error response
                     mapDeferred.addErrback(function (error) {

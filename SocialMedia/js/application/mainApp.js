@@ -112,7 +112,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
             _self.options = declare.safeMixin(_self.options, params.query);
         },
         // Set sharing links
-        setSharing: function () {
+        setSharing: function (mode, value) {
             var _self = this;
             // parameters to share
             var urlParams = ['webmap', 'appid', 'basemap', 'extent', 'locateName', 'layers', 'youtubeSearch', 'youtubeRange', 'youtubeChecked', 'twitterSearch', 'twitterChecked', 'flickrSearch', 'flickrRange', 'flickrChecked', 'panoramioChecked', 'socialDisplay', 'locatePoint'];
@@ -137,8 +137,20 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                 var pathUrl = params.path.substring(0, params.path.lastIndexOf('/'));
                 // Sharing url
                 _self.options.shareURL = pathUrl + '/' + _self.options.homePage + _self.options.shareParams;
+                if (mode == "percentage") {
+                    if (value >= 0 && value <= 100) {
+                        var embedWidth = value + '%';
+                        domClass.remove(query('#inputWidth')[0], "highlightBorder");
+                    } else {
+                        var embedWidth = _self.options.embedWidth || _self.options.embedSizes.medium.width;
+                        _self.alertDialog("Please enter value between 0-100");
+                        domClass.add(query('#inputWidth')[0], "highlightBorder");
+                    }
+                }
+                else {
                 // quick embed width
                 var embedWidth = _self.options.embedWidth || _self.options.embedSizes.medium.width;
+                }
                 var embedHeight = _self.options.embedHeight || _self.options.embedSizes.medium.height;
                 // iframe code
                 _self.options.embedURL = '<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="' + embedWidth + '" height="' + embedHeight + '" align="center" src="' + _self.options.shareURL + '"></iframe>';
