@@ -74,7 +74,8 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
 	"sourceCountry": "USA",
 	"TinyURLResponseAttribute": "data.url",
 	"TinyURLServiceURL": "http://api.bit.ly/v3/shorten?login=esri&apiKey=R_65fd9891cd882e2a96b99d4bda1be00e&uri=${0}&format=json",
-	"ExtentRange": 15
+	"ExtentRange": 15,
+        "defaultPercentageWidth": 95
     };
     return config;
 });

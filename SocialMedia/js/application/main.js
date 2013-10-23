@@ -3,6 +3,7 @@ define([
     "dojo/_base/declare",
     "dojo/_base/connect",
     "dojo/_base/Deferred",
+    "dojo/_base/lang",
     "dojox/mobile",
     "dojox/mobile/migrationAssist",
     "dojo/promise/all",
@@ -77,7 +78,7 @@ define([
     "dojox/mobile/scrollable",
     "dojox/mobile/Accordion"
 ],
-	function (ready, declare, connect, Deferred, dojoMbl, mlist, all, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, domAttr,
+	function (ready, declare, connect, Deferred, lang, dojoMbl, mlist, all, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, domAttr,
               date, number, win, on, aspect, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, templateConfig,
               cookie, JSON, html, config, arcgisUtils, utils, mapnote, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, esri, Geocoder,
               FeatureLayer, TitlePane, TitleGroup, PopupMobile, SimpleDialog, Extent, webMercatorUtils, BasemapGallery, Switch, Accordion) {
@@ -210,6 +211,7 @@ define([
                             if (dojo.isMobileDevice) {
                                 _self.hideAddressBar();
                                 _self.setViewHeight();
+	                        _self.resetTitle();
                             }
                             if (_self.options.map.infoWindow.isShowing) {
 	                        if (dojo.isMobileDevice) {
@@ -225,6 +227,11 @@ define([
                         }), timeout);
                     }
                 },
+	        resetTitle: function () {
+	            if (dojo.coords(query('.mblHeadingCenterTitle .mblHeadingDivTitle')[0]).w > 500) {
+	            }
+	        },
+
                 hideAddressBar: function () {
                     var searchInputBox = query('.modernGrey .esriGeocoder input')[0];
                     if (window.orientation === 0) {

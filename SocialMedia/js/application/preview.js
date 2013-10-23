@@ -170,25 +170,19 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
             // Embed Radio Buttons
             on(dom.byId("embedSmall"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-                    domClass.remove(query('.pixels')[1], "highlight");
-                    domClass.remove(query('#inputWidth')[0], "highlightBorder");
-                    _self.isPercentage = false;
+                    _self.switchToPixel();
                     _self.mapSize('small');
                 }
             });
             on(dom.byId("embedMedium"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-                    domClass.remove(query('.pixels')[1], "highlight");
-                    domClass.remove(query('#inputWidth')[0], "highlightBorder");
-                    _self.isPercentage = false;
+                    _self.switchToPixel();
                     _self.mapSize('medium');
                 }
             });
             on(dom.byId("embedLarge"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
-                    domClass.remove(query('.pixels')[1], "highlight");
-                    domClass.remove(query('#inputWidth')[0], "highlightBorder");
-                    _self.isPercentage = false;
+                    _self.switchToPixel();
                     _self.mapSize('large');
                 }
             });
@@ -207,8 +201,7 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
             on(dom.byId('inputHeight'), "change", function () {
                 if (_self.isPercentage) {
                     domClass.add(query('.pixels')[0], "highlight");
-                    domClass.remove(query('.pixels')[1], "highlight");
-                    domClass.remove(query('#inputWidth')[0], "highlightBorder");
+                    _self.switchToPixel();
                 }
                 _self.mapSize('custom');
             });
@@ -247,9 +240,9 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
                         return;
                     }
                     _self.isPercentage = true;
-                    _self.alertDialog("Please enter value between 0-100");
-                    _self.setSharing("percentage", 95);
-                    query('#inputWidth').attr('value', 95);
+                    _self.alertDialog(i18n.viewer.errors.invalidPercentWidth);
+                    _self.setSharing("percentage", _self.options.defaultPercentageWidth);
+                    query('#inputWidth').attr('value', _self.options.defaultPercentageWidth);
                 }
             });
             // resizable
@@ -278,6 +271,12 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
             });
             // set initial embed code
             _self.setSharing(true);
+        },
+        switchToPixel: function () {
+            var _self = this;
+            _self.isPercentage = false;
+            domClass.remove(query('.pixels')[1], "highlight");
+            domClass.remove(query('#inputWidth')[0], "highlightBorder");
         }
     });
     return Widget;

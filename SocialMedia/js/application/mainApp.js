@@ -143,7 +143,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                         domClass.remove(query('#inputWidth')[0], "highlightBorder");
                     } else {
                         var embedWidth = _self.options.embedWidth || _self.options.embedSizes.medium.width;
-                        _self.alertDialog("Please enter value between 0-100");
+                        _self.alertDialog(i18n.viewer.errors.invalidPercentWidth);
                         domClass.add(query('#inputWidth')[0], "highlightBorder");
                     }
                 }
