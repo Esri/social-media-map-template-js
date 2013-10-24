@@ -32,7 +32,7 @@ define({
                 "unknownError": "Unknown error occured. Unable to locate current location", // added 8.26.2013
                 "tinyURLError": "Unable to generate TinyURL", // added 8.26.2013
                 "invalidSearch": "Invalid Search", // added 8.26.2013
-                "invalidPercentWidth": "Please enter value between 0-100." // added 23.10.2013
+                "invalidPercentWidth": "Please enter value between 0-100." // added 10.23.2013
             },
             "legend": {
                 "menuTitle": "Legend"

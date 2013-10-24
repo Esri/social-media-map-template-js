@@ -130,63 +130,69 @@
     <script type="text/javascript" src="js/plugins/respond.js"></script>
     <script type="text/javascript" src="js/plugins/heatmap.js"></script>
     <script type="text/javascript">
-	    require(["dojo/_base/kernel", 'dojo/ready', 'dojo/parser', "dojo/dom"], function (dojo, ready, parser, dom) {
-	        var userAgent = window.navigator.userAgent;
-	        dojo.showInfoWindow = false;
-	        dojo.isTablet = false;
-	        dojo.isMobileDevice = false;
-	        dojo.isBrowser = false;
-	        dojo.isiOS = false;
-	        dojo.isReferrer = false;
+        require(["dojo/_base/kernel", 'dojo/ready', 'dojo/parser', "dojo/dom"], function (dojo, ready, parser, dom) {
+            var userAgent = window.navigator.userAgent;
+            dojo.showInfoWindow = false;
+            dojo.isTablet = false;
+            dojo.isMobileDevice = false;
+            dojo.isBrowser = false;
+            dojo.isiOS = false;
+            dojo.isReferrer = false;
 
-	        if (userAgent.indexOf("iPhone") >= 0 || userAgent.indexOf("iPad") >= 0) {
-	            dojo.isiOS = true;
-	        }
-	        if ((userAgent.indexOf("Android") >= 0 && userAgent.indexOf("Mobile") >= 0) || userAgent.indexOf("iPhone") >= 0) {
-	            fontSize = 15;
-	            dojo.isMobileDevice = true;
-	            dom.byId('dynamicStyleSheet1').href = "css/mobile.css";
-	        }
-	        else if (userAgent.indexOf("iPad") >= 0 || userAgent.indexOf("Android") >= 0) {
-	            fontSize = 14;
-	            dojo.isTablet = true;
-	            dom.byId('dynamicStyleSheet1').href = "css/tablet.css";
-	        }
-	        else {
-	            dojo.isBrowser = true;
-	            fontSize = 11;
-	            if (document.referrer && (!opener)) {
-	                if ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) < 800) {
-	                    dojo.isReferrer = true;
-	                }
-	            }
-               dojo.isReferrer = true;
-	            if (dojo.isReferrer) {
-	                dom.byId('dynamicStyleSheet1').href = "css/browser.css";
-	            } else {
-	                dom.byId('dynamicStyleSheet1').href = "css/applicationMain.css";
-	            }
-	        }
-	        if ((dojo.isReferrer || dojo.isTablet) && (!dojo.isMobileDevice)) {
-	            dom.byId('dynamicStyleSheet3').href = "css/mediaQueryEmbedded.css";
-	            dom.byId('dynamicStyleSheet2').href = "css/application.css";
-	            require(["application/main", "config/config"], function (application, configOptions) {
-	                application(configOptions);
-	            });
-	        }
-	        else if (dojo.isMobileDevice) {
-	            dom.byId('dynamicStyleSheet2').href = "css/application.css";
-	            require(["application/main", "config/config"], function (application, configOptions) {
-	                application(configOptions);
-	            });
-	        }
-	        else {
-	            dom.byId('dynamicStyleSheet2').href = "css/mediaQueries.css";
-	            require(["application/mainApp", "config/config"], function (application, configOptions) {
-	                application(configOptions);
-	            });
-	        }
-	    });
+            if (userAgent.indexOf("iPhone") >= 0 || userAgent.indexOf("iPad") >= 0) {
+                dojo.isiOS = true;
+            }
+            if ((userAgent.indexOf("Android") >= 0 && userAgent.indexOf("Mobile") >= 0) || userAgent.indexOf("iPhone") >= 0) {
+                fontSize = 15;
+                dojo.isMobileDevice = true;
+                dom.byId('dynamicStyleSheet1').href = "css/mobile.css";
+            }
+            else if (userAgent.indexOf("iPad") >= 0 || userAgent.indexOf("Android") >= 0) {
+                fontSize = 14;
+                dojo.isTablet = true;
+                dom.byId('dynamicStyleSheet1').href = "css/tablet.css";
+            }
+            else {
+                dojo.isBrowser = true;
+                fontSize = 11;
+                if (document.referrer && (!opener)) {
+                    if ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) < 800) {
+                        dojo.isReferrer = true;
+                    }
+                }
+                dojo.isReferrer = true;
+                if (dojo.isReferrer) {
+                    dom.byId('dynamicStyleSheet1').href = "css/browser.css";
+                } else {
+                    dom.byId('dynamicStyleSheet1').href = "css/applicationMain.css";
+                }
+            }
+            if ((dojo.isReferrer || dojo.isTablet) && (!dojo.isMobileDevice)) {
+                dom.byId('dynamicStyleSheet3').href = "css/mediaQueryEmbedded.css";
+                dom.byId('dynamicStyleSheet2').href = "css/application.css";
+                require(["application/main", "config/config"], function (application, configOptions) {
+                    application(configOptions);
+                });
+            }
+            else if (dojo.isMobileDevice) {
+                if (document.referrer) {
+                    require(["application/test", "config/config"], function (application, configOptions) {
+                        application(configOptions);
+                    });
+                } else {
+                    dom.byId('dynamicStyleSheet2').href = "css/application.css";
+                    require(["application/main", "config/config"], function (application, configOptions) {
+                        application(configOptions);
+                    });
+                }
+            }
+            else {
+                dom.byId('dynamicStyleSheet2').href = "css/mediaQueries.css";
+                require(["application/mainApp", "config/config"], function (application, configOptions) {
+                    application(configOptions);
+                });
+            }
+        });
     </script>
     <!-- End JavaScript -->
 </body>

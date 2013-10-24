@@ -1505,9 +1505,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 #aboutDialog .license {
     margin-bottom: 10px;
 }
-
 /* Enhancements parts CSS */
-
 #mapNotesButton {
     background: url(../images/ui/mapNotes.png);
     height: 16px;

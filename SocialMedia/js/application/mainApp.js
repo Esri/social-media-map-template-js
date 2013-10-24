@@ -148,8 +148,8 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     }
                 }
                 else {
-                // quick embed width
-                var embedWidth = _self.options.embedWidth || _self.options.embedSizes.medium.width;
+                    // quick embed width
+                    var embedWidth = _self.options.embedWidth || _self.options.embedSizes.medium.width;
                 }
                 var embedHeight = _self.options.embedHeight || _self.options.embedSizes.medium.height;
                 // iframe code

@@ -163,7 +163,7 @@
               array.some(_self.mapNotesList, function (list) {
                   if (list.open) {
                       list.set('open', false);
-                      _self.swapCSS(list.titleNode);
+                      _self.replaceClass(list.titleNode);
                       return true;
                   }
               });
@@ -235,7 +235,7 @@
                   domClass.add(query('.esriScalebar')[0], ["scalebarShiftLeft", "transition"]);
               }
           },
-          swapCSS: function (node) {
+          replaceClass: function (node) {
               domClass.replace(node, "listCollapse", "listExpand");
           }
       });

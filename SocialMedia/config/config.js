@@ -50,6 +50,7 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
 	"showAboutDialogOnLoad": true,
         "updateSocialLayersOnPan": false,
 	"showMapNote": true,
+        "showMapnotePanel": false,
 	"zoomLevel": 10,
 /*
         "securedLayers": [
