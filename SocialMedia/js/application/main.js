@@ -915,11 +915,15 @@ define([
 	                dojo.connect(dijit.byId(obj.title + "view"), "onBeforeTransitionIn", null, function (moveTo, dir, transition, context, method) {
 	                    this.resize();
 	                });
+	                socialViewHead.backButton.onTouchStart = function () {
+	                    socialViewHead.startup();
+	                }
 	                var SocialScroll = new dojox.mobile.View({
 	                    id: obj.title + "scroll",
 	                    class: "mobileScrollViews"
 	                });
 	                divSocialView.addChild(SocialScroll);
+	                divSocialView.startup();
 	                var content1 = new dojox.mobile.RoundRectList({
 	                    label: "",
 	                    id: obj.title + 'ListItem'
@@ -1954,11 +1958,6 @@ define([
 	                                domClass.add(_titlePane.hideNode, "contentNode");
 	                                domClass.add(_titlePane.domNode, "bottomBorder");
 	                                domClass.add(_titlePane.containerNode, "descriptionNode");
-//	                                aspect.before(_titlePane.titleBarNode, "onclick", function (evt) {
-//	                                    if (_self.options.customPopup.isShowing) {
-//	                                        _self.options.customPopup.hide();
-//	                                    }
-//	                                });
 	                                on(_titlePane.titleBarNode, "click", function () {
 	                                    if (_self.options.customPopup.isShowing) {
 	                                        _self.options.customPopup.hide();
@@ -1982,6 +1981,7 @@ define([
 	                                                    _self.options.map.centerAndZoom(mapNoteLayer.layerObject.graphics[k].geometry, _self.options.zoomLevel);
 	                                                    _self.options.customPopup.show(mapNoteLayer.layerObject.graphics[k].geometry);
 	                                                    list.set('open', true);
+	                                                    domClass.add(list.titleNode, "listExpand");
 	                                                }
 	                                            }, 500);
 	                                        }
@@ -1993,7 +1993,6 @@ define([
 	                                    });
 	                                });
 	                                _mapNoteFeature.onClick = function (evt) {
-	                                    _self.changeSelection();
 	                                }
 	                            });
 	                        });
@@ -2667,7 +2666,6 @@ define([
 	                        transition: 'none'
 	                    });
 	                    bookmarkView.addChild(headingBookmark);
-
 	                    dojo.connect(headingBookmark.backButton, "onClick", function (evt) {
 	                        setTimeout(function () {
 	                            dojo.byId('divCont').style.display = "block";
@@ -2688,7 +2686,6 @@ define([
 	                    });
 	                    alertList.onClick = function () {
 	                        _self.options.map.setExtent(_self.options.startExtent);
-	                        dojo.byId('divCont').style.display = "block";
 	                        dijit.byId("mapcon").show();
 	                        dijit.byId("mapcon").resize();
 	                        dijit.byId("mapTab").set('selected', true);
@@ -2901,7 +2898,6 @@ define([
 	            });
 	            uList.addChild(listItem1);
 	            dojo.connect(listItem1, "onClick", function () {
-	                dojo.byId('divCont').style.display = "block";
 	                dijit.byId("mapcon").show();
 	                dijit.byId("mapcon").resize();
 	            });
@@ -2945,7 +2941,6 @@ define([
 	                    label: i18n.viewer.buttons.share
 	                });
 	                dojo.connect(listItem5, "onClick", function () {
-	                    dojo.byId('divCont').style.display = "none";
 	                    dijit.byId("shareView").show();
 	                    dijit.byId("shareView").resize();
 	                    _self.shareLink(encodeURIComponent(_self.options.shareURL));
@@ -2970,11 +2965,8 @@ define([
 	                transition: "none"
 	            });
 	            layersView.addChild(heading1);
-	            dojo.connect(heading1.backButton, "onClick", function (evt) {
+	            dojo.connect(heading1.backButton, "onTouchStart", function (evt) {
 	                event.stop(evt);
-	                setTimeout(function () {
-	                    dojo.byId('divCont').style.display = "block";
-	                }, 300);
 	                dijit.byId("mapTab").set('selected', true);
 	            });
 	            var tabBar = new dojox.mobile.TabBar({
@@ -3189,7 +3181,6 @@ define([
 	            }
 	            layersView.startup();
 	            dojo.connect(layersView, "onBeforeTransitionIn", null, function (moveTo, dir, transition, context, method) {
-	                dojo.byId("divCont").style.display = "none";
 	                dijit.byId("layersView").resize();
 	            });
 	            if (dijit.byId("operationalView")) {
@@ -3221,11 +3212,8 @@ define([
 	                transition: "none"
 	            });
 	            legendView.addChild(legendHeading);
-	            dojo.connect(legendHeading.backButton, "onClick", function (evt) {
+	            dojo.connect(legendHeading.backButton, "onTouchStart", function (evt) {
 	                event.stop(evt);
-	                setTimeout(function () {
-	                    dojo.byId('divCont').style.display = "block";
-	                }, 300);
 	            });
 	            legendView.startup();
 	            var legendScroll = new dojox.mobile.ScrollableView({
@@ -3240,7 +3228,6 @@ define([
 	            legendScroll.addChild(legendContent);
 	            legendScroll.startup();
 	            dojo.connect(legendView, "onBeforeTransitionIn", null, function (moveTo, dir, transition, context, method) {
-	                dojo.byId('divCont').style.display = "none";
 	                dijit.byId("legendView").resize();
 	            });
 	        },
@@ -3301,7 +3288,6 @@ define([
 	            aboutScrollView.startup();
 	            aboutView.startup();
 	            dojo.connect(aboutView, "onBeforeTransitionIn", null, function (moveTo, dir, transition, context, method) {
-	                dojo.byId('divCont').style.display = "none";
 	                dijit.byId("aboutView").resize();
 	            });
 	            if (_self.options.showAboutDialogOnLoad) {
@@ -3325,11 +3311,8 @@ define([
 	                transition: 'none'
 	            });
 	            shareView.addChild(shareHeading);
-	            dojo.connect(shareHeading.backButton, "onClick", function (evt) {
+	            dojo.connect(shareHeading.backButton, "onTouchStart", function (evt) {
 	                event.stop(evt);
-	                setTimeout(function () {
-	                    dojo.byId('divCont').style.display = "block";
-	                }, 300);
 	            });
 	            shareView.startup();
 	            var shareViewScroll = new dojox.mobile.View({
@@ -3589,7 +3572,7 @@ define([
 	                html += '<input tabindex="0" id="inputShare" value="" type="text" class="mapInput inputSingle" size="20" readonly/>';
 	                html += '<span tabindex="0" id="fbImage" title="' + i18n.viewer.shareMenu.facebookHeader + '"><span class="icon"></span>' + i18n.viewer.shareMenu.facebook + '</span><span tabindex="0" id="twImage" title="' + i18n.viewer.shareMenu.twitterHeader + '"><span class="icon"></span>' + i18n.viewer.shareMenu.twitter + '</span></div>';
 	                html += '<h3>' + i18n.viewer.shareMenu.instructionHeader + '</h3>';
-	                html += '<textarea rows="3" id="quickEmbedCode"></textarea>';
+	                _self.options.quickEmbedReadonly ? html += '<textarea rows="3" id="quickEmbedCode" readonly></textarea>' : html += '<textarea rows="3" id="quickEmbedCode"></textarea>';
 	                if (_self.options.previewPage) {
 	                    html += '<span id="embedOptions">' + i18n.viewer.shareMenu.preview + '</span>';
 	                }
@@ -3639,7 +3622,7 @@ define([
 	                                var h = _self.options.previewSize.height;
 	                                var left = (screen.width / 2) - (w / 2);
 	                                var top = (screen.height / 2) - (h / 2);
-	                                window.open(_self.options.previewPage + _self.options.shareParams, 'embed', 'scrollbars=yes', 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left, false);
+	                                window.open(_self.options.previewPage + _self.options.shareParams);
 	                            }
 	                        });
 	                    }
@@ -4047,7 +4030,7 @@ define([
 	                dojo.showInfoWindow = false;
 	            });
 	            connect.connect(_self.options.map.infoWindow, "onShow", function () {
-	                if (dojo.isBrowser) {
+	                if (dojo.isBrowser || dojo.isTablet) {
 	                    if (!_self.mapnote.showInfoWindow) {
 	                        return;
 	                    }
@@ -4311,7 +4294,6 @@ define([
 	                            dojo.connect(imgBookmark, 'onclick', function () {
 	                                dijit.byId("mapTab").set('selected', false);
 	                                dijit.byId('bookmarkView').show();
-	                                dojo.byId("divCont").style.display = "none";
 	                                dijit.byId('bookmarkView').resize();
 	                            });
 	                        }
@@ -4460,7 +4442,6 @@ define([
 	                    dojo.byId('divCont').style.display = "block";
 	                });
 	                connect.connect(_self.options.customPopup, "onShow", function () {
-	                    _self.changeSelection();
 	                    if (!_self.options.customPopup.features) {
 	                        _self.options.customPopup.hide();
 	                    }

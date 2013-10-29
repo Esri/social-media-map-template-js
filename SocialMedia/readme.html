@@ -66,7 +66,7 @@
 <ol>
 	<li>To modify the webmap, replace the string for webmap with your maps's id.
 	<pre>
-		"webmap":"<span class="selector">4a6f9fdc83ce44b6985115e4bd73cacd</span>"
+		"webmap":"<span class="selector">ea2bf030ae06449482d13e8008aa5dfe</span>"
 	</pre>
 	</li>
 	<li>Enter keys for social media.
@@ -96,7 +96,16 @@
 		<li><b>showTwitterConfig:</b> Allow configuration of Twitter and it's search terms.</li>
 		<li><b>twitterChecked:</b> Search for Twitter Photos on map load.</li>
 		<li><b>twitterSearch:</b> Keyword to search for Twitter results.</li>
-		<li><b>useArcGISOnlineBasemaps:</b> Use the ArcGIS Online basemap group for basemaps.</li>
+        <li><b>twitterUrl:</b> Keyword to search for Twitter results.</li>
+        <li><b>twitterSigninUrl:</b> Keyword to search for Twitter results.</li>
+        <li><b>showPanoramio:</b> Show Panoramio on the social media layers menu.</li>
+        <li><b>panoramioChecked:</b>  Search for panoramio Photos on map load.</li>
+        <li><b>showUshahidi:</b> Show Ushahidi on the social media layers menu.</li>
+        <li><b>ushahidiChecked:</b> Search for Ushahidi Photos on map load.</li>
+        <li><b>showUshahidiConfig:</b> Allow configuration of Ushahidi and it's search terms.</li>
+        <li><b>ushahidiCategory:</b> Keyword to search for Ushahidi results.</li>
+        <li><b>ushahidiUrl:</b> Keyword to search for Ushahidi results.</li>
+        <li><b>useArcGISOnlineBasemaps:</b> Use the ArcGIS Online basemap group for basemaps.</li>
 		<li><b>basemapGroupTitle:</b> If useArcGISOnlineBasemaps is false, use this group title for basemap group.</li>
 		<li><b>basemapGroupOwner:</b> If useArcGISOnlineBasemaps is false, use this user for basemap group.</li>
 		<li><b>clusterImage:</b> Image for clustered social media.</li>
@@ -113,14 +122,28 @@ set the value to true or false. If true, you must also provide a value for locat
 basemap. Note – if a custom basemap is used in your web map, it will not appear as an option on the Basemap menu. If users select another basemap while using your application, they will have to reload the application to view the custom basemap again.</li>
 		<li><b>showLayersMenu:</b> To add or remove the Layers menu button from the user interface, set the value to true or false. When true, users can interact with the map layers (turn on/off, adjust transparency, view legends, etc.).</li>
 		<li><b>showLegendMenu:</b> Show legend menu in user interface.</li>
+<li><b>showDisplaySwitch:</b> Show legend menu in user interface.</li>
 		<li><b>showPlaces:</b> To add or remove the Places menu button from the user interface, set the value to true or false. When true, users can store the current view in a bookmark. Up to 5
 bookmarks can be saved at a time. Note – if more than 5 bookmarks are defined in your ArcGIS Online web map, the first 5 will appear in the Places menu. The others will not be loaded in the application.</li>
 		<li><b>showGeolocation:</b> To add or remove the option to find the current location of the user, set the value to true or false. When true, a link to My Current Location is displayed.</li>
 		<li><b>showAboutDialog:</b> Show about button in user interface.</li>
 		<li><b>showAboutDialogOnLoad:</b> Show about dialog on map load.</li>
-		<li><b>locateName:</b> Use this title in info window on locate point.</li>
-		<li><b>locatePoint:</b> Show this point on map load. Format as x,y eg: 1234.12,-1234.12.</li>
-	</ul>
+		<li><b>updateSocialLayersOnPan:</b> Update social feeds on map extent change.</li>
+        <li><b>showMapNote:</b> Show MapNote button in user interface.</li>
+        <li><b>showMapnotePanel:</b> Show MapnotePanel in user interface.</li>
+        <li><b>zoomLevel:</b> Show zoomLevel menu in user interface.</li>
+        <li><b>locateName:</b> Show legend menu in user interface.</li>
+        <li><b>locatePoint:</b> Show legend menu in user interface.</li>
+        <li><b>bannedUsersService:</b> URL to restrict users.</li>
+        <li><b>bannedWordsService:</b> URL to restrict words.</li>
+        <li><b>flagMailServer:</b> Show legend menu in user interface.</li>
+        <li><b>sourceCountry:</b> Show country name.</li>
+        <li><b>TinyURLResponseAttribute:</b> Show data url.</li>
+        <li><b>TinyURLServiceURL:</b> Service url</li>
+        <li><b>ExtentRange:</b> It is difference of maximum amd minimum extent in x-coordinate.if difference is greater than 15 we show spotlight otherwise pushpin</li>
+        <li><b>defaultPercentageWidth:</b> Default width in percentage for map in mbed version.</li>
+        <li><b>quickEmbedReadonly:</b> Enable or disable read only behaviour of textbox.</li>
+        </ul>
 	</li>
 	<li>Save the file then test your application and note that it now displays your group and if specified your custom properties.</li>
 </ol>

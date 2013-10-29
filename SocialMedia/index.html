@@ -175,8 +175,8 @@
                 });
             }
             else if (dojo.isMobileDevice) {
-                if (document.referrer) {
-                    require(["application/test", "config/config"], function (application, configOptions) {
+                if (document.referrer && document.referrer != document.location.href) {
+                    require(["application/embedMobile", "config/config"], function (application, configOptions) {
                         application(configOptions);
                     });
                 } else {

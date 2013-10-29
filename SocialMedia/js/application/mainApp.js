@@ -138,13 +138,13 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                 // Sharing url
                 _self.options.shareURL = pathUrl + '/' + _self.options.homePage + _self.options.shareParams;
                 if (mode == "percentage") {
-                    if (value >= 0 && value <= 100) {
+                    if (value >= 0 && value <= 100 && value != "") {
                         var embedWidth = value + '%';
                         domClass.remove(query('#inputWidth')[0], "highlightBorder");
                     } else {
-                        var embedWidth = _self.options.embedWidth || _self.options.embedSizes.medium.width;
+                        var embedWidth = _self.options.defaultPercentageWidth + '%';
+                        query('#inputWidth').attr('value', _self.options.defaultPercentageWidth);
                         _self.alertDialog(i18n.viewer.errors.invalidPercentWidth);
-                        domClass.add(query('#inputWidth')[0], "highlightBorder");
                     }
                 }
                 else {
@@ -2590,7 +2590,13 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
             _self.updateSocialLayers();
             _self.configureSearchBox();
             // set up map note panel
-            _self.mapnote.configureMapNotes(_self.mapNotesLayer);
+            if (_self.options.showMapNote) {
+                _self.mapnote.configureMapNotes(_self.mapNotesLayer);
+                if (_self.options.showMapnotePanel) {
+                    _self.mapnote._showMapnotePanel();
+                    dom.byId("mapNotesButton").style.backgroundImage = 'url("./images/ui/mapNoteSelected.png")';
+                }
+            }
 
             setTimeout(function () {
                 connect.connect(_self.options.map, "onExtentChange", function (extent) {

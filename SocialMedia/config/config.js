@@ -50,7 +50,7 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
 	"showAboutDialogOnLoad": true,
         "updateSocialLayersOnPan": false,
 	"showMapNote": true,
-        "showMapnotePanel": false,
+        "showMapnotePanel": true,
 	"zoomLevel": 10,
 /*
         "securedLayers": [
@@ -76,7 +76,8 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
 	"TinyURLResponseAttribute": "data.url",
 	"TinyURLServiceURL": "http://api.bit.ly/v3/shorten?login=esri&apiKey=R_65fd9891cd882e2a96b99d4bda1be00e&uri=${0}&format=json",
 	"ExtentRange": 15,
-        "defaultPercentageWidth": 95
+        "defaultPercentageWidth": 95,
+        "quickEmbedReadonly": true
     };
     return config;
 });

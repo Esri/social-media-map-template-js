@@ -1628,3 +1628,11 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     float: right;
     cursor: pointer;
 }
+.scalebarShiftRight
+{
+    left: 290px !important;
+}
+.scalebarShiftLeft
+{
+    left: 25px !important;
+}

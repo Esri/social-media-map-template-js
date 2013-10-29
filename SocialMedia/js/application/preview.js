@@ -95,6 +95,7 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
                         query('#inputHeight').attr('value', _self.options.embedHeight);
                     }
                     query('#embedCustom').addClass('selected');
+                    _self.switchToPixel();
             }
             query('#map, #mapPreviewResize').style({
                 'width': _self.options.embedWidth + 'px',
@@ -136,6 +137,7 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
             if (node) {
                 node.innerHTML = html;
             }
+            domClass.add(query('.pixels')[0], "highlight");
             // create map deferred with options
             var mapDeferred = arcgisUtils.createMap(_self.options.webmap, 'map', {
                 mapOptions: {
@@ -186,22 +188,23 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
                     _self.mapSize('large');
                 }
             });
-            on(dom.byId("embedCustom"), "click, keyup", function (event) {
+            on(dom.byId("embedCustom"), "keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                     if (!_self.isPercentage) {
                     _self.mapSize('custom');
                     } else {
                         if (event.target.id != "inputHeight") {
                             _self.setSharing("percentage", event.target.value);
+                        } else {
+                            _self.mapSize('custom');
                         }
                     }
                 }
             });
             // listener for custom map size key up - height
-            on(dom.byId('inputHeight'), "change", function () {
-                if (_self.isPercentage) {
-                    domClass.add(query('.pixels')[0], "highlight");
-                    _self.switchToPixel();
+            on(dom.byId('inputHeight'), "change", function (event) {
+                if (event.target.value < _self.options.embedSizes.minimum.height) {
+                    query('#inputHeight').attr('value', _self.options.embedSizes.minimum.height);
                 }
                 _self.mapSize('custom');
             });
@@ -219,7 +222,6 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
             });
             on(query(".pixels"), "click", function (event) {
                 event.stopPropagation();
-                event.stopImmediatePropagation();
                 query('#previewContainer .embedSizing li').removeClass('selected');
                 query('#embedCustom').addClass('selected');
                 array.forEach(query('.pixels'), function (node, index) {
@@ -230,11 +232,9 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
                 if (event.currentTarget.innerHTML == "px") {
                     _self.isPercentage = false;
                     domClass.add(query('.pixels')[0], "highlight");
-                    domClass.remove(query('#inputWidth')[0], "highlightBorder");
                     _self.mapSize('custom');
                 } else {
                     domClass.add(query('.pixels')[1], "highlight");
-                    domClass.add(query('#inputWidth')[0], "highlightBorder");
                     if (_self.isPercentage) {
                         _self.setSharing("percentage", query('#inputWidth')[0].value);
                         return;
@@ -243,6 +243,7 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
                     _self.alertDialog(i18n.viewer.errors.invalidPercentWidth);
                     _self.setSharing("percentage", _self.options.defaultPercentageWidth);
                     query('#inputWidth').attr('value', _self.options.defaultPercentageWidth);
+                    query('#inputHeight').attr('value', _self.options.embedHeight);
                 }
             });
             // resizable
@@ -260,8 +261,7 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
                 setTimeout(function () {
                     query('#map').style('opacity', "1");
                     query(this).removeClass('resizing');
-                    domClass.remove(query('.pixels')[1], "highlight");
-                    domClass.remove(query('#inputWidth')[0], "highlightBorder");
+                    _self.switchToPixel();
                     _self.mapSize('resize', inst.targetDomNode.clientWidth, inst.targetDomNode.clientHeight);
                 }, 750);
             });
@@ -276,7 +276,7 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
             var _self = this;
             _self.isPercentage = false;
             domClass.remove(query('.pixels')[1], "highlight");
-            domClass.remove(query('#inputWidth')[0], "highlightBorder");
+            domClass.add(query('.pixels')[0], "highlight");
         }
     });
     return Widget;
