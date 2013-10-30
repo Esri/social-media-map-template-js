@@ -157,7 +157,7 @@
             },
             {
                "type":"paragraph",
-               "value":"A value representing the country. Providing this value increases geocoding speed. View the list of <a target=\"_blank\" href=\"http://geocode.arcgis.com/arcgis/geocoding.html#countries\">country codes</a>."
+               "value":"A value representing the country. Providing this value increases geocoding speed. View the list of <a target=\"_blank\" href=\"http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r300000018000000\">country codes</a>."
             }
          ]
       },
