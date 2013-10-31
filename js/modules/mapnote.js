@@ -92,6 +92,7 @@
               domClass.add(_titlePane.domNode, "bottomBorder");
               domClass.add(_titlePane.containerNode, "descriptionNode");
               _titlePane.titleBarNode.onclick = function () {
+                  debugger;
                   _self._toggleMapnoteDescription(_titlePane, mapNoteLayer, index, feature);
               }
           },
@@ -104,6 +105,7 @@
                   }
               });
               if (_titlePane.open) {
+                  debugger;
                   domClass.add(_titlePane.titleNode, "listExpand");
                   var geometryType = mapNoteLayer.featureSet.geometryType;
                   _self._zoomToMapnote(geometryType, mapNoteLayer.layerObject.graphics[index].geometry, true, feature);
