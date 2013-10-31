@@ -43,9 +43,8 @@ body {
 #previewContainer .embedSizing {
     display: block;
     list-style: none;
-    padding: 0;
+    padding: 0 5px 0 0;
     margin: 0;
-    margin-right: 20px;
 }
 
 .esriRtl #previewContainer .embedSizing {
@@ -90,6 +89,7 @@ body {
 #previewContainer .embedSizing .item ul li {
     margin-left: 21px;
     margin-bottom: 6px;
+    width: 152px;
 }
 
 .esriRtl #previewContainer .embedSizing .item ul li {
@@ -125,4 +125,16 @@ body {
     min-width: inherit !important;
     top: 0;
     left: 0;
+}
+.pixels {
+    float: left;
+    background-color: #3296D1;
+    color: #fff;
+    padding: 3px 8px 3px 8px;
+}
+#inputWidth {
+    float: left;
+}
+.highlight {
+    background-color: #E93F15;
 }

@@ -1,8 +1,9 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10,chrome=1" />
 <title></title>
 <meta name="Keywords" content="EsriSMT, Social Media Template, Social Media Map, Twitter Map, Flickr Map, YouTube Map, Social Heatmap">
 <meta name="Description" content="The Social Media Template has an innovative use of social media, which allows you to display up-to-date, keyword-targeted social media points on a map.">
@@ -19,7 +20,7 @@
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.7/js/esri/css/esri.css" />
-<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.7/js/dojo/dojox/mobile/themes/iphone/iphone.css" />
+<link rel="stylesheet" type="text/css" href="//jsdev.arcgis.com/3.7/js/dojo/dojox/mobile/themes/iphone/iphone.css" />
 <link rel="stylesheet" type="text/css" href="css/dialog.css" />
 <link rel="stylesheet" type="text/css" href="css/slider.css" />
 <link rel="stylesheet" type="text/css" href="css/dijit.css" />
@@ -29,6 +30,7 @@
 <link rel="stylesheet" type="text/css" href="css/social/flickr.css" />
 <link rel="stylesheet" type="text/css" href="css/social/panoramio.css" />
 <link rel="stylesheet" type="text/css" href="css/social/ushahidi.css" />
+    <link rel="stylesheet" type="text/css" href="//jsdev.arcgis.com/3.7/js/dojo/dijit/themes/claro/claro.css" />
 <link rel="Stylesheet" id="dynamicStyleSheet1" />
 <link rel="Stylesheet" id="dynamicStyleSheet2" />
 <link rel="Stylesheet" id="dynamicStyleSheet3" />
@@ -46,6 +48,16 @@
 				<div id="imgRefreshContainer">
 				</div>
 			</div>
+            <div id="mblMapnoteBtn">
+            </div>
+            <div id="mapNotesContainer">
+            </div>
+            <div id="mblZoomBtnContainer">
+                <div id="zoomInBtn">
+                </div>
+                <div id="zoomOutBtn">
+                </div>
+            </div>
 		</div>
 		<div id="zoomSlider">
 		</div>
@@ -54,6 +66,7 @@
 		<div id="topMenuBar">
 			<div id="topMenuCon">
 				<div id="topMenuLeft">
+                 <span id="mapNotesButton"></span>
 					<h1 id="mapTitle">
 					</h1>
 					<img alt="expandBtn" src="images/ui/expandTitle.png" id="expandName" style="display: none;" />
@@ -113,66 +126,74 @@
       })();
     </script>
     <script type="text/javascript" src="js/application/djConfig.js"></script>
-	<script type="text/javascript" src="//js.arcgis.com/3.7/"></script>
+    <script type="text/javascript" src="//js.arcgis.com/3.7/"></script>
     <script type="text/javascript" src="js/plugins/respond.js"></script>
     <script type="text/javascript" src="js/plugins/heatmap.js"></script>
     <script type="text/javascript">
-	    require(["dojo/_base/kernel", 'dojo/ready', 'dojo/parser', "dojo/dom"], function (dojo, ready, parser, dom) {
-	        var userAgent = window.navigator.userAgent;
-	        dojo.showInfoWindow = false;
-	        dojo.isTablet = false;
-	        dojo.isMobileDevice = false;
-	        dojo.isBrowser = false;
-	        dojo.isiOS = false;
-	        dojo.isReferrer = false;
+        require(["dojo/_base/kernel", 'dojo/ready', 'dojo/parser', "dojo/dom"], function (dojo, ready, parser, dom) {
+            var userAgent = window.navigator.userAgent;
+            dojo.showInfoWindow = false;
+            dojo.isTablet = false;
+            dojo.isMobileDevice = false;
+            dojo.isBrowser = false;
+            dojo.isiOS = false;
+            dojo.isReferrer = false;
 
-	        if (userAgent.indexOf("iPhone") >= 0 || userAgent.indexOf("iPad") >= 0) {
-	            dojo.isiOS = true;
-	        }
-	        if ((userAgent.indexOf("Android") >= 0 && userAgent.indexOf("Mobile") >= 0) || userAgent.indexOf("iPhone") >= 0) {
-	            fontSize = 15;
-	            dojo.isMobileDevice = true;
-	            dom.byId('dynamicStyleSheet1').href = "css/mobile.css";
-	        }
-	        else if (userAgent.indexOf("iPad") >= 0 || userAgent.indexOf("Android") >= 0) {
-	            fontSize = 14;
-	            dojo.isTablet = true;
-	            dom.byId('dynamicStyleSheet1').href = "css/tablet.css";
-	        }
-	        else {
-	            dojo.isBrowser = true;
-	            fontSize = 11;
-	            if (document.referrer && (!opener)) {
-	                if ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) < 800) {
-	                    dojo.isReferrer = true;
-	                }
-	            }
-	            if (dojo.isReferrer) {
-	                dom.byId('dynamicStyleSheet1').href = "css/browser.css";
-	            } else {
-	                dom.byId('dynamicStyleSheet1').href = "css/applicationMain.css";
-	            }
-	        }
-	        if ((dojo.isReferrer || dojo.isTablet) && (!dojo.isMobileDevice)) {
-	            dom.byId('dynamicStyleSheet3').href = "css/mediaQueryEmbedded.css";
-	            dom.byId('dynamicStyleSheet2').href = "css/application.css";
-	            require(["application/main", "config/config"], function (application, configOptions) {
-	                application(configOptions);
-	            });
-	        }
-	        else if (dojo.isMobileDevice) {
-	            dom.byId('dynamicStyleSheet2').href = "css/application.css";
-	            require(["application/main", "config/config"], function (application, configOptions) {
-	                application(configOptions);
-	            });
-	        }
-	        else {
-	            dom.byId('dynamicStyleSheet2').href = "css/mediaQueries.css";
-	            require(["application/mainApp", "config/config"], function (application, configOptions) {
-	                application(configOptions);
-	            });
-	        }
-	    });
+            if (userAgent.indexOf("iPhone") >= 0 || userAgent.indexOf("iPad") >= 0) {
+                dojo.isiOS = true;
+            }
+            if ((userAgent.indexOf("Android") >= 0 && userAgent.indexOf("Mobile") >= 0) || userAgent.indexOf("iPhone") >= 0) {
+                fontSize = 15;
+                dojo.isMobileDevice = true;
+                dom.byId('dynamicStyleSheet1').href = "css/mobile.css";
+            }
+            else if (userAgent.indexOf("iPad") >= 0 || userAgent.indexOf("Android") >= 0) {
+                fontSize = 14;
+                dojo.isTablet = true;
+                dom.byId('dynamicStyleSheet1').href = "css/tablet.css";
+            }
+            else {
+                dojo.isBrowser = true;
+                fontSize = 11;
+                if (document.referrer && (!opener)) {
+                    if ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) < 800) {
+                        dojo.isReferrer = true;
+                    }
+                }
+                if (dojo.isReferrer) {
+                    dom.byId('dynamicStyleSheet1').href = "css/browser.css";
+                } else {
+                    dom.byId('dynamicStyleSheet1').href = "css/applicationMain.css";
+                }
+            }
+            if ((dojo.isReferrer || dojo.isTablet) && (!dojo.isMobileDevice)) {
+                dom.byId('dynamicStyleSheet3').href = "css/mediaQueryEmbedded.css";
+                dom.byId('dynamicStyleSheet2').href = "css/application.css";
+                require(["application/main", "config/config"], function (application, configOptions) {
+                    application(configOptions);
+                });
+            }
+            else if (dojo.isMobileDevice) {
+                var str = document.referrer;
+                var n = str.search(location.hostname);
+                if (document.referrer && document.referrer != document.location.href && n > 0) {
+                    require(["application/embedMobile", "config/config"], function (application, configOptions) {
+                        application(configOptions);
+                    });
+                } else {
+                    dom.byId('dynamicStyleSheet2').href = "css/application.css";
+                    require(["application/main", "config/config"], function (application, configOptions) {
+                        application(configOptions);
+                    });
+                }
+            }
+            else {
+                dom.byId('dynamicStyleSheet2').href = "css/mediaQueries.css";
+                require(["application/mainApp", "config/config"], function (application, configOptions) {
+                    application(configOptions);
+                });
+            }
+        });
     </script>
     <!-- End JavaScript -->
 </body>
