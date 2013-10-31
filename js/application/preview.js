@@ -16,8 +16,8 @@ define([
 ],
 function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, topic, i18n, appMain, ResizeHandle, arcgisUtils) {
     var Widget = declare('application.preview', appMain, {
+        isPercentage: false,
         constructor: function () {
-            var isPercentage = false;
         },
         // resize map function
         resizeMapPreview: function () {
@@ -107,7 +107,7 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
         // configure embed
         init: function () {
             var _self = this;
-            // overwite from url values
+            // overwrite from url values
             _self.setOptions();
             _self.options.embedWidth = _self.options.embedSizes.medium.width;
             _self.options.embedHeight = _self.options.embedSizes.medium.height;
@@ -188,15 +188,14 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
                     _self.mapSize('large');
                 }
             });
-            on(dom.byId("embedCustom"), "keyup", function (event) {
+            on(dom.byId("embedCustom"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
                     if (!_self.isPercentage) {
                     _self.mapSize('custom');
                     } else {
+                        if (event.type === 'click') { return; }
                         if (event.target.id != "inputHeight") {
                             _self.setSharing("percentage", event.target.value);
-                        } else {
-                            _self.mapSize('custom');
                         }
                     }
                 }
@@ -205,16 +204,20 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
             on(dom.byId('inputHeight'), "change", function (event) {
                 if (event.target.value < _self.options.embedSizes.minimum.height) {
                     query('#inputHeight').attr('value', _self.options.embedSizes.minimum.height);
+                } else if (event.target.value > _self.options.embedSizes.maximum.height) {
+                    query('#inputHeight').attr('value', _self.options.embedSizes.maximum.height);
                 }
                 _self.mapSize('custom');
             });
             // listener for custom map size key up - width
             on(dom.byId('inputWidth'), "change", function (event) {
-                if (!_self.isPercentage) {
-                _self.mapSize('custom');
-                } else {
-                    _self.setSharing("percentage", event.target.value);
-                }
+                setTimeout(function () {
+                    if (!_self.isPercentage) {
+                	_self.mapSize('custom');
+                    } else {
+                        _self.setSharing("percentage", event.target.value);
+                    }
+                }, 1000);
             });
             // input select all
             on(dom.byId("inputEmbed"), "click", function () {
@@ -234,16 +237,19 @@ function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, top
                     domClass.add(query('.pixels')[0], "highlight");
                     _self.mapSize('custom');
                 } else {
+                    _self.isPercentage = true;
                     domClass.add(query('.pixels')[1], "highlight");
                     if (_self.isPercentage) {
                         _self.setSharing("percentage", query('#inputWidth')[0].value);
                         return;
                     }
-                    _self.isPercentage = true;
-                    _self.alertDialog(i18n.viewer.errors.invalidPercentWidth);
                     _self.setSharing("percentage", _self.options.defaultPercentageWidth);
                     query('#inputWidth').attr('value', _self.options.defaultPercentageWidth);
-                    query('#inputHeight').attr('value', _self.options.embedHeight);
+                    if (_self.options.embedHeight <= _self.options.embedSizes.maximum.height) {
+                        query('#inputHeight').attr('value', _self.options.embedHeight);
+                    } else {
+                        query('#inputHeight').attr('value', _self.options.embedSizes.maximum.height);
+                    }
                 }
             });
             // resizable

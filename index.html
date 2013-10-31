@@ -19,8 +19,8 @@
 <!-- End iOS -->
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.7/js/esri/css/esri.css" />
-    <link rel="stylesheet" type="text/css" href="//jsdev.arcgis.com/3.7/js/dojo/dojox/mobile/themes/iphone/iphone.css" />
+<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.7/js/esri/css/esri.css" />
+<link rel="stylesheet" type="text/css" href="//jsdev.arcgis.com/3.7/js/dojo/dojox/mobile/themes/iphone/iphone.css" />
 <link rel="stylesheet" type="text/css" href="css/dialog.css" />
 <link rel="stylesheet" type="text/css" href="css/slider.css" />
 <link rel="stylesheet" type="text/css" href="css/dijit.css" />
@@ -160,7 +160,6 @@
                         dojo.isReferrer = true;
                     }
                 }
-                dojo.isReferrer = true;
                 if (dojo.isReferrer) {
                     dom.byId('dynamicStyleSheet1').href = "css/browser.css";
                 } else {
@@ -175,7 +174,9 @@
                 });
             }
             else if (dojo.isMobileDevice) {
-                if (document.referrer && document.referrer != document.location.href) {
+                var str = document.referrer;
+                var n = str.search(location.hostname);
+                if (document.referrer && document.referrer != document.location.href && n > 0) {
                     require(["application/embedMobile", "config/config"], function (application, configOptions) {
                         application(configOptions);
                     });

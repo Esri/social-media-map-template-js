@@ -112,7 +112,7 @@ define({
                 "basemap": "Basemap",
                 "basemapTitle": "Switch Basemap",
 		"mapnote": "Map Notes",
-		"mapNoteTitle": "Show Map Note",
+		"mapNoteTitle": "Show Map Notes",
 		"bookmarksTitle": "Show Bookmarks",
                 "layers": "Layers",
                 "layersTitle": "Explore Layers",

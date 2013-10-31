@@ -1505,7 +1505,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 #aboutDialog .license {
     margin-bottom: 10px;
 }
-/* Enhancements parts CSS */
+/* Enhancement part CSS */
 #mapNotesButton {
     background: url(../images/ui/mapNotes.png);
     height: 16px;
@@ -1635,4 +1635,10 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 .scalebarShiftLeft
 {
     left: 25px !important;
+}
+.listCollapse {
+    color: #000 !important;
+}
+.listExpand {
+    color: #7F00FF !important;
 }
