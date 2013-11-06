@@ -30,10 +30,28 @@
           },
           configureMapNotes: function (mapNoteLayers) {
               var _self = this;
-              _self.mapNotesLayer = mapNoteLayers;
+              if (_self.options.mapNotesTitle.length > 0) {
+                  array.forEach(mapNoteLayers, function (mapNote) {
+                      array.forEach(_self.options.mapNotesTitle, function (title) {
+                          if (mapNote.title == title) {
+                              _self.mapNotesLayer.push(mapNote);
+                          }
+                      });
+                  });
+              }
+              else {
+                  _self.mapNotesLayer = mapNoteLayers;
+              }
               array.forEach(_self.options.itemInfo.itemData.operationalLayers, function (layer, index) {
-                  layer.layerObject.onClick = function () {
-                      _self.showInfoWindow = true;
+                  if (layer.featureCollection) {
+                      layer.featureCollection.layers[0].layerObject.onClick = function () {
+                          _self.showInfoWindow = true;
+                      }
+                  }
+                  if (layer.layerObject) {
+                      layer.layerObject.onClick = function () {
+                          _self.showInfoWindow = true;
+                      }
                   }
               });
               domConstruct.create("div", { class: "tabContainer", id: "tabContainer" }, "mapNotesContainer", "first");
@@ -92,7 +110,6 @@
               domClass.add(_titlePane.domNode, "bottomBorder");
               domClass.add(_titlePane.containerNode, "descriptionNode");
               _titlePane.titleBarNode.onclick = function () {
-                  debugger;
                   _self._toggleMapnoteDescription(_titlePane, mapNoteLayer, index, feature);
               }
           },
@@ -105,7 +122,6 @@
                   }
               });
               if (_titlePane.open) {
-                  debugger;
                   domClass.add(_titlePane.titleNode, "listExpand");
                   var geometryType = mapNoteLayer.featureSet.geometryType;
                   _self._zoomToMapnote(geometryType, mapNoteLayer.layerObject.graphics[index].geometry, true, feature);
@@ -119,7 +135,7 @@
               var _self = this;
               switch (geometryType) {
                   case "esriGeometryPolygon":
-                      isMapCenter ? _self.options.map.centerAndZoom(center.getExtent().getCenter(), _self.options.zoomLevel) : _self.options.map.centerAt(center.getExtent().getCenter());
+                      _self.options.map.setExtent(center.getExtent());
                       break;
                   case "esriGeometryPolyline":
                       var anchorPointIndex = Math.floor(center.paths[0].length / 2);

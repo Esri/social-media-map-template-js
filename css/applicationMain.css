@@ -1615,7 +1615,8 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 
 .descriptionNode
 {
-    line-height: 32px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .toolTipCloseButton
