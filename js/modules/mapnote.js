@@ -31,10 +31,19 @@
           configureMapNotes: function (mapNoteLayers) {
               var _self = this;
               if (_self.options.mapNotesTitle.length > 0) {
-                  array.forEach(mapNoteLayers, function (mapNote) {
-                      array.forEach(_self.options.mapNotesTitle, function (title) {
-                          if (mapNote.title == title) {
-                              _self.mapNotesLayer.push(mapNote);
+                  for (var i = mapNoteLayers.length - 1; i > -1; i--) {
+                      array.some(_self.options.mapNotesTitle, function (title) {
+                          if (title == mapNoteLayers[i].title) {
+                              _self.mapNotesLayer.push(mapNoteLayers[i]);
+                              mapNoteLayers.splice(i, 1);
+                              return true;
+                          }
+                      });
+                  }
+                  array.forEach(mapNoteLayers, function (mapNote, position) {
+                      array.forEach(mapNote.featureCollection.layers, function (layer, position) {
+                          layer.layerObject.onClick = function () {
+                              _self.showInfoWindow = true;
                           }
                       });
                   });
@@ -135,12 +144,12 @@
               var _self = this;
               switch (geometryType) {
                   case "esriGeometryPolygon":
-                      _self.options.map.setExtent(center.getExtent());
+                      _self.options.map.setExtent(center.getExtent().expand(2));
                       break;
                   case "esriGeometryPolyline":
                       var anchorPointIndex = Math.floor(center.paths[0].length / 2);
                       var point = new Point(center.paths[0][anchorPointIndex], _self.options.map.spatialReference);
-                      isMapCenter ? _self.options.map.centerAndZoom(point, _self.options.zoomLevel) : _self.options.map.centerAt(point);
+                      _self.options.map.setExtent(center.getExtent().expand(1.5));
                       break;
                   default:
                       isMapCenter ? _self.options.map.centerAndZoom(feature.geometry, _self.options.zoomLevel) : _self.options.map.centerAt(center);
@@ -150,8 +159,8 @@
               var _self = this;
               _self._zoomToMapnote(_geometryType, evt.graphic.geometry, false);
               setTimeout(function () {
-                  _self._createTooltip(evt.graphic.attributes.TITLE);
-              }, 0);
+                  _self._createTooltip(evt.graphic.attributes.TITLE, evt.graphic.geometry);
+              }, 1000);
               _self._updateMapNoteTitle(evt);
               _self._showMapnotePanel();
           },
@@ -173,7 +182,7 @@
                   _self.options.map.infoWindow.hide();
               }
               _self.hideMapnoteTooltip();
-              _self._createTooltip(mapNoteLayer.layerObject.graphics[k].attributes.TITLE);
+              setTimeout(function () { _self._createTooltip(mapNoteLayer.layerObject.graphics[k].attributes.TITLE, mapNoteLayer.layerObject.graphics[k].geometry); }, 1000);
           },
           //Close description panel in the map note list
           hideMapnoteDescription: function () {
@@ -202,9 +211,16 @@
               });
           },
           // Create mapnote tooltip and set the position on the map
-          _createTooltip: function (title) {
-              var _self = this;
-              var anchorPoint = _self.options.map.toScreen(_self.options.map.extent.getCenter());
+          _createTooltip: function (title, geom) {
+              var anchorPoint, _self = this;
+              if (geom && geom.type == "polyline") {
+                  var pathLength = geom.paths[0].length;
+                  var point = new Point(geom.paths[0][Math.floor(pathLength / 2)], _self.options.map.spatialReference);
+                  anchorPoint = _self.options.map.toScreen(point);
+              }
+              else {
+                  anchorPoint = _self.options.map.toScreen(_self.options.map.extent.getCenter());
+              }
               var dialog = new TooltipDialog({
                   id: "toolTipDialog",
                   class: "claro",

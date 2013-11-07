@@ -2560,11 +2560,14 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
         mapIsLoaded: function() {
             var _self = this;
             //Seperate map notes with operational layers.
-            array.forEach(_self.options.itemInfo.itemData.operationalLayers, function (lyr, index) {
-                if (index < _self.options.itemInfo.itemData.operationalLayers.length) {
-                    if (!lyr.url) {
-                        _self.mapNotesLayer = _self.options.itemInfo.itemData.operationalLayers.splice(index);
-                    }
+            array.some(_self.options.itemInfo.itemData.operationalLayers, function (lyr, index) {
+                if (_self.options.itemInfo.itemData.operationalLayers.length > index && !lyr.url) {
+                    array.some(lyr.featureCollection.layers, function (feature, pos) {
+                        if (feature.layerObject._editable) {
+                            _self.mapNotesLayer = _self.options.itemInfo.itemData.operationalLayers.splice(index);
+                            return true;
+                        }
+                    });
                 }
             });
             // map connect functions

@@ -3992,9 +3992,13 @@ define([
 
 	            //Seperate map notes with operational layers.
 	            array.some(_self.options.itemInfo.itemData.operationalLayers, function (lyr, index) {
-	                if (!lyr.url) {
-	                    _self.mapNotesLayer = _self.options.itemInfo.itemData.operationalLayers.splice(index);
-	                    return true;
+	                if (_self.options.itemInfo.itemData.operationalLayers.length > index && !lyr.url) {
+	                    array.some(lyr.featureCollection.layers, function (feature, pos) {
+	                        if (feature.layerObject._editable) {
+	                            _self.mapNotesLayer = _self.options.itemInfo.itemData.operationalLayers.splice(index);
+	                            return true;
+	                        }
+	                    });
 	                }
 	            });
                     _self.utils.setStartExtent();
