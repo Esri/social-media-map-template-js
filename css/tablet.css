@@ -143,7 +143,7 @@
 }
 
 .mblTabBarButton {
-    width: 92px !important;
+    width: 93px !important;
     height: 30px !important;
     line-height: 25px !important;
     border-right: 1px solid grey !important;
@@ -277,8 +277,8 @@
 }
 
 .Status {
-    height: 20px;
-    width: 20px;
+    height: 20px !important;
+    width: 20px !important;
 }
 
 .dijitDialogCloseIcon {
@@ -814,4 +814,33 @@ a:hover, a:active, a:focus {
 }
 .locationButton .iconBlock {
     vertical-align: middle !important;
+}
+/* Enhancement part CSS */
+#mapNotesContainer {
+    position: absolute;
+    left: -275px;
+    z-index: 100;
+    height: 100%;
+    width: 275px;
+    background-color: #F8F8F8;
+    border-right: 1px solid #999999;
+    box-shadow: 0px 0px 10px 0px gray inset;
+}
+.mapNoteListContainer {
+   width: 100%;
+   height: 93%;
+   overflow: auto;
+}
+.mapNoteTitle {
+    font-size: 14px !important;
+    font-family: Arial !important;
+}
+.tabContainer {
+    min-height: 5%;
+}
+.titleNode, .contentNode {
+    font-size: 14px;
+}
+.hideMapNotesContainer {
+    left: -275px !important;
 }

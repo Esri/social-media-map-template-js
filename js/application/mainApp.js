@@ -1,11 +1,14 @@
-﻿define(["dojo/ready", "dojo/_base/declare", "dojo/_base/connect", "dojo/_base/Deferred", "dojo/_base/event", "dojo/_base/array", "dojo/dom", "dojo/query", "dojo/dom-class", "dojo/dom-construct", "dojo/dom-geometry", "dojo/dom-style", "dojo/date", "dojo/number", "dojo/window", "dojo/on", "dojo/fx", "dojo/i18n!./nls/template.js", "modules/HeatmapLayer", "modules/ClusterLayer", "modules/flickr", "modules/panoramio", "modules/twitter", "modules/ushahidi", "modules/youtube", "modules/utils", "dijit/Dialog", "dijit/form/HorizontalSlider", "dijit/form/VerticalSlider", "dojo/NodeList-traverse", "dojo/NodeList-manipulate", "config/commonConfig", "dojo/cookie", "dojo/json", "esri/config", "esri/arcgis/utils", "esri/urlUtils", "esri/request", "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/GeometryService", "esri/dijit/BasemapGallery", "esri/geometry/Extent", "esri/geometry/Point", "esri/SpatialReference", "esri/symbols/PictureMarkerSymbol", "esri/dijit/Legend", "esri/dijit/Scalebar", "esri/geometry/webMercatorUtils", "esri/graphic", "esri/layers/GraphicsLayer", "esri/dijit/Geocoder", "esri/geometry/screenUtils", "esri/dijit/Popup", "esri/layers/FeatureLayer"],
-function (ready, declare, connect, Deferred, event, array, dom, query, domClass, domConstruct, domGeom, domStyle, date, number, win, on, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, utils, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, templateConfig, cookie, JSON, config, arcgisUtils, urlUtils, esriRequest, Query, QueryTask, GeometryService, BasemapGallery, Extent, Point, SpatialReference, PictureMarkerSymbol, Legend, Scalebar, webMercatorUtils, Graphic, GraphicsLayer, Geocoder, screenUtils, Popup, FeatureLayer) {
+﻿define(["dojo/ready", "dojo/_base/declare", "dojo/_base/connect", "dojo/_base/Deferred", "dojo/_base/event", "dojo/_base/lang", "dojo/_base/array", "dojo/dom", "dojo/query", "dojo/dom-class", "dojo/dom-construct", "dojo/dom-geometry", "dojo/dom-style", "dojo/dom-attr", "dojo/date", "dojo/number", "dojo/window", "dojo/on", "dojo/fx", "dojo/i18n!./nls/template.js", "modules/HeatmapLayer", "modules/ClusterLayer", "modules/flickr", "modules/panoramio", "modules/twitter", "modules/ushahidi", "modules/youtube", "modules/utils", "modules/mapnote", "dijit/Dialog", "dijit/form/HorizontalSlider", "dijit/form/VerticalSlider", "dojo/NodeList-traverse", "dojo/NodeList-manipulate", "config/commonConfig", "dojo/cookie", "dojo/json", "esri/config", "esri/arcgis/utils", "esri/urlUtils", "esri/request", "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/GeometryService", "esri/dijit/BasemapGallery", "esri/geometry/Extent", "esri/geometry/Point", "esri/SpatialReference", "esri/symbols/PictureMarkerSymbol", "esri/dijit/Legend", "esri/dijit/Scalebar", "esri/geometry/webMercatorUtils", "esri/graphic", "esri/layers/GraphicsLayer", "esri/dijit/Geocoder", "esri/geometry/screenUtils", "esri/dijit/Popup", "esri/layers/FeatureLayer", "dijit/TitlePane", "dojox/widget/TitleGroup", "dijit/Tooltip"],
+function (ready, declare, connect, Deferred, event, lang, array, dom, query, domClass, domConstruct, domGeom, domStyle, domAttr, date, number, win, on, coreFx, i18n, HeatmapLayer, ClusterLayer, Flickr, Panoramio, Twitter, Ushahidi, YouTube, utils, mapnote, Dialog, HorizontalSlider, VerticalSlider, nlTraverse, nlManipulate, templateConfig, cookie, JSON, config, arcgisUtils, urlUtils, esriRequest, Query, QueryTask, GeometryService, BasemapGallery, Extent, Point, SpatialReference, PictureMarkerSymbol, Legend, Scalebar, webMercatorUtils, Graphic, GraphicsLayer, Geocoder, screenUtils, Popup, FeatureLayer, TitlePane, TitleGroup, Tooltip) {
     var Widget = declare("application.mainApp", null, {
         constructor: function(options) {
             var _self = this;
             this.options = {};
+            this.mapNotesLayer = [];
+            var showInfoWindow = false;
             declare.safeMixin(_self.options, options);
             _self.utils = new modules.utils({ options: _self.options });
+            _self.mapnote = new modules.mapnote({ options: _self.options });
             _self.setOptions();
             ready(function() {
                 _self.setAppIdSettings().then(function(response) {
@@ -109,7 +112,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             _self.options = declare.safeMixin(_self.options, params.query);
         },
         // Set sharing links
-        setSharing: function() {
+        setSharing: function (mode, value) {
             var _self = this;
             // parameters to share
             var urlParams = ['webmap', 'appid', 'basemap', 'extent', 'locateName', 'layers', 'youtubeSearch', 'youtubeRange', 'youtubeChecked', 'twitterSearch', 'twitterChecked', 'flickrSearch', 'flickrRange', 'flickrChecked', 'panoramioChecked', 'socialDisplay', 'locatePoint'];
@@ -134,8 +137,20 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 var pathUrl = params.path.substring(0, params.path.lastIndexOf('/'));
                 // Sharing url
                 _self.options.shareURL = pathUrl + '/' + _self.options.homePage + _self.options.shareParams;
+                if (mode == "percentage") {
+                    if (value >= 0 && value <= 100 && value != "") {
+                        var embedWidth = value + '%';
+                        domClass.remove(query('#inputWidth')[0], "highlightBorder");
+                    } else {
+                        var embedWidth = _self.options.defaultPercentageWidth + '%';
+                        query('#inputWidth').attr('value', _self.options.defaultPercentageWidth);
+                        _self.alertDialog(i18n.viewer.errors.invalidPercentWidth);
+                    }
+                }
+                else {
                 // quick embed width
                 var embedWidth = _self.options.embedWidth || _self.options.embedSizes.medium.width;
+                }
                 var embedHeight = _self.options.embedHeight || _self.options.embedSizes.medium.height;
                 // iframe code
                 _self.options.embedURL = '<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="' + embedWidth + '" height="' + embedHeight + '" align="center" src="' + _self.options.shareURL + '"></iframe>';
@@ -283,7 +298,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             _self.setSharing();
             _self.utils.hideAllMenus();
         },
-        adjustPopupSize: function(map) {
+        adjustitlePaneopupSize: function (map) {
             var box = domGeom.getContentBox(map.container);
             var width = 270,
                 height = 300,
@@ -816,6 +831,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     label: _self.options.flickrTitle
                 });
                 connect.connect(flickrLayer.featureLayer, 'onClick', function(evt) {
+                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -931,6 +947,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     label: _self.options.panoramioTitle
                 });
                 connect.connect(panoramioLayer.featureLayer, 'onClick', function(evt) {
+                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -1071,6 +1088,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     _self.updateDataPoints();
                 });
                 connect.connect(twitterLayer.featureLayer, 'onClick', function(evt) {
+                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -1182,6 +1200,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     _self.updateDataPoints();
                 });
                 connect.connect(youtubeLayer.featureLayer, 'onClick', function(evt) {
+                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -1291,6 +1310,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     _self.updateDataPoints();
                 });
                 connect.connect(ushahidiLayer.featureLayer, 'onClick', function(evt) {
+                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -1384,16 +1404,18 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             }
             // onclick connect
             connect.connect(_self.clusterLayer.featureLayer, "onClick", function(evt) {
+                _self.mapnote.showInfoWindow = true;
                 event.stop(evt);
                 var arr = [];
                 var query = new Query();
+                _self.showInfoWindow = true;
                 query.geometry = evt.graphic.attributes.extent;
                 for (var i = 0; i < _self.options.socialLayers.length; i++) {
                     arr.push(_self.options.socialLayers[i].featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW));
                 }
                 _self.options.customPopup.setFeatures(arr);
                 _self.options.customPopup.show(evt.mapPoint);
-                _self.adjustPopupSize(_self.options.map);
+                _self.adjustitlePanePopupSize(_self.options.map);
                 if (evt.graphic && evt.graphic.geometry) {
                     _self.options.map.centerAt(evt.graphic.geometry);
                 }
@@ -1746,6 +1768,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                             node.innerHTML = '<div class="menuClose"><div class="closeButton closeMenu"></div>' + i18n.viewer.legend.menuTitle + '<div class="clear"></div></div><div class="legendMenuCon"><div class="slideScroll"><div id="legendContent"></div></div></div>';
                         }
                         // Build Legend
+                        //legend implemented
                         if (_self.options.layerInfos && _self.options.layerInfos.length > 0) {
                             _self.options.legendDijit = new Legend({
                                 map: _self.options.map,
@@ -1898,6 +1921,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 } else {
                     _self.options.locateLayer = new GraphicsLayer();
                     connect.connect(_self.options.locateLayer, "onClick", function(evt) {
+                        _self.mapnote.showInfoWindow = true;
                         _self.clearPopupValues();
                         event.stop(evt);
                         var content = "<strong>" + evt.graphic.attributes.address + "</strong>";
@@ -1939,8 +1963,8 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     // chart height
                     var chartNode = dom.byId('graphBar');
                     if (chartNode) {
-                        var chartPos = domGeom.position(chartNode);
-                        chartHeight = chartPos.h;
+                        var chartitlePaneos = domGeom.position(chartNode);
+                        chartHeight = chartitlePaneos.h;
                     }
                     // window height
                     var vs = win.getBox();
@@ -2495,15 +2519,13 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     var layer = _self.options.securedLayers[i].layerObject;
                     var title = _self.options.securedLayers[i].title;
                     var index = _self.options.securedLayers[i].index;
-                    if(layer){
                         _self.options.map.addLayer(layer, index); 
-                        _self.options.itemInfo.itemData.operationalLayers.splice(index, 0, {
+                    _self.itemInfo.itemData.operationalLayers.splice(index, 0, {
                             id: layer.id,
                             opacity: layer.opacity,
                             visibility: layer.visible,
                             title: title
                         });
-                    }
                 }
             }
             if (_self.options.appid) {
@@ -2524,13 +2546,37 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                 _self.webmapNext();
             }
         },
-        onMapLoad: function() {},
+        onMapLoad: function () {
+            var _self = this;
+            on(dom.byId("mapNotesButton"), "click", function () {
+                _self.mapnote.toggleLeftPanel();
+                if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
+                    dom.byId("mapNotesButton").style.backgroundImage = 'url("./images/ui/mapNoteSelected.png")';
+                } else {
+                    dom.byId("mapNotesButton").style.backgroundImage = 'url("./images/ui/mapNotes.png")';
+                }
+            });
+        },
         mapIsLoaded: function() {
             var _self = this;
+            //Seperate map notes with operational layers.
+            array.some(_self.options.itemInfo.itemData.operationalLayers, function (lyr, index) {
+                if (_self.options.itemInfo.itemData.operationalLayers.length > index && !lyr.url) {
+                    array.some(lyr.featureCollection.layers, function (feature, pos) {
+                        if (feature.layerObject._editable) {
+                            _self.mapNotesLayer = _self.options.itemInfo.itemData.operationalLayers.splice(index);
+                            return true;
+                        }
+                    });
+                }
+            });
             // map connect functions
             connect.connect(window, "onresize", function() {
                 _self.resizeMap();
             });
+            if (_self.options.showMapNote) {
+                domStyle.set("mapNotesButton", "display", "block");
+            }
             _self.createCustomSlider();
             _self.setSharing();
             // set up social media
@@ -2544,6 +2590,14 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             _self.resizeMap();
             _self.updateSocialLayers();
             _self.configureSearchBox();
+            // set up map note panel
+            if (_self.options.showMapNote) {
+                _self.mapnote.configureMapNotes(_self.mapNotesLayer);
+                if (_self.options.showMapnotePanel) {
+                    _self.mapnote._showMapnotePanel();
+                    dom.byId("mapNotesButton").style.backgroundImage = 'url("./images/ui/mapNoteSelected.png")';
+                }
+            }
             setTimeout(function() {
                 connect.connect(_self.options.map, "onExtentChange", function (extent) {
                     _self.removeSpotlight();
@@ -2557,6 +2611,7 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
                     _self.resetSocialRefreshTimer();
                 });
             }, 4000);
+            on(_self.options.map, "PanStart,ZoomStart", function () { _self.mapnote.hideMapnoteTooltip(); });
             // map loaded.
             _self.onMapLoad();
         },

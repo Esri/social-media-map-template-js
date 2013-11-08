@@ -1,7 +1,7 @@
 define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapServiceLayer) {
     var config = {
         "appid": "",
-        "webmap": "4ff792a3962547caad2d924413c40985",
+        "webmap": "ea2bf030ae06449482d13e8008aa5dfe",
         "socialDisplay": "point",
         "showFlickr": true,
         "showFlickrConfig": true,
@@ -9,7 +9,7 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "flickrSearch": "weather",
         "flickrRange": "this_month",
         "flickrKey": "404ebea7d5bc27aa5251d1207620e99b",
-        "showYouTube": false,
+        "showYouTube": true,
         "showYouTubeConfig": true,
         "youtubeChecked": true,
         "youtubeSearch": "weather",
@@ -24,10 +24,10 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "showPanoramio": false,
         "panoramioChecked": false,
         "showUshahidi": false,
-        "ushahidiChecked": true,
+        "ushahidiChecked": false,
         "showUshahidiConfig": true,
         "ushahidiCategory": 0,
-        "ushahidiUrl": "",
+        "ushahidiUrl": "https://bnestorm.crowdmap.com/api",
         "useArcGISOnlineBasemaps": true,
         "basemapGroupTitle": "Community Basemaps",
         "basemapGroupOwner": "esri",
@@ -44,13 +44,15 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "showLayersMenu": true,
         "showLegendMenu": true,
         "showDisplaySwitch": true,
-        "showPlaces": true,
+	"showPlaces": false,
         "showGeolocation": true,
-        "showAboutDialog": true,
-        "showAboutDialogOnLoad": false,
-        "updateSocialLayersOnPan": false,
-        "locateName": "",
-        "locatePoint": ""
+	"showAboutDialog": false,
+	"showAboutDialogOnLoad": true,
+	"updateSocialLayersOnPan": false,
+	"showMapNote": true,
+	"showMapnotePanel": true,
+	"mapNotesTitle": ["Map Notes"],
+	"zoomLevel": 10,
 /*
         "securedLayers": [
             {
@@ -66,6 +68,17 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
         "twitterUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/index.php",
         "twitterSigninUrl": location.protocol + "//tmappsevents.esri.com/website/twitter-oauth-proxy-php/sign_in.php",
         */
+	"locateName": "",
+	"locatePoint": "",
+	"bannedUsersService": "http://services.arcgis.com/QJfoC7c7Z2icolha/ArcGIS/rest/services/fai/FeatureServer/2",
+	"bannedWordsService": "http://tm2-elb-1378978824.us-east-1.elb.amazonaws.com/ArcGIS/rest/services/SharedTools/Filter/MapServer/1",
+	"flagMailServer": "http://tmappsevents.esri.com/Website/pim_fai/fai.php",
+	"sourceCountry": "USA",
+	"TinyURLResponseAttribute": "data.url",
+	"TinyURLServiceURL": "http://api.bit.ly/v3/shorten?login=esri&apiKey=R_65fd9891cd882e2a96b99d4bda1be00e&uri=${0}&format=json",
+	"ExtentRange": 15,
+        "defaultPercentageWidth": 95,
+        "quickEmbedReadonly": true
     };
     return config;
 });

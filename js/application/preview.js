@@ -1,9 +1,12 @@
 define([
     "dojo/_base/declare",
     "dojo/_base/connect",
+    "dojo/_base/array",
     "dojo/query",
     "dojo/dom",
     "dojo/on",
+    "dojo/dom-style",
+    "dojo/dom-class",
     "dojo/json",
     "dojo/topic",
     "dojo/i18n!./nls/template.js",
@@ -11,9 +14,11 @@ define([
     "dojox/layout/ResizeHandle",
     "esri/arcgis/utils"
 ],
-function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHandle, arcgisUtils) {
+function (declare, connect, array, query, dom, on, domStyle, domClass, JSON, topic, i18n, appMain, ResizeHandle, arcgisUtils) {
     var Widget = declare('application.preview', appMain, {
-        constructor: function () {},
+        isPercentage: false,
+        constructor: function () {
+        },
         // resize map function
         resizeMapPreview: function () {
             var _self = this;
@@ -90,6 +95,7 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                         query('#inputHeight').attr('value', _self.options.embedHeight);
                     }
                     query('#embedCustom').addClass('selected');
+                    _self.switchToPixel();
             }
             query('#map, #mapPreviewResize').style({
                 'width': _self.options.embedWidth + 'px',
@@ -101,7 +107,7 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
         // configure embed
         init: function () {
             var _self = this;
-            // overwite from url values
+            // overwrite from url values
             _self.setOptions();
             _self.options.embedWidth = _self.options.embedSizes.medium.width;
             _self.options.embedHeight = _self.options.embedSizes.medium.height;
@@ -114,7 +120,8 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
             html += '<li tabindex="0" class="item" id="embedLarge"><span class="itemIcon"></span>' + i18n.viewer.preview.large + '</li>';
             html += '<li tabindex="0" class="item" id="embedCustom"><span class="itemIcon"></span>' + i18n.viewer.preview.custom + '';
             html += '<ul>';
-            html += '<li><input placeholder="Width" autocomplete="off" id="inputWidth" value="' + _self.options.embedSizes.medium.width + '" type="text" class="mapInput inputSingle" size="10"></li>';
+            html += '<li style="display: inline-block"><input placeholder="Width" autocomplete="off" id="inputWidth" value="' + _self.options.embedSizes.medium.width + '" type="text" class="mapInput inputSingle" size="10">'
+            html += '<span class="pixels" style="margin-left: 5px; border-right: 1px solid white;">' + 'px' + '</span>' + '<span class="pixels">' + '%' + '</span></li>';
             html += '<li><input placeholder="Height" autocomplete="off" id="inputHeight" value="' + _self.options.embedSizes.medium.height + '" type="text" class="mapInput inputSingle" size="10"></li>';
             html += '</ul>';
             html += '</li>';
@@ -130,6 +137,7 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
             if (node) {
                 node.innerHTML = html;
             }
+            domClass.add(query('.pixels')[0], "highlight");
             // create map deferred with options
             var mapDeferred = arcgisUtils.createMap(_self.options.webmap, 'map', {
                 mapOptions: {
@@ -164,35 +172,85 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
             // Embed Radio Buttons
             on(dom.byId("embedSmall"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
+                    _self.switchToPixel();
                     _self.mapSize('small');
                 }
             });
             on(dom.byId("embedMedium"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
+                    _self.switchToPixel();
                     _self.mapSize('medium');
                 }
             });
             on(dom.byId("embedLarge"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
+                    _self.switchToPixel();
                     _self.mapSize('large');
                 }
             });
             on(dom.byId("embedCustom"), "click, keyup", function (event) {
                 if (event.type === 'click' || (event.type === 'keyup' && event.keyCode === 13)) {
+                    if (!_self.isPercentage) {
                     _self.mapSize('custom');
+                    } else {
+                        if (event.type === 'click') { return; }
+                        if (event.target.id != "inputHeight") {
+                            _self.setSharing("percentage", event.target.value);
+                        }
+                    }
                 }
             });
             // listener for custom map size key up - height
-            on(dom.byId('inputHeight'), "change", function () {
+            on(dom.byId('inputHeight'), "change", function (event) {
+                if (event.target.value < _self.options.embedSizes.minimum.height) {
+                    query('#inputHeight').attr('value', _self.options.embedSizes.minimum.height);
+                } else if (event.target.value > _self.options.embedSizes.maximum.height) {
+                    query('#inputHeight').attr('value', _self.options.embedSizes.maximum.height);
+                }
                 _self.mapSize('custom');
             });
             // listener for custom map size key up - width
-            on(dom.byId('inputWidth'), "change", function () {
-                _self.mapSize('custom');
+            on(dom.byId('inputWidth'), "change", function (event) {
+                setTimeout(function () {
+                    if (!_self.isPercentage) {
+                	_self.mapSize('custom');
+                    } else {
+                        _self.setSharing("percentage", event.target.value);
+                    }
+                }, 1000);
             });
             // input select all
             on(dom.byId("inputEmbed"), "click", function () {
                 this.select();
+            });
+            on(query(".pixels"), "click", function (event) {
+                event.stopPropagation();
+                query('#previewContainer .embedSizing li').removeClass('selected');
+                query('#embedCustom').addClass('selected');
+                array.forEach(query('.pixels'), function (node, index) {
+                    if (domClass.contains(node, "highlight")) {
+                        domClass.remove(node, "highlight");
+                    }
+                });
+                if (event.currentTarget.innerHTML == "px") {
+                    _self.isPercentage = false;
+                    domClass.add(query('.pixels')[0], "highlight");
+                    _self.mapSize('custom');
+                } else {
+                    _self.isPercentage = true;
+                    domClass.add(query('.pixels')[1], "highlight");
+                    if (_self.isPercentage) {
+                        _self.setSharing("percentage", query('#inputWidth')[0].value);
+                        return;
+                    }
+                    _self.setSharing("percentage", _self.options.defaultPercentageWidth);
+                    query('#inputWidth').attr('value', _self.options.defaultPercentageWidth);
+                    if (_self.options.embedHeight <= _self.options.embedSizes.maximum.height) {
+                        query('#inputHeight').attr('value', _self.options.embedHeight);
+                    } else {
+                        query('#inputHeight').attr('value', _self.options.embedSizes.maximum.height);
+                    }
+                }
             });
             // resizable
             ResizeHandle({
@@ -209,6 +267,7 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
                 setTimeout(function () {
                     query('#map').style('opacity', "1");
                     query(this).removeClass('resizing');
+                    _self.switchToPixel();
                     _self.mapSize('resize', inst.targetDomNode.clientWidth, inst.targetDomNode.clientHeight);
                 }, 750);
             });
@@ -218,6 +277,12 @@ function (declare, connect, query, dom, on, JSON, topic, i18n, appMain, ResizeHa
             });
             // set initial embed code
             _self.setSharing(true);
+        },
+        switchToPixel: function () {
+            var _self = this;
+            _self.isPercentage = false;
+            domClass.remove(query('.pixels')[1], "highlight");
+            domClass.add(query('.pixels')[0], "highlight");
         }
     });
     return Widget;
