@@ -10,10 +10,13 @@
     "dojo/i18n!./nls/template.js",
     "dojo/fx",
     "dojo/dom-class",
+    "dojo/dom-construct",
     "dojo/date",
     "dojo/on",
+    "dojo/aspect",
     "dojo/io-query",
     "dojo/date/locale",
+    "dojo/html",
     "esri", // We're not directly using anything defined in esri.js but geometry, locator and utils are not AMD. So, the only way to get reference to esri object is through esri module (ie. esri/main)
     "config/commonConfig",
     "dojo/cookie",
@@ -21,16 +24,23 @@
     "esri/config",
     "esri/arcgis/utils",
     "esri/tasks/GeometryService",
+    "dijit/TitlePane",
+    "dojo/dom-attr",
+    "dojox/widget/TitleGroup",
+    "dijit/TooltipDialog",
     "esri/geometry/Extent",
     "esri/geometry/Point",
     "esri/SpatialReference",
+    "dojo/dom-geometry",
+    "dojo/dom-style",
     "esri/tasks/QueryTask",
     "esri/tasks/query",
     "esri/urlUtils",
     "esri/geometry",
-    "esri/utils"
+    "esri/utils",
+    "dojo/has"
   ],
-  function (dojo, declare, connect, arr, lang, event, dom, query, i18n, coreFx, domClass, date, on, ioQuery, locale, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, Extent, Point, SpatialReference, QueryTask, Query, urlUtils) {
+  function (dojo, declare, connect, array, lang, event, dom, query, i18n, coreFx, domClass, domConstruct, date, on, aspect, ioQuery, locale, html, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, TitlePane, domAttr, TitleGroup, TooltipDialog, Extent, Point, SpatialReference, domGeom, domStyle, QueryTask, Query, urlUtils, has) {
       var Widget = declare("modules.utils", null, {
           constructor: function (options) {
               declare.safeMixin(this, options);
@@ -164,7 +174,7 @@
           // Set false url param strings to false
           setFalseValues: function (obj) {
 
-              // for each key      
+              // for each key
               for (var key in obj) {
                   // if not a prototype
                   if (obj.hasOwnProperty(key)) {
@@ -222,11 +232,11 @@
           },
           configureAppTitle: function() {
             var _self = this;
-            document.title = _self.options.itemInfo.item.title;
+              document.title = i18n.viewer.applicationTitle.PIM;
             var node = dom.byId('mapTitle');
             if (node) {
-                node.innerHTML = _self.options.itemInfo.item.title;
-                query(node).attr('title', _self.options.itemInfo.item.title);
+                  node.innerHTML = i18n.viewer.applicationTitle.PIM;
+                  query(node).attr('title', i18n.viewer.applicationTitle.PIM);
             }
             query('meta[name="Description"]').attr('content', _self.options.itemInfo.item.snippet);
             query('meta[property="og:image"]').attr('content', arcgisUtils.arcgisUrl + '/' + _self.options.itemInfo.item.id + '/info/' + _self.options.itemInfo.item.thumbnail);
@@ -535,7 +545,7 @@
                 if (appLocation === -1) {
                     appLocation = location.pathname.indexOf("/home/");
                 }
-                //app is hosted and no sharing url is defined so let's figure it out. 
+                //app is hosted and no sharing url is defined so let's figure it out.
                 if (appLocation !== -1) {
                     // org app
                     var instance = location.pathname.substr(0, appLocation); //get the portal instance name
@@ -601,7 +611,6 @@
                   };
               }
           }
-
       });
       return Widget;
   });

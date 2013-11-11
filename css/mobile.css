@@ -217,19 +217,16 @@
     left:45px;
     right:6px;
     margin:6px 10px 6px 0;
+    display: none;
 }
 
 .esriMobileNavigationBar,.esriPopupMobile,.titlePane {
-    -webkit-touch-callout:none;
-    -webkit-user-select:none;
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
     background-color:#4A4A4A!important;
     background-image:none!important;
     background:linear-gradient(tobottom,#4B4B4B0%,#020202100%)!important;
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4B4B4B',endColorstr='#020202',GradientType=0)!important;
-}
-
-.esriPopupMobile{
-    background: #000;
 }
 
 .esriPopupMobile .pointer.bottom {
@@ -237,7 +234,7 @@
 }
 
 .esriPopupMobile .pointer.top {
-    background:url(../images/ui/up-arrow.png) no-repeat!important;
+    background:url(../images/ui/up-arrow-gray.png) no-repeat!important;
 }
 
 .modernGrey .esriGeocoderContainer {
@@ -362,7 +359,7 @@
 }
 
 .esriPopupMobile .titlePane {
-    background:none repeat scroll 0 0 transparent!important;
+    background:none repeat scroll 0 0 #4A4A4A!important;
 }
 
 .accessoryButton {
@@ -370,6 +367,7 @@
     -webkit-user-select:none!important;
     color:#FFF;
     background-image:none!important;
+    background-color: #3A3A3A;
     background:linear-gradient(tobottom,#4B4B4B0%,#020202100%)!important;
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4B4B4B',endColorstr='#020202',GradientType=0)!important;
 }
@@ -423,10 +421,6 @@
     height:50px!important;
 }
 
-.mblHeadingDivTitle {
-    position:relative!important;
-}
-
 .scrollContentPane {
     position:absolute!important;
     top:50px!important;
@@ -445,3 +439,171 @@
     height:30px!important;
     width:30px!important;
 }
+/*Enhancement part */
+.transition {
+    transition-property:left;
+    transition-duration:1s;
+    transition-timing-function:ease;
+    transition-delay:0s;
+    /* Safari */
+    -webkit-transition-property:left;
+    -webkit-transition-duration:1s;
+    -webkit-transition-timing-function:ease;
+    -webkit-transition-delay:0s;
+}
+#mblMapnoteBtn {
+    background: url(../images/ui/mblMapnote.png);
+    height: 28px;
+    width: 28px;
+    display: none;
+    margin-left: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 50px;
+    z-index: 100;
+}
+#mblZoomBtnContainer
+{
+    position: absolute;
+    margin-left: 5px;
+    z-index: 100;
+    display: none;
+}
+#zoomInBtn {
+    background: url(../images/ui/zoomin.png);
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+}
+#zoomOutBtn {
+    background: url(../images/ui/zoomout.png);
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+}
+.slideBtnLeft {
+    left: 0%;
+}
+#mapNotesContainer {
+    position: absolute;
+    top: 60px;
+    left: -94%;
+    height: 200px;
+    z-index: 100;
+    background-color: #fff;
+    border-right: 1px solid #999999;
+    box-shadow: 0px 0px 10px 0px gray inset;
+}
+.mapNoteListContainer {
+   width: 100%;
+   height: 88%;
+   overflow-y: auto;
+   overflow-x: hidden;
+}
+.showMapNotesContainer {
+    left: 0px !important;
+}
+.hideMapNotesContainer {
+    left: -94% !important;
+}
+.tabContainer {
+    min-height: 7%;
+    width: 100%;
+    background-color: #007AC2;
+}
+.mapNoteTitle {
+   height: 100%;
+   width: 100%;
+   color: white;
+   font-size: 16px;
+   font-weight: bold;
+   line-height: 35px;
+   text-align: center;
+}
+.titleNode, .contentNode {
+    padding-left: 10px;
+    line-height: 32px !important;
+    font-size: 14px;
+}
+.contentNode {
+    background: #f8f8f8;
+    -webkit-box-shadow: inset 0 0 4px 0 rgba(0,0,0,0.25);
+    box-shadow: inset 0 0 4px 0 rgba(0,0,0,0.25);
+
+}
+.bottomBorder {
+    border-bottom: 1px solid #ccc;
+}
+.descriptionNode
+{
+    line-height: 32px;
+    color:Black;
+}
+.bookmarkList
+{
+    padding-left: 10px;
+    line-height: 26px;
+    font-size: 14px;
+    color:#2D2D2D;
+    cursor: pointer;
+}
+@media all and (orientation:portrait) {
+    #mapNotesContainer {
+	height: 75%;
+	width: 88%;
+    }
+    .slideBtnRight {
+	left: 89%;
+    }
+    #mblZoomBtnContainer  {
+	bottom: 80px;
+    }
+}
+@media all and (orientation:landscape) {
+    #mapNotesContainer {
+	height: 65%;
+	width: 94%;
+    }
+    .slideBtnRight {
+	left: 94%;
+    }
+    .mapNoteListContainer {
+	height: 80%;
+    }
+    #mblZoomBtnContainer  {
+	bottom: 70px;
+    }
+ }
+  /*iPhone5 Portrait*/
+ @media all and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait) {
+    #mapNotesContainer {
+	height: 75%;
+	width: 89%;
+    }
+    .slideBtnRight {
+	left: 88%;
+    }
+    #mblZoomBtnContainer {
+	bottom: 80px;
+    }
+    #geocoderSearchTool_input {
+         width: 70%;
+    }
+ }
+ /*iPhone5 Landscape*/
+ @media all and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : landscape) {
+    #mapNotesContainer {
+	height: 65%;
+	width: 93%;
+    }
+    .slideBtnRight {
+	left: 93%;
+    }
+    .mapNoteListContainer {
+	height: 80%;
+    }
+    #mblZoomBtnContainer {
+	bottom: 60px;
+    }
+ }
