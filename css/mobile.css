@@ -491,7 +491,7 @@
     left: -94%;
     height: 200px;
     z-index: 100;
-    background-color: #F8F8F8;
+    background-color: #fff;
     border-right: 1px solid #999999;
     box-shadow: 0px 0px 10px 0px gray inset;
 }
@@ -527,8 +527,10 @@
     font-size: 14px;
 }
 .contentNode {
-    background-color:purple;
-    color:white;
+    background: #f8f8f8;
+    -webkit-box-shadow: inset 0 0 4px 0 rgba(0,0,0,0.25);
+    box-shadow: inset 0 0 4px 0 rgba(0,0,0,0.25);
+
 }
 .bottomBorder {
     border-bottom: 1px solid #ccc;
@@ -536,6 +538,7 @@
 .descriptionNode
 {
     line-height: 32px;
+    color:Black;
 }
 .bookmarkList
 {

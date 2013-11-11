@@ -616,7 +616,7 @@ a:active, a:hover, a:focus {
     z-index: 100;
     height: 100%;
     width: 275px;
-    background-color: #F8F8F8;
+    background-color: #fff;
     border-right: 1px solid #999999;
     box-shadow: 0px 0px 10px 0px gray inset;
 }
