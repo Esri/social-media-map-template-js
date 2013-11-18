@@ -430,7 +430,7 @@
 }
 
 #map_graphics_layer,#RoundRectList .mblListItemRightIcon {
-    display:none!important;
+    display:block!important;
 }
 
 .esriPopupMobile .titleButton.arrow,.esriPopupMobile .titleButton.close {

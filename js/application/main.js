@@ -1944,9 +1944,21 @@ define([
 	                        array.forEach(mapNote.featureCollection.layers, function (mapNoteLayer, j) {
 	                            var _mapNoteFeature = mapNoteLayer.layerObject;
 	                            array.forEach(mapNoteLayer.featureSet.features, function (item, k) {
-	                                var _titlePane = new TitlePane({ title: item.attributes.TITLE, content: item.attributes.DESCRIPTION, open: false });
+	                                var titlePaneContent = "";
+	                                if (item.attributes.DESCRIPTION) {
+	                                    titlePaneContent = item.attributes.DESCRIPTION + "\n";
+	                                }
+	                                if (item.attributes.IMAGE_URL) {
+	                                    if (item.attributes.IMAGE_LINK_URL) {
+	                                        titlePaneContent = titlePaneContent + "<a target=_blank href =" + item.attributes.IMAGE_LINK_URL + ">" + "<image src= " + item.attributes.IMAGE_URL + " height=100px width=180px alt='No Image Found'>" + "</a>";
+	                                    }
+	                                    else {
+	                                        titlePaneContent = titlePaneContent + "<image src= " + item.attributes.IMAGE_URL + " height=100px width=180px alt='No Image Found'>";
+	                                    }
+	                                }
+	                                var _titlePane = new TitlePane({ title: item.attributes.TITLE, content: titlePaneContent, open: false });
 	                                _titlePane.id = item.attributes.TITLE + item.attributes.OBJECTID;
-	                                if (_titlePane.content == undefined) {
+	                                if (_titlePane.content == "") {
 	                                    _titlePane.setContent(i18n.viewer.settings.descriptionUnavailable);
 	                                }
 	                                _self.mapnote.mapNotesList.push(_titlePane);
@@ -4036,12 +4048,6 @@ define([
                     });
                     connect.connect(_self.options.map.infoWindow, "onShow", function () {
 	                if (dojo.isBrowser || dojo.isTablet) {
-	                    if (!_self.mapnote.showInfoWindow) {
-	                        return;
-	                    }
-	                }
-	                _self.mapnote.hideMapnoteDescription();
-	                if (dojo.isBrowser) {
 	                    on(query('.titleButton.maximize')[0], 'click', function () {
 	                        if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
 	                            _self.mapnote.hideMapnotePanel();
@@ -4282,7 +4288,6 @@ define([
                             }
                         });
                     }, 4000);
-	            on(_self.options.map, "PanStart,ZoomStart", function () { _self.mapnote.hideMapnoteTooltip(); });
                     if (dojo.isMobileDevice) {
                         dojo.byId("zoomSlider").style.display = "none";
                         query('#topMenuBar').style('display', 'none');
@@ -4422,7 +4427,7 @@ define([
                     _self.options.customPopup = (dojo.isMobileDevice) ? new PopupMobile(null, dojo.create("div")) : new esri.dijit.Popup({
                         offsetX: 3,
                         fillSymbol: false,
-                        highlight: false,
+                        highlight: true,
                         lineSymbol: false,
                         marginLeft: 10,
                         marginTop: 10,
@@ -4445,6 +4450,9 @@ define([
                             dojo.byId('divCont').style.display = "block";
 	                });
 	                connect.connect(_self.options.customPopup, "onShow", function () {
+	                    on(query(".close")[0], "click", function () {
+	                        _self.mapnote.hideMapnoteDescription();
+	                    });
 	                    if (!_self.options.customPopup.features) {
 	                        _self.options.customPopup.hide();
 	                    }
