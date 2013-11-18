@@ -51,7 +51,7 @@ define(["esri/layers/ArcGISDynamicMapServiceLayer"], function(ArcGISDynamicMapSe
 	"updateSocialLayersOnPan": false,
 	"showMapNote": true,
 	"showMapnotePanel": true,
-	"mapNotesTitle": ["Map Notes"],
+	"mapNotesTitle": [],
 	"zoomLevel": 10,
 /*
         "securedLayers": [

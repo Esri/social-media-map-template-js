@@ -5,7 +5,6 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
             var _self = this;
             this.options = {};
             this.mapNotesLayer = [];
-            var showInfoWindow = false;
             declare.safeMixin(_self.options, options);
             _self.utils = new modules.utils({ options: _self.options });
             _self.mapnote = new modules.mapnote({ options: _self.options });
@@ -831,7 +830,6 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     label: _self.options.flickrTitle
                 });
                 connect.connect(flickrLayer.featureLayer, 'onClick', function(evt) {
-                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -947,7 +945,6 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     label: _self.options.panoramioTitle
                 });
                 connect.connect(panoramioLayer.featureLayer, 'onClick', function(evt) {
-                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -1088,7 +1085,6 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     _self.updateDataPoints();
                 });
                 connect.connect(twitterLayer.featureLayer, 'onClick', function(evt) {
-                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -1200,7 +1196,6 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     _self.updateDataPoints();
                 });
                 connect.connect(youtubeLayer.featureLayer, 'onClick', function(evt) {
-                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -1310,7 +1305,6 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     _self.updateDataPoints();
                 });
                 connect.connect(ushahidiLayer.featureLayer, 'onClick', function(evt) {
-                    _self.mapnote.showInfoWindow = true;
                     if (evt.graphic && evt.graphic.geometry) {
                         _self.options.map.centerAt(evt.graphic.geometry);
                     }
@@ -1404,11 +1398,9 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
             }
             // onclick connect
             connect.connect(_self.clusterLayer.featureLayer, "onClick", function(evt) {
-                _self.mapnote.showInfoWindow = true;
                 event.stop(evt);
                 var arr = [];
                 var query = new Query();
-                _self.showInfoWindow = true;
                 query.geometry = evt.graphic.attributes.extent;
                 for (var i = 0; i < _self.options.socialLayers.length; i++) {
                     arr.push(_self.options.socialLayers[i].featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW));
@@ -1921,7 +1913,6 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                 } else {
                     _self.options.locateLayer = new GraphicsLayer();
                     connect.connect(_self.options.locateLayer, "onClick", function(evt) {
-                        _self.mapnote.showInfoWindow = true;
                         _self.clearPopupValues();
                         event.stop(evt);
                         var content = "<strong>" + evt.graphic.attributes.address + "</strong>";
@@ -2611,7 +2602,6 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                     _self.resetSocialRefreshTimer();
                 });
             }, 4000);
-            on(_self.options.map, "PanStart,ZoomStart", function () { _self.mapnote.hideMapnoteTooltip(); });
             // map loaded.
             _self.onMapLoad();
         },
@@ -2629,7 +2619,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
             _self.options.customPopup = new Popup({
                 offsetX: 3,
                 fillSymbol: false,
-                highlight: false,
+                highlight: true,
                 lineSymbol: false,
                 marginLeft: 10,
                 marginTop: 10,
