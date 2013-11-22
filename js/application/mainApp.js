@@ -412,7 +412,6 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
         // overrides popup title for social media to add image
         overridePopupTitle: function() {
             var _self = this;
-            _self.options.customPopup.setTitle(this.getSmPopupTitle());
             if (this.filterUsers) {
                 _self.addReportInAppButton();
             }
@@ -2540,12 +2539,13 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
         onMapLoad: function () {
             var _self = this;
             on(dom.byId("mapNotesButton"), "click", function () {
-                _self.mapnote.toggleLeftPanel();
                 if (domClass.contains("mapNotesContainer", "showMapNotesContainer")) {
                     dom.byId("mapNotesButton").style.backgroundImage = 'url("./images/ui/mapNoteSelected.png")';
                 } else {
                     dom.byId("mapNotesButton").style.backgroundImage = 'url("./images/ui/mapNotes.png")';
                 }
+                _self.mapnote.toggleLeftPanel();
+
             });
         },
         mapIsLoaded: function() {
@@ -2586,7 +2586,7 @@ function (ready, declare, connect, Deferred, event, lang, array, dom, query, dom
                 _self.mapnote.configureMapNotes(_self.mapNotesLayer);
                 if (_self.options.showMapnotePanel) {
                     _self.mapnote._showMapnotePanel();
-                    dom.byId("mapNotesButton").style.backgroundImage = 'url("./images/ui/mapNoteSelected.png")';
+                    dom.byId("mapNotesButton").style.backgroundImage = 'url("./images/ui/mapNotes.png")';
                 }
             }
             setTimeout(function() {

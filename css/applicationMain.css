@@ -1549,7 +1549,6 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 }
 
 .tabContainer {
-    min-height: 6%;
     width: 100%;
     background-color: #007AC2;
 }
@@ -1560,7 +1559,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
    color: white;
    font-size: 16px;
    font-weight: bold;
-   line-height: 35px;
+   line-height: 35px !important;
    text-align: center;
 }
 
@@ -1580,11 +1579,12 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     line-height: 32px !important;
     -webkit-box-shadow: inset 0 0 4px 0 rgba(0,0,0,0.25);
     box-shadow: inset 0 0 4px 0 rgba(0,0,0,0.25);
+    padding:10px 0px 10px 10px;
 
 }
 
 .bottomBorder {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #e0e0e0;
 }
 .shiftRight
 {
@@ -1620,7 +1620,8 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     padding-top: 5px;
     padding-bottom: 5px;
     padding-right:5px;
-    color:Black
+    color:#333333;
+    line-height:1.4em !important;
 }
 
 .toolTipCloseButton
@@ -1646,4 +1647,16 @@ a.mapSubmit:hover, a.mapSubmit:focus {
 }
 .listExpand {
     color: #007ac2 !important;
+    font-weight:bold !important;
+}
+.dijitTitlePaneTitleClosed {
+     border-left: 5px solid #ccc !important;
+}
+
+.dijitTitlePaneTitleOpen {
+    border-left: 5px solid #007ac2 !important;
+}
+
+.firstMapNote {
+    border-top: 1px solid #e0e0e0;
 }

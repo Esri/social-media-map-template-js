@@ -140,6 +140,9 @@
                   }
               }
               var _titlePane = new TitlePane({ title: feature.attributes.TITLE, content: titlePaneContent, open: false });
+              if (index == 0) {
+                  domClass.add(_titlePane.domNode, "firstMapNote");
+              }
               _titlePane.id = feature.attributes.TITLE + feature.attributes.OBJECTID;
               if (_titlePane.content == "") {
                   _titlePane.setContent(i18n.viewer.settings.descriptionUnavailable);
@@ -198,7 +201,6 @@
                       var point = new Point(feature.geometry.x, feature.geometry.y, _self.options.map.spatialReference);
                       _self.options.map.infoWindow.setContent("<b>" + feature.attributes.TITLE + "</b>");
                       _self.options.map.infoWindow.setTitle("");
-                      _self.options.map.infoWindow._zoomToFeature(true);
                       _self.options.map.infoWindow._updateWindow();
                       _self.options.map.infoWindow.show(point);
                       isMapCenter ? _self.options.map.centerAndZoom(feature.geometry, _self.options.zoomLevel) : _self.options.map.centerAt(center);
@@ -296,19 +298,24 @@
               domClass.replace(node, "listCollapse", "listExpand");
           },
           checkLayer: function (infoWindow) {
-              _self = this;
-              array.forEach(infoWindow.features, function (curentFeature) {
-                  var currentLayer = curentFeature.getLayer();
+              _self = this, isExtentSet = false;
+              array.forEach(infoWindow.features, function (currentFeature) {
+                  var currentLayer = currentFeature.getLayer();
                   array.forEach(_self.mapNotesList, function (mapNoteLayer) {
-                      if (mapNoteLayer.id == curentFeature.attributes.TITLE + curentFeature.attributes.OBJECTID) {
-                          curentFeature.attributes.DESCRIPTION = "";
-                          if (curentFeature.attributes.IMAGE_LINK_URL) {
-                              curentFeature.attributes.IMAGE_LINK_URL = "";
+                      if (mapNoteLayer.id == currentFeature.attributes.TITLE + currentFeature.attributes.OBJECTID) {
+                          currentFeature.attributes.DESCRIPTION = "";
+                          if (currentFeature.attributes.IMAGE_LINK_URL) {
+                              currentFeature.attributes.IMAGE_LINK_URL = "";
                           }
-                          if (curentFeature.attributes.IMAGE_URL) {
-                              curentFeature.attributes.IMAGE_URL = "";
+                          if (currentFeature.attributes.IMAGE_URL) {
+                              currentFeature.attributes.IMAGE_URL = "";
                           }
-                          _self.options.map.centerAt(curentFeature._extent.getCenter());
+
+                      }
+                      if (!isExtentSet) {
+                          _self.options.map.centerAt(currentFeature._extent.getCenter());
+                          //_self.options.map.setExtent(currentFeature.geometry.getExtent().expand(1.5));
+                          isExtentSet = true;
                       }
                       _self.options.map.infoWindow._updateWindow();
                   });

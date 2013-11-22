@@ -1963,6 +1963,9 @@ define([
 	                                }
 	                                _self.mapnote.mapNotesList.push(_titlePane);
 	                                _titleGroup.domNode.appendChild(_titlePane.domNode);
+	                                if (k == 0) {
+	                                    domClass.add(_titlePane.domNode, "firstMapNote");
+	                                }
 	                                domClass.add(_titlePane.titleNode, "titleNode");
 	                                domClass.add(_titlePane.hideNode, "contentNode");
 	                                domClass.add(_titlePane.domNode, "bottomBorder");

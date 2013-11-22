@@ -835,12 +835,17 @@ a:hover, a:active, a:focus {
     font-size: 14px !important;
     font-family: Arial !important;
 }
-.tabContainer {
-    min-height: 5%;
-}
 .titleNode, .contentNode {
     font-size: 14px;
 }
 .hideMapNotesContainer {
     left: -275px !important;
+}
+
+.dijitTitlePaneTitleClosed {
+    border-left: 5px solid #ccc !important;
+}
+
+.dijitTitlePaneTitleOpen {
+    border-left: 5px solid #007ac2 !important;
 }
