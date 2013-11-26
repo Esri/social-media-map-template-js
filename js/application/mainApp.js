@@ -2223,11 +2223,8 @@ function (ready, declare, connect, Deferred, event, array, dom, query, domClass,
             if (_self.options.showSearchBox) {
                 var html = '<div id="spotlight" class="spotlight"><\/div>';
                 domConstruct.place(html, dom.byId('map_container'), 'last');
-                _self._geocoder = new Geocoder({
-                    map: _self.options.map,
-                    theme: 'modernGrey',
-                    autoComplete: true
-                }, dom.byId("geocoderSearch"));
+                var opt = _self.utils.createOptions();
+                _self._geocoder = new Geocoder(opt, dom.byId("geocoderSearch"));
                 // on select test
                 connect.connect(_self._geocoder, 'onSelect', function(result) {
                     var spotlight = connect.connect(_self.options.map, 'onExtentChange', function () {

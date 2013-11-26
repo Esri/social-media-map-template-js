@@ -2,6 +2,7 @@
     "dojo/_base/kernel",
     "dojo/_base/declare",
     "dojo/_base/connect",
+    "esri/lang",
     "dojo/_base/array",
     "dojo/_base/lang",
     "dojo/_base/event",
@@ -30,7 +31,7 @@
     "esri/geometry",
     "esri/utils"
   ],
-  function (dojo, declare, connect, arr, lang, event, dom, query, i18n, coreFx, domClass, date, on, ioQuery, locale, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, Extent, Point, SpatialReference, QueryTask, Query, urlUtils) {
+  function (dojo, declare, connect, esriLang, arr, lang, event, dom, query, i18n, coreFx, domClass, date, on, ioQuery, locale, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, Extent, Point, SpatialReference, QueryTask, Query, urlUtils) {
       var Widget = declare("modules.utils", null, {
           constructor: function (options) {
               declare.safeMixin(this, options);
@@ -49,6 +50,52 @@
                   }
               }
           },
+          createOptions: function() {
+            var _self = this;
+            var hasEsri = false,
+                geocoders = lang.clone(templateConfig.helperServices.geocode);
+            arr.forEach(geocoders, function(geocoder, index) {
+                if (geocoder.url.indexOf(".arcgis.com/arcgis/rest/services/World/GeocodeServer") > -1) {
+                    hasEsri = true;
+                    geocoder.name = "Esri World Geocoder";
+                    geocoder.outFields = "Match_addr, stAddr, City";
+                    geocoder.singleLineFieldName = "Single Line";
+                    geocoder.esri = geocoder.placefinding = true;
+                }
+            });
+            //only use geocoders with a singleLineFieldName that allow placefinding
+            geocoders = arr.filter(geocoders, function(geocoder) {
+                return (esriLang.isDefined(geocoder.singleLineFieldName) && esriLang.isDefined(geocoder.placefinding) && geocoder.placefinding);
+            });
+            var esriIdx;
+            if (hasEsri) {
+                for (var i = 0; i < geocoders.length; i++) {
+                    if (esriLang.isDefined(geocoders[i].esri) && geocoders[i].esri === true) {
+                        esriIdx = i;
+                        break;
+                    }
+                }
+            }
+            var options = {
+                map: _self.options.map,
+                theme: 'modernGrey'
+            };
+            //If the World geocoder is primary enable auto complete 
+            if (hasEsri && esriIdx === 0) {
+                options.autoComplete = true;
+                options.minCharacters = 0;
+                options.maxLocations = 5;
+                options.searchDelay = 100;
+                options.arcgisGeocoder = geocoders.splice(0, 1)[0]; //geocoders[0];
+                if (geocoders.length > 0) {
+                    options.geocoders = geocoders;
+                }
+            } else {
+                options.arcgisGeocoder = false;
+                options.geocoders = geocoders;
+            }
+            return options;
+            },
           replaceFlagError: function () {
               var node = dom.byId('inFlag');
               if (node) {

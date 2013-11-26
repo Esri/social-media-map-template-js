@@ -3566,12 +3566,8 @@ define([
                         }
                         var html = '<div id="spotlight" class="spotlight"></div>';
                         dojo.place(html, dojo.byId('map_container'), 'last');
-                        _self._geocoder = new Geocoder({
-                            map: _self.options.map,
-                            theme: 'modernGrey',
-                            autoComplete: true
-                        }, dom.byId("geocoderSearchTool"));
-
+                        var opt = _self.utils.createOptions();
+                        _self._geocoder = new Geocoder(opt, dom.byId("geocoderSearchTool"));
                         // on select test
                         connect.connect(dojo.byId("geocoderSearchTool_input"), 'onkeyup', function (result) {
 
