@@ -2424,11 +2424,6 @@ define([
                             _self.options.showLegendMenu = false;
                         }
                         if (!dojo.isMobileDevice) {
-                            _self.options.scaleBar = new esri.dijit.Scalebar({
-                                map: _self.options.map,
-                                attachTo: "bottom-left",
-                                scalebarUnit: i18n.viewer.main.scaleBarUnits
-                            });
                             _self.configureLayerUI();
                         }
                     }
