@@ -1,6 +1,7 @@
 ﻿define([
     "dojo/_base/kernel",
     "dojo/_base/declare",
+    "dojo/_base/lang",
     "dojo/_base/connect",
     "esri/lang",
     "dojo/_base/array",
@@ -31,7 +32,7 @@
     "esri/geometry",
     "esri/utils"
   ],
-  function (dojo, declare, connect, esriLang, arr, lang, event, dom, query, i18n, coreFx, domClass, date, on, ioQuery, locale, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, Extent, Point, SpatialReference, QueryTask, Query, urlUtils) {
+  function (dojo, declare, lang, connect, esriLang, arr, lang, event, dom, query, i18n, coreFx, domClass, date, on, ioQuery, locale, esri, templateConfig, cookie, JSON, config, arcgisUtils, GeometryService, Extent, Point, SpatialReference, QueryTask, Query, urlUtils) {
       var Widget = declare("modules.utils", null, {
           constructor: function (options) {
               declare.safeMixin(this, options);
@@ -60,7 +61,8 @@
                     geocoder.name = "Esri World Geocoder";
                     geocoder.outFields = "Match_addr, stAddr, City";
                     geocoder.singleLineFieldName = "Single Line";
-                    geocoder.esri = geocoder.placefinding = true;
+                    geocoder.esri = true;
+                    geocoder.placefinding = true;
                 }
             });
             //only use geocoders with a singleLineFieldName that allow placefinding
@@ -78,7 +80,8 @@
             }
             var options = {
                 map: _self.options.map,
-                theme: 'modernGrey'
+                theme: 'modernGrey',
+                autoComplete:hasEsri
             };
             //If the World geocoder is primary enable auto complete 
             if (hasEsri && esriIdx === 0) {
@@ -93,6 +96,10 @@
             } else {
                 options.arcgisGeocoder = false;
                 options.geocoders = geocoders;
+            }
+            if(options.geocoders.length === 0){
+                options.arcgisGeocoder = true;
+                options.geocoders = null;
             }
             return options;
             },
