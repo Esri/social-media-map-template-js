@@ -1,4 +1,4 @@
-﻿html, body {
+html, body {
     margin: 0;
     padding: 0;
     background: #eee;
@@ -439,11 +439,8 @@
     background-image: url(../images/ui/popup.png?v=3.01);
 }
 
-#map .modernGrey .pointer, #map .modernGrey .outerPointer {
-    background-image: url(../images/ui/popup.png?v=3.01);
-}
 
-#map .modernGrey .titleButton, #map .modernGrey .pointer, #map .modernGrey .esriViewPopup .gallery .mediaHandle, #map .modernGrey .esriViewPopup .gallery .mediaIcon {
+#map .modernGrey .titleButton, #map .modernGrey .esriViewPopup .gallery .mediaHandle, #map .modernGrey .esriViewPopup .gallery .mediaIcon {
     background-image: url(../images/ui/popup.png?v=3.01);
 }
 

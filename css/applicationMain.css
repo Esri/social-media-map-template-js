@@ -1,4 +1,4 @@
-﻿/*-------------------------------------------------- */
+/*-------------------------------------------------- */
 /* GENERAL */
 /*-------------------------------------------------- */
 * {
@@ -1371,11 +1371,7 @@ a.mapSubmit:hover, a.mapSubmit:focus {
     background-image: url(../images/ui/popup.png);
 }
 
-#map .modernGrey .pointer, #map .modernGrey .outerPointer {
-    background-image: url(../images/ui/popup.png);
-}
-
-#map .modernGrey .titleButton, #map .modernGrey .pointer, #map .modernGrey .esriViewPopup .gallery .mediaHandle, #map .modernGrey .esriViewPopup .gallery .mediaIcon {
+#map .modernGrey .titleButton, #map .modernGrey .esriViewPopup .gallery .mediaHandle, #map .modernGrey .esriViewPopup .gallery .mediaIcon {
     background-image: url(../images/ui/popup.png);
 }
 
