@@ -1,4 +1,4 @@
-﻿define([
+define([
     "dojo/_base/kernel",
     "dojo/_base/declare",
     "dojo/_base/lang",
@@ -55,6 +55,15 @@
             var _self = this;
             var hasEsri = false,
                 geocoders = lang.clone(templateConfig.helperServices.geocode);
+              //only use geocoders with a url defined
+            geocoders = arr.filter(geocoders, function (geocoder) {
+                if (geocoder.url) {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            });
             arr.forEach(geocoders, function(geocoder, index) {
                 if (geocoder.url.indexOf(".arcgis.com/arcgis/rest/services/World/GeocodeServer") > -1) {
                     hasEsri = true;
