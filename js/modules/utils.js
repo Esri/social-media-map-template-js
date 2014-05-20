@@ -65,7 +65,7 @@ define([
                 }
             });
             arr.forEach(geocoders, function(geocoder, index) {
-                if (geocoder.url.indexOf(".arcgis.com/arcgis/rest/services/World/GeocodeServer") > -1) {
+                if (geocoder && geocoder.url && geocoder.url.indexOf(".arcgis.com/arcgis/rest/services/World/GeocodeServer") > -1) {
                     hasEsri = true;
                     geocoder.name = "Esri World Geocoder";
                     geocoder.outFields = "Match_addr, stAddr, City";
