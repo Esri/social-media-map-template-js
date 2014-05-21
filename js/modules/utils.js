@@ -103,8 +103,14 @@ define([
                     options.geocoders = geocoders;
                 }
             } else {
-                options.arcgisGeocoder = false;
-                options.geocoders = geocoders;
+                if(geocoders.length){
+                    options.arcgisGeocoder = false;
+                    options.geocoders = geocoders;   
+                }
+                else{
+                    options.arcgisGeocoder = true;
+                    options.geocoders = null;
+                }
             }
             return options;
             },
