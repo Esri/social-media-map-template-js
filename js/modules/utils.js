@@ -110,6 +110,7 @@ define([
                 else{
                     options.arcgisGeocoder = true;
                     options.geocoders = null;
+                    options.autoComplete = true;
                 }
             }
             return options;
