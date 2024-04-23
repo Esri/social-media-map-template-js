@@ -1,4 +1,7 @@
-# social-media-map-template-js
+
+ArcGIS Configurable Apps will be retired in 2025. The ArcGIS Configurable Apps source code repro is deprecated and will not receive further updates. In addition, this repository will be removed in October 2025, along with the October 2025 ArcGIS Online update.
+
+# Deprecated: social-media-map-template-js
 
 The Social Media Template has an innovative use of social media, which allows you to display up-to-date, keyword-targeted social media points on a map. [more info](http://www.arcgis.com/home/item.html?id=18230986538047b4b761715f0b5dd913).
 
